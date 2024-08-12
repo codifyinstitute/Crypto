@@ -45,6 +45,15 @@ const MapContainer = styled.div`
   height: 400px;
   margin: 20px ;
   position: relative;
+
+  @media (max-width: 768px) {
+width: 80%;
+  }
+  @media (max-width: 430px) {
+width: 90%;
+height: 500px;
+overflow: scroll;
+  }
 `;
 
 const TooltipContainer = styled.div`

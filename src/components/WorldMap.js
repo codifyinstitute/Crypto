@@ -4,13 +4,22 @@ import styled from 'styled-components';
 
 const MapContainer = styled.div`
   width: 100%;
-  max-width: 800px; /* Adjust as needed */
+  /* max-width: 800px; Adjust as needed */
   height: 0;
   padding-bottom: 50%; /* Maintain aspect ratio */
   margin: 2rem auto;
   position: relative;
   background: none; /* Remove background color */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Optional: add a shadow for better visibility */
+
+  @media (max-width: 768px) {
+width: 90%;
+  }
+  @media (max-width: 430px) {
+width: 40%;
+height: 500px;
+  }
+
 `;
 
 const StyledWorldMap = styled(WorldMap)`
@@ -26,6 +35,7 @@ const StyledWorldMap = styled(WorldMap)`
   .selected-country {
     fill: #ffa500; // Orange color
   }
+  
 `;
 
 const Tooltip = styled.div`
