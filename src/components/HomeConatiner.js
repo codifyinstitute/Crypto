@@ -4,6 +4,11 @@ import NET from 'vanta/dist/vanta.net.min';
 import * as THREE from 'three';
 import Home from './Home';
 import Home1 from './Home1';
+import Homemap from './Homemap';
+import Homelogo from './Homelogo';
+import HomeContact from './HomeContact';
+import Footer from './Footer';
+
 
 const VantaContainer = styled.div`
   width: 100%;
@@ -47,6 +52,10 @@ const HomeContainer = () => {
             <ContentWrapper>
                 <Home/>
                 <Home1/>
+                <Homemap/>
+                <Homelogo/>
+                <HomeContact/>
+                <Footer/>
             </ContentWrapper>
         </VantaContainer>
     );
