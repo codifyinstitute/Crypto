@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const [usdt, setUsdt] = useState(1); // Initial USDT value
+    const [isValid, setIsValid] = useState(true); // State to track validity
+    const exchangeRate = 93; // 1 USDT = 93 INR
+    const navigate = useNavigate(); // Hook to programmatically navigate
+
+    // Handle USDT input change
+    const handleUsdtChange = (e) => {
+        const value = e.target.value;
+        setUsdt(value);
+
+        // Validate USDT value
+        const isValidInput = value && !isNaN(value) && Number(value) > 0;
+        setIsValid(isValidInput);
+    };
+
+    // Calculate INR based on USDT value
+    const inr = usdt * exchangeRate;
+
+    // Navigate to next page
+    const handleSellNowClick = () => {
+        if (isValid) {
+            navigate('/Sell1');
+        }
+    };
+
     return (
         <Container>
             <Content>
@@ -12,22 +38,36 @@ const Home = () => {
                 <ExchangeRateBox>
                     <RefreshText>Automatic refresh after 30s</RefreshText>
                     <RateContainer>
-                        <RateValue>93</RateValue>
-                        <RateLabel>1 USDT = 93</RateLabel>
+                        <RateValue>{exchangeRate}</RateValue>
+                        <RateLabel>1 USDT = {exchangeRate}</RateLabel>
                     </RateContainer>
                 </ExchangeRateBox>
                 <SellBox>
                     <InputContainer>
                         <Label>You Pay</Label>
-                        <Input type="text" value="1" readOnly />
+                        <Input 
+                            type="number" 
+                            value={usdt} 
+                            onChange={handleUsdtChange} 
+                            placeholder="Enter USDT"
+                        />
                         <Flag src="path/to/usdt-flag.png" alt="USDT" />
                     </InputContainer>
                     <InputContainer>
                         <Label>You Get</Label>
-                        <Input type="text" value="14181.45" readOnly />
+                        <Input 
+                            type="text" 
+                            value={inr.toFixed(2)} 
+                            readOnly 
+                        />
                         <Flag src="path/to/inr-flag.png" alt="INR" />
                     </InputContainer>
-                    <SellButton>SELL NOW</SellButton>
+                    <SellButton 
+                        onClick={handleSellNowClick} 
+                        disabled={!isValid}
+                    >
+                        SELL NOW
+                    </SellButton>
                     <PaymentOptions>
                         <img src="path/to/visa.png" alt="Visa" />
                         <img src="path/to/mastercard.png" alt="Mastercard" />
@@ -51,7 +91,6 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
-    /* max-width: 1200px; */
     color: white;
 
     @media (max-width: 1024px) {
@@ -249,6 +288,8 @@ const SellButton = styled.button`
     font-size: 1.2rem;
     margin-top: 1rem;
     cursor: pointer;
+    opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+    pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
 
     @media (max-width: 768px) {
         padding: 0.8rem;

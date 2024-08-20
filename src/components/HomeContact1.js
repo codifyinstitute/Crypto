@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   gap: 1rem;
 
   @media (max-width: 768px) {

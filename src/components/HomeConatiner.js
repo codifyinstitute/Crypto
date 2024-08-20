@@ -1,64 +1,77 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import NET from 'vanta/dist/vanta.net.min';
-import * as THREE from 'three';
 import Home from './Home';
 import Home1 from './Home1';
 import Homemap from './Homemap';
 import Homelogo from './Homelogo';
-import HomeContact from './HomeContact';
+import HomeContact1 from './HomeContact1';
 import Footer from './Footer';
+import GlobeComponent from './GlobeComponent';
+import Navbar from './Navbar';
+import Mobile from './Mobile';
 
-
-const VantaContainer = styled.div`
+const GlobeContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   position: relative;
+  background-color: #000;
+  overflow: hidden;
+`;
+
+const GlobeWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 `;
 
 const ContentWrapper = styled.div`
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  padding: 5%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10rem;
+
+  @media (max-width: 768px) {
+    padding: 3%;
+    height: fit-content;
+    /* margin-bottom: 100%; */
+    margin-bottom: 60rem;
+  }
+`;
+
+const FooterWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
 `;
 
 const HomeContainer = () => {
-    const vantaRef = useRef(null);
-
-    useEffect(() => {
-        const vantaEffect = NET({
-            el: vantaRef.current,
-            THREE: THREE,
-           mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0xff3f81,
-  backgroundColor: 0x0,
-  points: 7.00,
-  maxDistance: 17.00,
-  spacing: 14.00
-        });
-
-        return () => {
-            if (vantaEffect) vantaEffect.destroy();
-        };
-    }, []);
-
-    return (
-        <VantaContainer ref={vantaRef}>
-            <ContentWrapper>
-                <Home/>
-                <Home1/>
-                <Homemap/>
-                <Homelogo/>
-                <HomeContact/>
-                <Footer/>
-            </ContentWrapper>
-        </VantaContainer>
-    );
-}
+  return (
+    <GlobeContainer>
+      <Navbar />
+      <GlobeWrapper>
+        <GlobeComponent />
+      </GlobeWrapper>
+      <ContentWrapper>
+        <Home />
+        <Home1 />
+        <Homemap />
+        <Homelogo />
+        <HomeContact1 />
+        <Mobile/>
+      </ContentWrapper>
+      <FooterWrapper>
+        <Footer />
+      </FooterWrapper>
+    </GlobeContainer>
+  );
+};
 
 export default HomeContainer;

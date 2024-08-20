@@ -1,158 +1,165 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
-  background-color: #1a1a1a;
-  color: white;
-  padding: 2rem;
-  font-size: 0.9rem;
+  background-color: #000;
+  padding: 50px 20px;
+  color: #fff;
+  border-top: 4px solid #ff9900;
+  text-align: center;
 `;
 
-const FooterContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const LogoSection = styled.div`
+const CoreValuesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-`;
-
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
-`;
+  margin-bottom: 30px;
 
-const EmailInput = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #333;
-  padding: 0.5rem;
-  border-radius: 4px;
-
-  input {
-    background: none;
-    border: none;
-    color: white;
-    flex-grow: 1;
-    outline: none;
-  }
-
-  button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
   }
 `;
 
-const LinksSection = styled.div`
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+const CoreValue = styled.div`
+  margin: 20px 0;
+  max-width: 300px;
+  text-align: left;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 `;
 
-const LinkColumn = styled.div`
+const BottomContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const BottomSection = styled.div`
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #333;
+  margin-top: 30px;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
     align-items: flex-start;
   }
 `;
 
-const SocialIcons = styled.div`
+const LogoContainer = styled.div`
+  margin-bottom: 20px;
+  text-align: center;
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+`;
+
+const LinksContainer = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  a {
+    color: #ff9900;
+    text-decoration: none;
+    font-size: 1rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const DisclaimerContainer = styled.div`
+  max-width: 600px;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 2px solid #ff9900;
+  padding: 10px;
+`;
+
+const SocialMediaContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  a {
+    color: #fff;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: #ff9900;
+    }
+  }
 `;
 
 const Footer = () => {
   return (
     <FooterContainer>
-      <FooterContent>
-        <LogoSection>
-          <Logo>
-            <span style={{ color: '#ffa500' }}>▲</span> Estatein
-          </Logo>
-          <EmailInput>
-            <input type="email" placeholder="Enter Your Email" />
-            <button>➤</button>
-          </EmailInput>
-        </LogoSection>
-        <LinksSection>
-          <LinkColumn>
-            <strong>Home</strong>
-            <span>Hero Section</span>
-            <span>Features</span>
-            <span>Properties</span>
-            <span>Testimonials</span>
-            <span>FAQ's</span>
-          </LinkColumn>
-          <LinkColumn>
-            <strong>About Us</strong>
-            <span>Our Story</span>
-            <span>Our Works</span>
-            <span>How It Works</span>
-            <span>Our Team</span>
-            <span>Our Clients</span>
-          </LinkColumn>
-          <LinkColumn>
-            <strong>Properties</strong>
-            <span>Portfolio</span>
-            <span>Categories</span>
-          </LinkColumn>
-          <LinkColumn>
-            <strong>Services</strong>
-            <span>Valuation Mastery</span>
-            <span>Strategic Marketing</span>
-            <span>Negotiation Wizardry</span>
-            <span>Closing Success</span>
-            <span>Property Management</span>
-          </LinkColumn>
-          <LinkColumn>
-            <strong>Contact Us</strong>
-            <span>Contact Form</span>
-            <span>Our Offices</span>
-          </LinkColumn>
-        </LinksSection>
-      </FooterContent>
-      <BottomSection>
-        <div>©2023 Estatein. All Rights Reserved.</div>
-        <div>Terms & Conditions</div>
-        <SocialIcons>
-          <span>f</span>
-          <span>in</span>
-          <span>𝕏</span>
-          <span>▶</span>
-        </SocialIcons>
-      </BottomSection>
+      <CoreValuesContainer>
+        <CoreValue>
+          <h3>Transparency</h3>
+          <p>
+            We strive to provide accurate information to our users at all times. 
+            This includes being transparent about our fees, policies, and any updates 
+            that may affect our users.
+          </p>
+        </CoreValue>
+        <CoreValue>
+          <h3>Security</h3>
+          <p>
+            The security of our user's assets and personal data is of utmost importance 
+            to us. We employ cutting-edge security protocols and industry best practices.
+          </p>
+        </CoreValue>
+        <CoreValue>
+          <h3>Customer-Centric</h3>
+          <p>
+            Our customers are at the heart of everything we do. We are committed 
+            to providing a personalized and exceptional experience for each of our users.
+          </p>
+        </CoreValue>
+      </CoreValuesContainer>
+      <BottomContainer>
+        <LogoContainer>
+          <h4>MoonPay LOGO</h4>
+          <p>Trade Smarter, Trade Better</p>
+        </LogoContainer>
+        <LinksContainer>
+          <a href="/">Home</a>
+          <a href="/">About Us</a>
+          <a href="/">Contact Us</a>
+          <a href="/">Privacy Policy</a>
+          <a href="/">Terms and Conditions</a>
+        </LinksContainer>
+        <DisclaimerContainer>
+          <p>
+            Disclaimer: Cryptocurrency and digital asset investments carry risks, including potential capital loss.
+            Information on this website is for informational purposes and should not be construed as financial, investment, 
+            or legal advice.
+          </p>
+        </DisclaimerContainer>
+        <SocialMediaContainer>
+          <a href="https://twitter.com"><FaTwitter /></a>
+          <a href="https://facebook.com"><FaFacebookF /></a>
+          <a href="https://instagram.com"><FaInstagram /></a>
+          <a href="https://linkedin.com"><FaLinkedinIn /></a>
+        </SocialMediaContainer>
+      </BottomContainer>
     </FooterContainer>
   );
 };
