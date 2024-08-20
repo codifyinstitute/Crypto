@@ -8,6 +8,7 @@ const FooterContainer = styled.footer`
   color: #fff;
   border-top: 4px solid #ff9900;
   text-align: center;
+  flex-wrap: wrap;
 `;
 
 const CoreValuesContainer = styled.div`
@@ -43,6 +44,7 @@ const BottomContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+  padding: 3%;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -82,7 +84,10 @@ const LinksContainer = styled.div`
     }
   }
 `;
-
+const Column = styled.div`
+display: flex;
+flex-direction: column;
+`;
 const DisclaimerContainer = styled.div`
   max-width: 600px;
   font-size: 0.8rem;
@@ -139,6 +144,7 @@ const Footer = () => {
           <h4>MoonPay LOGO</h4>
           <p>Trade Smarter, Trade Better</p>
         </LogoContainer>
+        <Column>
         <LinksContainer>
           <a href="/">Home</a>
           <a href="/">About Us</a>
@@ -153,6 +159,7 @@ const Footer = () => {
             or legal advice.
           </p>
         </DisclaimerContainer>
+        </Column>
         <SocialMediaContainer>
           <a href="https://twitter.com"><FaTwitter /></a>
           <a href="https://facebook.com"><FaFacebookF /></a>

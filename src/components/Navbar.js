@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -22,7 +23,7 @@ const NavbarContainer = styled.nav`
     border-radius: 20px;
     border: 1px white solid;
     width: 98%;
-    margin:1% ;
+    margin: 1%;
     background-color: #000; /* Darker background for the bottom bar */
   }
 `;
@@ -101,13 +102,17 @@ const Navbar = () => {
     <NavbarContainer>
       <Logo>
         <img src="logo-path.png" alt="Logo" />
-
       </Logo>
       <NavLinks>
-        <li><a href="/" className="active">Home</a></li>
-        <li><a href="/Sell1">Exchange</a></li>
-        <li><a href="/Profile">Profile</a></li>
-        
+        <li>
+          <NavLink exact to="/" activeClassName="active">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Sell1" activeClassName="active">Exchange</NavLink>
+        </li>
+        <li>
+          <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
+        </li>
       </NavLinks>
     </NavbarContainer>
   );

@@ -69,7 +69,7 @@ const MenuItem = styled.li`
   border-radius: 10px;
   margin-bottom: 10px;
   overflow: hidden;
-  border: 1px solid #333;
+  border: 1px solid #FFA500;
 `;
 
 const MenuLink = styled.a`

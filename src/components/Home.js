@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Home = () => {
     const [usdt, setUsdt] = useState(1); // Initial USDT value
     const [isValid, setIsValid] = useState(true); // State to track validity
-    const exchangeRate = 93; // 1 USDT = 93 INR
+    const [currencies, setCurrencies] = useState([]); // State to store currency data
+    const [selectedCurrency, setSelectedCurrency] = useState(null); // State to store selected currency
+    const [loading, setLoading] = useState(true); // State to track loading status
     const navigate = useNavigate(); // Hook to programmatically navigate
+
+    // Fetch currency data from API
+    useEffect(() => {
+        axios.get('https://crypto-anl6.onrender.com/currencies/all')
+            .then(response => {
+                setCurrencies(response.data);
+                setSelectedCurrency(response.data[0] || null); // Set initial selected currency
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching currencies:', error);
+                setLoading(false);
+            });
+    }, []);
 
     // Handle USDT input change
     const handleUsdtChange = (e) => {
@@ -18,8 +35,15 @@ const Home = () => {
         setIsValid(isValidInput);
     };
 
-    // Calculate INR based on USDT value
-    const inr = usdt * exchangeRate;
+    // Handle currency selection change
+    const handleCurrencyChange = (e) => {
+        const selectedSymbol = e.target.value;
+        const currency = currencies.find(c => c.Symbol === selectedSymbol);
+        setSelectedCurrency(currency);
+    };
+
+    // Calculate INR based on USDT value and selected currency rate
+    const inr = selectedCurrency ? usdt * selectedCurrency.Rate : 0;
 
     // Navigate to next page
     const handleSellNowClick = () => {
@@ -36,11 +60,14 @@ const Home = () => {
             </Content>
             <ExchangeContainer>
                 <ExchangeRateBox>
-                    <RefreshText>Automatic refresh after 30s</RefreshText>
-                    <RateContainer>
-                        <RateValue>{exchangeRate}</RateValue>
-                        <RateLabel>1 USDT = {exchangeRate}</RateLabel>
-                    </RateContainer>
+                    {loading ? (
+                        <RefreshText>Loading...</RefreshText>
+                    ) : (
+                        <RateContainer>
+                            <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
+                            <RateLabel>1 {selectedCurrency ? selectedCurrency.Symbol : 'Currency'} = {selectedCurrency ? selectedCurrency.Rate : 'N/A'} INR</RateLabel>
+                        </RateContainer>
+                    )}
                 </ExchangeRateBox>
                 <SellBox>
                     <InputContainer>
@@ -62,6 +89,16 @@ const Home = () => {
                         />
                         <Flag src="path/to/inr-flag.png" alt="INR" />
                     </InputContainer>
+                    <DropdownContainer>
+                        <Label>Select Currency</Label>
+                        <Dropdown onChange={handleCurrencyChange} value={selectedCurrency ? selectedCurrency.Symbol : ''}>
+                            {currencies.map(currency => (
+                                <option key={currency._id} value={currency.Symbol}>
+                                    {currency.Name}
+                                </option>
+                            ))}
+                        </Dropdown>
+                    </DropdownContainer>
                     <SellButton 
                         onClick={handleSellNowClick} 
                         disabled={!isValid}
@@ -278,6 +315,23 @@ const Flag = styled.img`
     }
 `;
 
+const DropdownContainer = styled.div`
+    margin-bottom: 1rem;
+`;
+
+const Dropdown = styled.select`
+    background: #333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    border: none;
+
+    @media (max-width: 768px) {
+        margin-top: 0.5rem;
+    }
+`;
+
 const SellButton = styled.button`
     background: linear-gradient(90deg, #ffa726, #fb8c00);
     color: white;
@@ -312,3 +366,4 @@ const PaymentOptions = styled.div`
         }
     }
 `;
+
