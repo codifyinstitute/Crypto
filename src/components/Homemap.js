@@ -17,17 +17,42 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 2.5em;
+  margin-bottom: 1rem;
+
   span {
     color: #ffa500;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5em;
   }
 `;
 
 const Description = styled.p`
   margin-bottom: 20px;
+  font-size: 1.2em;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9em;
+  }
 `;
 
 const TalkButton = styled.button`
@@ -38,21 +63,25 @@ const TalkButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  margin-bottom: 2rem;
+
+  @media (max-width: 480px) {
+    padding: 8px 16px;
+  }
 `;
 
 const MapContainer = styled.div`
   width: 100%;
-  height: 400px;
-  margin: 20px ;
+  height: auto;
+  margin: 20px auto;
   position: relative;
 
   @media (max-width: 768px) {
-width: 80%;
+    width: 100%;
   }
-  @media (max-width: 430px) {
-width: 90%;
-height: 500px;
-overflow: scroll;
+
+  @media (max-width: 480px) {
+    margin: 10px auto;
   }
 `;
 
@@ -71,31 +100,49 @@ const TooltipContainer = styled.div`
 const StatsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 10%;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+
   @media (max-width: 768px) {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 480px) {
     flex-direction: column;
+    align-items: center;
   }
 `;
 
 const StatBox = styled.div`
   background-color: #222;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   text-align: center;
   flex: 1;
-  margin: 0 10px;
-  @media (max-width: 768px) {
+  margin: 10px;
+
+  @media (max-width: 480px) {
     margin: 10px 0;
+    width: 80%;
   }
 `;
 
 const PaymentMethods = styled.div`
   margin-top: 20px;
+
+  @media (max-width: 480px) {
+    margin-top: 15px;
+  }
 `;
 
 const PaymentLogo = styled.img`
   height: 30px;
   margin: 0 10px;
+
+  @media (max-width: 480px) {
+    height: 25px;
+    margin: 0 8px;
+  }
 `;
 
 const App = () => {
