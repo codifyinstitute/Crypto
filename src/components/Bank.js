@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import axios from 'axios'; // Import axios for making API requests
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toastify
 
 const Container = styled.div`
   background-color: #121212;
@@ -9,7 +12,6 @@ const Container = styled.div`
   padding: 20px;
   color: white;
   font-family: Arial, sans-serif;
-
 `;
 
 const Header = styled.div`
@@ -49,7 +51,6 @@ const Card = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  
 `;
 
 const FormTitle = styled.h2`
@@ -57,7 +58,6 @@ const FormTitle = styled.h2`
   margin-top: 0;
   margin-bottom: 20px;
   color: #FFA500;
- 
 `;
 
 const FormSection = styled.div`
@@ -75,7 +75,7 @@ const Input = styled.input`
   margin-bottom: 10px;
   border: 1px solid #333;
   background-color: white;
-  color: white;
+  color: black;
   border-radius: 5px;
 `;
 
@@ -129,78 +129,102 @@ const AccountBalance = styled.span`
   color: #4CAF50;
 `;
 
+const DeleteButton = styled.button`
+  background-color: #FF4C4C;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+`;
+
 const Bank = () => {
   const [showForm, setShowForm] = useState(false);
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`https://crypto-anl6.onrender.com/users/get/${token}`);
+        setAccounts(response.data.Accounts);
+      } catch (error) {
+        console.error('Error fetching accounts:', error);
+      }
+    };
+
+    fetchAccounts();
+  }, []);
+
+  const handleDelete = async (accountNumber) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`https://crypto-anl6.onrender.com/users/del/${token}/accounts/${accountNumber}`);
+      
+      // Update local state
+      setAccounts((prevAccounts) =>
+        prevAccounts.filter((account) => account.AccountNumber !== accountNumber)
+      );
+      
+      // Show success toast
+      toast.success('Account deleted successfully!');
+      
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      toast.error('Failed to delete account.');
+    }
+  };
 
   return (
     <>
-    <Navbar/>
-  
-    <Container>
-      <Header>
-        <Title>Payment Methods</Title>
-        <AddButton onClick={() => setShowForm(!showForm)}>Add new +</AddButton>
-      </Header>
+      <Navbar/>
+      <Container>
+        <Header>
+          <Title>Payment Methods</Title>
+          <AddButton onClick={() => setShowForm(!showForm)}>Add new +</AddButton>
+        </Header>
 
-      {showForm && (
-        <Card>
-          <Form>
-            <FormTitle>Add Payment method</FormTitle>
-            <FormSection>
-              <FormSectionTitle>Personal Information</FormSectionTitle>
-              <Input placeholder="Please enter your full name" />
-              <Input placeholder="Choose your country" />
-            </FormSection>
-            <FormSection>
-              <FormSectionTitle>Account Information</FormSectionTitle>
-              <Input placeholder="Please enter your full name" />
-              <Input placeholder="Please enter your full name" />
-              <Input placeholder="Choose your country" />
-            </FormSection>
-            <SubmitButton>Submit</SubmitButton>
-          </Form>
-        </Card>
-      )}
+        {showForm && (
+          <Card>
+            <Form>
+              <FormTitle>Add Payment method</FormTitle>
+              <FormSection>
+                <FormSectionTitle>Personal Information</FormSectionTitle>
+                <Input placeholder="Please enter your full name" />
+                <Input placeholder="Choose your country" />
+              </FormSection>
+              <FormSection>
+                <FormSectionTitle>Account Information</FormSectionTitle>
+                <Input placeholder="Please enter your full name" />
+                <Input placeholder="Please enter your full name" />
+                <Input placeholder="Choose your country" />
+              </FormSection>
+              <SubmitButton>Submit</SubmitButton>
+            </Form>
+          </Card>
+        )}
 
-      <AccountCard>
-        <AccountInfo>
-          <AccountName>Bank Name</AccountName>
-          <AccountDetails>Holder Name</AccountDetails>
-          <AccountDetails>Branch</AccountDetails>
-        </AccountInfo>
-        <AccountNumber>
-          <AccountNumberValue>Account Number</AccountNumberValue>
-          <AccountBalance>$20,000</AccountBalance>
-          <AccountDetails>New York</AccountDetails>
-        </AccountNumber>
-      </AccountCard>
-
-      <AccountCard>
-        <AccountInfo>
-          <AccountName>Account 2</AccountName>
-          <AccountDetails>Available balance</AccountDetails>
-          <AccountDetails>Branch</AccountDetails>
-        </AccountInfo>
-        <AccountNumber>
-          <AccountNumberValue>8988 1234</AccountNumberValue>
-          <AccountBalance>$12,000</AccountBalance>
-          <AccountDetails>New York</AccountDetails>
-        </AccountNumber>
-      </AccountCard>
-
-      <AccountCard>
-        <AccountInfo>
-          <AccountName>Account 3</AccountName>
-          <AccountDetails>Available balance</AccountDetails>
-        </AccountInfo>
-        <AccountNumber>
-          <AccountNumberValue>1900 1234 2222</AccountNumberValue>
-          <AccountBalance>$230,000</AccountBalance>
-        </AccountNumber>
-      </AccountCard>
-    </Container>
-    <Footer/>
-      </>
+        {accounts.map((account) => (
+          <AccountCard key={account.AccountNumber}>
+            <AccountInfo>
+              <AccountName>{account.BankName}</AccountName>
+              <AccountDetails>{account.Name}</AccountDetails>
+              <AccountDetails>{account.Country}</AccountDetails>
+            </AccountInfo>
+            <AccountNumber>
+              <AccountNumberValue>Account No: {account.AccountNumber}</AccountNumberValue>
+              <AccountDetails>IFSC: {account.IFSC}</AccountDetails>
+            </AccountNumber>
+            <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
+              Delete
+            </DeleteButton>
+          </AccountCard>
+        ))}
+      </Container>
+      <Footer/>
+      <ToastContainer /> {/* Add ToastContainer to your component */}
+    </>
   );
 };
 

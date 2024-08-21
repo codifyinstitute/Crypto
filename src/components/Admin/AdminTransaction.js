@@ -297,6 +297,8 @@ const AdminTransaction = () => {
                         <option value="Money Received">Money Received</option>
                         <option value="Transaction Started">Transaction Started</option>
                         <option value="Payment Received">Payment Received</option>
+                        <option value="Completed">Completed</option>
+
                       </Select>
                     </td>
                     <td>
