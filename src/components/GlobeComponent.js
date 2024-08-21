@@ -29,7 +29,7 @@ const GlobeComponent = () => {
 
     useEffect(() => {
         if (globeEl.current) {
-            const N = 100; // Increased the number of arcs for more lines
+            const N = 100;
             const arcsData = [...Array(N).keys()].map(() => ({
                 startLat: (Math.random() - 0.5) * 180,
                 startLng: (Math.random() - 0.5) * 360,
@@ -47,11 +47,11 @@ const GlobeComponent = () => {
                 .arcDashLength(() => Math.random())
                 .arcDashGap(() => Math.random())
                 .arcDashAnimateTime(() => Math.random() * 4000 + 500)
-                .arcStroke(0.2) // Reduced stroke for optimization
-                .arcAltitude(0.10) // Reduced altitude for optimization
+                .arcStroke(0.2)
+                .arcAltitude(0.10)
                 .atmosphereColor('lightskyblue')
-                .atmosphereAltitude(0.11) // Reduced atmosphere altitude for optimization
-                .enablePointerInteraction(false) // Disabled pointer interaction to reduce computation
+                .atmosphereAltitude(0.11)
+                .enablePointerInteraction(false)
                 .onGlobeClick(null)
                 .onGlobeRightClick(null);
 
@@ -59,7 +59,7 @@ const GlobeComponent = () => {
 
             // Adjust the camera to fit the globe within the view
             const camera = globeRef.current.camera();
-            camera.position.z = 350; // Move the camera back further to fit the globe properly
+            camera.position.z = 350; // Adjust to fit the globe properly
             camera.position.y = 0; // Center the globe vertically
             globe.controls().enabled = false; // Disable user control
 
@@ -79,8 +79,12 @@ const GlobeComponent = () => {
             const windowHalfY = window.innerHeight / 2;
 
             const handleMouseMove = (event) => {
-                mouseX = (event.clientX - windowHalfX) / 100; // Reduced sensitivity for optimization
-                mouseY = (event.clientY - windowHalfY) / 100; // Reduced sensitivity for optimization
+                mouseX = (event.clientX - windowHalfX) / 100;
+                mouseY = (event.clientY - windowHalfY) / 100;
+
+                // Rotate the globe based on mouse movement
+                globe.scene().rotation.y += (mouseX - globe.scene().rotation.y) * 0.05;
+                globe.scene().rotation.x += (-mouseY - globe.scene().rotation.x) * 0.05;
             };
 
             window.addEventListener('mousemove', handleMouseMove);
@@ -88,12 +92,11 @@ const GlobeComponent = () => {
             const animate = () => {
                 if (globeRef.current) {
                     const camera = globeRef.current.camera();
-                    camera.position.x += (mouseX - camera.position.x) * 0.05; // Reduced movement speed for optimization
-                    camera.position.y += (-mouseY - camera.position.y) * 0.05; // Reduced movement speed for optimization
+
+                    // Rotate the globe when the mouse is not moving
+                    globe.scene().rotation.y += 0.001;
+
                     camera.lookAt(globe.scene().position);
-
-                    globe.scene().rotation.y += 0.0005; // Reduced rotation speed for optimization
-
                     globeRef.current.renderer().render(globe.scene(), camera);
                 }
                 requestAnimationFrame(animate);
@@ -116,7 +119,6 @@ const GlobeComponent = () => {
             <GlobeContainer ref={globeEl} />
             <ContentContainer>
                 {/* Your page content goes here */}
-     
             </ContentContainer>
         </>
     );
