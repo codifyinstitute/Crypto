@@ -25,6 +25,9 @@ const ContentContainer = styled.div`
 const GlobeComponent = () => {
   const globeEl = useRef(null);
   const globeRef = useRef(null);
+  const isDragging = useRef(false);
+  const lastTouchX = useRef(0);
+  const lastTouchY = useRef(0);
 
   useEffect(() => {
     if (globeEl.current) {
@@ -90,7 +93,33 @@ const GlobeComponent = () => {
         globe.scene().rotation.x += (-mouseY - globe.scene().rotation.x) * 0.05;
       };
 
+      const handleTouchStart = (event) => {
+        isDragging.current = true;
+        lastTouchX.current = event.touches[0].clientX;
+        lastTouchY.current = event.touches[0].clientY;
+      };
+
+      const handleTouchMove = (event) => {
+        if (isDragging.current) {
+          const deltaX = event.touches[0].clientX - lastTouchX.current;
+          const deltaY = event.touches[0].clientY - lastTouchY.current;
+
+          globe.scene().rotation.y += deltaX * 0.005;
+          globe.scene().rotation.x += deltaY * 0.005;
+
+          lastTouchX.current = event.touches[0].clientX;
+          lastTouchY.current = event.touches[0].clientY;
+        }
+      };
+
+      const handleTouchEnd = () => {
+        isDragging.current = false;
+      };
+
       window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchmove', handleTouchMove);
+      window.addEventListener('touchend', handleTouchEnd);
 
       const animate = () => {
         if (globeRef.current) {
@@ -106,6 +135,9 @@ const GlobeComponent = () => {
       return () => {
         window.removeEventListener('resize', handleResize);
         window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('touchstart', handleTouchStart);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
         globeRef.current = null;
       };
     } else {
