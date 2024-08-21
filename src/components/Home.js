@@ -45,10 +45,10 @@ const Home = () => {
     // Calculate INR based on USDT value and selected currency rate
     const inr = selectedCurrency ? usdt * selectedCurrency.Rate : 0;
 
-    // Navigate to next page
+    // Navigate to next page with selected data
     const handleSellNowClick = () => {
-        if (isValid) {
-            navigate('/Sell1');
+        if (isValid && selectedCurrency) {
+            navigate('/Sell1', { state: { amount: usdt, symbol: selectedCurrency.Symbol } });
         }
     };
 
@@ -72,20 +72,20 @@ const Home = () => {
                 <SellBox>
                     <InputContainer>
                         <Label>You Pay</Label>
-                        <Input 
-                            type="number" 
-                            value={usdt} 
-                            onChange={handleUsdtChange} 
+                        <Input
+                            type="number"
+                            value={usdt}
+                            onChange={handleUsdtChange}
                             placeholder="Enter USDT"
                         />
                         <Flag src="path/to/usdt-flag.png" alt="USDT" />
                     </InputContainer>
                     <InputContainer>
                         <Label>You Get</Label>
-                        <Input 
-                            type="text" 
-                            value={inr.toFixed(2)} 
-                            readOnly 
+                        <Input
+                            type="text"
+                            value={inr.toFixed(2)}
+                            readOnly
                         />
                         <Flag src="path/to/inr-flag.png" alt="INR" />
                     </InputContainer>
@@ -99,8 +99,8 @@ const Home = () => {
                             ))}
                         </Dropdown>
                     </DropdownContainer>
-                    <SellButton 
-                        onClick={handleSellNowClick} 
+                    <SellButton
+                        onClick={handleSellNowClick}
                         disabled={!isValid}
                     >
                         SELL NOW
