@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HomeContact from './HomeContact';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PageContainer = styled.div`
   display: flex;
@@ -22,7 +25,7 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 100%;
-  max-width: 400px;
+  max-width: 400px; 
   color: black;
   margin-top: 4%;
   margin-bottom: 20px;
@@ -66,6 +69,9 @@ const Checkbox = styled.input`
 `;
 
 const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffa500;
   color: white;
   border: none;
@@ -73,6 +79,7 @@ const Button = styled.button`
   padding: 10px;
   width: 100%;
   cursor: pointer;
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
 `;
 
 const PoweredBy = styled.p`
@@ -80,26 +87,47 @@ const PoweredBy = styled.p`
   color: #666;
 `;
 
-const ContactSection = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-const ContactTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const ContactText = styled.p`
-  font-size: 14px;
-  margin-bottom: 20px;
-`;
-
-const ContactButton = styled(Button)`
-  max-width: 200px;
+const LoadingSpinner = styled.div`
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #ffa500;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
 const Sell2 = () => {
+  const [email, setEmail] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const isFormValid = email !== '' && isChecked;
+
+  const handleProceed = async () => {
+    if (isFormValid) {
+      setLoading(true);
+      try {
+        const response = await axios.post('https://crypto-anl6.onrender.com/users/login', { Email: email });
+        if (response.status === 200) {
+          navigate('/otp', { state: { email: email } });
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        toast.error("Invalid email or server error. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      toast.error("Please enter a valid email and agree to the terms.");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -110,20 +138,30 @@ const Sell2 = () => {
           <Subtitle>Checkout with Moon Pay</Subtitle>
           <form>
             <label>What is your email address?</label>
-            <Input type="email" placeholder="Enter your mail" />
+            <Input
+              type="email"
+              placeholder="Enter your mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <CheckboxLabel>
-              <Checkbox type="checkbox" />
+              <Checkbox
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
               I have read and agree to Moon Pay's Terms Of Services and privacy policy.
             </CheckboxLabel>
-            <Link to='/Sell3'>
-              <Button>Proceed - Buy ACH →</Button>
-            </Link>
+            <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
+              {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH →'}
+            </Button>
           </form>
           <PoweredBy>Powered by Moon Pay</PoweredBy>
         </Card>
-<HomeContact/>
+        <HomeContact />
       </PageContainer>
       <Footer />
+      <ToastContainer />
     </>
   );
 };

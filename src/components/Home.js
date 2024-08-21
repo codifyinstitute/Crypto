@@ -48,7 +48,7 @@ const Home = () => {
     // Navigate to next page with selected data
     const handleSellNowClick = () => {
         if (isValid && selectedCurrency) {
-            navigate('/Sell1', { state: { amount: usdt, symbol: selectedCurrency.Symbol } });
+            navigate('/Sell2', { state: { amount: usdt, symbol: selectedCurrency.Symbol } });
         }
     };
 

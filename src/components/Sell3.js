@@ -109,6 +109,9 @@ const Sell3 = () => {
           
           <FormSection>
             <h3>Account Information</h3>
+            <FormLabel>Bank Name</FormLabel>
+            <FormInput placeholder="Enter Your Bank Name" />
+
             <FormLabel>Account Number</FormLabel>
             <FormInput placeholder="Please enter your full name" />
             

@@ -99,6 +99,8 @@ const NavLinks = styled.ul`
 `;
 
 const Navbar = () => {
+  const token = localStorage.getItem('token');
+
   return (
     <NavbarContainer>
       <Logo>
@@ -112,7 +114,11 @@ const Navbar = () => {
           <NavLink to="/Sell1" activeClassName="active">Exchange</NavLink>
         </li>
         <li>
-          <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
+          {token ? (
+            <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
+          ) : (
+            <NavLink to="/sell2" activeClassName="active">Sign In</NavLink>
+          )}
         </li>
       </NavLinks>
     </NavbarContainer>
