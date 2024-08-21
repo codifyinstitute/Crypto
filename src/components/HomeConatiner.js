@@ -57,7 +57,7 @@ const HomeContainer = () => {
     <GlobeContainer>
       <Navbar />
       <GlobeWrapper>
-        {/* <GlobeComponent /> */}
+        <GlobeComponent />
       </GlobeWrapper>
       <ContentWrapper>
         <Home />
