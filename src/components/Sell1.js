@@ -187,6 +187,7 @@ const Sell1 = () => {
                 placeholder="Enter Your Amount"
               />
               <Select value={selectedCurrency ? selectedCurrency.Symbol : ''} onChange={handleCurrencyChange}>
+                <option  value="">Select Currency</option>
                 {currencies.map(currency => (
                   <option key={currency._id} value={currency.Symbol}>
                     {currency.Name}

@@ -141,7 +141,7 @@ const OTPPage = () => {
                 });
                 localStorage.setItem("token",response.data.token)
                 if (response.status === 200) {
-                  navigate('/sell3'); // Replace with your next page route
+                  navigate('/sell1'); // Replace with your next page route
                 }
             } catch (error) {
                 console.error("Error verifying OTP:", error);

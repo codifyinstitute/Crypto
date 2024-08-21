@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -102,6 +103,11 @@ const ArrowIcon = styled.span`
 `;
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const logout = () =>{
+    localStorage.removeItem('token');
+    navigate('/');
+  }
   return (
     <>
     <Navbar/>
@@ -151,8 +157,8 @@ const Profile = () => {
             <ArrowIcon>▶</ArrowIcon>
           </MenuLink>
         </MenuItem>
-        <MenuItem>
-          <MenuLink href="#">
+        <MenuItem onClick={()=>logout()}>
+          <MenuLink>
             <IconText>
               <Icon>🚪</Icon>
               Logout
