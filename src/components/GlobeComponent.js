@@ -4,10 +4,23 @@ import styled from 'styled-components';
 import * as THREE from 'three';
 
 const GlobeContainer = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #000;
+  z-index: -1; /* Ensure the globe is behind all other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ContentContainer = styled.div`
+  position: relative;
+  z-index: 1; /* Ensure content is above the globe */
+  padding: 20px;
+  color: white;
 `;
 
 const GlobeComponent = () => {
@@ -16,7 +29,7 @@ const GlobeComponent = () => {
 
     useEffect(() => {
         if (globeEl.current) {
-            const N = 10; // Reduced the number of arcs for optimization
+            const N = 100; // Increased the number of arcs for more lines
             const arcsData = [...Array(N).keys()].map(() => ({
                 startLat: (Math.random() - 0.5) * 180,
                 startLng: (Math.random() - 0.5) * 360,
@@ -44,9 +57,17 @@ const GlobeComponent = () => {
 
             globeRef.current = globe;
 
+            // Adjust the camera to fit the globe within the view
+            const camera = globeRef.current.camera();
+            camera.position.z = 350; // Move the camera back further to fit the globe properly
+            camera.position.y = 0; // Center the globe vertically
+            globe.controls().enabled = false; // Disable user control
+
             const handleResize = () => {
                 globe.width(globeEl.current.clientWidth)
                      .height(globeEl.current.clientHeight);
+                camera.aspect = globeEl.current.clientWidth / globeEl.current.clientHeight;
+                camera.updateProjectionMatrix();
             };
 
             window.addEventListener('resize', handleResize);
@@ -90,7 +111,15 @@ const GlobeComponent = () => {
         }
     }, []);
 
-    return <GlobeContainer ref={globeEl} />;
+    return (
+        <>
+            <GlobeContainer ref={globeEl} />
+            <ContentContainer>
+                {/* Your page content goes here */}
+     
+            </ContentContainer>
+        </>
+    );
 };
 
 export default GlobeComponent;

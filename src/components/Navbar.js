@@ -13,6 +13,7 @@ const NavbarContainer = styled.nav`
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+  
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 768px) {

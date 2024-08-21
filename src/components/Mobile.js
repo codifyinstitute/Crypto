@@ -10,10 +10,13 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
   max-width: 800px;
   margin: 0 auto;
-  margin-bottom: 11%;
+  margin-bottom: 30%;
 
   @media (max-width: 1024px) {
     margin-bottom: 30%;
+  }
+  @media (max-width: 769px) {
+    margin-bottom: 11%;
   }
 
 `;
