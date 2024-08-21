@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import HomeContact from './HomeContact';
 
 const Container = styled.div`
@@ -11,9 +11,7 @@ const Container = styled.div`
   align-items: center;
   padding: 20px;
   background-color: #1e1e1e;
-
   color: white;
-  /* min-height: 100vh; */
 `;
 
 const Card = styled.div`
@@ -109,59 +107,134 @@ const TableCell = styled.td`
 
 const ContactSection = styled.div`
   text-align: center;
-  /* max-width: 600px; */
 `;
 
 const Sell1 = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [currencies, setCurrencies] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [amountPay, setAmountPay] = useState('');
+  const [amountReceived, setAmountReceived] = useState('');
+
+  useEffect(() => {
+    // Fetch currencies
+    const fetchCurrencies = async () => {
+      try {
+        const response = await fetch('https://crypto-anl6.onrender.com/currencies/all');
+        const data = await response.json();
+        setCurrencies(data);
+        const initialCurrency = data.find(c => c.Symbol === location.state?.symbol);
+        setSelectedCurrency(initialCurrency);
+        if (initialCurrency && amountPay) {
+          setAmountReceived(amountPay * initialCurrency.Rate); // Example conversion
+        }
+      } catch (error) {
+        console.error('Error fetching currencies:', error);
+      }
+    };
+
+    fetchCurrencies();
+  }, [amountPay]);
+
+  const handleAmountPayChange = (e) => {
+    const value = e.target.value;
+    setAmountPay(value);
+
+    if (selectedCurrency) {
+      setAmountReceived(value * selectedCurrency.Rate); // Example conversion
+    }
+  };
+
+  const handleCurrencyChange = (e) => {
+    const selectedSymbol = e.target.value;
+    const currency = currencies.find(c => c.Symbol === selectedSymbol);
+    setSelectedCurrency(currency);
+    if (currency && amountPay) {
+      setAmountReceived(amountPay * currency.Rate); // Example conversion
+    }
+  };
+
+  const handleReviewOrderClick = () => {
+    // Store transaction details in localStorage
+    localStorage.setItem('transactionDetails', JSON.stringify({
+      amountPay,
+      symbol: selectedCurrency ? selectedCurrency.Symbol : ''
+    }));
+
+    // Navigate based on token presence
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/Sell3');
+    } else {
+      navigate('/Sell2');
+    }
+  };
+
   return (
     <>
-    <Navbar/>
-    <Container>
-      <Card>
-        <Title>Sell Crypto</Title>
-        <Form>
-          <InputGroup>
-            <Label>You pay</Label>
-            <Input type="number" placeholder="25174.13" />
-            <Select>
-              <option>INR</option>
-            </Select>
-          </InputGroup>
-          <InputGroup>
-            <Label>You receive (estimate)</Label>
-            <Input type="number" placeholder="11934.9" />
-            <Select>
-              <option>BCH</option>
-            </Select>
-          </InputGroup>
-          <Link to='/Sell2'><Button>Review Order</Button></Link>
-        </Form>
-      </Card>
+      <Navbar />
+      <Container>
+        <Card>
+          <Title>Sell Crypto</Title>
+          <Form>
+            <InputGroup>
+              <Label>You pay</Label>
+              <Input
+                type="number"
+                value={amountPay}
+                onChange={handleAmountPayChange}
+                placeholder="Enter Your Amount"
+              />
+              <Select value={selectedCurrency ? selectedCurrency.Symbol : ''} onChange={handleCurrencyChange}>
+                {currencies.map(currency => (
+                  <option key={currency._id} value={currency.Symbol}>
+                    {currency.Name}
+                  </option>
+                ))}
+              </Select>
+            </InputGroup>
+            <InputGroup>
+              <Label>You receive (estimate)</Label>
+              <Input
+                type="number"
+                value={amountReceived}
+                readOnly
+                placeholder="Your Received Amount"
+              />
+              <Select>
+                <option>INR</option>
+              </Select>
+            </InputGroup>
+            <Button type="button" onClick={handleReviewOrderClick}>Review Order</Button>
+          </Form>
+        </Card>
 
-      <ExchangeCard>
-        <ExchangeTitle>93</ExchangeTitle>
-        <ExchangeSubtitle>1USDT=93</ExchangeSubtitle>
-        <Table>
-          <tbody>
-            <TableRow>
-              <TableCell>&gt;1075.27 and&lt;2150.54</TableCell>
-              <TableCell>93+0.25</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>&gt;2150.54 and&lt;3225.81</TableCell>
-              <TableCell>93+0.5</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>&gt;3225.81</TableCell>
-              <TableCell>93+1</TableCell>
-            </TableRow>
-          </tbody>
-        </Table>
-      </ExchangeCard>
-
-     <HomeContact/>
-    </Container>
-    <Footer/>
+        {selectedCurrency && (
+          <ExchangeCard>
+            <ExchangeTitle>{selectedCurrency.Rate}</ExchangeTitle>
+            <ExchangeSubtitle>1 {selectedCurrency.Symbol} = {selectedCurrency.Rate} INR</ExchangeSubtitle>
+            <Table>
+              <tbody>
+                <TableRow>
+                  <TableCell>&gt;1075.27 and &lt;2150.54</TableCell>
+                  <TableCell>{selectedCurrency.Rate + 0.25}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>&gt;2150.54 and &lt;3225.81</TableCell>
+                  <TableCell>{selectedCurrency.Rate + 0.5}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>&gt;3225.81</TableCell>
+                  <TableCell>{selectedCurrency.Rate + 1}</TableCell>
+                </TableRow>
+              </tbody>
+            </Table>
+          </ExchangeCard>
+        )}
+        <HomeContact />
+      </Container>
+      <Footer />
     </>
   );
 };
