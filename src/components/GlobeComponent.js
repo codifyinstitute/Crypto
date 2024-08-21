@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Globe from 'globe.gl';
 import styled from 'styled-components';
+import throttle from 'lodash/throttle';
 
 const GlobeContainer = styled.div`
   position: fixed;
@@ -31,7 +32,7 @@ const GlobeComponent = () => {
 
   useEffect(() => {
     if (globeEl.current) {
-      const N = 100;
+      const N = 30; // Further reduced the number of arcs
       const arcsData = [...Array(N).keys()].map(() => ({
         startLat: (Math.random() - 0.5) * 180,
         startLng: (Math.random() - 0.5) * 360,
@@ -41,18 +42,18 @@ const GlobeComponent = () => {
       }));
 
       const globe = Globe()(globeEl.current)
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg') // Use optimized image
+        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png') // Use optimized image
+        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png') // Use optimized image
         .arcsData(arcsData)
         .arcColor('color')
-        .arcDashLength(() => Math.random())
-        .arcDashGap(() => Math.random())
-        .arcDashAnimateTime(() => Math.random() * 4000 + 500)
-        .arcStroke(0.2)
-        .arcAltitude(0.10)
+        .arcDashLength(() => Math.random() * 0.5) // Reduce dash length
+        .arcDashGap(() => Math.random() * 0.5) // Reduce dash gap
+        .arcDashAnimateTime(() => Math.random() * 2000 + 500) // Reduce animation time
+        .arcStroke(0.15) // Reduced stroke width
+        .arcAltitude(0.08) // Reduced altitude
         .atmosphereColor('lightskyblue')
-        .atmosphereAltitude(0.11)
+        .atmosphereAltitude(0.10)
         .enablePointerInteraction(false)
         .onGlobeClick(null)
         .onGlobeRightClick(null);
@@ -60,7 +61,8 @@ const GlobeComponent = () => {
       globeRef.current = globe;
 
       const camera = globeRef.current.camera();
-      const handleResize = () => {
+
+      const handleResize = throttle(() => {
         const { innerWidth: width, innerHeight: height } = window;
 
         globe.width(width).height(height);
@@ -75,23 +77,18 @@ const GlobeComponent = () => {
 
         camera.position.y = 0;
         globe.controls().enabled = false;
-      };
+      }, 200); // Throttle resize event
 
       window.addEventListener('resize', handleResize);
       handleResize();
 
-      let mouseX = 0;
-      let mouseY = 0;
-      const windowHalfX = window.innerWidth / 2;
-      const windowHalfY = window.innerHeight / 2;
+      const handleMouseMove = throttle((event) => {
+        const mouseX = (event.clientX - window.innerWidth / 2) / 150; // Reduced sensitivity
+        const mouseY = (event.clientY - window.innerHeight / 2) / 150; // Reduced sensitivity
 
-      const handleMouseMove = (event) => {
-        mouseX = (event.clientX - windowHalfX) / 100;
-        mouseY = (event.clientY - windowHalfY) / 100;
-
-        globe.scene().rotation.y += (mouseX - globe.scene().rotation.y) * 0.05;
-        globe.scene().rotation.x += (-mouseY - globe.scene().rotation.x) * 0.05;
-      };
+        globe.scene().rotation.y += (mouseX - globe.scene().rotation.y) * 0.03; // Reduced rotation speed
+        globe.scene().rotation.x += (-mouseY - globe.scene().rotation.x) * 0.03; // Reduced rotation speed
+      }, 16); // Throttle mouse move event
 
       const handleTouchStart = (event) => {
         isDragging.current = true;
@@ -104,8 +101,8 @@ const GlobeComponent = () => {
           const deltaX = event.touches[0].clientX - lastTouchX.current;
           const deltaY = event.touches[0].clientY - lastTouchY.current;
 
-          globe.scene().rotation.y += deltaX * 0.005;
-          globe.scene().rotation.x += deltaY * 0.005;
+          globe.scene().rotation.y += deltaX * 0.003; // Reduced touch sensitivity
+          globe.scene().rotation.x += deltaY * 0.003; // Reduced touch sensitivity
 
           lastTouchX.current = event.touches[0].clientX;
           lastTouchY.current = event.touches[0].clientY;
@@ -123,7 +120,7 @@ const GlobeComponent = () => {
 
       const animate = () => {
         if (globeRef.current) {
-          globe.scene().rotation.y += 0.001;
+          globe.scene().rotation.y += 0.0005; // Reduced rotation speed
           camera.lookAt(globe.scene().position);
           globeRef.current.renderer().render(globe.scene(), camera);
         }
