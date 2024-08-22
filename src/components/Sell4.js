@@ -51,8 +51,6 @@ const QRCodeContainer = styled.div`
 `;
 
 const QRCode = styled.div`
-  width: 150px;
-  height: 150px;
   background-color: #f0f0f0;
   border: 2px solid #f7a600;
   display: flex;
@@ -90,6 +88,8 @@ const Sell4 = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [savedData, setSavedData] = useState(null);
+  const [transactionId, setTransactionId] = useState('');
+  const [image, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -101,6 +101,8 @@ const Sell4 = () => {
       }
       const data = await response.json();
       setTransactionFee(data.TransactionFee);
+      setTransactionId(data.TransactionId);
+      setImage(data.QRCode);
     } catch (error) {
       setError('Error fetching transaction fee');
     }
@@ -235,9 +237,9 @@ const Sell4 = () => {
             <Value>{calculateReceivedAmount()}</Value>
           </InfoRow>
           <QRCodeContainer>
-            <QRCode>QR Code</QRCode>
+            <QRCode><img src={`http://localhost:8000/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
           </QRCodeContainer>
-          <TransactionLabel>Transaction ID</TransactionLabel>
+          <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
           <Button onClick={handleProceedClick}>Proceed - Buy ACH →</Button>
         </Card>
       </PageContainer>

@@ -65,7 +65,7 @@ const HomeContainer = () => {
         <Homemap />
         <Homelogo />
         <HomeContact1 />
-        <Mobile/>
+        <Mobile />
       </ContentWrapper>
       <FooterWrapper>
         <Footer />

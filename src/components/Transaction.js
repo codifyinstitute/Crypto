@@ -124,6 +124,8 @@ const Transaction = () => {
         <Title>Transactions</Title>
         <TabContainer>
           <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
+          <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
+          <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>
           <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
         </TabContainer>
         <TransactionList>
