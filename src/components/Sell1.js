@@ -114,7 +114,7 @@ const Sell1 = () => {
   const location = useLocation();
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [amountPay, setAmountPay] = useState('');
+  const [amountPay, setAmountPay] = useState(location.state?.amount || '');
   const [amountReceived, setAmountReceived] = useState('');
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const Sell1 = () => {
     };
 
     fetchCurrencies();
-  }, [amountPay]);
+  }, [amountPay, location.state]);
 
   const handleAmountPayChange = (e) => {
     const value = e.target.value;
@@ -187,6 +187,7 @@ const Sell1 = () => {
                 placeholder="Enter Your Amount"
               />
               <Select value={selectedCurrency ? selectedCurrency.Symbol : ''} onChange={handleCurrencyChange}>
+                <option  value="">Select Currency</option>
                 {currencies.map(currency => (
                   <option key={currency._id} value={currency.Symbol}>
                     {currency.Name}

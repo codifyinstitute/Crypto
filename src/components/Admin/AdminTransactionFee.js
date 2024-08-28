@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from './Sidebar'; // Adjust the path if necessary
 
-// Styled components for AdminTransactionFee
+// Styled components
 const DashboardContainer = styled.div`
   display: flex;
   height: 100vh;
@@ -51,7 +51,7 @@ const Form = styled.form`
 `;
 
 const FeeDisplay = styled.div`
-  margin-top:2.5rem;
+  margin-top: 2.5rem;
   font-size: 1.25rem;
   font-weight: bold;
   color: #333;
@@ -64,6 +64,13 @@ const Input = styled.input`
   max-width: 300px;
   border: 1px solid #ddd;
   border-radius: 4px;
+`;
+
+const FileInput = styled.input`
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
 `;
 
 const Button = styled.button`
@@ -85,6 +92,9 @@ const AdminTransactionFee = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [transactionFee, setTransactionFee] = useState(0);
     const [transactionFeeFix, setTransactionFeeFix] = useState(0);
+    const [transactionId, setTransactionId] = useState('');
+    const [image, setImage] = useState("");
+    const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -102,8 +112,11 @@ const AdminTransactionFee = () => {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            console.log(data)
             setTransactionFee(data.TransactionFee);
             setTransactionFeeFix(data.TransactionFee);
+            setTransactionId(data.TransactionId);
+            setImage(data.QRCode);
         } catch (error) {
             setError('Error fetching transaction fee');
         } finally {
@@ -115,12 +128,12 @@ const AdminTransactionFee = () => {
         fetchTransactionFee();
     }, []);
 
-    const handleUpdate = async (event) => {
+    const handleFeeUpdate = async (event) => {
         event.preventDefault();
         setLoading(true);
 
         try {
-            const response = await fetch('https://crypto-anl6.onrender.com/static/put/66c445a358802d46d5d70dd4', {
+            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -141,30 +154,112 @@ const AdminTransactionFee = () => {
         }
     };
 
+    const handleTransactionIdUpdate = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ TransactionId: transactionId }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            alert('Transaction ID updated successfully');
+            fetchTransactionFee();
+        } catch (error) {
+            setError('Error updating transaction ID');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleQRCodeUpdate = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        const formData = new FormData();
+        if (file) {
+            formData.append('QRCode', file);
+        }
+
+        try {
+            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
+                method: 'PUT',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            alert('QR Code updated successfully');
+            fetchTransactionFee();
+        } catch (error) {
+            setError('Error updating QR Code');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <DashboardContainer>
             <Sidebar isOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Content>
                 <Section>
-                    <Title>Transaction Fees</Title>
-                    <Paragraph>Manage and review the transaction fees here.</Paragraph>
+                    <Title>Transaction Management</Title>
+                    <Paragraph>Manage and review the transaction details here.</Paragraph>
                     {loading ? (
                         <Paragraph>Loading...</Paragraph>
                     ) : error ? (
                         <Paragraph>{error}</Paragraph>
                     ) : (
-                        <Form onSubmit={handleUpdate}>
-                            <FeeDisplay>Current Fee: ₹{transactionFeeFix}</FeeDisplay>
-                            <label>
-                                Update Fee:
-                                <Input
-                                    type="number"
-                                    value={transactionFee}
-                                    onChange={(e) => setTransactionFee(e.target.value)}
-                                />
-                            </label>
-                            <Button type="submit">Update Fee</Button>
-                        </Form>
+                        <>
+                            <Form onSubmit={handleFeeUpdate}>
+                                <FeeDisplay>Current Fee: ₹{transactionFeeFix}</FeeDisplay>
+                                <label>
+                                    <Paragraph>Update Fee:</Paragraph>
+                                    <Input
+                                        type="number"
+                                        value={transactionFee}
+                                        onChange={(e) => setTransactionFee(e.target.value)}
+                                    />
+                                </label>
+                                <Button type="submit">Update Fee</Button>
+                            </Form>
+
+                            <Form onSubmit={handleTransactionIdUpdate}>
+                                <FeeDisplay>Current Transaction ID: {transactionId}</FeeDisplay>
+                                <label>
+                                    <Paragraph>Update Transaction ID:</Paragraph>
+                                    <Input
+                                        type="text"
+                                        value={transactionId}
+                                        onChange={(e) => setTransactionId(e.target.value)}
+                                    />
+                                </label>
+                                <Button type="submit">Update Transaction ID</Button>
+                            </Form>
+
+                            <Form onSubmit={handleQRCodeUpdate}>
+                                <FeeDisplay>Current QR Code:</FeeDisplay>
+                                <img src={`http://localhost:8000/uploads/${image}`} width='200px' alt="QR code" />
+                                <label>
+                                    <Paragraph>Update QR Code Image:</Paragraph>
+                                    <FileInput
+                                        type="file"
+                                        onChange={(e) => setFile(e.target.files[0])}
+                                    />
+                                </label>
+                                <Button type="submit">Update QR Code</Button>
+                            </Form>
+                        </>
                     )}
                 </Section>
             </Content>

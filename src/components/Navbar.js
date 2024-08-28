@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -99,6 +99,17 @@ const NavLinks = styled.ul`
 `;
 
 const Navbar = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+  const token = localStorage.getItem('token');
+
+  const handleExchangeClick = () => {
+    if (token) {
+      navigate('/Sell1'); // Redirect to Sell1 if logged in
+    } else {
+      navigate('/sell2'); // Redirect to Sell2 if not logged in
+    }
+  };
+
   return (
     <NavbarContainer>
       <Logo>
@@ -108,11 +119,15 @@ const Navbar = () => {
         <li>
           <NavLink exact to="/" activeClassName="active">Home</NavLink>
         </li>
-        <li>
-          <NavLink to="/Sell1" activeClassName="active">Exchange</NavLink>
+        <li onClick={handleExchangeClick}>
+          <NavLink to="#" >Exchange</NavLink> {/* Handle click with handleExchangeClick */}
         </li>
         <li>
-          <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
+          {token ? (
+            <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
+          ) : (
+            <NavLink to="/sell2" activeClassName="active">Sign In</NavLink>
+          )}
         </li>
       </NavLinks>
     </NavbarContainer>

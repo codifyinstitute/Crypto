@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { toast } from 'react-toastify'; // For toast notifications
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 
 const Container = styled.div`
   background-color: #121212;
@@ -87,50 +89,77 @@ const StatusValue = styled(Value)`
 
 const Transaction = () => {
   const [activeTab, setActiveTab] = useState('Pending');
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const transactions = [
-    { id: 'Transaction ID', date: '30/10/2019', status: 'Unsuccessfully', company: 'Capi Telecom', amount: '$50' },
-    { id: 'Transaction ID', date: '30/10/2019', status: 'Successfully', company: 'Capi Telecom', amount: '$50' },
-    { id: 'Transaction ID', date: '30/10/2019', status: 'Successfully', company: 'Capi Telecom', amount: '$50' },
-    { id: 'Transaction ID', date: '30/10/2019', status: 'Successfully', company: 'Capi Telecom', amount: '$50' },
-    { id: 'Transaction ID', date: '30/10/2019', status: 'Successfully', company: 'Capi Telecom', amount: '$50' },
-  ];
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const email = localStorage.getItem('token'); // Get email from local storage
+      if (email) {
+        try {
+          const response = await fetch(`https://crypto-anl6.onrender.com/transactions/get/email/${email}`);
+          if (!response.ok) throw new Error('Failed to fetch transactions');
+          const data = await response.json();
+          setTransactions(data);
+        } catch (error) {
+          toast.error(error.message);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        toast.error('No email found in local storage');
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
+  if (loading) return <Container><Title>Loading...</Title></Container>;
 
   return (
     <>
-    <Navbar/>
-    <Container>
-      <Title>Transactions</Title>
-      <TabContainer>
-        <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
-        <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
-      </TabContainer>
-      <TransactionList>
-        {transactions.map((transaction, index) => (
-          <TransactionCard key={index}>
-            <TransactionHeader>
-              <Value>{transaction.id}</Value>
-              <Value>{transaction.date}</Value>
-            </TransactionHeader>
-            <TransactionDetails>
-              <TransactionColumn>
-                <Label>Status</Label>
-                <StatusValue status={transaction.status}>{transaction.status}</StatusValue>
-              </TransactionColumn>
-              <TransactionColumn>
-                <Label>Company</Label>
-                <Value>{transaction.company}</Value>
-              </TransactionColumn>
-              <TransactionColumn>
-                <Label>Amount</Label>
-                <Value>{transaction.amount}</Value>
-              </TransactionColumn>
-            </TransactionDetails>
-          </TransactionCard>
-        ))}
-      </TransactionList>
-    </Container>
-    <Footer/>
+      <Navbar/>
+      <Container>
+        <Title>Transactions</Title>
+        <TabContainer>
+          <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
+          <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
+          <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>
+          <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
+        </TabContainer>
+        <TransactionList>
+          {transactions
+            .filter(transaction => transaction.Status === activeTab)
+            .map((transaction, index) => (
+              <TransactionCard key={index}>
+                <TransactionHeader>
+                  <Value>{transaction.OrderId}</Value>
+                  <Value>{transaction.Date}</Value>
+                </TransactionHeader>
+                <TransactionDetails>
+                  <TransactionColumn>
+                    <Label>Status</Label>
+                    <StatusValue status={transaction.Status}>{transaction.Status}</StatusValue>
+                  </TransactionColumn>
+                  <TransactionColumn>
+                    <Label>Bank Name</Label>
+                    <Value>{transaction.BankName}</Value>
+                  </TransactionColumn>
+                  <TransactionColumn>
+                    <Label>Account Number</Label>
+                    <Value>{transaction.AccountNumber}</Value>
+                  </TransactionColumn>
+                  <TransactionColumn>
+                    <Label>Amount</Label>
+                    <Value>${transaction.ReceivedAmount}</Value>
+                  </TransactionColumn>
+                </TransactionDetails>
+              </TransactionCard>
+            ))}
+        </TransactionList>
+      </Container>
+      <Footer/>
     </>
   );
 };

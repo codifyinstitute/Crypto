@@ -45,7 +45,7 @@ const Paragraph = styled.p`
 
 const TableContainer = styled.div`
   overflow-x: auto; /* Enable horizontal scroll */
-  overflow-y: hidden; /* Hide vertical scroll */
+  overflow-y: auto; 
   max-width: calc(100vw - 250px);
   margin-top: 1.5rem;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
@@ -296,7 +296,8 @@ const AdminTransaction = () => {
                         <option value="Pending">Pending</option>
                         <option value="Money Received">Money Received</option>
                         <option value="Transaction Started">Transaction Started</option>
-                        <option value="Payment Received">Payment Received</option>
+                        <option value="Completed">Completed</option>
+
                       </Select>
                     </td>
                     <td>
