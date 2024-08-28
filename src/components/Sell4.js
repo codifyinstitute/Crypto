@@ -237,7 +237,7 @@ const Sell4 = () => {
             <Value>{calculateReceivedAmount()}</Value>
           </InfoRow>
           <QRCodeContainer>
-            <QRCode><img src={`http://localhost:8000/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
+            <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
           </QRCodeContainer>
           <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
           <Button onClick={handleProceedClick}>Proceed - Buy ACH →</Button>
