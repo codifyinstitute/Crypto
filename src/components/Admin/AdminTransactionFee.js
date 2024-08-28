@@ -133,7 +133,7 @@ const AdminTransactionFee = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
+            const response = await fetch('https://crypto-anl6.onrender.com/static/put/66c445a358802d46d5d70dd4', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ const AdminTransactionFee = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
+            const response = await fetch('https://crypto-anl6.onrender.com/static/put/66c445a358802d46d5d70dd4', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ const AdminTransactionFee = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/static/put/66c445a358802d46d5d70dd4', {
+            const response = await fetch('https://crypto-anl6.onrender.com/static/put/66c445a358802d46d5d70dd4', {
                 method: 'PUT',
                 body: formData,
             });
@@ -249,7 +249,7 @@ const AdminTransactionFee = () => {
 
                             <Form onSubmit={handleQRCodeUpdate}>
                                 <FeeDisplay>Current QR Code:</FeeDisplay>
-                                <img src={`http://localhost:8000/uploads/${image}`} width='200px' alt="QR code" />
+                                <img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='200px' alt="QR code" />
                                 <label>
                                     <Paragraph>Update QR Code Image:</Paragraph>
                                     <FileInput
