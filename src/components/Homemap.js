@@ -105,11 +105,7 @@ const StatsContainer = styled.div`
 
   @media (max-width: 768px) {
     margin-top: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -118,12 +114,17 @@ const StatBox = styled.div`
   padding: 20px;
   border-radius: 5px;
   text-align: center;
-  flex: 1;
+  flex: 1 0 calc(25% - 20px);
   margin: 10px;
 
+  @media (max-width: 768px) {
+    flex: 1 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+
   @media (max-width: 480px) {
-    margin: 10px 0;
-    width: 80%;
+    flex: 1 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
   }
 `;
 
@@ -187,7 +188,7 @@ const App = () => {
           </StatBox>
           <StatBox>
             <h3>ALL</h3>
-            <p>Cryptocurrencies supported</p>
+            <p>Crypto currencies supported</p>
           </StatBox>
         </StatsContainer>
         <PaymentMethods>

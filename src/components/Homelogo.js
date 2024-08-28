@@ -2,30 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 
 const logos = [
-  { name: 'OKX', url: 'path_to_okx_logo.png' },
-  { name: 'Bitget', url: 'path_to_bitget_logo.png' },
-  { name: 'NEAR', url: 'path_to_near_logo.png' },
-  { name: 'Polygon', url: 'path_to_polygon_logo.png' },
-  { name: 'Arbitrum', url: 'path_to_arbitrum_logo.png' },
-  { name: 'ChainUP', url: 'path_to_chainup_logo.png' },
-  { name: 'Sui', url: 'path_to_sui_logo.png' },
-  { name: 'Token Pocket', url: 'path_to_tokenpocket_logo.png' },
-  { name: 'Bitget Wallet', url: 'path_to_bitget_wallet_logo.png' },
-  { name: 'Bitrue', url: 'path_to_bitrue_logo.png' },
-  { name: 'CELO', url: 'path_to_celo_logo.png' },
-  { name: 'Pionex', url: 'path_to_pionex_logo.png' },
-  { name: 'DODO', url: 'path_to_dodo_logo.png' },
-  { name: 'BingX', url: 'path_to_bingx_logo.png' },
-  { name: 'LBANK', url: 'path_to_lbank_logo.png' },
-  { name: 'MEXC', url: 'path_to_mexc_logo.png' },
-  { name: 'CoinTR', url: 'path_to_cointr_logo.png' },
-  { name: 'SaaSGo', url: 'path_to_saasgo_logo.png' },
-  { name: 'BEFI WALLET', url: 'path_to_befi_wallet_logo.png' },
-  { name: 'Bit.Store', url: 'path_to_bitstore_logo.png' },
+  { name: 'OKX', url: 'path_to_okx_logo.png', link: '#' },
+  { name: 'Bitget', url: 'path_to_bitget_logo.png', link: '#' },
+  { name: 'NEAR', url: 'path_to_near_logo.png', link: '#' },
+  { name: 'Polygon', url: 'path_to_polygon_logo.png', link: '#' },
+  { name: 'Arbitrum', url: 'path_to_arbitrum_logo.png', link: '#' },
+  { name: 'ChainUP', url: 'path_to_chainup_logo.png', link: '#' },
+  { name: 'Sui', url: 'path_to_sui_logo.png', link: '#' },
+  { name: 'Token Pocket', url: 'path_to_tokenpocket_logo.png', link: '#' },
+  { name: 'Bitget Wallet', url: 'path_to_bitget_wallet_logo.png', link: '#' },
+  { name: 'Bitrue', url: 'path_to_bitrue_logo.png', link: '#' },
+  { name: 'CELO', url: 'path_to_celo_logo.png', link: '#' },
+  { name: 'Pionex', url: 'path_to_pionex_logo.png', link: '#' },
+  { name: 'DODO', url: 'path_to_dodo_logo.png', link: '#' },
+  { name: 'BingX', url: 'path_to_bingx_logo.png', link: '#' },
+  { name: 'LBANK', url: 'path_to_lbank_logo.png', link: '#' },
+  { name: 'MEXC', url: 'path_to_mexc_logo.png', link: '#' },
+  { name: 'CoinTR', url: 'path_to_cointr_logo.png', link: '#' },
+  { name: 'SaaSGo', url: 'path_to_saasgo_logo.png', link: '#' },
+  { name: 'BEFI WALLET', url: 'path_to_befi_wallet_logo.png', link: '#' },
+  { name: 'Bit.Store', url: 'path_to_bitstore_logo.png', link: '#' },
 ];
 
 const Container = styled.div`
-  /* background-color: #000; */
   color: #fff;
   padding: 2rem;
   text-align: center;
@@ -42,9 +41,12 @@ const LogoGrid = styled.div`
   gap: 1rem;
   justify-items: center;
   align-items: center;
+  @media (max-width: 375px) {
+    grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  }
 `;
 
-const LogoWrapper = styled.div`
+const LogoWrapper = styled.a`
   background-color: #fff;
   border-radius: 8px;
   padding: 0.5rem;
@@ -53,6 +55,7 @@ const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 `;
 
 const Logo = styled.img`
@@ -83,7 +86,7 @@ const Web3Projects = () => {
       </Title>
       <LogoGrid>
         {logos.map((logo, index) => (
-          <LogoWrapper key={index}>
+          <LogoWrapper key={index} href={logo.link} target="_blank" rel="noopener noreferrer">
             <Logo src={logo.url} alt={logo.name} />
           </LogoWrapper>
         ))}
