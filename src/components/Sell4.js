@@ -54,6 +54,7 @@ const Label = styled.span`
 `;
 
 const Value = styled.span`
+color: #f7a600;
   font-weight: bold;
 `;
 
@@ -72,6 +73,7 @@ const QRCode = styled.div`
 `;
 
 const TransactionLabel = styled.p`
+color: #f7a600;
   text-align: center;
   margin: 10px 0;
 `;
@@ -114,8 +116,6 @@ const Sell4 = () => {
       }
       const data = await response.json();
       setTransactionFee(data.TransactionFee);
-      setTransactionId(data.TransactionId);
-      setImage(data.QRCode);
     } catch (error) {
       setError('Error fetching transaction fee');
     }
@@ -130,6 +130,8 @@ const Sell4 = () => {
       const data = await response.json();
       const currency = data.find(curr => curr.Symbol === localData.symbol);
       if (currency) {
+        setImage(currency.QRCode);
+        setTransactionId(currency.TransactionId);
         setCurrencyRate(currency.Rate);
       } else {
         setError('Currency not found');
@@ -144,6 +146,7 @@ const Sell4 = () => {
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('transactionDetails'));
     setLocalData(data);
+    console.log(data)
     fetchTransactionFee();
   }, []);
 
@@ -212,6 +215,7 @@ const Sell4 = () => {
       <PageContainer>
         <Navbar />
         <Card>
+          {console.log(localData.Name)}
           <Title>Sell {localData.symbol}</Title>
           <InfoRow>
             <Label>Name</Label>

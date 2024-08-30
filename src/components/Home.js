@@ -14,11 +14,34 @@ const Home = () => {
   const [usdt, setUsdt] = useState(1);
   const [isValid, setIsValid] = useState(true);
   const [currencies, setCurrencies] = useState([]);
+  const [transactionFee, setTransactionFee] = useState(0);
+  const [networkFee, setNetworkFee] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
   const navigate = useNavigate();
+
+  const fetchTransactionFee = async () => {
+    try {
+        const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data)
+        setTransactionFee(data.TransactionFee);
+        setNetworkFee(data.NetworkFee);
+    } catch (error) {
+        console.log(error)
+    } finally {
+        setLoading(false);
+    }
+};
+
+useEffect(() => {
+    fetchTransactionFee();
+}, []);
 
   useEffect(() => {
     axios
@@ -139,11 +162,11 @@ const Home = () => {
                                 </DetailRow>
                                 <DetailRow>
                                     <DetailLabel>Network fee</DetailLabel>
-                                    <DetailValue>A$9.40</DetailValue>
+                                    <DetailValue>₹{networkFee}</DetailValue>
                                 </DetailRow>
                                 <DetailRow>
                                     <DetailLabel>Processing fee</DetailLabel>
-                                    <DetailValue>A$21.13</DetailValue>
+                                    <DetailValue>₹{transactionFee}</DetailValue>
                                 </DetailRow>
                             </DetailsContent>
                         )}

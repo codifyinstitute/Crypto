@@ -25,9 +25,9 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 100%;
-  max-width: 400px; 
+  max-width: 480px; 
   color: black;
-  margin-top: 4%;
+  margin-top: 5%;
   margin-bottom: 20px;
 `;
 
@@ -45,14 +45,18 @@ const Logo = styled.div`
 `;
 
 const Subtitle = styled.h2`
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 20px;
 `;
+const Label = styled.label`
+font-size: 18px;
+`
+
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin:10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
@@ -60,8 +64,9 @@ const Input = styled.input`
 const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 20px;
+  margin: 10px auto;
 `;
 
 const Checkbox = styled.input`
@@ -75,6 +80,7 @@ const Button = styled.button`
   background-color: #ffa500;
   color: white;
   border: none;
+  font-size: 15px;
   border-radius: 5px;
   padding: 10px;
   width: 100%;
@@ -83,8 +89,10 @@ const Button = styled.button`
 `;
 
 const PoweredBy = styled.p`
-  font-size: 12px;
+  font-size: 13px;
   color: #666;
+  text-align: center;
+  margin: 15px;
 `;
 
 const LoadingSpinner = styled.div`
@@ -137,7 +145,7 @@ const Sell2 = () => {
           <Logo>LOGO</Logo>
           <Subtitle>Checkout with Moon Pay</Subtitle>
           <form>
-            <label>What is your email address?</label>
+            <Label>What is your email address?</Label>
             <Input
               type="email"
               placeholder="Enter your mail"

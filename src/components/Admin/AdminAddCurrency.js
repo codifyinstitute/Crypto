@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Styled components for AdminAddCurrency
 const DashboardContainer = styled.div`
@@ -20,6 +22,8 @@ const Content = styled.div`
   margin: 0;
   padding: 2rem;
   background: white;
+  max-height: 100vh;
+  overflow-y: auto; /* Enable vertical scrolling */
   margin-top: 4rem; /* Space for header on mobile */
 
   @media (min-width: 768px) {
@@ -75,13 +79,12 @@ const Button = styled.button`
 `;
 
 const TableContainer = styled.div`
-  overflow-y: auto; /* Enable vertical scrolling */
-  max-height: 500px; /* Fixed height to make the table scrollable */
   margin: 1.5rem auto; /* Center align the table container */
+  width: 100%; /* Ensure it takes full width */
 `;
 
 const Table = styled.table`
-  width: 100%;
+  width: 100%; /* Full width of the container */
   border-collapse: collapse; /* Collapse table borders */
 
   thead {
@@ -92,6 +95,7 @@ const Table = styled.table`
     padding: 0.75rem;
     text-align: left;
     border: 1px solid #ddd; /* Add border to table cells */
+    white-space: nowrap; /* Prevent cells from wrapping */
   }
 
   th {
@@ -208,6 +212,8 @@ const AdminAddCurrency = () => {
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
     const [rate, setRate] = useState('');
+    const [transactionId, setTransactionId] = useState('');
+    const [qrCode, setQrCode] = useState(null); // For QRCode file
     const [currencies, setCurrencies] = useState([]);
     const [filteredCurrencies, setFilteredCurrencies] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -225,17 +231,19 @@ const AdminAddCurrency = () => {
 
     const handleAddCurrency = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('Name', name);
+        formData.append('Symbol', symbol);
+        formData.append('Rate', rate);
+        formData.append('TransactionId', transactionId);
+        if (qrCode) {
+            formData.append('QRCode', qrCode); // Include QRCode if uploaded
+        }
+
         try {
             const response = await fetch('https://crypto-anl6.onrender.com/currencies/add', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Name: name,
-                    Symbol: symbol,
-                    Rate: rate
-                }),
+                body: formData,
             });
 
             if (!response.ok) {
@@ -243,14 +251,16 @@ const AdminAddCurrency = () => {
             }
 
             const data = await response.json();
-            alert('Currency added successfully');
+            toast.success('Currency added successfully');
             setName('');
             setSymbol('');
             setRate('');
+            setTransactionId('');
+            setQrCode(null); // Reset QRCode
             fetchCurrencies(); // Refresh the list after adding a new currency
         } catch (error) {
             console.error('Error adding currency:', error);
-            alert('Failed to add currency');
+            toast.error('Failed to add currency');
         }
     };
 
@@ -271,17 +281,19 @@ const AdminAddCurrency = () => {
 
     const handleEditCurrency = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('Name', name);
+        formData.append('Symbol', symbol);
+        formData.append('Rate', rate);
+        formData.append('TransactionId', transactionId);
+        if (qrCode) {
+            formData.append('QRCode', qrCode); // Include QRCode if changed
+        }
+
         try {
             const response = await fetch(`https://crypto-anl6.onrender.com/currencies/put/${editingCurrency._id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Name: name,
-                    Symbol: symbol,
-                    Rate: rate
-                }),
+                body: formData,
             });
 
             if (!response.ok) {
@@ -289,16 +301,18 @@ const AdminAddCurrency = () => {
             }
 
             const data = await response.json();
-            alert('Currency updated successfully');
+            toast.success('Currency updated successfully');
             setName('');
             setSymbol('');
             setRate('');
+            setTransactionId('');
+            setQrCode(null); // Reset QRCode
             setEditMode(false);
             setEditingCurrency(null);
             fetchCurrencies(); // Refresh the list after updating a currency
         } catch (error) {
             console.error('Error updating currency:', error);
-            alert('Failed to update currency');
+            toast.error('Failed to update currency');
         }
     };
 
@@ -312,28 +326,23 @@ const AdminAddCurrency = () => {
                 throw new Error('Network response was not ok');
             }
 
-            const data = await response.json();
-            alert('Currency deleted successfully');
+            toast.success('Currency deleted successfully');
             setDeleteMode(false);
             setCurrencyToDelete(null);
             fetchCurrencies(); // Refresh the list after deleting a currency
         } catch (error) {
             console.error('Error deleting currency:', error);
-            alert('Failed to delete currency');
+            toast.error('Failed to delete currency');
         }
     };
 
     const openEditModal = (currency) => {
-        setEditingCurrency(currency);
         setName(currency.Name);
         setSymbol(currency.Symbol);
         setRate(currency.Rate);
+        setTransactionId(currency.TransactionId);
+        setEditingCurrency(currency);
         setEditMode(true);
-    };
-
-    const closeEditModal = () => {
-        setEditMode(false);
-        setEditingCurrency(null);
     };
 
     const openDeleteModal = (currency) => {
@@ -341,17 +350,22 @@ const AdminAddCurrency = () => {
         setDeleteMode(true);
     };
 
-    const closeDeleteModal = () => {
+    const closeModals = () => {
+        setEditMode(false);
         setDeleteMode(false);
+        setEditingCurrency(null);
         setCurrencyToDelete(null);
     };
 
-    const handleSearch = (e) => {
-        const query = e.target.value.toLowerCase();
-        setSearchQuery(query);
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+        filterCurrencies(e.target.value);
+    };
+
+    const filterCurrencies = (query) => {
         const filtered = currencies.filter(currency =>
-            currency.Name.toLowerCase().includes(query) ||
-            currency.Symbol.toLowerCase().includes(query)
+            currency.Name.toLowerCase().includes(query.toLowerCase()) ||
+            currency.Symbol.toLowerCase().includes(query.toLowerCase())
         );
         setFilteredCurrencies(filtered);
     };
@@ -365,8 +379,7 @@ const AdminAddCurrency = () => {
             <Sidebar isOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Content>
                 <Section>
-                    <Title>Add Currency</Title>
-                    <Paragraph>Here you can add new currencies to the system.</Paragraph>
+                    <Title>Add New Currency</Title>
                     <Form onSubmit={handleAddCurrency}>
                         <Input
                             type="text"
@@ -390,48 +403,73 @@ const AdminAddCurrency = () => {
                             onChange={(e) => setRate(e.target.value)}
                             required
                         />
+                        <Input
+                            type="text"
+                            placeholder="Transaction ID"
+                            value={transactionId}
+                            onChange={(e) => setTransactionId(e.target.value)}
+                            required
+                        />
+                        <Input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setQrCode(e.target.files[0])} // Handle file input
+                        />
                         <Button type="submit">Add Currency</Button>
                     </Form>
-                    <Section>
-                        <Title>Existing Currencies</Title>
-                        <SearchInput
-                            type="text"
-                            placeholder="Search by Name or Symbol"
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                        <TableContainer>
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Symbol</th>
-                                        <th>Rate</th>
-                                        <th>Actions</th> {/* Add Actions column */}
+                </Section>
+
+                <Section>
+                    <Title>Currency List</Title>
+                    <SearchInput
+                        type="text"
+                        placeholder="Search by name or symbol"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                    <TableContainer>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Symbol</th>
+                                    <th>Rate</th>
+                                    <th>Transaction ID</th> {/* Add Transaction ID column */}
+                                    <th>QRCode</th> {/* Add QRCode column */}
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredCurrencies.map((currency) => (
+                                    <tr key={currency._id}>
+                                        <td>{currency.Name}</td>
+                                        <td>{currency.Symbol}</td>
+                                        <td>{currency.Rate}</td>
+                                        <td>{currency.TransactionId}</td> {/* Display Transaction ID */}
+                                        <td>
+                                            {currency.QRCode && (
+                                                <img
+                                                    src={`https://crypto-anl6.onrender.com/uploads/${currency.QRCode}`}
+                                                    alt="QRCode"
+                                                    width="50"
+                                                />
+                                            )}
+                                        </td>
+                                        <td>
+                                            <EditButton onClick={() => openEditModal(currency)}>Edit</EditButton>
+                                            <DeleteButton onClick={() => openDeleteModal(currency)}>Delete</DeleteButton>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {filteredCurrencies.map((currency) => (
-                                        <tr key={currency._id}>
-                                            <td>{currency.Name}</td>
-                                            <td>{currency.Symbol}</td>
-                                            <td>{currency.Rate}</td>
-                                            <td>
-                                                <EditButton onClick={() => openEditModal(currency)}>Edit</EditButton>
-                                                <DeleteButton onClick={() => openDeleteModal(currency)}>Delete</DeleteButton>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                        </TableContainer>
-                    </Section>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </TableContainer>
                 </Section>
 
                 {editMode && (
                     <Modal>
                         <ModalContent>
-                            <CloseButton onClick={closeEditModal}>Close</CloseButton>
+                            <CloseButton onClick={closeModals}>X</CloseButton>
                             <Title>Edit Currency</Title>
                             <Form onSubmit={handleEditCurrency}>
                                 <Input
@@ -456,6 +494,18 @@ const AdminAddCurrency = () => {
                                     onChange={(e) => setRate(e.target.value)}
                                     required
                                 />
+                                <Input
+                                    type="text"
+                                    placeholder="Transaction ID"
+                                    value={transactionId}
+                                    onChange={(e) => setTransactionId(e.target.value)}
+                                    required
+                                />
+                                <Input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setQrCode(e.target.files[0])} // Handle file input
+                                />
                                 <Button type="submit">Update Currency</Button>
                             </Form>
                         </ModalContent>
@@ -465,13 +515,16 @@ const AdminAddCurrency = () => {
                 {deleteMode && (
                     <Modal>
                         <ModalContent>
-                            <CloseButton onClick={closeDeleteModal}>Close</CloseButton>
+                            <CloseButton onClick={closeModals}>X</CloseButton>
                             <Title>Confirm Deletion</Title>
                             <Paragraph>Are you sure you want to delete this currency?</Paragraph>
                             <ConfirmButton onClick={handleDeleteCurrency}>Confirm</ConfirmButton>
                         </ModalContent>
                     </Modal>
                 )}
+
+                {/* Toast container for displaying notifications */}
+                <ToastContainer />
             </Content>
         </DashboardContainer>
     );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate ,useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import ind from './../assets/ind.jpeg'
@@ -333,13 +333,36 @@ const PolicyLink = styled.a`
 `;
 
 const DigitalAssetExchange = () => {
-  
+
   const location = useLocation();
   const [availableAssets, setAvailableAssets] = useState([]);
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [offerAmount, setOfferAmount] = useState(location.state?.amount || '');
   const [receiveEstimate, setReceiveEstimate] = useState('');
   const [refreshCountdown, setRefreshCountdown] = useState(30);
+  const [transactionFee, setTransactionFee] = useState(0);
+  const [networkFee, setNetworkFee] = useState(0);
+
+  const fetchTransactionFee = async () => {
+    try {
+        const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log(data)
+        setTransactionFee(data.TransactionFee);
+        setNetworkFee(data.NetworkFee);
+    } catch (error) {
+        console.log(error)
+    } finally {
+        setLoading(false);
+    }
+};
+
+useEffect(() => {
+    fetchTransactionFee();
+}, []);
 
   useEffect(() => {
     const fetchAssetData = async () => {
@@ -393,135 +416,139 @@ const DigitalAssetExchange = () => {
   };
 
   const [usdt, setUsdt] = useState(1);
-    const [isValid, setIsValid] = useState(true);
-    const [currencies, setCurrencies] = useState([]);
-    const [selectedCurrency, setSelectedCurrency] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
-    const navigate = useNavigate();
+  const [isValid, setIsValid] = useState(true);
+  const [currencies, setCurrencies] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get('https://crypto-anl6.onrender.com/currencies/all')
-            .then(response => {
-                setCurrencies(response.data);
-                setSelectedCurrency(response.data[0] || null);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching currencies:', error);
-                setLoading(false);
-            });
-    }, []);
+  useEffect(() => {
+    axios.get('https://crypto-anl6.onrender.com/currencies/all')
+      .then(response => {
+        setCurrencies(response.data);
+        setSelectedCurrency(response.data[0] || null);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching currencies:', error);
+        setLoading(false);
+      });
+  }, []);
 
-    const handleUsdtChange = (e) => {
-        const value = e.target.value;
-        setUsdt(value);
-        setIsValid(value && !isNaN(value) && Number(value) > 0);
-    };
+  const handleUsdtChange = (e) => {
+    const value = e.target.value;
+    setUsdt(value);
+    setIsValid(value && !isNaN(value) && Number(value) > 0);
+  };
 
-    const handleCurrencySelect = (currency) => {
-        setSelectedCurrency(currency);
-        setIsDropdownOpen(false);
-    };
+  const handleCurrencySelect = (currency) => {
+    setSelectedCurrency(currency);
+    setIsDropdownOpen(false);
+  };
 
-    const inr = selectedCurrency ? usdt * selectedCurrency.Rate : 0;
+  const inr = selectedCurrency ? usdt * selectedCurrency.Rate : 0;
 
-    const handleSellNowClick = () => {
-        if (isValid && selectedCurrency) {
-            const token = localStorage.getItem('token');
-            if (token) {
-                navigate('/Sell1', { state: { amount: usdt, symbol: selectedCurrency.Symbol } });
-            } else {
-                navigate('/Sell2');
-            }
-        }
-    };
+  const handleSellNowClick = () => {
+    if (isValid && selectedCurrency) {
+      localStorage.setItem('transactionDetails', JSON.stringify({
+        amountPay:usdt,
+        symbol: selectedCurrency ? selectedCurrency.Symbol : ''
+      }));
+      const token = localStorage.getItem('token');
+      if (token) {
+        navigate('/Sell3', { state: { amount: usdt, symbol: selectedCurrency.Symbol } });
+      } else {
+        navigate('/Sell2');
+      }
+    }
+  };
 
-    const toggleDetailsExpanded = () => {
-        setIsDetailsExpanded(!isDetailsExpanded);
-    };
+  const toggleDetailsExpanded = () => {
+    setIsDetailsExpanded(!isDetailsExpanded);
+  };
 
   return (
     <>
 
-<Navbar/>
+      <Navbar />
       <TradingEnvironment>
-      <ExchangeCard>
-      <InputContainer>
-      <FormTitle>Sell</FormTitle>
+        <ExchangeCard>
+          <InputContainer>
+        <FormTitle>Sell</FormTitle>
           <InputWrapper>
               <Input
-                  type="number"
-                  value={usdt}
-                  onChange={handleUsdtChange}
-                  placeholder="500"
+                type="number"
+                value={usdt}
+                onChange={handleUsdtChange}
+                placeholder="500"
               />
               <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px' }} />
-                  {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
-                  <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
+                <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px' }} />
+                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
+                <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
               </CurrencyToggle>
-          </InputWrapper>
-          {isDropdownOpen && (
+            </InputWrapper>
+            {isDropdownOpen && (
               <DropdownList>
-                  {currencies.map(currency => (
-                      <DropdownItem
-                          key={currency._id}
-                          onClick={() => handleCurrencySelect(currency)}
-                      >
-                          <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px', marginRight: '0.5rem' }} />
-                          {currency.Symbol}
-                      </DropdownItem>
-                  ))}
+                {currencies.map(currency => (
+                  <DropdownItem
+                    key={currency._id}
+                    onClick={() => handleCurrencySelect(currency)}
+                  >
+                    <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px', marginRight: '0.5rem' }} />
+                    {currency.Symbol}
+                  </DropdownItem>
+                ))}
               </DropdownList>
-          )}
-      </InputContainer>
-      <InputContainer>
-          <InputWrapper>
+            )}
+          </InputContainer>
+          <InputContainer>
+            <InputWrapper>
               <Input
-                  type="text"
-                  value={inr.toFixed(5)}
-                  readOnly
+                type="text"
+                value={inr.toFixed(5)}
+                readOnly
               />
               <CurrencyToggle disabled>
-                  <img src={ind} alt="India flag" style={{ width: '16px', height: '16px' }} />
-                  INR
+                <img src={ind} alt="India flag" style={{ width: '16px', height: '16px' }} />
+                INR
               </CurrencyToggle>
-          </InputWrapper>
-      </InputContainer>
-      <DetailsContainer>
-          <DetailsHeader onClick={toggleDetailsExpanded}>
+            </InputWrapper>
+          </InputContainer>
+          <DetailsContainer>
+            <DetailsHeader onClick={toggleDetailsExpanded}>
               <span>Transaction Details</span>
               {isDetailsExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          </DetailsHeader>
-          {isDetailsExpanded && (
+            </DetailsHeader>
+            {isDetailsExpanded && (
               <DetailsContent>
-                  <DetailRow>
-                      <DetailLabel>You get {inr.toFixed(5)} INR for A${usdt}</DetailLabel>
-                  </DetailRow>
-                  <DetailRow>
-                      <DetailLabel>{inr.toFixed(5)} INR @ A${selectedCurrency ? selectedCurrency.Rate : 'N/A'}</DetailLabel>
-                      <DetailValue>A${(usdt * (selectedCurrency ? selectedCurrency.Rate : 1)).toFixed(2)}</DetailValue>
-                  </DetailRow>
-                  <DetailRow>
-                      <DetailLabel>Network fee</DetailLabel>
-                      <DetailValue>A$9.40</DetailValue>
-                  </DetailRow>
-                  <DetailRow>
-                      <DetailLabel>Processing fee</DetailLabel>
-                      <DetailValue>A$21.13</DetailValue>
-                  </DetailRow>
+                <DetailRow>
+                  <DetailLabel>You get {inr.toFixed(5)} INR for A${usdt}</DetailLabel>
+                </DetailRow>
+                <DetailRow>
+                  <DetailLabel>{inr.toFixed(5)} INR @ A${selectedCurrency ? selectedCurrency.Rate : 'N/A'}</DetailLabel>
+                  <DetailValue>A${(usdt * (selectedCurrency ? selectedCurrency.Rate : 1)).toFixed(2)}</DetailValue>
+                </DetailRow>
+                <DetailRow>
+                  <DetailLabel>Network fee</DetailLabel>
+                  <DetailValue>₹{networkFee}</DetailValue>
+                </DetailRow>
+                <DetailRow>
+                  <DetailLabel>Processing fee</DetailLabel>
+                  <DetailValue>₹{transactionFee}</DetailValue>
+                </DetailRow>
               </DetailsContent>
-          )}
-      </DetailsContainer>
+            )}
+          </DetailsContainer>
 
-      <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
-          Continue
-          <ArrowIcon>→</ArrowIcon>
-      </ContinueButton>
-      <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
-  </ExchangeCard>
+          <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
+            Continue
+            <ArrowIcon>→</ArrowIcon>
+          </ContinueButton>
+          <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
+        </ExchangeCard>
 
         {selectedAsset && (
           <MarketDataPanel>
@@ -557,9 +584,9 @@ const DigitalAssetExchange = () => {
             <PolicyLink href="#">Learn about our tiered pricing policy</PolicyLink>
           </MarketDataPanel>
         )}
-        
+
       </TradingEnvironment>
-<HomeContact/>
+      <HomeContact />
       <Footer />
     </>
   );
