@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import image1 from '../assets/image1.png'
+import image2 from '../assets/image2.png'
 
 const logos = [
-  { name: 'OKX', url: 'path_to_okx_logo.png', link: '#' },
-  { name: 'Bitget', url: 'path_to_bitget_logo.png', link: '#' },
+  { name: 'OKX', url:image1, link: '#' },
+  { name: 'Bitget', url: image2, link: '#' },
   { name: 'NEAR', url: 'path_to_near_logo.png', link: '#' },
   { name: 'Polygon', url: 'path_to_polygon_logo.png', link: '#' },
   { name: 'Arbitrum', url: 'path_to_arbitrum_logo.png', link: '#' },
@@ -49,7 +51,6 @@ const LogoGrid = styled.div`
 const LogoWrapper = styled.a`
   background-color: #fff;
   border-radius: 8px;
-  padding: 0.5rem;
   width: 120px;
   height: 40px;
   display: flex;
@@ -59,9 +60,10 @@ const LogoWrapper = styled.a`
 `;
 
 const Logo = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  padding: 5px; // Add some padding to prevent the image from touching the edges
 `;
 
 const ButtonContainer = styled.div`

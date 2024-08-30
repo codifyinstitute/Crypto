@@ -16,7 +16,6 @@ const Container = styled.div`
   color: #1f2937;
   padding: 24px;
   border-radius: 12px;
-  margin: 20px;
   width: 480px;
   font-family: 'Inter', Arial, sans-serif;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -24,7 +23,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
 `;
