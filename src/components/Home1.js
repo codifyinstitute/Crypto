@@ -118,6 +118,8 @@ const TestimonialCard = styled(Card)`
   align-items: flex-start;
   gap: 1rem;
   text-align: left;
+  color: black;
+  background-color: white;
   min-width: 200px; /* Set minimum width to 200px on small screens */
 
   @media (max-width: 768px) {
@@ -132,6 +134,8 @@ const TestimonialCard = styled(Card)`
 const Avatar = styled.div`
   background-color: #8247e5;
   border-radius: 50%;
+  border: 2px black solid;
+  margin-top: -10%;
   width: 50px;
   height: 50px;
   flex-shrink: 0;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -13,7 +13,6 @@ const NavbarContainer = styled.nav`
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 768px) {
@@ -25,7 +24,7 @@ const NavbarContainer = styled.nav`
     border: 1px white solid;
     width: 98%;
     margin: 1%;
-    background-color: #000; /* Darker background for the bottom bar */
+    background-color: #000;
   }
 `;
 
@@ -69,7 +68,7 @@ const NavLinks = styled.ul`
       text-decoration: none;
       padding: 10px 20px;
       transition: background-color 0.3s ease;
-      border-radius: 12px; /* Rounded corners */
+      border-radius: 12px;
       font-size: 16px;
 
       &:hover,
@@ -99,16 +98,21 @@ const NavLinks = styled.ul`
 `;
 
 const Navbar = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const token = localStorage.getItem('token');
 
-  const handleExchangeClick = () => {
+  const handleExchangeClick = (e) => {
+    e.preventDefault(); // Prevent default link behavior
     if (token) {
-      navigate('/Sell1'); // Redirect to Sell1 if logged in
+      navigate('/Sell1');
     } else {
-      navigate('/sell2'); // Redirect to Sell2 if not logged in
+      navigate('/sell2');
     }
   };
+
+  // Determine if the current path is one of the Sell pages
+  const isExchangeActive = ["/sell1", "/sell2", "/sell3", "/sell4", "/sell5"].includes(location.pathname.toLowerCase());
 
   return (
     <NavbarContainer>
@@ -119,8 +123,14 @@ const Navbar = () => {
         <li>
           <NavLink exact to="/" activeClassName="active">Home</NavLink>
         </li>
-        <li onClick={handleExchangeClick}>
-          <NavLink to="#" >Exchange</NavLink> {/* Handle click with handleExchangeClick */}
+        <li>
+          <NavLink
+            to={isExchangeActive ? location.pathname : "/sell3"}
+            className={isExchangeActive ? "active" : ""}
+            onClick={handleExchangeClick}
+          >
+            Exchange
+          </NavLink>
         </li>
         <li>
           {token ? (

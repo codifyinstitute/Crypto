@@ -4,11 +4,15 @@ import Home from './Home';
 import Home1 from './Home1';
 import Homemap from './Homemap';
 import Homelogo from './Homelogo';
+import Homelogo2 from './Homelogo2';
 import HomeContact1 from './HomeContact1';
 import Footer from './Footer';
 import GlobeComponent from './GlobeComponent';
 import Navbar from './Navbar';
 import Mobile from './Mobile';
+import Wazir from './Wazir';
+import Customer from './Customer';
+import Numbers from './Numbers';
 
 const GlobeContainer = styled.div`
   width: 100%;
@@ -57,13 +61,16 @@ const HomeContainer = () => {
     <GlobeContainer>
       <Navbar />
       <GlobeWrapper>
-        <GlobeComponent />
+  { /*     <GlobeComponent />*/}
       </GlobeWrapper>
       <ContentWrapper>
         <Home />
-        <Home1 />
+        <Wazir/>
+        <Customer />
         <Homemap />
+        <Numbers/>
         <Homelogo />
+        <Homelogo2/>
         <HomeContact1 />
         <Mobile />
       </ContentWrapper>

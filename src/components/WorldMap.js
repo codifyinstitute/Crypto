@@ -26,15 +26,6 @@ const MapContainer = styled.div`
 const StyledWorldMap = styled(WorldMap)`
   width: 100%;
   height: 100%;
-  
-  .land {
-    fill: white;
-    transition: fill 0.3s;
-  }
-
-  .selected-country {
-    fill: #ffa500;
-  }
 `;
 
 const Tooltip = styled.div`
@@ -52,24 +43,81 @@ const CustomWorldMap = () => {
   const [tooltipContent, setTooltipContent] = useState('');
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
-  const allCountryCodes = ["af","al","dz","ao","ar","am","au","at","az","bs","bh","bd","by","be","bz","bj","bt","bo","ba","bw","br","bn","bg","bf","bi","kh","cm","ca","cf","td","cl","cn","co","cg","cd","cr","hr","cu","cy","cz","ci","dk","dj","do","ec","eg","sv","gq","er","ee","et","fj","fi","fr","ga","gm","ge","de","gh","gr","gt","gn","gw","gy","ht","hn","hu","is","in","id","ir","iq","ie","il","it","jm","jp","jo","kz","ke","kp","kr","kw","kg","la","lv","lb","ls","lr","ly","lt","lu","mk","mg","mw","my","ml","mr","mx","md","mn","me","ma","mz","mm","na","np","nl","nz","ni","ne","ng","no","om","pk","pa","pg","py","pe","ph","pl","pt","qa","ro","ru","rw","sa","sn","rs","sl","sg","sk","si","sb","so","za","ss","es","lk","sd","sr","sz","se","ch","sy","tw","tj","tz","th","tl","tg","tt","tn","tr","tm","ug","ua","ae","gb","us","uy","uz","ve","vn","ye","zm","zw"];
-  
-  const data = allCountryCodes.map(code => ({ country: code, value: 1 }));
+  const data = [
+    { country: "us", color: "orange" }, { country: "ca", color: "orange" },
+    { country: "br", color: "orange" }, { country: "ru", color: "white" },
+    { country: "cn", color: "orange" }, { country: "au", color: "white" },
+    { country: "in", color: "orange" }, { country: "za", color: "white" },
+    { country: "eg", color: "orange" }, { country: "jp", color: "white" },
+    { country: "de", color: "orange" }, { country: "fr", color: "white" },
+    { country: "gb", color: "orange" }, { country: "it", color: "white" },
+    { country: "es", color: "orange" }, { country: "mx", color: "white" },
+    { country: "ar", color: "orange" }, { country: "cl", color: "white" },
+    { country: "co", color: "orange" }, { country: "pe", color: "white" },
+    { country: "ve", color: "orange" }, { country: "kr", color: "white" },
+    { country: "kp", color: "orange" }, { country: "vn", color: "orange" },
+    { country: "th", color: "orange" }, { country: "id", color: "white" },
+    { country: "my", color: "orange" }, { country: "ph", color: "white" },
+    { country: "ng", color: "orange" }, { country: "ke", color: "white" },
+    { country: "et", color: "orange" }, { country: "tz", color: "white" },
+    { country: "gh", color: "orange" }, { country: "dz", color: "white" },
+    { country: "ma", color: "orange" }, { country: "sd", color: "white" },
+    { country: "iq", color: "orange" }, { country: "ir", color: "white" },
+    { country: "tr", color: "orange" }, { country: "sy", color: "white" },
+    { country: "sa", color: "orange" }, { country: "ae", color: "white" },
+    { country: "pk", color: "orange" }, { country: "af", color: "white" },
+    { country: "bd", color: "orange" }, { country: "lk", color: "white" },
+    { country: "np", color: "orange" }, { country: "bt", color: "white" },
+    { country: "mn", color: "orange" }, { country: "uz", color: "white" },
+    { country: "kz", color: "orange" }, { country: "tj", color: "white" },
+    { country: "kg", color: "orange" }, { country: "tm", color: "white" },
+    { country: "pl", color: "orange" }, { country: "cz", color: "white" },
+    { country: "sk", color: "orange" }, { country: "hu", color: "white" },
+    { country: "ro", color: "orange" }, { country: "bg", color: "white" },
+    { country: "gr", color: "orange" }, { country: "rs", color: "white" },
+    { country: "hr", color: "orange" }, { country: "si", color: "white" },
+    { country: "at", color: "orange" }, { country: "ch", color: "white" },
+    { country: "nl", color: "orange" }, { country: "be", color: "white" },
+    { country: "lu", color: "orange" }, { country: "dk", color: "white" },
+    { country: "se", color: "orange" }, { country: "no", color: "white" },
+    { country: "fi", color: "orange" }, { country: "ee", color: "white" },
+    { country: "lv", color: "orange" }, { country: "lt", color: "white" },
+    { country: "ua", color: "orange" }, { country: "by", color: "white" },
+    { country: "md", color: "orange" }, { country: "ge", color: "white" },
+    { country: "az", color: "orange" }, { country: "am", color: "white" },
+    { country: "il", color: "orange" }, { country: "jo", color: "white" },
+    { country: "lb", color: "orange" }, { country: "cy", color: "white" },
+    { country: "qa", color: "orange" }, { country: "bh", color: "white" },
+    { country: "kw", color: "orange" }, { country: "om", color: "white" },
+    { country: "ye", color: "orange" }, { country: "jo", color: "white" },
+    { country: "mu", color: "orange" }, { country: "mg", color: "white" },
+    { country: "zm", color: "orange" }, { country: "zw", color: "white" },
+    { country: "na", color: "orange" }, { country: "bw", color: "white" },
+    { country: "sz", color: "orange" }, { country: "ls", color: "white" },
+    { country: "ao", color: "orange" }, { country: "mz", color: "white" },
+    { country: "zm", color: "orange" }, { country: "zm", color: "white" },
+    // Add more countries as needed
+  ];
 
   const handleHover = (event, countryName, isoCode, value, prefix, suffix) => {
     setTooltipContent(countryName);
     setTooltipPosition({ x: event.clientX, y: event.clientY });
   };
 
+  const styleFunction = (context) => {
+    const countryData = data.find((item) => item.country === context.countryCode.toLowerCase());
+    return {
+      fill: countryData ? countryData.color : 'white',
+      stroke: 'black',
+      strokeWidth: 0.5,
+    };
+  };
+
   return (
     <MapContainer>
       <StyledWorldMap
-        data={data}
-        styleFunction={() => ({
-          fill: '#ffa500',
-          stroke: 'black',
-          strokeWidth: 0.5,
-        })}
+        data={data.map(item => ({ country: item.country.toUpperCase(), value: 1 }))}
+        styleFunction={styleFunction}
         backgroundColor="transparent"
         onHover={handleHover}
       />

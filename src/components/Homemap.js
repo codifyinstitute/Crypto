@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import Marquee from 'react-fast-marquee';
 import WorldMap from './WorldMap';
+import Numbers from './Numbers';
+
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -71,7 +74,7 @@ const TalkButton = styled.button`
 `;
 
 const MapContainer = styled.div`
-  width: 100%;
+  width: 1200px;
   height: auto;
   margin: 20px auto;
   position: relative;
@@ -173,24 +176,7 @@ const App = () => {
             </TooltipContainer>
           )}
         </MapContainer>
-        <StatsContainer>
-          <StatBox>
-            <h3>170+</h3>
-            <p>Supported countries</p>
-          </StatBox>
-          <StatBox>
-            <h3>50+</h3>
-            <p>Fiat currencies</p>
-          </StatBox>
-          <StatBox>
-            <h3>300+</h3>
-            <p>Fiat payment channels</p>
-          </StatBox>
-          <StatBox>
-            <h3>ALL</h3>
-            <p>Crypto currencies supported</p>
-          </StatBox>
-        </StatsContainer>
+
         <PaymentMethods>
           <Marquee gradient={false} speed={50}>
             {/* Replace with actual logo URLs */}
