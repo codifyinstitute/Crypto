@@ -17,10 +17,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -33,6 +38,7 @@ const Title = styled.h1`
 
   span {
     color: #ffa500;
+   
   }
 
   @media (max-width: 768px) {
@@ -47,6 +53,7 @@ const Title = styled.h1`
 const Description = styled.p`
   margin-bottom: 20px;
   font-size: 1.2em;
+  width: 80%;
 
   @media (max-width: 768px) {
     font-size: 1em;
@@ -177,14 +184,7 @@ const App = () => {
           )}
         </MapContainer>
 
-        <PaymentMethods>
-          <Marquee gradient={false} speed={50}>
-            {/* Replace with actual logo URLs */}
-            <PaymentLogo src="path/to/visa-logo.png" alt="Visa" />
-            <PaymentLogo src="path/to/mastercard-logo.png" alt="Mastercard" />
-            {/* Add more payment logos here */}
-          </Marquee>
-        </PaymentMethods>
+     
       </Container>
     </>
   );

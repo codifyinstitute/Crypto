@@ -64,7 +64,6 @@ const Home = () => {
     return (
         <Container>
             <ContentSection>
-                <Left>
                 <Title>Discover Your Dream Property with Estatein</Title>
                 <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
                 <ExchangeRateBox>
@@ -72,7 +71,6 @@ const Home = () => {
                     <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
                     <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
                 </ExchangeRateBox>
-                </Left>
             </ContentSection>
             <ExchangeSection>
                 <ExchangeCard>
@@ -159,6 +157,7 @@ export default Home;
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
+  width: 100%;
     align-items: stretch;
     background-color: #000000;
     color: white;
@@ -176,20 +175,23 @@ const ContentSection = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+  
+   
 
     @media (max-width: 1024px) {
         width: 100%;
     }
 `;
-const Left =styled.div`
-width: 70%;
-`
+
 const Title = styled.h1`
-    font-size:2.4rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
+    width: 80% ;
 
     @media (max-width: 768px) {
         font-size: 2.5rem;
+        width: auto;
     }
 `;
 
@@ -197,6 +199,7 @@ const Subtitle = styled.p`
     font-size: 1rem;
     color: #888;
     margin-bottom: 2rem;
+    width: 80% ;
 `;
 
 const ExchangeRateBox = styled.div`
@@ -205,8 +208,10 @@ const ExchangeRateBox = styled.div`
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
     border: 1px orange solid;
+    width: 60% ;
 `;
 
 const RefreshText = styled.p`
@@ -232,7 +237,7 @@ const ExchangeSection = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #1a1a1a;
-    padding: 2rem;
+    /* padding: 2rem; */
 
     @media (max-width: 1024px) {
         width: 100%;

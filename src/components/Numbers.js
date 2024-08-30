@@ -1,15 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DollarSign, Euro, Bitcoin } from 'lucide-react';
+import Marquee from 'react-fast-marquee';
+
 
 const DashboardContainer = styled.div`
   background: linear-gradient(to right, #1a202c, #2d3748, #4a5568);
   color: white;
   padding: 1rem;
+  width: 80%;
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  
 `;
 
+const Main = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+`;
 const StatsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -63,6 +75,24 @@ const IconWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
+const PaymentMethods = styled.div`
+  margin-top: 20px;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    margin-top: 15px;
+  }
+`;
+
+const PaymentLogo = styled.img`
+  height: 30px;
+  margin: 0 10px;
+
+  @media (max-width: 480px) {
+    height: 25px;
+    margin: 0 8px;
+  }
+`;
 
 const StyledIcon = styled.div`
   margin-bottom: 0.25rem;
@@ -89,6 +119,7 @@ const StatItem = ({ title, value, icons }) => (
 
 const StatsDashboard = () => {
   return (
+    <Main>
     <DashboardContainer>
       <StatsWrapper>
         <StatItem
@@ -112,7 +143,19 @@ const StatsDashboard = () => {
           icons={[Bitcoin, Euro, Bitcoin]}
         />
       </StatsWrapper>
+
+    
     </DashboardContainer>
+
+    <PaymentMethods>
+    <Marquee gradient={false} speed={50}>
+      {/* Replace with actual logo URLs */}
+      <PaymentLogo src="path/to/visa-logo.png" alt="Visa" />
+      <PaymentLogo src="path/to/mastercard-logo.png" alt="Mastercard" />
+      {/* Add more payment logos here */}
+    </Marquee>
+  </PaymentMethods>
+    </Main>
   );
 };
 
