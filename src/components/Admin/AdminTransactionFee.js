@@ -92,6 +92,8 @@ const AdminTransactionFee = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [transactionFee, setTransactionFee] = useState(0);
     const [transactionFeeFix, setTransactionFeeFix] = useState(0);
+    const [networkFee, setNetworkFee] = useState(0);
+    const [networkFeeFix, setNetworkFeeFix] = useState(0);
     const [transactionId, setTransactionId] = useState('');
     const [image, setImage] = useState("");
     const [file, setFile] = useState(null);
@@ -115,8 +117,10 @@ const AdminTransactionFee = () => {
             console.log(data)
             setTransactionFee(data.TransactionFee);
             setTransactionFeeFix(data.TransactionFee);
-            setTransactionId(data.TransactionId);
-            setImage(data.QRCode);
+            setNetworkFee(data.NetworkFee);
+            setNetworkFeeFix(data.NetworkFee);
+            // setTransactionId(data.TransactionId);
+            // setImage(data.QRCode);
         } catch (error) {
             setError('Error fetching transaction fee');
         } finally {
@@ -146,6 +150,32 @@ const AdminTransactionFee = () => {
             }
 
             alert('Transaction fee updated successfully');
+            fetchTransactionFee();
+        } catch (error) {
+            setError('Error updating transaction fee');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleNetworkFeeUpdate = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch('https://crypto-anl6.onrender.com/static/put/66c445a358802d46d5d70dd4', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ NetworkFee: networkFee }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            alert('Network fee updated successfully');
             fetchTransactionFee();
         } catch (error) {
             setError('Error updating transaction fee');
@@ -222,7 +252,7 @@ const AdminTransactionFee = () => {
                     ) : (
                         <>
                             <Form onSubmit={handleFeeUpdate}>
-                                <FeeDisplay>Current Fee: ₹{transactionFeeFix}</FeeDisplay>
+                                <FeeDisplay>Current Processing Fee: ₹{transactionFeeFix}</FeeDisplay>
                                 <label>
                                     <Paragraph>Update Fee:</Paragraph>
                                     <Input
@@ -234,7 +264,22 @@ const AdminTransactionFee = () => {
                                 <Button type="submit">Update Fee</Button>
                             </Form>
 
-                            <Form onSubmit={handleTransactionIdUpdate}>
+                            <Form onSubmit={handleNetworkFeeUpdate}>
+                                <FeeDisplay>Current Network Fee: ₹{networkFeeFix}</FeeDisplay>
+                                <label>
+                                    <Paragraph>Update Fee:</Paragraph>
+                                    <Input
+                                        type="number"
+                                        value={networkFee}
+                                        onChange={(e) => setNetworkFee(e.target.value)}
+                                    />
+                                </label>
+                                <Button type="submit">Update Fee</Button>
+                            </Form>
+
+
+
+                            {/* <Form onSubmit={handleTransactionIdUpdate}>
                                 <FeeDisplay>Current Transaction ID: {transactionId}</FeeDisplay>
                                 <label>
                                     <Paragraph>Update Transaction ID:</Paragraph>
@@ -258,7 +303,7 @@ const AdminTransactionFee = () => {
                                     />
                                 </label>
                                 <Button type="submit">Update QR Code</Button>
-                            </Form>
+                            </Form> */}
                         </>
                     )}
                 </Section>
