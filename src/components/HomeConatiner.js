@@ -13,6 +13,7 @@ import Mobile from './Mobile';
 import Wazir from './Wazir';
 import Customer from './Customer';
 import Numbers from './Numbers';
+import WorldMap from './WorldMap'; // Import your CustomWorldMap component
 
 const GlobeContainer = styled.div`
   width: 100%;
@@ -34,7 +35,6 @@ const GlobeWrapper = styled.div`
 const ContentWrapper = styled.div`
   position: relative;
   z-index: 2;
-  padding: 5%;
   color: white;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,6 @@ const ContentWrapper = styled.div`
   @media (max-width: 768px) {
     padding: 3%;
     height: fit-content;
-    /* margin-bottom: 100%; */
     margin-bottom: 60rem;
   }
 `;
@@ -61,16 +60,18 @@ const HomeContainer = () => {
     <GlobeContainer>
       <Navbar />
       <GlobeWrapper>
-  { /*     <GlobeComponent />*/}
+        {/* Uncomment this if you want to display the Globe component */}
+        {/* <GlobeComponent /> */}
       </GlobeWrapper>
       <ContentWrapper>
         <Home />
-        <Wazir/>
+        <Wazir />
         <Customer />
         <Homemap />
-        <Numbers/>
+       {/* Include your CustomWorldMap component here */}
+        <Numbers />
         <Homelogo />
-        <Homelogo2/>
+        <Homelogo2 />
         <HomeContact1 />
         <Mobile />
       </ContentWrapper>

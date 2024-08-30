@@ -16,19 +16,30 @@ const PageContainer = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
-  width: 100%;
-  width: 480px;
-  margin-top: 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 480px;
+    height: 678px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5%;
+
+    @media (max-width: 480px) {
+        padding: 1rem;
+        width: 90%;
+        height: auto;
+    }
 `;
 
 const Title = styled.h2`
   color: #f7a600;
   margin-top: 0;
   margin-bottom: 20px;
+  font-size: 1.9rem;
   text-align: center;
 `;
 

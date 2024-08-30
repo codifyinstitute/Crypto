@@ -6,16 +6,23 @@ const Container = styled.div`
   color: white;
   padding: 2rem;
   font-family: Arial, sans-serif;
+  width: 80%;
 `;
 
 const HappyCustomerSection = styled.section`
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+
+align-items: center;
+justify-content: center;
 `;
 
 const SliderContainer = styled.div`
   position: relative;
   overflow: hidden;
-  width: 100%;
+
+  width: 80%;
   @media (max-width: 321px) {
     flex-direction: column;
     align-items: center;
@@ -62,6 +69,10 @@ const TestimonialCard = styled.div`
     text-align: center;
     width: 100%;
     margin-top: 5%;
+  }
+  @media (max-width: 1024px) {
+
+    margin-top: 15%;
   }
 
 `;

@@ -13,6 +13,12 @@ const PageContainer = styled.div`
   flex-direction: column;
   min-height: 100vh;
   background-color: #1a1a1a;
+  @media (max-width: 480px) {
+
+     display: flex;
+     align-items: center;
+     justify-content: center;
+    }
 `;
 
 const FormWrapper = styled.div`
@@ -24,26 +30,30 @@ const FormWrapper = styled.div`
 `;
 
 const FormContainer = styled.div`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 480px;
-  margin-top: 5%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  color: #333;
+    background-color: white;
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 480px;
+    height: 678px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5%;
 
-  @media (max-width: 450px) {
-    padding: 1.5rem;
-  }
+    @media (max-width: 480px) {
+        padding: 1rem;
+        width: auto;
+        height: auto;
+    }
 `;
 
 const FormTitle = styled.h2`
   color: #f7a600;
   margin-top: 0;
+  font-size: 1.9rem;
   text-align: center;
-  padding: 10px;
 `;
 
 const FormSection = styled.div`
@@ -100,10 +110,15 @@ const CardsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+ 
+  @media (max-width: 480px) {
+     width: 90%;
+  
+    }
 `;
 
 const Card = styled.div`
-  width: 30%;
+  width: 480px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -117,6 +132,8 @@ const Card = styled.div`
 const CardTitle = styled.h4`
   color: #f7a600;
   margin-top: 0;
+  text-align: center;
+  
 `;
 
 const Sell3 = () => {

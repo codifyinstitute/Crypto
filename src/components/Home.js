@@ -64,145 +64,107 @@ const Home = () => {
     setIsDetailsExpanded(!isDetailsExpanded);
   };
 
-  return (
-    <Container>
-      <ContentSection>
-        <Left>
-          <Title>Discover Your Dream Property with Estatein</Title>
-          <Subtitle>
-            Your journey to finding the perfect property begins here. Explore
-            our listings to find the home that matches your dreams.
-          </Subtitle>
-          <ExchangeRateBox>
-            <RefreshText>Automatic refresh after 30s</RefreshText>
-            <RateValue>
-              {selectedCurrency ? selectedCurrency.Rate : "N/A"}
-            </RateValue>
-            <RateLabel>
-              1 USDT = {selectedCurrency ? selectedCurrency.Rate : "N/A"}
-            </RateLabel>
-          </ExchangeRateBox>
-        </Left>
-      </ContentSection>
-      <ExchangeSection>
-        <ExchangeCard>
-          <CardHeader>Sell</CardHeader>
-
-          <InputContainer>
-            <InputWrapper>
-              <Input
-                type="number"
-                value={usdt}
-                onChange={handleUsdtChange}
-                placeholder="500"
-              />
-              <CurrencyToggle
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              >
-                <img
-                  src={usdtt}
-                  alt="USDT"
-                  style={{ width: "16px", height: "16px" }}
-                />
-                {selectedCurrency ? selectedCurrency.Symbol : "Select"}
-                <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
-              </CurrencyToggle>
-            </InputWrapper>
-            {isDropdownOpen && (
-              <DropdownList>
-                {currencies.map((currency) => (
-                  <DropdownItem
-                    key={currency._id}
-                    onClick={() => handleCurrencySelect(currency)}
-                  >
-                    <img
-                      src={usdtt}
-                      alt="USDT"
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                        marginRight: "0.5rem",
-                      }}
-                    />
-                    {currency.Symbol}
-                  </DropdownItem>
-                ))}
-              </DropdownList>
-            )}
-          </InputContainer>
-          <InputContainer>
-            <InputWrapper>
-              <Input type="text" value={inr.toFixed(5)} readOnly />
-              <CurrencyToggle disabled>
-                <img
-                  src={ind}
-                  alt="India flag"
-                  style={{ width: "16px", height: "16px" }}
-                />
-                INR
-              </CurrencyToggle>
-            </InputWrapper>
-          </InputContainer>
-          <DetailsContainer>
-            <DetailsHeader onClick={toggleDetailsExpanded}>
-              <span>Transaction Details</span>
-              {isDetailsExpanded ? (
-                <ChevronUp size={20} />
-              ) : (
-                <ChevronDown size={20} />
-              )}
-            </DetailsHeader>
-            {isDetailsExpanded && (
-              <DetailsContent>
-                <DetailRow>
-                  <DetailLabel>
-                    You get {inr.toFixed(5)} INR for A${usdt}
-                  </DetailLabel>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>
-                    {inr.toFixed(5)} INR @ A$
-                    {selectedCurrency ? selectedCurrency.Rate : "N/A"}
-                  </DetailLabel>
-                  <DetailValue>
-                    A$
-                    {(
-                      usdt * (selectedCurrency ? selectedCurrency.Rate : 1)
-                    ).toFixed(2)}
-                  </DetailValue>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>Network fee</DetailLabel>
-                  <DetailValue>A$9.40</DetailValue>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>Processing fee</DetailLabel>
-                  <DetailValue>A$21.13</DetailValue>
-                </DetailRow>
-              </DetailsContent>
-            )}
-          </DetailsContainer>
-
-          <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
-            Continue
-            <ArrowIcon>→</ArrowIcon>
-          </ContinueButton>
-          <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
-        </ExchangeCard>
-      </ExchangeSection>
-    </Container>
-  );
+    return (
+        <Container>
+            <ContentSection>
+                <Title>Discover Your Dream Property with Estatein</Title>
+                <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
+                <ExchangeRateBox>
+                    <RefreshText>Automatic refresh after 30s</RefreshText>
+                    <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
+                    <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
+                </ExchangeRateBox>
+            </ContentSection>
+            <ExchangeSection>
+                <ExchangeCard>
+                    <InputContainer>
+                        <InputWrapper>
+                            <Input
+                                type="number"
+                                value={usdt}
+                                onChange={handleUsdtChange}
+                                placeholder="500"
+                            />
+                            <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px' }} />
+                                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
+                                <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
+                            </CurrencyToggle>
+                        </InputWrapper>
+                        {isDropdownOpen && (
+                            <DropdownList>
+                                {currencies.map(currency => (
+                                    <DropdownItem
+                                        key={currency._id}
+                                        onClick={() => handleCurrencySelect(currency)}
+                                    >
+                                        <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px', marginRight: '0.5rem' }} />
+                                        {currency.Symbol}
+                                    </DropdownItem>
+                                ))}
+                            </DropdownList>
+                        )}
+                    </InputContainer>
+                    <InputContainer>
+                        <InputWrapper>
+                            <Input
+                                type="text"
+                                value={inr.toFixed(5)}
+                                readOnly
+                            />
+                            <CurrencyToggle disabled>
+                                <img src={ind} alt="India flag" style={{ width: '16px', height: '16px' }} />
+                                INR
+                            </CurrencyToggle>
+                        </InputWrapper>
+                    </InputContainer>
+                    <DetailsContainer>
+                        <DetailsHeader onClick={toggleDetailsExpanded}>
+                            <span>Transaction Details</span>
+                            {isDetailsExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        </DetailsHeader>
+                        {isDetailsExpanded && (
+                            <DetailsContent>
+                                <DetailRow>
+                                    <DetailLabel>You get {inr.toFixed(5)} INR for A${usdt}</DetailLabel>
+                                </DetailRow>
+                                <DetailRow>
+                                    <DetailLabel>{inr.toFixed(5)} INR @ A${selectedCurrency ? selectedCurrency.Rate : 'N/A'}</DetailLabel>
+                                    <DetailValue>A${(usdt * (selectedCurrency ? selectedCurrency.Rate : 1)).toFixed(2)}</DetailValue>
+                                </DetailRow>
+                                <DetailRow>
+                                    <DetailLabel>Network fee</DetailLabel>
+                                    <DetailValue>A$9.40</DetailValue>
+                                </DetailRow>
+                                <DetailRow>
+                                    <DetailLabel>Processing fee</DetailLabel>
+                                    <DetailValue>A$21.13</DetailValue>
+                                </DetailRow>
+                            </DetailsContent>
+                        )}
+                    </DetailsContainer>
+        
+                    <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
+                        Continue
+                        <ArrowIcon>→</ArrowIcon>
+                    </ContinueButton>
+                    <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
+                </ExchangeCard>
+            </ExchangeSection>
+        </Container>
+    );
 };
 
 export default Home;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  background-color: #000000;
-  color: white;
-  min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+  width: 100%;
+    align-items: stretch;
+    background-color: #000000;
+    color: white;
+    min-height: 100vh;
 
   @media (max-width: 1024px) {
     flex-direction: column;
@@ -211,42 +173,48 @@ const Container = styled.div`
 `;
 
 const ContentSection = styled.div`
-  flex: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+   
 
   @media (max-width: 1024px) {
     width: 100%;
   }
 `;
-const Left = styled.div`
-  width: 70%;
-`;
-const Title = styled.h1`
-  font-size: 2.4rem;
-  margin-bottom: 1rem;
 
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
+const Title = styled.h1`
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    width: 80% ;
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+        width: auto;
+    }
 `;
 
 const Subtitle = styled.p`
-  font-size: 1rem;
-  color: #888;
-  margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 2rem;
+    width: 80% ;
 `;
 
 const ExchangeRateBox = styled.div`
-  background-color: #111;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 1px orange solid;
+    background-color: #111;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: 1px orange solid;
+    width: 60% ;
 `;
 
 const RefreshText = styled.p`
@@ -267,12 +235,12 @@ const RateLabel = styled.span`
 `;
 
 const ExchangeSection = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #1a1a1a;
-  padding: 2rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a;
+    /* padding: 2rem; */
 
   @media (max-width: 1024px) {
     width: 100%;
