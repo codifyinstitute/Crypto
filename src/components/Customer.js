@@ -70,6 +70,10 @@ const TestimonialCard = styled.div`
     width: 100%;
     margin-top: 5%;
   }
+  @media (max-width: 1024px) {
+
+    margin-top: 15%;
+  }
 
 `;
 
