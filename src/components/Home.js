@@ -77,8 +77,11 @@ const Home = () => {
             </ContentSection>
             <ExchangeSection>
                 <ExchangeCard>
+                <FormTitle>Sell</FormTitle>
                     <InputContainer>
+                   
                         <InputWrapper>
+            
                             <Input
                                 type="number"
                                 value={usdt}
@@ -106,7 +109,9 @@ const Home = () => {
                         )}
                     </InputContainer>
                     <InputContainer>
+        
                         <InputWrapper>
+            
                             <Input
                                 type="text"
                                 value={inr.toFixed(5)}
@@ -184,6 +189,7 @@ const ContentSection = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
+    margin-top: 5%;
   }
 `;
 
@@ -198,6 +204,12 @@ const Title = styled.h1`
     }
 `;
 
+const FormTitle = styled.h2`
+  color: #f7a600;
+  margin-top: 0;
+  font-size: 1.9rem;
+  text-align: center;
+`;
 const Subtitle = styled.p`
     font-size: 1rem;
     color: #888;
@@ -264,7 +276,13 @@ const ExchangeCard = styled.div`
     width: auto;
     height: auto;
   }
+  @media (max-width: 1024px) {
+    margin: 1rem;
+
+  }
+
 `;
+
 const CardHeader = styled.h1`
   color: orange;
   text-align: center;

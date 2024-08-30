@@ -19,7 +19,8 @@ const Container = styled.div`
 const MainText = styled.h2`
   font-size: 2rem;
   margin: 0;
-  max-width: 60%;
+
+  max-width: 80%;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;

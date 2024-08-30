@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { AlertCircle, ChevronRight } from "lucide-react";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import HomeContact from "./HomeContact";
+
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: black;
+  background-color:  #1a1a1a;
 `;
 
 const Container = styled.div`
@@ -160,7 +164,9 @@ const Sell5 = () => {
   const starCount = 12;
 
   return (
+    <>
     <Main>
+    <Navbar/>
       <Container>
         <Header>
           <Title>Almost done</Title>
@@ -219,7 +225,11 @@ const Sell5 = () => {
           <ChevronRight size={24} />
         </Button>
       </Container>
+
     </Main>
+    <HomeContact/>
+    <Footer/>
+    </>
   );
 };
 

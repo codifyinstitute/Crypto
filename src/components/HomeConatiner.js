@@ -39,12 +39,12 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10rem;
+  /* margin-bottom: 10rem; */
 
   @media (max-width: 768px) {
     padding: 3%;
     height: fit-content;
-    margin-bottom: 60rem;
+    /* margin-bottom: 60rem; */
   }
 `;
 
@@ -72,12 +72,13 @@ const HomeContainer = () => {
         <Numbers />
         <Homelogo />
         <Homelogo2 />
-        <HomeContact1 />
+
         <Mobile />
+      
       </ContentWrapper>
-      <FooterWrapper>
+      <HomeContact1 />
         <Footer />
-      </FooterWrapper>
+ 
     </GlobeContainer>
   );
 };

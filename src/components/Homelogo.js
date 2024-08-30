@@ -31,7 +31,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 3;
   margin-bottom: 2rem;
 `;
 

@@ -247,7 +247,12 @@ const RefreshIndicator = styled.div`
   margin-bottom: 10px;
   font-size: 0.8rem;
 `;
-
+const FormTitle = styled.h2`
+  color: #f7a600;
+  margin-top: 0;
+  font-size: 1.9rem;
+  text-align: center;
+`;
 const RefreshTrigger = styled.button`
   background: none;
   border: none;
@@ -444,6 +449,7 @@ const DigitalAssetExchange = () => {
       <TradingEnvironment>
       <ExchangeCard>
       <InputContainer>
+      <FormTitle>Sell</FormTitle>
           <InputWrapper>
               <Input
                   type="number"
