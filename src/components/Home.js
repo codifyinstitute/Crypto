@@ -64,6 +64,7 @@ const Home = () => {
     return (
         <Container>
             <ContentSection>
+                <Left>
                 <Title>Discover Your Dream Property with Estatein</Title>
                 <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
                 <ExchangeRateBox>
@@ -71,6 +72,7 @@ const Home = () => {
                     <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
                     <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
                 </ExchangeRateBox>
+                </Left>
             </ContentSection>
             <ExchangeSection>
                 <ExchangeCard>
@@ -179,9 +181,11 @@ const ContentSection = styled.div`
         width: 100%;
     }
 `;
-
+const Left =styled.div`
+width: 70%;
+`
 const Title = styled.h1`
-    font-size: 3.5rem;
+    font-size:2.4rem;
     margin-bottom: 1rem;
 
     @media (max-width: 768px) {
