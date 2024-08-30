@@ -28,7 +28,7 @@ const FormContainer = styled.div`
   padding: 2rem;
   border-radius: 8px;
   width: 100%;
-  max-width: 400px;
+  max-width: 480px;
   margin-top: 5%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
@@ -42,6 +42,8 @@ const FormContainer = styled.div`
 const FormTitle = styled.h2`
   color: #f7a600;
   margin-top: 0;
+  text-align: center;
+  padding: 10px;
 `;
 
 const FormSection = styled.div`

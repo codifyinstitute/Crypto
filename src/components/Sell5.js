@@ -1,139 +1,226 @@
 import React from "react";
 import styled from "styled-components";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { Link } from "react-router-dom";
-import HomeContact from './HomeContact';
+import { AlertCircle, ChevronRight } from "lucide-react";
 
-const PageWrapper = styled.div`
-  background-color: #1a1a1a;/* Background color for the page */
-  min-height: 100vh; /* Ensure it covers the full viewport height */
+const Main = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: black;
 `;
 
-const OrderStatusContainer = styled.div`
-  background-color: #ffffff;
-  width: 300px;
-  margin: 50px auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
-    width: 90%;
-  }
+const Container = styled.div`
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  color: #1f2937;
+  padding: 24px;
+  border-radius: 12px;
+  margin: 20px;
+  width: 480px;
+  font-family: 'Inter', Arial, sans-serif;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 `;
 
-const Title = styled.h2`
-  font-size: 18px;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
+const Header = styled.div`
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 24px;
 `;
 
-const StatusList = styled.ul`
-  list-style-type: none;
-  padding: 0;
+const Title = styled.h1`
   margin: 0;
+  color: #fbaf53;
+  text-align: center;
 `;
 
-const StatusItem = styled.li`
+const EUFlag = styled.div`
+  background-color: #003399;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 36px auto;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+`;
+
+const Stars = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+const Star = styled.div`
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #ffcc00;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  transform: translate(-50%, -50%);
+`;
+
+const Timeline = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-
-  &:last-child {
-    border-bottom: none;
-  }
+  margin-bottom: 32px;
 `;
 
-const StatusIndicator = styled.div`
+const TimelineItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TimelineDot = styled.div`
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: ${(props) => (props.active ? "#10b981" : "#d1d5db")};
+  margin-bottom: 8px;
+  transition: background-color 0.3s ease;
+`;
+
+const TimelineLabel = styled.span`
+  font-size: 12px;
+  color: ${(props) => (props.active ? "#111827" : "#6b7280")};
+  font-weight: ${(props) => (props.active ? "600" : "400")};
+  transition: color 0.3s ease;
+`;
+
+const InfoBox = styled.div`
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 32px 0;
+`;
+
+const InfoTitle = styled.div`
   display: flex;
   align-items: center;
+  color: #d97706;
+  font-weight: 600;
+  margin-bottom: 12px;
+`;
 
-  &::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: #00c853;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
+const InfoText = styled.p`
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4b5563;
+`;
+
+const Link = styled.a`
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #2563eb;
+    text-decoration: underline;
   }
-`;
-
-const StatusText = styled.div`
-  color: #333;
-`;
-
-const DateAmount = styled.div`
-  text-align: right;
-  color: #999;
 `;
 
 const Button = styled.button`
-  background-color: #ffa000;
+  background-color: #fbaf53;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 16px;
+  border-radius: 8px;
   width: 100%;
-  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
   font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ffb300;
+    background-color: #d78b2d;
   }
 `;
 
-const OrderStatus = () => {
+const Sell5 = () => {
+  const starCount = 12;
+
   return (
-    <>
-    <Navbar/>
-    <PageWrapper>
-      <OrderStatusContainer>
-        <Title>Order Status</Title>
-        <StatusList>
-          <StatusItem>
-            <StatusIndicator>
-              <StatusText>Crypto Sell</StatusText>
-            </StatusIndicator>
-            <DateAmount>
-              <div>Oct 24, 2019</div>
-              <div>€300</div>
-            </DateAmount>
-          </StatusItem>
-          <StatusItem>
-            <StatusIndicator>
-              <StatusText>Partial Payment</StatusText>
-            </StatusIndicator>
-            <DateAmount>
-              <div>Oct 26, 2019</div>
-              <div>€400</div>
-            </DateAmount>
-          </StatusItem>
-          <StatusItem>
-            <StatusIndicator>
-              <StatusText>Fund Delivery</StatusText>
-            </StatusIndicator>
-            <DateAmount>
-              <div>Oct 27, 2019</div>
-              <div>€2,230</div>
-            </DateAmount>
-          </StatusItem>
-        </StatusList>
-        <Link to='/'><Button>Order Completed →</Button></Link>
-      </OrderStatusContainer>
-    </PageWrapper>
-    <HomeContact/>
-    <Footer/>
-    </>
+    <Main>
+      <Container>
+        <Header>
+          <Title>Almost done</Title>
+        </Header>
+
+        <EUFlag>
+          <Stars>
+            {[...Array(starCount)].map((_, i) => (
+              <Star
+                key={i}
+                style={{
+                  left: `${40 + 30 * Math.cos((2 * Math.PI * i) / starCount)}px`,
+                  top: `${40 + 30 * Math.sin((2 * Math.PI * i) / starCount)}px`,
+                }}
+              />
+            ))}
+          </Stars>
+        </EUFlag>
+
+        <Timeline>
+          <TimelineItem>
+            <TimelineDot active />
+            <TimelineLabel active>Verified</TimelineLabel>
+            <TimelineLabel active>3:37 PM</TimelineLabel>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineDot active />
+            <TimelineLabel active>Pending</TimelineLabel>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineDot />
+            <TimelineLabel>Processing</TimelineLabel>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineDot />
+            <TimelineLabel>Sent</TimelineLabel>
+          </TimelineItem>
+        </Timeline>
+
+        <InfoBox>
+          <InfoTitle>
+            <AlertCircle size={20} style={{ marginRight: "10px" }} />
+            Waiting for deposit
+          </InfoTitle>
+          <InfoText>
+            To complete your transaction, please send us your crypto.
+          </InfoText>
+          <InfoText>
+            If you no longer want to sell, you can still{" "}
+            <Link href="#">cancel this order</Link>.
+          </InfoText>
+        </InfoBox>
+
+        <Button>
+          View deposit details
+          <ChevronRight size={24} />
+        </Button>
+      </Container>
+    </Main>
   );
 };
 
-export default OrderStatus;
+export default Sell5;

@@ -21,6 +21,15 @@ const MapContainer = styled.div`
   @media (max-width: 430px) {
     width: 100%;
   }
+
+
+  figure{
+    zoom: 1.3;
+    svg{
+      width: 150%;
+    }
+  }
+  
 `;
 
 const StyledWorldMap = styled(WorldMap)`
@@ -36,7 +45,7 @@ const Tooltip = styled.div`
   border-radius: 5px;
   font-size: 14px;
   pointer-events: none;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, 10px); /* Adjust position to appear just below the cursor */
 `;
 
 const CustomWorldMap = () => {
