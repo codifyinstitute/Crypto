@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const MainText = styled.h2`
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 0;
 
   max-width: 80%;
@@ -29,10 +29,11 @@ const MainText = styled.h2`
 `;
 
 const SubText = styled.p`
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   margin: 0;
   max-width: 80%;
   opacity: 0.7;
+  color: white;
 
   @media (max-width: 768px) {
     font-size: 0.8rem;
@@ -46,6 +47,7 @@ const Button = styled.button`
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   align-self: flex-end;

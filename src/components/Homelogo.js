@@ -56,7 +56,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3;
+  font-size: 3rem;
   margin-bottom: 2rem;
 `;
 
@@ -70,6 +70,12 @@ const LogoGrid = styled.div`
   @media (max-width: 375px) {
     grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
   }
+  @media (max-width: 430px) {
+    grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+    width: 100%;
+    gap:3rem;
+    
+  }
 `;
 
 const LogoWrapper = styled.a`
@@ -81,6 +87,13 @@ const LogoWrapper = styled.a`
   justify-content: center;
   align-items: center;
   text-decoration: none;
+
+  @media (max-width: 430px) {
+    
+    width: 100px;
+    height: 40px;
+    
+  }
 `;
 
 const Logo = styled.img`

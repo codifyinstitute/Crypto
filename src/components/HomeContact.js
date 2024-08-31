@@ -28,9 +28,9 @@ const MainText = styled.h2`
 `;
 
 const SubText = styled.p`
-  font-size: 0.9rem;
+  font-size: 2rem;
   margin: 0;
-  max-width: 80%;
+  /* max-width: 80%; */
   opacity: 0.7;
 
   @media (max-width: 768px) {
