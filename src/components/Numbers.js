@@ -1,8 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-import { DollarSign, Euro, Bitcoin } from 'lucide-react';
-import Marquee from 'react-fast-marquee';
-
+import React from "react";
+import styled from "styled-components";
+import { DollarSign, Euro, Bitcoin } from "lucide-react";
+import Marquee from "react-fast-marquee";
+import image from "../assets/Item.png";
+import image1 from "../assets/Item-1.png";
+import image2 from "../assets/Item-2.png";
+import image3 from "../assets/Item-3.png";
+import image4 from "../assets/Item-4.png";
+import image5 from "../assets/Item-5.png";
+import image6 from "../assets/Item-6.png";
+import image7 from "../assets/Item-7.png";
+import image8 from "../assets/Item-8.png";
+import image9 from "../assets/Item-9.png";
+import image10 from "../assets/Item-10.png";
+import image11 from "../assets/Item-11.png";
+import image12 from "../assets/Item-12.png";
 
 const DashboardContainer = styled.div`
   background: linear-gradient(to right, #1a202c, #2d3748, #4a5568);
@@ -10,17 +22,16 @@ const DashboardContainer = styled.div`
   padding: 1rem;
   width: 80%;
   border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-  
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 `;
 
 const Main = styled.div`
-width: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 const StatsWrapper = styled.div`
   display: flex;
@@ -34,7 +45,7 @@ const StatItemWrapper = styled.div`
   position: relative;
 
   &:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 25%;
     right: 0;
@@ -85,8 +96,8 @@ const PaymentMethods = styled.div`
 `;
 
 const PaymentLogo = styled.img`
-  height: 30px;
-  margin: 0 10px;
+  height: 80px;
+  margin: 0 1px;
 
   @media (max-width: 480px) {
     height: 25px;
@@ -120,41 +131,50 @@ const StatItem = ({ title, value, icons }) => (
 const StatsDashboard = () => {
   return (
     <Main>
-    <DashboardContainer>
-      <StatsWrapper>
-        <StatItem
-          title="Supported countries"
-          value="170+"
-          icons={[DollarSign, Euro, Bitcoin, DollarSign]}
-        />
-        <StatItem
-          title="Fiat currencies"
-          value="50+"
-          icons={[DollarSign, Euro, Euro]}
-        />
-        <StatItem
-          title="Fiat payment channels"
-          value="300+"
-          icons={[DollarSign, Euro, Bitcoin, DollarSign]}
-        />
-        <StatItem
-          title="Cryptocurrencies supported"
-          value="ALL"
-          icons={[Bitcoin, Euro, Bitcoin]}
-        />
-      </StatsWrapper>
+      <DashboardContainer>
+        <StatsWrapper>
+          <StatItem
+            title="Supported countries"
+            value="170+"
+            icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+          />
+          <StatItem
+            title="Fiat currencies"
+            value="50+"
+            icons={[DollarSign, Euro, Euro]}
+          />
+          <StatItem
+            title="Fiat payment channels"
+            value="300+"
+            icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+          />
+          <StatItem
+            title="Cryptocurrencies supported"
+            value="ALL"
+            icons={[Bitcoin, Euro, Bitcoin]}
+          />
+        </StatsWrapper>
+      </DashboardContainer>
 
-    
-    </DashboardContainer>
-
-    <PaymentMethods>
-    <Marquee gradient={false} speed={50}>
-      {/* Replace with actual logo URLs */}
-      <PaymentLogo src="path/to/visa-logo.png" alt="Visa" />
-      <PaymentLogo src="path/to/mastercard-logo.png" alt="Mastercard" />
-      {/* Add more payment logos here */}
-    </Marquee>
-  </PaymentMethods>
+      <PaymentMethods>
+        <Marquee gradient={false} speed={50}>
+          {/* Replace with actual logo URLs */}
+          <PaymentLogo src={image} alt="Visa" />
+          <PaymentLogo src={image1} alt="image1" />
+          <PaymentLogo src={image2} alt="image2" />
+          <PaymentLogo src={image3} alt="image3" />
+          <PaymentLogo src={image4} alt="image4" />
+          <PaymentLogo src={image5} alt="image5" />
+          <PaymentLogo src={image6} alt="image6" />
+          <PaymentLogo src={image7} alt="image7" />
+          <PaymentLogo src={image8} alt="image8" />
+          <PaymentLogo src={image9} alt="image9" />
+          <PaymentLogo src={image10} alt="image10" />
+          <PaymentLogo src={image11} alt="image11" />
+          <PaymentLogo src={image12} alt="image12" />
+          {/* Add more payment logos here */}
+        </Marquee>
+      </PaymentMethods>
     </Main>
   );
 };

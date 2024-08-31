@@ -28,13 +28,13 @@ const CoreValue = styled.div`
   max-width: 300px;
   text-align: left;
 
-  h3 {
+  h4 {
     font-size: 1.5rem;
     margin-bottom: 10px;
   }
 
   p {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     line-height: 1.5;
   }
 `;
@@ -77,7 +77,7 @@ const LinksContainer = styled.div`
   a {
     color: #ff9900;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.5rem;
 
     &:hover {
       text-decoration: underline;
@@ -89,8 +89,8 @@ display: flex;
 flex-direction: column;
 `;
 const DisclaimerContainer = styled.div`
-  max-width: 600px;
-  font-size: 0.8rem;
+  max-width: 670px;
+  font-size: 1rem;
   text-align: center;
   margin-bottom: 20px;
   border: 2px solid #ff9900;
