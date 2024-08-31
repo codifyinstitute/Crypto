@@ -24,7 +24,7 @@ const MapContainer = styled.div`
 
   @media (min-width: 769px) {
   figure{
-    zoom: 1.8;
+    zoom: 1.7;
     svg{
       width: 200%;
     }

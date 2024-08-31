@@ -81,7 +81,7 @@ const TalkButton = styled.button`
 `;
 
 const MapContainer = styled.div`
-  width: 1200px;
+  /* width: 1200px; */
   height: auto;
   margin: 20px auto;
   position: relative;

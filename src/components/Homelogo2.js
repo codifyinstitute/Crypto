@@ -1,19 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import image1 from '../assets/exchange1.png'
+import image2 from '../assets/exchange2.png'
+import image3 from '../assets/exchange3.png'
+import image4 from '../assets/exchange4.png'
+import image5 from '../assets/exchange5.png'
+import image6 from '../assets/exchange6.png'
+import image7 from '../assets/exchange7.png'
+import image8 from '../assets/exchange8.png'
+import image9 from '../assets/exchange9.png'
+import image10 from '../assets/exchange10.png'
+import image11 from '../assets/exchange11.png'
+import image12 from '../assets/exchange12.png'
 
 const logos = [
-  { name: 'OKX', url: 'path_to_okx_logo.png', link: '#' },
-  { name: 'Bitget', url: 'path_to_bitget_logo.png', link: '#' },
-  { name: 'NEAR', url: 'path_to_near_logo.png', link: '#' },
-  { name: 'Polygon', url: 'path_to_polygon_logo.png', link: '#' },
-  { name: 'Arbitrum', url: 'path_to_arbitrum_logo.png', link: '#' },
-  { name: 'ChainUP', url: 'path_to_chainup_logo.png', link: '#' },
-  { name: 'Sui', url: 'path_to_sui_logo.png', link: '#' },
-  { name: 'Token Pocket', url: 'path_to_tokenpocket_logo.png', link: '#' },
-  { name: 'Bitget Wallet', url: 'path_to_bitget_wallet_logo.png', link: '#' },
-  { name: 'Bitrue', url: 'path_to_bitrue_logo.png', link: '#' },
-  { name: 'CELO', url: 'path_to_celo_logo.png', link: '#' },
-  { name: 'Pionex', url: 'path_to_pionex_logo.png', link: '#' },
+  { name: 'OKX', url:image1, link: '#' },
+  { name: 'Bitget', url: image2, link: '#' },
+  { name: 'NEAR', url: image3, link: '#' },
+  { name: 'Polygon', url: image4, link: '#' },
+  { name: 'Arbitrum', url: image5, link: '#' },
+  { name: 'ChainUP', url: image6, link: '#' },
+  { name: 'Sui', url: image7, link: '#' },
+  { name: 'Token Pocket', url:image8, link: '#' },
+  { name: 'Bitget Wallet', url: image9, link: '#' },
+  { name: 'Bitrue', url: image10, link: '#' },
+  { name: 'CELO', url: image11, link: '#' },
+  { name: 'Pionex', url: image12, link: '#' },
  
 ];
 
