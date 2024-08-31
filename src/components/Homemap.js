@@ -33,7 +33,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5em;
+  font-size: 3rem;
   margin-bottom: 1rem;
 
   span {
@@ -42,11 +42,11 @@ const Title = styled.h1`
   }
 
   @media (max-width: 768px) {
-    font-size: 2em;
+    /* font-size: 2em; */
   }
 
   @media (max-width: 480px) {
-    font-size: 1.5em;
+    /* font-size: 1.5em; */
   }
 `;
 

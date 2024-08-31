@@ -32,10 +32,14 @@ const Container = styled.div`
   color: #fff;
   padding: 2rem;
   text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 3rem;
   margin-bottom: 2rem;
 `;
 
@@ -45,27 +49,41 @@ const LogoGrid = styled.div`
   gap: 1rem;
   justify-items: center;
   align-items: center;
+  width: 60%;
   @media (max-width: 375px) {
     grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  }
+  @media (max-width: 430px) {
+    grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+    width: 100%;
+    gap:3rem;
+    
   }
 `;
 
 const LogoWrapper = styled.a`
   background-color: #fff;
   border-radius: 8px;
-  padding: 0.5rem;
-  width: 120px;
-  height: 40px;
+  width: 150px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
+
+  @media (max-width: 430px) {
+    
+    width: 100px;
+    height: 40px;
+    
+  }
 `;
 
 const Logo = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 150px;
+  height: 70px;
+  /* object-fit: contain; */
+  /* padding: 5px; // Add some padding to prevent the image from touching the edges */
 `;
 
 const ButtonContainer = styled.div`
@@ -86,10 +104,7 @@ const Web3Projects = () => {
   return (
     <Container>
       <Title>
-        Unleash limitless trades with our{" "}
-        <span style={{ color: "#FFA500" }}>
-          trusted <br></br> liquidity from top exchanges
-        </span>
+        Powering the leading <span style={{ color: '#FFA500' }}>Web3 projects</span>
       </Title>
       <LogoGrid>
         {logos.map((logo, index) => (

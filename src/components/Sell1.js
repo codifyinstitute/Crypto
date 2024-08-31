@@ -44,12 +44,6 @@ const TradingInterface = styled.div`
     }
 `;
 
-
-
-
-
-
-
 const ExchangeCard = styled.div`
     background-color: white;
     color: white;

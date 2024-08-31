@@ -230,11 +230,11 @@ const Title = styled.h1`
 const FormTitle = styled.h2`
   color: #f7a600;
   margin-top: 0;
-  font-size: 1.9rem;
+  font-size: 3rem;
   text-align: center;
 `;
 const Subtitle = styled.p`
-    font-size: 1rem;
+  font-size: 1.2em;
     color: #888;
     margin-bottom: 2rem;
     width: 80% ;
@@ -253,7 +253,7 @@ const ExchangeRateBox = styled.div`
 `;
 
 const RefreshText = styled.p`
-  font-size: 0.8rem;
+  font-size: 1.2em;
   color: #888;
 `;
 

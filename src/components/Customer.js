@@ -108,18 +108,19 @@ const TestimonialContent = styled.div`
 
   h3 {
     margin: 0 0 0.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   p {
     margin: 0 0 0.5rem;
-    font-size: 0.9rem;
+    font-size: 1%.2;
   }
 `;
 
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 1rem;
+  font-size: 3rem;
   color: white;
 
   @media (max-width: 480px) {

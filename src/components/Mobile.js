@@ -23,7 +23,7 @@ const Container = styled.div`
 
 const Title = styled.h2`
   color: #FFA500;
-  font-size: 18px;
+  font-size: 2em;
   margin-top: 0;
   margin-bottom: 15px;
 `;
@@ -51,7 +51,7 @@ const TextContent = styled.div`
 `;
 
 const Description = styled.p`
-  font-size: 14px;
+  font-size: 1.2em;
   line-height: 1.5;
   margin-bottom: 20px;
 `;
@@ -71,13 +71,13 @@ const Feature = styled.div`
 
 const FeatureTitle = styled.h3`
   color: #FFA500;
-  font-size: 16px;
+  font-size: 2rem;
   margin-top: 0;
   margin-bottom: 10px;
 `;
 
 const FeatureDescription = styled.p`
-  font-size: 14px;
+  font-size: 1.2em;
   line-height: 1.4;
 `;
 
