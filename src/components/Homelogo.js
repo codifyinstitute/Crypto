@@ -101,6 +101,12 @@ const Logo = styled.img`
   height: 100px;
   /* object-fit: contain; */
   /* padding: 5px; // Add some padding to prevent the image from touching the edges */
+  @media (max-width: 430px) {
+    
+    width: 150px;
+    height: 70px;
+    
+  }
 `;
 
 const ButtonContainer = styled.div`

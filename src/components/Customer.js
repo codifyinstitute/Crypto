@@ -7,6 +7,9 @@ const Container = styled.div`
   padding: 2rem;
   font-family: Arial, sans-serif;
   width: 80%;
+  @media (max-width: 430px) {
+    width: 100%;
+  }
 `;
 
 const HappyCustomerSection = styled.section`
@@ -113,7 +116,7 @@ const TestimonialContent = styled.div`
 
   p {
     margin: 0 0 0.5rem;
-    font-size: 1%.2;
+    font-size: 0.9rem;
   }
 `;
 
@@ -124,7 +127,7 @@ const Title = styled.h2`
   color: white;
 
   @media (max-width: 480px) {
-    font-size: 1.2rem;
+    font-size: 3rem;
   }
 `;
 

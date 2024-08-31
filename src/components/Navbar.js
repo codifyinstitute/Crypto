@@ -69,7 +69,7 @@ const NavLinks = styled.ul`
       padding: 10px 20px;
       transition: background-color 0.3s ease;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 1.2rem;
 
       &:hover,
       &.active {

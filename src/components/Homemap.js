@@ -61,7 +61,7 @@ const Description = styled.p`
   }
 
   @media (max-width: 480px) {
-    font-size: 0.9em;
+    font-size: 1em;
   }
 `;
 
