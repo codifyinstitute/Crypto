@@ -81,8 +81,8 @@ const LogoWrapper = styled.a`
 `;
 
 const Logo = styled.img`
-  width: 150px;
-  height: 70px;
+  width: 175px;
+  height: 100px;
   /* object-fit: contain; */
   /* padding: 5px; // Add some padding to prevent the image from touching the edges */
 `;
