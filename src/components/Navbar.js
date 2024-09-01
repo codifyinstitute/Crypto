@@ -77,6 +77,12 @@ const NavLinks = styled.ul`
   color: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
+      &:hover,
+      &.activee {
+        background-color:white;
+  color:  #FFA500;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
       @media (max-width: 768px) {
         padding: 10px 15px;
@@ -113,7 +119,7 @@ const Navbar = () => {
   };
 
   // Determine if the current path is one of the Sell pages
-  const isExchangeActive = ["/sell1", "/sell2", "/sell3", "/sell4", "/sell5"].includes(location.pathname.toLowerCase());
+  const isExchangeActive = ["/sell1", "/sell3", "/sell4", "/sell5"].includes(location.pathname.toLowerCase());
 
   return (
     <NavbarContainer>
@@ -137,7 +143,7 @@ const Navbar = () => {
           {token ? (
             <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
           ) : (
-            <NavLink to="/sell2" activeClassName="active">Sign In</NavLink>
+            <NavLink to="/sell2" activeClassName="activee">Sign In</NavLink>
           )}
         </li>
       </NavLinks>
