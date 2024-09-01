@@ -95,6 +95,8 @@ const Button = styled.button`
 
 const PoweredBy = styled.p`
   font-size: 12px;
+  text-align: center;
+  margin: 1rem;
   color: #666;
 `;
 
