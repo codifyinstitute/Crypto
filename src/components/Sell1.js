@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
-
+import ind from "./../assets/ind.jpeg";
+import usdtt from "./../assets/usdtt.jpeg";
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
@@ -16,7 +17,7 @@ const TradingEnvironment = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #ffffff;
+  background-color:black;
   font-family: 'Roboto', sans-serif;
 `;
 
@@ -87,6 +88,10 @@ const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  background-color:  orange;
+  padding: 9px;
+  color: white;
+  border-radius: 20px;
 `;
 
 const UpdateText = styled.div`
@@ -168,16 +173,26 @@ const PoweredBy = styled.div`
 
 const DropdownContainer = styled.div`
   position: absolute;
-  top: -110px;
-  left: -25px;
+  top: -111px;
+  left: -24px;
   right: 0;
   background-color: white;
-  border: 1px solid #e0e0e0;
+  /* border: 1px solid #e0e0e0; */
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 115%;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
   height: 580px;
+  display: flex;
+  flex-direction: column;
+/* 
+  @media (max-width: 430px)and (min-width: 380px) {
+    max-width:115% ;
+  }
+  @media (max-width: 380px) {
+    max-width:121% ;
+  } */
 `;
 
 const DropdownHeader = styled.div`
@@ -265,9 +280,13 @@ const Container = styled.div`
   color: white;
   padding: 16px;
   border-radius: 8px;
-  max-width: 320px;
-  margin: 0 auto;
+  width: 450px;
+  margin: 50px auto;
   font-family: Arial, sans-serif;
+  
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const Header = styled.div`
@@ -308,12 +327,17 @@ const Subtext = styled.p`
   color: #BDBDBD;
   font-size: 14px;
 `;
+const Center = styled.div`
+display: flex;
+justify-content: center;
+`
+
 
 const TableContainer = styled.div`
-  background-color: #FFA000;
-  border-radius: 8px;
+  background-color: orange;
+  border-radius: 10px;
   padding: 16px;
-  width: 280px;
+  width: 350px;
 `;
 
 const Table = styled.table`
@@ -329,12 +353,12 @@ const Table = styled.table`
 `;
 
 const TableHeader = styled.th`
-  text-align: ${props => props.align || 'left'};
+  text-align: center;
   font-weight: normal;
-  color: #69502F;
-  font-size: 14px;
-  padding-bottom: 8px;
+  color: black;
   border: 1px solid orange;
+  font-weight: 800;
+    font-size: 16px;
 
 `;
 
@@ -343,7 +367,7 @@ const TableCell = styled.td`
   padding: 4px 0;
   color: black;
   border: 1px solid orange;
-  
+
 `;
 
 const TableFooter = styled.p`
@@ -493,7 +517,7 @@ const Sell1 = () => {
               />
               <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 {selectedCurrency && (
-                  <CurrencyIcon src={`/path/to/${selectedCurrency.Symbol.toLowerCase()}.png`} alt={selectedCurrency.Symbol} />
+                  <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
                 {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
                 <ChevronDown size={16} />
@@ -519,7 +543,7 @@ const Sell1 = () => {
                       key={currency._id}
                       onClick={() => handleCurrencySelect(currency)}
                     >
-                      <CurrencyIcon src={`/path/to/${currency.Symbol.toLowerCase()}.png`} alt={currency.Symbol} />
+                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
                       <CurrencyInfo>
                         <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
                         <CurrencyName>{currency.Name}</CurrencyName>
@@ -541,11 +565,10 @@ const Sell1 = () => {
               />
               <CurrencyToggle>
                 <CurrencyIcon as="div">
-                  <div style={{ width: '100%', height: '50%', background: '#FF9933' }}></div>
-                  <div style={{ width: '100%', height: '50%', background: '#138808' }}></div>
+                <CurrencyIcon src={ind}  />
                 </CurrencyIcon>
                 INR
-                <ChevronDown size={16} />
+     
               </CurrencyToggle>
             </InputWrapper>
           </InputContainer>
@@ -636,7 +659,7 @@ const Sell1 = () => {
       </PriceDisplay>
       
       <Subtext>1USDT=93</Subtext>
-      
+      <Center>
       <TableContainer>
         <Table>
           <thead>
@@ -662,6 +685,7 @@ const Sell1 = () => {
         </Table>
         <TableFooter>What is tiered price policy?</TableFooter>
       </TableContainer>
+      </Center>
     </Container>
 
 
