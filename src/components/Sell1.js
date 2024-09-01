@@ -89,9 +89,13 @@ const CurrencyToggle = styled.div`
   align-items: center;
   cursor: pointer;
   background-color:  orange;
-  padding: 9px;
+  /* padding: 9px; */
   color: white;
-  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 16px;
 `;
 
 const UpdateText = styled.div`
@@ -401,6 +405,23 @@ const BackButton = styled.button`
   }
 `;
 
+const AnimatedDropdownContainer = styled.div`
+  position: absolute;
+  top: -110px;
+  left: -25px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 380px;
+  height: 580px;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+`;
 
 const Sell1 = () => {
   const location = useLocation();
@@ -523,36 +544,34 @@ const Sell1 = () => {
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
-            {isDropdownOpen && (
-              <DropdownContainer>
-                <DropdownHeader>
-                  <DropdownTitle>Select crypto</DropdownTitle>
-                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                    <X size={24} />
-                  </CloseButton>
-                </DropdownHeader>
-                <SearchInput
-                  type="text"
-                  placeholder="Search here..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <CurrencyList>
-                  {filteredCurrencies.map(currency => (
-                    <CurrencyItem
-                      key={currency._id}
-                      onClick={() => handleCurrencySelect(currency)}
-                    >
-                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                      <CurrencyInfo>
-                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                        <CurrencyName>{currency.Name}</CurrencyName>
-                      </CurrencyInfo>
-                    </CurrencyItem>
-                  ))}
-                </CurrencyList>
-              </DropdownContainer>
-            )}
+            <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+            <DropdownHeader>
+              <DropdownTitle>Select crypto</DropdownTitle>
+              <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                <X size={24} />
+              </CloseButton>
+            </DropdownHeader>
+            <SearchInput
+              type="text"
+              placeholder="Search here..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <CurrencyList>
+              {filteredCurrencies.map(currency => (
+                <CurrencyItem
+                  key={currency._id}
+                  onClick={() => handleCurrencySelect(currency)}
+                >
+                  <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                  <CurrencyInfo>
+                    <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                    <CurrencyName>{currency.Name}</CurrencyName>
+                  </CurrencyInfo>
+                </CurrencyItem>
+              ))}
+            </CurrencyList>
+          </AnimatedDropdownContainer>
           </InputContainer>
           
           <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>

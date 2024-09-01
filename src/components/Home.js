@@ -7,10 +7,6 @@ import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.jpeg";
 import payment from "./../assets/payment.png";
 
-// Assume we have these images imported
-// import USDTImage from './path-to-usdt-image.png';
-// import IndiaFlagImage from './path-to-india-flag-image.png';
-
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
   const [isValid, setIsValid] = useState(true);
@@ -88,6 +84,7 @@ const Home = () => {
   const toggleDetailsExpanded = () => {
     setIsDetailsExpanded(!isDetailsExpanded);
   };
+
   const filteredCurrencies = currencies.filter(
     (currency) =>
       currency.Symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -112,9 +109,7 @@ const Home = () => {
       <ExchangeSection>
         <ExchangeCard>
         <div>
-
           <TabContainer>
-            {/* <Tab>Buy Crypto</Tab> */}
             <Tab active>Sell Crypto</Tab>
           </TabContainer>
 
@@ -134,36 +129,34 @@ const Home = () => {
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
-            {isDropdownOpen && (
-              <DropdownContainer>
-                <DropdownHeader>
-                  <DropdownTitle>Select crypto</DropdownTitle>
-                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                    <X size={24} />
-                  </CloseButton>
-                </DropdownHeader>
-                <SearchInput
-                  type="text"
-                  placeholder="Search here..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <CurrencyList>
-                  {filteredCurrencies.map(currency => (
-                    <CurrencyItem
-                      key={currency._id}
-                      onClick={() => handleCurrencySelect(currency)}
-                    >
-                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                      <CurrencyInfo>
-                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                        <CurrencyName>{currency.Name}</CurrencyName>
-                      </CurrencyInfo>
-                    </CurrencyItem>
-                  ))}
-                </CurrencyList>
-              </DropdownContainer>
-            )}
+            <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+              <DropdownHeader>
+                <DropdownTitle>Select crypto</DropdownTitle>
+                <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                  <X size={24} />
+                </CloseButton>
+              </DropdownHeader>
+              <SearchInput
+                type="text"
+                placeholder="Search here..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <CurrencyList>
+                {filteredCurrencies.map(currency => (
+                  <CurrencyItem
+                    key={currency._id}
+                    onClick={() => handleCurrencySelect(currency)}
+                  >
+                    <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                    <CurrencyInfo>
+                      <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                      <CurrencyName>{currency.Name}</CurrencyName>
+                    </CurrencyInfo>
+                  </CurrencyItem>
+                ))}
+              </CurrencyList>
+            </AnimatedDropdownContainer>
           </InputContainer>
 
           <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
@@ -176,11 +169,9 @@ const Home = () => {
               />
               <CurrencyToggle>
                 <CurrencyIcon as="div">
-                
-                <CurrencyIcon src={ind}  />
+                <CurrencyIcon src={ind} />
                 </CurrencyIcon>
                 INR
-              
               </CurrencyToggle>
             </InputWrapper>
           </InputContainer>
@@ -206,14 +197,14 @@ const Home = () => {
                   <span>as low as Rs {transactionFee}</span>
                 </OrderDetail>
                 <OrderDetail>
-                  <span>networkFee fee <Info size={14} /></span>
+                  <span>Network fee <Info size={14} /></span>
                   <span>as low as Rs {networkFee}</span>
                 </OrderDetail>
               </>
             )}
           </OrderSummary>
           </div>
-<div>
+          <div>
           <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
             Proceed · Sell {selectedCurrency?.Symbol} →
           </ProceedButton>
@@ -227,7 +218,6 @@ const Home = () => {
           </PoweredBy>
           </div>
         </ExchangeCard>
-
       </ExchangeSection>
     </Container>
   );
@@ -275,12 +265,6 @@ const Title = styled.h1`
   }
 `;
 
-const FormTitle = styled.h2`
-  color: #f7a600;
-  margin-top: 0;
-  font-size: 3rem;
-  text-align: center;
-`;
 const Subtitle = styled.p`
   font-size: 1.2em;
   color: #888;
@@ -331,7 +315,6 @@ const ExchangeSection = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #1a1a1a;
-  /* padding: 2rem; */
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -401,14 +384,19 @@ const Input = styled.input`
   }
 `;
 
+
 const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
   background-color:  orange;
-  padding: 9px;
+  /* padding: 9px; */
   color: white;
-  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 16px;
 `;
 
 const UpdateText = styled.div`
@@ -488,7 +476,7 @@ const PoweredBy = styled.div`
   margin-top: 0.5rem;
 `;
 
-const DropdownContainer = styled.div`
+const AnimatedDropdownContainer = styled.div`
   position: absolute;
   top: -110px;
   left: -25px;
@@ -500,6 +488,10 @@ const DropdownContainer = styled.div`
   z-index: 10;
   width: 380px;
   height: 580px;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
 `;
 
 const DropdownHeader = styled.div`
@@ -572,6 +564,7 @@ const CurrencyName = styled.span`
   font-size: 0.8rem;
   color: #888;
 `;
+
 const PriceContainer = styled.div`
   background-color: #27201c;
   border-radius: 10px;
@@ -582,64 +575,4 @@ const PriceContainer = styled.div`
   text-align: center;
   position: relative;
   margin-top: 4%;
-`;
-
-const TimerSection = styled.div`
-  font-size: 14px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const RefreshButton = styled.div`
-  cursor: pointer;
-  font-size: 20px;
-`;
-
-const PriceValue = styled.div`
-  font-size: 60px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const PriceTag = styled.span`
-  background-color: #e83d2f;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-`;
-
-const ConversionText = styled.div`
-  font-size: 14px;
-  margin-bottom: 20px;
-`;
-
-const PricingTable = styled.div`
-  background-color: #f7a71e;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: left;
-  margin-top: 10px;
-`;
-
-const PricingRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  border-top: 1px solid #fff;
-
-  &:first-child {
-    border-top: none;
-  }
-`;
-
-const PricingCell = styled.div`
-  font-size: 14px;
-`;
-
-const PolicyDescription = styled.div`
-  font-size: 12px;
-  text-align: center;
-  margin-top: 10px;
 `;
