@@ -27,7 +27,7 @@ const ExchangeCard = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   width: 380px;
-  height: 580px;
+  height: 610px;
   max-width: 100%;
   margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -183,7 +183,7 @@ const DropdownContainer = styled.div`
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
-  height: 580px;
+  height: 610px;
   display: flex;
   flex-direction: column;
 /* 

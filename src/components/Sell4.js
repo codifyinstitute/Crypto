@@ -30,9 +30,9 @@ const Card = styled.div`
     margin-top: 5%;
 
     @media (max-width: 480px) {
-        padding: 1rem;
-        width: 90%;
-        height: auto;
+        /* padding: 1rem; */
+        width: 100%;
+        /* height: auto; */
     }
 `;
 

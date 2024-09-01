@@ -20,18 +20,17 @@ const Card = styled.div`
     color: white;
     padding: 2rem;
     border-radius: 1rem;
-    width: 480px;
-    height: 480px;
-    max-width: 100%;
+    width: 380px;
+    height: 580px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 5%;
 
     @media (max-width: 480px) {
-        padding: 1rem;
-        width: 90%;
-        height: auto;
+        /* padding: 1rem; */
+        width: 100%;
+        /* height: auto; */
     }
 `;
 

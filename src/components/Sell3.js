@@ -140,32 +140,18 @@ const CardTitle = styled.h4`
   color: #f7a600;
   margin-top: 0;
   text-align: center;
+
   
 `;
 
-const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 1rem;
-  z-index: 1001;
-  display: none;
+const Crosss = styled.p`
+display: flex;
+width: 100%;
+justify-content: space-between;
 
-  @media (max-width: 1024px) { // Show on tablet and mobile
-    display: block;
-  }
-
-  @media (max-width: 430px) {
-    font-size: 14px;
-    top: 10px;
-    left: 10px;
-  }
+  
 `;
+
 
 const Sell3 = () => {
   const navigate = useNavigate();
@@ -266,91 +252,86 @@ const Sell3 = () => {
   };
 
   return (
-    <>
-      <PageContainer>
-        <div style={{width:"100%"}}>
-          <BackButton onClick={() => window.history.back()}>Back</BackButton>
-        </div>
-        <Navbar />
-        <ToastContainer />
-        <CardsContainer>
-          <FormTitle>Choose Account</FormTitle>
-          <CardsSection>
-            {accounts.map((account, index) => (
-              <Card key={index} onClick={() => handleCardClick(account)}>
-                <CardTitle>Account {index + 1}</CardTitle>
-                <p><strong>Account Holder:</strong> {account.Name}</p>
-                <p><strong>Country:</strong> {account.Country}</p>
-                <p><strong>Bank Name:</strong> {account.BankName}</p>
-                <p><strong>Account Number:</strong> {account.AccountNumber}</p>
-                <p><strong>IFSC:</strong> {account.IFSC}</p>
-              </Card>
-            ))}
-          </CardsSection>
-          {/* <FormButton style={{width:"20%"}}>
+    <PageContainer>
+      <Navbar />
+      <ToastContainer />
+      <CardsContainer>
+        <FormTitle>Choose Account</FormTitle>
+        <CardsSection>
+          {accounts.map((account, index) => (
+            <Card key={index} onClick={() => handleCardClick(account)}>
+              <CardTitle>Account {index + 1}</CardTitle>
+              <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
+              <Crosss><strong>Country:</strong> {account.Country}</Crosss>
+              <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss>
+              <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>
+              <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
+            </Card>
+          ))}
+        </CardsSection>
+        {/* <FormButton style={{width:"20%"}}>
           Add Account
         </FormButton> */}
-        </CardsContainer>
-        <FormWrapper>
-          <FormContainer>
-            <FormTitle>Add Account</FormTitle>
+      </CardsContainer>
+      <FormWrapper>
+        <FormContainer>
+          <FormTitle>Add Account</FormTitle>
 
-            <form onSubmit={handleFormSubmit}>
-              <FormSection>
-                <h3>Personal Information</h3>
-                <FormLabel>Account Holder</FormLabel>
-                <FormInput
-                  value={accountHolder}
-                  onChange={(e) => setAccountHolder(e.target.value)}
-                  placeholder="Please enter your full name"
-                />
+          <form onSubmit={handleFormSubmit}>
+            <FormSection>
+              <h3>Personal Information</h3>
+              <FormLabel>Account Holder</FormLabel>
+              <FormInput
+                value={accountHolder}
+                onChange={(e) => setAccountHolder(e.target.value)}
+                placeholder="Please enter your full name"
+              />
 
-                <FormLabel>Country</FormLabel>
-                <FormInput
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  placeholder="Choose your country"
-                />
-              </FormSection>
+              <FormLabel>Country</FormLabel>
+              <FormInput
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder="Choose your country"
+              />
+            </FormSection>
 
-              <FormSection>
-                <h3>Account Information</h3>
-                <FormLabel>Bank Name</FormLabel>
-                <FormInput
-                  value={bankName}
-                  onChange={(e) => setBankName(e.target.value)}
-                  placeholder="Enter Your Bank Name"
-                />
+            <FormSection>
+              <h3>Account Information</h3>
+              <FormLabel>Bank Name</FormLabel>
+              <FormInput
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+                placeholder="Enter Your Bank Name"
+              />
 
-                <FormLabel>Account Number</FormLabel>
-                <FormInput
-                  value={accountNumber}
-                  onChange={(e) => setAccountNumber(e.target.value)}
-                  placeholder="Enter Your Account Number"
-                />
+              <FormLabel>Account Number</FormLabel>
+              <FormInput
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+                placeholder="Enter Your Account Number"
+              />
 
-                <FormLabel>IFSC</FormLabel>
-                <FormInput
-                  value={ifsc}
-                  onChange={(e) => setIfsc(e.target.value)}
-                  placeholder="Enter Your IFSC"
-                />
-              </FormSection>
+              <FormLabel>IFSC</FormLabel>
+              <FormInput
+                value={ifsc}
+                onChange={(e) => setIfsc(e.target.value)}
+                placeholder="Enter Your IFSC"
+              />
+            </FormSection>
 
-              <FormWarning>
-                Attention: Please ensure the bank account belongs to you and the information is accurate.
-              </FormWarning>
+            <FormWarning>
+              Attention: Please ensure the bank account belongs to you and the information is accurate.
+            </FormWarning>
 
-              <FormButton type="submit" disabled={!isFormValid}>
-                Proceed To Pay
-              </FormButton>
-            </form>
-          </FormContainer>
-        </FormWrapper>
-        <HomeContact />
-        <Footer />
-      </PageContainer>
-    </>
+            <FormButton type="submit" disabled={!isFormValid}>
+              Proceed To Pay
+            </FormButton>
+          </form>
+        </FormContainer>
+      </FormWrapper>
+      <HomeContact />
+      <Footer />
+    </PageContainer>
   );
 };
 
