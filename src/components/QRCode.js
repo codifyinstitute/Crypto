@@ -8,8 +8,8 @@ import HomeContact from './HomeContact';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   min-height: 100vh;
   background-color: #1a1a1a;
   padding: 20px;
@@ -102,6 +102,13 @@ const BackButton = styled.button`
   }
 `;
 
+const Center = styled.div`
+    height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const QRCodeCard = () => {
     const [localData, setLocalData] = useState({});
     const [transactionFee, setTransactionFee] = useState(0);
@@ -175,16 +182,18 @@ const QRCodeCard = () => {
                     <BackButton onClick={() => window.history.back()}>Back</BackButton>
                 </div>
                 <Navbar />
-                <Card>
-                    <Title>Sell {localData.symbol}</Title>
-                    <div>
-                        <QRCodeContainer>
-                            <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
-                        </QRCodeContainer>
-                        <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
-                    </div>
-                    <Button onClick={handleProceedClick}>Submit</Button>
-                </Card>
+                <Center>
+                    <Card>
+                        <Title>Sell {localData.symbol}</Title>
+                        <div>
+                            <QRCodeContainer>
+                                <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
+                            </QRCodeContainer>
+                            <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
+                        </div>
+                        <Button onClick={handleProceedClick}>Submit</Button>
+                    </Card>
+                </Center>
             </PageContainer>
             <HomeContact />
             <Footer />

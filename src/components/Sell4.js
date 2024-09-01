@@ -101,6 +101,13 @@ const BackButton = styled.button`
   }
 `;
 
+const Center = styled.div`
+    height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
 const Sell4 = () => {
   const [localData, setLocalData] = useState({});
   const [transactionFee, setTransactionFee] = useState(0);
@@ -226,56 +233,58 @@ const Sell4 = () => {
           <BackButton onClick={() => window.history.back()}>Back</BackButton>
         </div>
         <Navbar />
-        <Card>
-          <Title>Sell {localData.symbol}</Title>
-          <div>
-            <InfoRow>
-              <Label>Name</Label>
-              <Value>{localData.Name}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Country</Label>
-              <Value>{localData.Country}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Bank Name</Label>
-              <Value>{localData.BankName}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Account Number</Label>
-              <Value>{localData.AccountNumber}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>IFSC Code</Label>
-              <Value>{localData.IFSC}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Amount Pay</Label>
-              <Value>{localData.amountPay}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>INR Amount</Label>
-              <Value>{localData.amountPay * currencyRate}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Transaction Fee</Label>
-              <Value>{transactionFee}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Network Fee</Label>
-              <Value>{networkFee}</Value>
-            </InfoRow>
-            <InfoRow>
-              <Label>Received Amount</Label>
-              <Value>{calculateReceivedAmount()}</Value>
-            </InfoRow>
-          </div>
-          {/* <QRCodeContainer>
+        <Center>
+          <Card>
+            <Title>Sell {localData.symbol}</Title>
+            <div>
+              <InfoRow>
+                <Label>Name</Label>
+                <Value>{localData.Name}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Country</Label>
+                <Value>{localData.Country}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Bank Name</Label>
+                <Value>{localData.BankName}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Account Number</Label>
+                <Value>{localData.AccountNumber}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>IFSC Code</Label>
+                <Value>{localData.IFSC}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Amount Pay</Label>
+                <Value>{localData.amountPay}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>INR Amount</Label>
+                <Value>{localData.amountPay * currencyRate}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Transaction Fee</Label>
+                <Value>{transactionFee}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Network Fee</Label>
+                <Value>{networkFee}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Received Amount</Label>
+                <Value>{calculateReceivedAmount()}</Value>
+              </InfoRow>
+            </div>
+            {/* <QRCodeContainer>
             <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
           </QRCodeContainer>
           <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel> */}
-          <Button onClick={handleProceedClick}>Proceed</Button>
-        </Card>
+            <Button onClick={handleProceedClick}>Proceed</Button>
+          </Card>
+        </Center>
       </PageContainer>
       <HomeContact />
       <Footer />
