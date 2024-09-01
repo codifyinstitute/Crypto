@@ -353,9 +353,31 @@ const TableFooter = styled.p`
   color: #69502F;
 `;
 
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
 
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++
 const Sell1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -453,6 +475,7 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
       <TradingEnvironment>
         <ExchangeCard>
           <div>
