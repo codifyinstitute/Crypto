@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from './Footer';
+import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import { toast } from 'react-toastify'; // For toast notifications
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
@@ -178,7 +179,7 @@ const Profile = () => {
             </MenuLink>
           </MenuItem>
           <MenuItem>
-            <MenuLink href="#">
+            <MenuLink href="/Refer">
               <IconText>
                 <Icon>🎁</Icon>
                 Refer And Earn
@@ -206,6 +207,7 @@ const Profile = () => {
           </MenuItem>
         </MenuList>
       </Container>
+      <HomeContact/>
       <Footer />
     </>
   );

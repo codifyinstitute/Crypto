@@ -1,6 +1,7 @@
 // src/components/Modal.js
 import React from 'react';
 import styled from 'styled-components';
+import pic from "../assets/Success.gif"
 
 const Overlay = styled.div`
   position: fixed;
@@ -16,7 +17,7 @@ const Overlay = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  background: white;
+  background: #ecedf0;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -55,8 +56,13 @@ const Modal = ({ title, message, onConfirm, onCancel, showDoneButton }) => (
     <Overlay>
         <ModalContainer>
             <Header>{title}</Header>
-            <p>{message}</p>
-            <div>
+            <div style={{display:"flex",justifyContent:"center"}}>
+            {showDoneButton ? (
+                    <img src={pic} alt="Success" height="200px"/>
+                ) : null}
+            </div>
+            <p style={{display:"flex",justifyContent:"center"}}>{message}</p>
+            <div style={{display:"flex",justifyContent:"center", marginTop:"1rem"}}>
                 {showDoneButton ? (
                     <Button onClick={onConfirm}>Done</Button>
                 ) : (

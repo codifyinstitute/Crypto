@@ -8,8 +8,8 @@ import HomeContact from './HomeContact';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   min-height: 100vh;
   background-color: #1a1a1a;
   padding: 20px;
@@ -20,18 +20,17 @@ const Card = styled.div`
     color: white;
     padding: 2rem;
     border-radius: 1rem;
-    width: 480px;
-    height: 480px;
-    max-width: 100%;
+    width: 380px;
+    height: 580px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 5%;
 
     @media (max-width: 480px) {
-        padding: 1rem;
-        width: 90%;
-        height: auto;
+        /* padding: 1rem; */
+        width: 100%;
+        /* height: auto; */
     }
 `;
 
@@ -101,6 +100,13 @@ const BackButton = styled.button`
     top: 10px;
     left: 10px;
   }
+`;
+
+const Center = styled.div`
+    height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const QRCodeCard = () => {
@@ -176,16 +182,18 @@ const QRCodeCard = () => {
                     <BackButton onClick={() => window.history.back()}>Back</BackButton>
                 </div>
                 <Navbar />
-                <Card>
-                    <Title>Sell {localData.symbol}</Title>
-                    <div>
-                        <QRCodeContainer>
-                            <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
-                        </QRCodeContainer>
-                        <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
-                    </div>
-                    <Button onClick={handleProceedClick}>Submit</Button>
-                </Card>
+                <Center>
+                    <Card>
+                        <Title>Sell {localData.symbol}</Title>
+                        <div>
+                            <QRCodeContainer>
+                                <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
+                            </QRCodeContainer>
+                            <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
+                        </div>
+                        <Button onClick={handleProceedClick}>Submit</Button>
+                    </Card>
+                </Center>
             </PageContainer>
             <HomeContact />
             <Footer />

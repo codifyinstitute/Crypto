@@ -23,6 +23,7 @@ import AdminTransaction from './components/Admin/AdminTransaction';
 import AdminAddCurrency from './components/Admin/AdminAddCurrency';
 import OTPPage from './components/OTP';
 import QRCodeCard from './components/QRCode';
+import Refer from './components/Refer';
 
 
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/Sell5" element={<Sell5 />} />
         <Route path="/otp" element={<OTPPage />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/Refer" element={<Refer />} />
         <Route path="/Bank" element={<Bank />} />
         <Route path="/Transaction" element={<Transaction />} />
         <Route path="/admin/login" element={<AdminLogin />} />

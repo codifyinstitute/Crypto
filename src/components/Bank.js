@@ -73,10 +73,8 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
-  color: black;
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+  width: 380px;
+  height: 580px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,10 +85,10 @@ const Card = styled.div`
   transform: translate(-50%, -50%);
   z-index: 1000;
   @media (max-width: 375px) {
-    max-width: 340px;
+width: 100%;
   }
   @media (max-width: 320px) {
-    max-width: 300px;
+    width: 100%;
   }
 `;
 
@@ -156,6 +154,7 @@ const SubmitButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   width: 100%;
+  margin-top: 42%;
 `;
 
 const AccountCard = styled.div`
