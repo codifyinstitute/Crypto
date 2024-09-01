@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   /* background-color: #1a1a1a; */
   color: white;
-  padding: 5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -17,9 +17,10 @@ const Container = styled.div`
 `;
 
 const MainText = styled.h2`
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 0;
-  max-width: 60%;
+
+  max-width: 80%;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -28,10 +29,11 @@ const MainText = styled.h2`
 `;
 
 const SubText = styled.p`
-  font-size: 2rem;
+  font-size: 1.2rem;
   margin: 0;
-  /* max-width: 80%; */
+  max-width: 80%;
   opacity: 0.7;
+  color: white;
 
   @media (max-width: 768px) {
     font-size: 0.8rem;
@@ -45,6 +47,7 @@ const Button = styled.button`
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   align-self: flex-end;

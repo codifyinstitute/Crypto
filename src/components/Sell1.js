@@ -367,6 +367,7 @@ const TableCell = styled.td`
   padding: 4px 0;
   color: black;
   border: 1px solid orange;
+  text-align: center;
 
 `;
 
@@ -671,15 +672,15 @@ const Sell1 = () => {
           <tbody>
             <tr>
               <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93+0.25</TableCell>
+              <TableCell >93+0.25</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93-0.5</TableCell>
+              <TableCell >93-0.5</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=3225.81</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93-1</TableCell>
+              <TableCell >93-1</TableCell>
             </tr>
           </tbody>
         </Table>
