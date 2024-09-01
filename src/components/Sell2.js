@@ -194,8 +194,10 @@ const Sell2 = () => {
   return (
     <>
       <Navbar />
-      <BackButton onClick={() => window.history.back()}>Back</BackButton>
       <PageContainer>
+      <div style={{ width: "100%" }}>
+                    <BackButton onClick={() => window.history.back()}>Back</BackButton>
+                </div>
         <Card>
 
         <TabContainer>
@@ -203,34 +205,34 @@ const Sell2 = () => {
           </TabContainer>
           <Logo>LOGO</Logo>
           <Subtitle>Checkout with Moon Pay</Subtitle>
-    
+
           <Forg>
-          <Boxx>
-            <Label>What is your email address?</Label>
-            <Input
-              type="email"
-              placeholder="Enter your mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <CheckboxLabel>
-              <Checkbox
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
+            <Boxx>
+              <Label>What is your email address?</Label>
+              <Input
+                type="email"
+                placeholder="Enter your mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              I have read and agree to Moon Pay's Terms Of Services and privacy policy.
-            </CheckboxLabel>
+              <CheckboxLabel>
+                <Checkbox
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={(e) => setIsChecked(e.target.checked)}
+                />
+                I have read and agree to Moon Pay's Terms Of Services and privacy policy.
+              </CheckboxLabel>
 
             </Boxx>
             <Boo>
-            <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
-              {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH →'}
-            </Button>
-            <PoweredBy>Powered by Moon Pay</PoweredBy>
+              <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
+                {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH →'}
+              </Button>
+              <PoweredBy>Powered by Moon Pay</PoweredBy>
             </Boo>
           </Forg>
-        
+
         </Card>
       </PageContainer>
       <HomeContact />
