@@ -20,12 +20,19 @@ const Container = styled.div`
   }
 
 `;
+const Group = styled.div`
+display: flex;
+`
 
 const Title = styled.h2`
   color: #FFA500;
   font-size: 2em;
   margin-top: 0;
   margin-bottom: 15px;
+  @media (max-width: 480px) {
+  font-size: 1.5rem;
+
+  }
 `;
 
 const Content = styled.div`
@@ -54,6 +61,11 @@ const Description = styled.p`
   font-size: 1.2em;
   line-height: 1.5;
   margin-bottom: 20px;
+  margin-left: 2rem;
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    margin-left: 15px;
+  }
 `;
 
 const Features = styled.div`
@@ -74,11 +86,17 @@ const FeatureTitle = styled.h3`
   font-size: 2rem;
   margin-top: 0;
   margin-bottom: 10px;
+  @media (max-width: 480px) {
+   font-size: 1.5rem;
+  }
 `;
 
 const FeatureDescription = styled.p`
   font-size: 1.2em;
   line-height: 1.4;
+  @media (max-width: 480px) {
+   font-size: 0.8rem;
+  }
 `;
 
 const Mobile = () => {
@@ -86,13 +104,15 @@ const Mobile = () => {
     <Container>
       <Title>Why Choose Moon Pay for USDT Exchange</Title>
       <Content>
-        <PhoneImage />
         <TextContent>
+        <Group>
+        <PhoneImage />
           <Description>
             At Moon Pay, we offer a seamless and secure platform for exchanging USDT. With our intuitive interface and
             advanced security measures, you can buy and sell USDT with confidence and ease. Our commitment to transparency,
             reliability, and customer satisfaction sets us apart, making Moon Pay the preferred choice for USDT exchange.
           </Description>
+          </Group>
           <Features>
             <Feature>
               <FeatureTitle>Vision</FeatureTitle>

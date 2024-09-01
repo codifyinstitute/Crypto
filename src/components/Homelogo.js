@@ -58,6 +58,12 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 3rem;
   margin-bottom: 2rem;
+
+  @media (max-width: 430px) {
+    font-size: 1.87rem;
+    line-height:120%;
+    
+  }
 `;
 
 const LogoGrid = styled.div`
@@ -71,9 +77,9 @@ const LogoGrid = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
   }
   @media (max-width: 430px) {
-    grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     width: 100%;
-    gap:3rem;
+    gap:1.5rem;
     
   }
 `;

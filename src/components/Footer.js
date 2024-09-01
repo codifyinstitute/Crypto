@@ -9,6 +9,7 @@ const FooterContainer = styled.footer`
   border-top: 4px solid #ff9900;
   text-align: center;
   flex-wrap: wrap;
+  
 `;
 
 const CoreValuesContainer = styled.div`
@@ -82,6 +83,10 @@ const LinksContainer = styled.div`
     &:hover {
       text-decoration: underline;
     }
+    @media (max-width: 480px) {
+   font-size: 18px;
+   cursor: pointer;
+  }
   }
 `;
 const Column = styled.div`
@@ -109,6 +114,9 @@ const SocialMediaContainer = styled.div`
     &:hover {
       color: #ff9900;
     }
+    @media (max-width: 480px) {
+   padding-bottom: 30px;
+  }
   }
 `;
 
@@ -119,22 +127,22 @@ const Footer = () => {
         <CoreValue>
           <h3>Transparency</h3>
           <p>
-            We strive to provide accurate information to our users at all times. 
-            This includes being transparent about our fees, policies, and any updates 
+            We strive to provide accurate information to our users at all times.
+            This includes being transparent about our fees, policies, and any updates
             that may affect our users.
           </p>
         </CoreValue>
         <CoreValue>
           <h3>Security</h3>
           <p>
-            The security of our user's assets and personal data is of utmost importance 
+            The security of our user's assets and personal data is of utmost importance
             to us. We employ cutting-edge security protocols and industry best practices.
           </p>
         </CoreValue>
         <CoreValue>
           <h3>Customer-Centric</h3>
           <p>
-            Our customers are at the heart of everything we do. We are committed 
+            Our customers are at the heart of everything we do. We are committed
             to providing a personalized and exceptional experience for each of our users.
           </p>
         </CoreValue>
@@ -145,20 +153,20 @@ const Footer = () => {
           <p>Trade Smarter, Trade Better</p>
         </LogoContainer>
         <Column>
-        <LinksContainer>
-          <a href="/">Home</a>
-          <a href="/">About Us</a>
-          <a href="/">Contact Us</a>
-          <a href="/">Privacy Policy</a>
-          <a href="/">Terms and Conditions</a>
-        </LinksContainer>
-        <DisclaimerContainer>
-          <p>
-            Disclaimer: Cryptocurrency and digital asset investments carry risks, including potential capital loss.
-            Information on this website is for informational purposes and should not be construed as financial, investment, 
-            or legal advice.
-          </p>
-        </DisclaimerContainer>
+          <LinksContainer>
+            <a href="/">Home</a>
+            <a href="/">About Us</a>
+            <a href="/">Contact Us</a>
+            <a href="/">Privacy Policy</a>
+            <a href="/">Terms and Conditions</a>
+          </LinksContainer>
+          <DisclaimerContainer>
+            <p>
+              Disclaimer: Cryptocurrency and digital asset investments carry risks, including potential capital loss.
+              Information on this website is for informational purposes and should not be construed as financial, investment,
+              or legal advice.
+            </p>
+          </DisclaimerContainer>
         </Column>
         <SocialMediaContainer>
           <a href="https://twitter.com"><FaTwitter /></a>

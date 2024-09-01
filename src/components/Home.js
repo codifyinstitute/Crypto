@@ -238,6 +238,10 @@ const Subtitle = styled.p`
     color: #888;
     margin-bottom: 2rem;
     width: 80% ;
+        
+  @media (max-width: 430px) {
+    width: 100%;
+  }
 `;
 
 const ExchangeRateBox = styled.div`
@@ -249,7 +253,11 @@ const ExchangeRateBox = styled.div`
     justify-content: flex-start;
     flex-direction: column;
     border: 1px orange solid;
-    width: 60% ;
+    width: 80% ;
+    
+  @media (max-width: 430px) {
+    width: 100%;
+  }
 `;
 
 const RefreshText = styled.p`

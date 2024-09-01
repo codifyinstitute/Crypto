@@ -30,6 +30,9 @@ const Container = styled.div`
   @media (max-width: 768px) {
     padding: 10px;
   }
+  @media (max-width: 480px) {
+ padding: 0px;
+  }
 `;
 
 const Title = styled.h1`
@@ -46,7 +49,8 @@ const Title = styled.h1`
   }
 
   @media (max-width: 480px) {
-    /* font-size: 1.5em; */
+    font-size: 1.87rem;
+    text-align: center;
   }
 `;
 
@@ -61,7 +65,9 @@ const Description = styled.p`
   }
 
   @media (max-width: 480px) {
-    font-size: 1em;
+    font-size: 12px;
+    margin-bottom: 30px;
+    width: 100%;
   }
 `;
 
@@ -74,9 +80,13 @@ const TalkButton = styled.button`
   cursor: pointer;
   font-weight: bold;
   margin-bottom: 2rem;
+  font-size: 20px;
+
 
   @media (max-width: 480px) {
     padding: 8px 16px;
+  font-size: 15px;
+
   }
 `;
 

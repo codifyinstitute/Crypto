@@ -100,7 +100,7 @@ const PaymentLogo = styled.img`
   margin: 0 1px;
 
   @media (max-width: 480px) {
-    height: 25px;
+    height: 80px;
     margin: 0 8px;
   }
 `;

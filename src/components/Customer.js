@@ -24,7 +24,6 @@ justify-content: center;
 const SliderContainer = styled.div`
   position: relative;
   overflow: hidden;
-
   width: 80%;
   @media (max-width: 321px) {
     flex-direction: column;
@@ -32,6 +31,10 @@ const SliderContainer = styled.div`
     text-align: center;
     width: 270px;
     margin-top: 7%;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 
@@ -43,6 +46,7 @@ const SliderWrapper = styled.div`
   @media (min-width: 1025px) {
     transform: none; /* Disable sliding on desktop */
     gap: 1rem;
+    margin-top: 20px;
   }
 `;
 
@@ -77,6 +81,11 @@ const TestimonialCard = styled.div`
 
     margin-top: 15%;
   }
+  
+  @media (max-width: 480px) {
+    text-align: left;
+    gap: 0;
+  }
 
 `;
 
@@ -104,6 +113,14 @@ const Avatar = styled.div`
   @media (max-width: 321px) {
     top: -12%;
   }
+  
+  @media (max-width: 480px) {
+    width: 80px;
+  height: 80px;
+  top: -22%;
+  margin-bottom: 0px;
+
+  }
 `;
 
 const TestimonialContent = styled.div`
@@ -127,7 +144,10 @@ const Title = styled.h2`
   color: white;
 
   @media (max-width: 480px) {
-    font-size: 3rem;
+    font-size: 1.87rem;
+    text-align: left;
+    width: auto;
+    /* padding-right: 15px; */
   }
 `;
 
