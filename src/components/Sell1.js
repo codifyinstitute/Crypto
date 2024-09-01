@@ -7,6 +7,9 @@ import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
+import payment from "./../assets/payment.png";
+import { RefreshCw } from 'lucide-react';
+
 
 const TradingEnvironment = styled.div`
   display: flex;
@@ -27,6 +30,9 @@ const ExchangeCard = styled.div`
   max-width: 100%;
   margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TabContainer = styled.div`
@@ -37,9 +43,10 @@ const TabContainer = styled.div`
 const Tab = styled.div`
   padding: 0.5rem 0;
   margin-right: 1rem;
-  color: ${props => props.active ? '#0052FF' : '#888'};
-  border-bottom: 2px solid ${props => props.active ? '#0052FF' : 'transparent'};
+  color: orange;
+  border-bottom: 2px solid orange;
   cursor: pointer;
+  font-size: 18px;
 `;
 
 const InputLabel = styled.div`
@@ -114,7 +121,7 @@ const OrderDetail = styled.div`
 const ProceedButton = styled.button`
   width: 100%;
   padding: 1rem;
-  background-color: #0052ff;
+  background-color: orange;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -142,10 +149,14 @@ const PaymentMethods = styled.div`
 `;
 
 const PaymentIcon = styled.div`
-  width: 40px;
-  height: 24px;
-  background-color: #e0e0e0;
+ width: 210px;
+  height: 35px;
+  background-color: white;
   border-radius: 4px;
+  background-image: url(${payment});
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 
 const PoweredBy = styled.div`
@@ -239,77 +250,112 @@ const CurrencyName = styled.span`
   font-size: 0.8rem;
   color: #888;
 `;
-const PriceContainer = styled.div`
-  background-color: #27201c;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  color: #fff;
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+const Container = styled.div`
+  /* background-color: #2D2D2D; */
+
+  background: linear-gradient(112.77deg, rgba(222, 209, 254, 0.2) -0.92%, rgba(247, 166, 0, 0.2) 103.89%);
+
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 320px;
+  margin: 0 auto;
   font-family: Arial, sans-serif;
-  text-align: center;
-  position: relative;
-  margin-top: 4%;
 `;
 
-const TimerSection = styled.div`
-  font-size: 14px;
-  margin-bottom: 10px;
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 `;
 
-const RefreshButton = styled.div`
-  cursor: pointer;
-  font-size: 20px;
+const RefreshText = styled.p`
+  font-size: 14px;
+  color: #BDBDBD;
 `;
 
-const PriceValue = styled.div`
-  font-size: 60px;
+const PriceDisplay = styled.div`
+  text-align: center;
+  margin-bottom: 16px;
+`;
+
+const Price = styled.span`
+  font-size: 64px;
   font-weight: bold;
-  margin-bottom: 10px;
 `;
 
-const PriceTag = styled.span`
-  background-color: #e83d2f;
-  padding: 5px 10px;
-  border-radius: 5px;
+const BaseLabel = styled.span`
+  margin-left: 4px;
+  font-size: 12px;
+  background-color: #E53935;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  vertical-align: super;
+`;
+
+const Subtext = styled.p`
+  text-align: center;
+  margin-bottom: 16px;
+  color: #BDBDBD;
   font-size: 14px;
 `;
 
-const ConversionText = styled.div`
-  font-size: 14px;
-  margin-bottom: 20px;
+const TableContainer = styled.div`
+  background-color: #FFA000;
+  border-radius: 8px;
+  padding: 16px;
+  width: 280px;
 `;
 
-const PricingTable = styled.div`
-  background-color: #f7a71e;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: left;
-  margin-top: 10px;
-`;
-
-const PricingRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  border-top: 1px solid #fff;
-
-  &:first-child {
-    border-top: none;
+const Table = styled.table`
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  border: 1px solid orange;
+  tbody{
+  background-color: white;
+  border: 1px solid orange;
+  
   }
 `;
 
-const PricingCell = styled.div`
+const TableHeader = styled.th`
+  text-align: ${props => props.align || 'left'};
+  font-weight: normal;
+  color: #69502F;
   font-size: 14px;
+  padding-bottom: 8px;
+  border: 1px solid orange;
+
 `;
 
-const PolicyDescription = styled.div`
-  font-size: 12px;
-  text-align: center;
-  margin-top: 10px;
+const TableCell = styled.td`
+  font-size: 14px;
+  padding: 4px 0;
+  color: black;
+  border: 1px solid orange;
+  
 `;
+
+const TableFooter = styled.p`
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #69502F;
+`;
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
 const Sell1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -409,8 +455,8 @@ const Sell1 = () => {
       <Navbar />
       <TradingEnvironment>
         <ExchangeCard>
+          <div>
           <TabContainer>
-            <Tab>Buy Crypto</Tab>
             <Tab active>Sell Crypto</Tab>
           </TabContainer>
           
@@ -501,24 +547,28 @@ const Sell1 = () => {
               </>
             )}
           </OrderSummary>
-          
+          </div>
+
+          <div>
           <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
             Proceed · Sell {selectedCurrency?.Symbol} →
           </ProceedButton>
           
           <PaymentMethods>
             <PaymentIcon />
-            <PaymentIcon />
-            <PaymentIcon />
-            <PaymentIcon />
           </PaymentMethods>
           
           <PoweredBy>
             Powered by Alchemy Pay
           </PoweredBy>
+          </div>
         </ExchangeCard>
 
-        <PriceContainer>
+
+
+
+
+        {/* <PriceContainer>
       <TimerSection>
         <span>Automatic refresh after {timer}s</span>
         <RefreshButton onClick={handleRefresh}>🔄</RefreshButton>
@@ -542,7 +592,50 @@ const Sell1 = () => {
         </PricingRow>
       </PricingTable>
       <PolicyDescription>What is tiered price policy?</PolicyDescription>
-    </PriceContainer>
+    </PriceContainer> */}
+
+<Container>
+      <Header>
+        <RefreshText>Automatic refresh after {timer}s</RefreshText>
+        <RefreshCw size={20} color="#BDBDBD" />
+      </Header>
+      
+      <PriceDisplay>
+        <Price>93</Price>
+        <BaseLabel>Base</BaseLabel>
+      </PriceDisplay>
+      
+      <Subtext>1USDT=93</Subtext>
+      
+      <TableContainer>
+        <Table>
+          <thead>
+            <tr>
+              <TableHeader>Exchange(s)</TableHeader>
+              <TableHeader align="right">Price()</TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93+0.25</TableCell>
+            </tr>
+            <tr>
+              <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93-0.5</TableCell>
+            </tr>
+            <tr>
+              <TableCell>&gt;=3225.81</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93-1</TableCell>
+            </tr>
+          </tbody>
+        </Table>
+        <TableFooter>What is tiered price policy?</TableFooter>
+      </TableContainer>
+    </Container>
+
+
+
       </TradingEnvironment>
       <HomeContact />
       <Footer />
