@@ -532,7 +532,10 @@ const Sell1 = () => {
           <OrderSummary>
             <OrderTitle onClick={toggleDetailsExpanded}>
               Your order
-              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              <div style={{ display: "flex" }}>
+                {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} {selectedCurrency.Symbol} to {inr.toFixed(2)} INR</p>}
+                {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </div>
             </OrderTitle>
             {isDetailsExpanded && (
               <>
@@ -543,6 +546,10 @@ const Sell1 = () => {
                 <OrderDetail>
                   <span>Processing fee <Info size={14} /></span>
                   <span>as low as Rs {transactionFee}</span>
+                </OrderDetail>
+                <OrderDetail>
+                  <span>networkFee fee <Info size={14} /></span>
+                  <span>as low as Rs {networkFee}</span>
                 </OrderDetail>
               </>
             )}
@@ -574,21 +581,21 @@ const Sell1 = () => {
         <RefreshButton onClick={handleRefresh}>🔄</RefreshButton>
       </TimerSection>
       <PriceValue>
-        93 <PriceTag>Base</PriceTag>
+      {selectedCurrency?.Rate.toFixed(2)} <PriceTag>Base</PriceTag>
       </PriceValue>
-      <ConversionText>1USDT=93</ConversionText>
+      <ConversionText>1 {selectedCurrency?.Symbol} = {selectedCurrency?.Rate.toFixed(2)}</ConversionText>
       <PricingTable>
         <PricingRow>
           <PricingCell>≥ 1075.27 and &lt; 2150.54</PricingCell>
-          <PricingCell>93 + 0.25</PricingCell>
+          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 0.25</PricingCell>
         </PricingRow>
         <PricingRow>
           <PricingCell>≥ 2150.54 and &lt; 3225.81</PricingCell>
-          <PricingCell>93 + 0.5</PricingCell>
+          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 0.5</PricingCell>
         </PricingRow>
         <PricingRow>
           <PricingCell>≥ 3225.81</PricingCell>
-          <PricingCell>93 + 1</PricingCell>
+          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 1</PricingCell>
         </PricingRow>
       </PricingTable>
       <PolicyDescription>What is tiered price policy?</PolicyDescription>

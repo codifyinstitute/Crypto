@@ -20,8 +20,8 @@ const Card = styled.div`
     color: white;
     padding: 2rem;
     border-radius: 1rem;
-    width: 480px;
-    height: 500px;
+    width: 380px;
+    height: 580px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -50,12 +50,14 @@ const InfoRow = styled.div`
 `;
 
 const Label = styled.span`
-  color: #666;
+  color: black;
+  font-weight: bolder;
+
 `;
 
 const Value = styled.span`
-color: #f7a600;
-  font-weight: bold;
+color: black;
+font-weight: bold;
 `;
 
 const Button = styled.button`

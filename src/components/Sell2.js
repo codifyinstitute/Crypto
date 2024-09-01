@@ -24,11 +24,16 @@ const Card = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  width: 100%;
-  max-width: 480px; 
+  width: 380px;
+  height: 580px;
   color: black;
   margin-top: 5%;
   margin-bottom: 20px;
+  
+  @media (max-width: 430px) {
+    width: 100%;
+
+  }
 `;
 
 const Title = styled.h1`
@@ -108,6 +113,17 @@ const LoadingSpinner = styled.div`
     100% { transform: rotate(360deg); }
   }
 `;
+const Boxx = styled.div`
+ margin-bottom: 64%;
+`;
+const Boo = styled.div`
+ 
+`;
+const Forg = styled.div`
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+`;
 
 const Sell2 = () => {
   const [email, setEmail] = useState('');
@@ -141,10 +157,13 @@ const Sell2 = () => {
       <Navbar />
       <PageContainer>
         <Card>
+
           <Title>Login To Moon Pay</Title>
           <Logo>LOGO</Logo>
           <Subtitle>Checkout with Moon Pay</Subtitle>
-          <form>
+    
+          <Forg>
+          <Boxx>
             <Label>What is your email address?</Label>
             <Input
               type="email"
@@ -160,11 +179,16 @@ const Sell2 = () => {
               />
               I have read and agree to Moon Pay's Terms Of Services and privacy policy.
             </CheckboxLabel>
+
+            </Boxx>
+            <Boo>
             <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
               {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH →'}
             </Button>
-          </form>
-          <PoweredBy>Powered by Moon Pay</PoweredBy>
+            <PoweredBy>Powered by Moon Pay</PoweredBy>
+            </Boo>
+          </Forg>
+        
         </Card>
         <HomeContact />
       </PageContainer>
