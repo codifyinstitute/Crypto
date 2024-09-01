@@ -12,10 +12,10 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: fit-content;
-  justify-content: space-between;
+  min-height: 100vh;
+  justify-content: center;
   gap: 10rem;
-  background-color: #1c1c1c;
+  background-color: black;
   color: white;
   padding: 20px;
 `;
@@ -25,7 +25,8 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 100%;
-  max-width: 400px;
+  max-width: 380px;
+  /* height: 610px; */
   color: black;
   margin-top: 4%;
   margin-bottom: 20px;
@@ -53,6 +54,13 @@ const OTPContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:75%;
 `;
 
 const OTPInput = styled.input`
@@ -104,86 +112,106 @@ const LoadingSpinner = styled.div`
   }
 `;
 
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: orange;
+  border-bottom: 2px solid orange;
+  cursor: pointer;
+  font-size: 18px;
+`;
+
 const OTPPage = () => {
-    const [otp, setOtp] = useState(new Array(6).fill(''));
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [otp, setOtp] = useState(new Array(6).fill(''));
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    useEffect(() => {
-        if (!(location.state && location.state.email)) {
-            navigate('/sell2');
+  useEffect(() => {
+    if (!(location.state && location.state.email)) {
+      navigate('/sell2');
+    }
+  }, [location, navigate]);
+
+  const handleChange = (element, index) => {
+    if (/^\d*$/.test(element.value)) {
+      const newOtp = [...otp];
+      newOtp[index] = element.value;
+      setOtp(newOtp);
+
+      // Move to next input box if value is entered
+      if (element.nextSibling && element.value !== '') {
+        element.nextSibling.focus();
+      }
+    }
+  };
+
+  const isFormValid = otp.every(num => num !== '');
+
+  const handleVerify = async () => {
+    if (isFormValid) {
+      setLoading(true);
+      try {
+        const response = await axios.post('https://crypto-anl6.onrender.com/users/login/verify', {
+          Email: location.state.email,
+          OTP: otp.join('') // Concatenate OTP array into a single string
+        });
+        localStorage.setItem("token", response.data.token)
+        if (response.status === 200) {
+          navigate('/sell1'); // Replace with your next page route
         }
-    }, [location, navigate]);
+      } catch (error) {
+        console.error("Error verifying OTP:", error);
+        toast.error("Invalid or expired OTP. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
-    const handleChange = (element, index) => {
-        if (/^\d*$/.test(element.value)) {
-            const newOtp = [...otp];
-            newOtp[index] = element.value;
-            setOtp(newOtp);
+  return (
+    <>
+      <Navbar />
+      <PageContainer>
+        <Card>
+          <TabContainer>
+            <Tab active>Enter OTP</Tab>
+          </TabContainer>
+          <Logo>LOGO</Logo>
+          <FormContainer>
+            <div>
+              <Subtitle>Enter the OTP sent to your email</Subtitle>
+              <OTPContainer>
+                {otp.map((data, index) => (
+                  <OTPInput
+                    key={index}
+                    type="number"
+                    maxLength="1"
+                    value={data}
+                    onChange={e => handleChange(e.target, index)}
+                  />
+                ))}
+              </OTPContainer>
+            </div>
 
-            // Move to next input box if value is entered
-            if (element.nextSibling && element.value !== '') {
-                element.nextSibling.focus();
-            }
-        }
-    };
+            <Button type="button" disabled={!isFormValid || loading} onClick={handleVerify}>
+              {loading ? <LoadingSpinner /> : 'Verify OTP'}
+            </Button>
 
-    const isFormValid = otp.every(num => num !== '');
-
-    const handleVerify = async () => {
-        if (isFormValid) {
-            setLoading(true);
-            try {
-                const response = await axios.post('https://crypto-anl6.onrender.com/users/login/verify', {
-                    Email: location.state.email,
-                    OTP: otp.join('') // Concatenate OTP array into a single string
-                });
-                localStorage.setItem("token",response.data.token)
-                if (response.status === 200) {
-                  navigate('/sell1'); // Replace with your next page route
-                }
-            } catch (error) {
-                console.error("Error verifying OTP:", error);
-                toast.error("Invalid or expired OTP. Please try again.");
-            } finally {
-                setLoading(false);
-            }
-        }
-    };
-
-    return (
-        <>
-            <Navbar />
-            <PageContainer>
-                <Card>
-                    <Title>Enter OTP</Title>
-                    <Logo>LOGO</Logo>
-                    <Subtitle>Enter the OTP sent to your email</Subtitle>
-                    <form>
-                        <OTPContainer>
-                            {otp.map((data, index) => (
-                                <OTPInput
-                                    key={index}
-                                    type="number"
-                                    maxLength="1"
-                                    value={data}
-                                    onChange={e => handleChange(e.target, index)}
-                                />
-                            ))}
-                        </OTPContainer>
-                        <Button type="button" disabled={!isFormValid || loading} onClick={handleVerify}>
-                            {loading ? <LoadingSpinner /> : 'Verify OTP'}
-                        </Button>
-                    </form>
-                    <PoweredBy>Powered by Moon Pay</PoweredBy>
-                </Card>
-                <HomeContact />
-            </PageContainer>
-            <Footer />
-            <ToastContainer />
-        </>
-    );
+          </FormContainer>
+          <PoweredBy>Powered by Moon Pay</PoweredBy>
+        </Card>
+      </PageContainer>
+      <HomeContact />
+      <Footer />
+      <ToastContainer />
+    </>
+  );
 };
 
 export default OTPPage;
