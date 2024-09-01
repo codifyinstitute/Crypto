@@ -73,7 +73,8 @@ const NavLinks = styled.ul`
 
       &:hover,
       &.active {
-        background-color: #333;
+        background-color: #FFA500;
+  color: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 

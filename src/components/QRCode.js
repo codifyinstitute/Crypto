@@ -19,8 +19,8 @@ const Card = styled.div`
     color: white;
     padding: 2rem;
     border-radius: 1rem;
-    width: 480px;
-    height: 678px;
+    width: 380px;
+    height: 580px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
