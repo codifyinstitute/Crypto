@@ -2,433 +2,365 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import ind from './../assets/ind.jpeg'
-import usdtt from './../assets/usdtt.jpeg'
+import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
 
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
-
 
 const TradingEnvironment = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  min-height: 100vh;
-  background-color: #0a0a0a;
-  color: #f0f0f0;
+  background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
- 
-`;
-
-const TradingInterface = styled.div`
-    background-color: #1a1a1a;
-    color: #f0f0f0;
-    padding: 2rem;
-    border-radius: 1rem;
-    width: 480px;
-    height: 520px;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 5%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    @media (max-width: 480px) {
-        padding: 1rem;
-        width: auto;
-        height: auto;
-    }
 `;
 
 const ExchangeCard = styled.div`
-    background-color: white;
-    color: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    width: 480px;
-    height: 520px;
-    max-width: 100%;
-    margin-top: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  background-color: white;
+  color: #333333;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 380px;
+  height: 580px;
+  max-width: 100%;
+  margin-top: 10%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
 
-    @media (max-width: 480px) {
-        padding: 1rem;
-        width: auto;
-        height: auto;
-    }
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: ${props => props.active ? '#0052FF' : '#888'};
+  border-bottom: 2px solid ${props => props.active ? '#0052FF' : 'transparent'};
+  cursor: pointer;
+`;
+
+const InputLabel = styled.div`
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.5rem;
 `;
 
 const InputContainer = styled.div`
-    margin-bottom: 1rem;
-    position: relative;
+  margin-bottom: 1rem;
+  position: relative;
 `;
 
 const InputWrapper = styled.div`
-    display: flex;
-    background-color: white;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 1rem;
 `;
 
 const Input = styled.input`
-    flex: 1;
-    padding: 1rem;
-    border: none;
-    background-color: transparent;
-    color: black;
-    font-size: 1.2rem;
-    width: 20%;
+  flex: 1;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 20%;
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const CurrencyToggle = styled.div`
-    padding: 1rem;
-    background-color: #f0f0f0;
-    color: black;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    min-width: 80px;
-    justify-content: space-between;
-`;
-
-const ArrowIcon = styled.span`
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-    transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
-`;
-
-const DropdownList = styled.div`
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-radius: 0 0 0.5rem 0.5rem;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 10;
-`;
-
-const DropdownItem = styled.div`
-    padding: 0.75rem 1rem;
-    color: black;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-
-    &:hover {
-        background-color: #f0f0f0;
-    }
-
-    svg {
-        margin-right: 0.5rem;
-    }
-`;
-
-const DetailsContainer = styled.div`
-    background-color: white;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    border: 1px solid #ccc;
-    color: white;
-    overflow: hidden;
-`;
-
-const DetailsHeader = styled.div`
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f0f0f0;
-    color: black;
-    cursor: pointer;
-`;
-
-const DetailsContent = styled.div`
-    padding: 1rem;
-`;
-
-const DetailRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-`;
-
-const DetailLabel = styled.span`
-    color: black;
-
-    font-size: 0.9rem;
-`;
-
-const DetailValue = styled.span`
-    color: black;
-    font-size: 0.9rem;
-`;
-
-const ContinueButton = styled.button`
-    width: 100%;
-    padding: 1rem;
-    background-color: orange;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #e69500;
-    }
-
-    &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
-`;
-
-const PolicyText = styled.p`
-    color: #888;
-    font-size: 0.8rem;
-    text-align: center;
-`;
-const ActionButton = styled.button`
-  background-color: #ffd700;
-  color: #0a0a0a;
-  padding: 15px;
-  border: none;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
+`;
+
+const UpdateText = styled.div`
+  font-size: 0.8rem;
+  color: #888;
+  text-align: right;
+  margin-top: 0.5rem;
+`;
+
+const OrderSummary = styled.div`
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+`;
+
+const OrderTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+`;
+
+const OrderDetail = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+`;
+
+const ProceedButton = styled.button`
   width: 100%;
-  margin-top: 10px;
+  padding: 1rem;
+  background-color: #0052ff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #ffec8b;
+    background-color: #0039cb;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 `;
 
-const MarketDataPanel = styled(TradingInterface)`
-  background: linear-gradient(113deg, rgba(42, 42, 42, 0.8) -0.92%, rgba(255, 215, 0, 0.2) 103.89%);
-  color: #f0f0f0;
-  margin-bottom: 2%;
-`;
-
-const RefreshIndicator = styled.div`
+const PaymentMethods = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 1rem;
+  gap: 0.5rem;
+`;
+
+const PaymentIcon = styled.div`
+  width: 40px;
+  height: 24px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+`;
+
+const PoweredBy = styled.div`
   font-size: 0.8rem;
-`;
-const FormTitle = styled.h2`
-  color: #f7a600;
-  margin-top: 0;
-  font-size: 1.9rem;
+  color: #888;
   text-align: center;
+  margin-top: 0.5rem;
 `;
-const RefreshTrigger = styled.button`
+
+const DropdownContainer = styled.div`
+  position: absolute;
+  top: -110px;
+  left: -25px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 380px;
+  height: 580px;
+`;
+
+const DropdownHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+`;
+
+const DropdownTitle = styled.h3`
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+`;
+
+const CloseButton = styled.button`
   background: none;
   border: none;
-  color: #ffd700;
   cursor: pointer;
-  font-size: 1rem;
-  margin-left: 2%;
-  transition: transform 0.3s ease;
+  padding: 0;
+`;
 
-  &:hover {
-    transform: rotate(180deg);
+const SearchInput = styled.input`
+  width: calc(100% - 2rem);
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  margin: 1rem;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #0052FF;
   }
 `;
 
-const ExchangeRate = styled.h1`
-  font-size: 3rem;
-  margin: 0;
+const CurrencyList = styled.div`
+  max-height: 300px;
+  overflow-y: auto;
+`;
+
+const CurrencyItem = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
-
-const BaseIndicator = styled.span`
-  font-size: 0.8rem;
-  background-color: #ffd700;
-  color: #0a0a0a;
-  padding: 2px 5px;
-  border-radius: 3px;
-  margin-left: 10px;
-`;
-
-const RateDescription = styled.p`
-  font-size: 1rem;
-  margin: 5px 0 20px;
-  text-align: center;
-`;
-
-const TierTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background-color: white;
-  color: black;
-  text-align: center;
-  border-radius: 15px;
-  overflow: hidden;
-`;
-
-const TableRow = styled.tr`
-  border-bottom: 1px solid #3a3a3a;
-`;
-
-const TableCell = styled.td`
-  padding: 10px 0;
-  font-size: 0.9rem;
-`;
-
-const HeaderCell = styled(TableCell)`
-  background-color: orange;
-  color: white;
-  font-weight: bold;
-`;
-
-
-
-const PolicyLink = styled.a`
-  display: block;
-  text-align: center;
-  color: #ffd700;
-  text-decoration: none;
-  margin-top: 10px;
-  font-size: 0.8rem;
-  transition: color 0.3s ease;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
 
   &:hover {
-    color: #ffec8b;
+    background-color: #f0f0f0;
   }
 `;
 
-const DigitalAssetExchange = () => {
+const CurrencyIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+`;
 
+const CurrencyInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CurrencySymbol = styled.span`
+  font-weight: 600;
+`;
+
+const CurrencyName = styled.span`
+  font-size: 0.8rem;
+  color: #888;
+`;
+const PriceContainer = styled.div`
+  background-color: #27201c;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative;
+  margin-top: 4%;
+`;
+
+const TimerSection = styled.div`
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const RefreshButton = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+`;
+
+const PriceValue = styled.div`
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const PriceTag = styled.span`
+  background-color: #e83d2f;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+`;
+
+const ConversionText = styled.div`
+  font-size: 14px;
+  margin-bottom: 20px;
+`;
+
+const PricingTable = styled.div`
+  background-color: #f7a71e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  margin-top: 10px;
+`;
+
+const PricingRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-top: 1px solid #fff;
+
+  &:first-child {
+    border-top: none;
+  }
+`;
+
+const PricingCell = styled.div`
+  font-size: 14px;
+`;
+
+const PolicyDescription = styled.div`
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
+`;
+const Sell1 = () => {
   const location = useLocation();
-  const [availableAssets, setAvailableAssets] = useState([]);
-  const [selectedAsset, setSelectedAsset] = useState(null);
-  const [offerAmount, setOfferAmount] = useState(location.state?.amount || '');
-  const [receiveEstimate, setReceiveEstimate] = useState('');
-  const [refreshCountdown, setRefreshCountdown] = useState(30);
-  const [transactionFee, setTransactionFee] = useState(0);
-  const [networkFee, setNetworkFee] = useState(0);
-
-  const fetchTransactionFee = async () => {
-    try {
-        const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data)
-        setTransactionFee(data.TransactionFee);
-        setNetworkFee(data.NetworkFee);
-    } catch (error) {
-        console.log(error)
-    } finally {
-        setLoading(false);
-    }
-};
-
-useEffect(() => {
-    fetchTransactionFee();
-}, []);
-
-  useEffect(() => {
-    const fetchAssetData = async () => {
-      try {
-        const response = await fetch('https://crypto-anl6.onrender.com/currencies/all');
-        const data = await response.json();
-        setAvailableAssets(data);
-        const initialAsset = data.find(c => c.Symbol === location.state?.symbol);
-        setSelectedAsset(initialAsset);
-        if (initialAsset && offerAmount) {
-          setReceiveEstimate(offerAmount * initialAsset.Rate);
-        }
-      } catch (error) {
-        console.error('Error fetching asset data:', error);
-      }
-    };
-
-    fetchAssetData();
-  }, [offerAmount, location.state]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRefreshCountdown(prevCount => {
-        if (prevCount === 1) {
-          // Refresh logic here (e.g., refetch exchange rates)
-          return 30;
-        }
-        return prevCount - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const handleOfferAmountChange = (e) => {
-    const value = e.target.value;
-    setOfferAmount(value);
-
-    if (selectedAsset) {
-      setReceiveEstimate(value * selectedAsset.Rate);
-    }
-  };
-
-  const handleAssetSelection = (e) => {
-    const chosenSymbol = e.target.value;
-    const asset = availableAssets.find(c => c.Symbol === chosenSymbol);
-    setSelectedAsset(asset);
-    if (asset && offerAmount) {
-      setReceiveEstimate(offerAmount * asset.Rate);
-    }
-  };
-
-  const [usdt, setUsdt] = useState(1);
+  const navigate = useNavigate();
+  const [usdt, setUsdt] = useState(location.state?.amount || '25167.79');
   const [isValid, setIsValid] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
-  const navigate = useNavigate();
+  const [isDetailsExpanded, setIsDetailsExpanded] = useState(true);
+  const [transactionFee, setTransactionFee] = useState(475.76);
+  const [networkFee, setNetworkFee] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [timer, setTimer] = useState(30);
 
   useEffect(() => {
-    axios.get('https://crypto-anl6.onrender.com/currencies/all')
-      .then(response => {
-        setCurrencies(response.data);
-        setSelectedCurrency(response.data[0] || null);
+    const countdown = setInterval(() => {
+      setTimer((prev) => (prev > 0 ? prev - 1 : 30));
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, []);
+
+  const handleRefresh = () => {
+    setTimer(30);
+    // Implement your refresh logic here
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [currenciesResponse, feesResponse] = await Promise.all([
+          axios.get('https://crypto-anl6.onrender.com/currencies/all'),
+          fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4')
+        ]);
+
+        setCurrencies(currenciesResponse.data);
+        setSelectedCurrency(currenciesResponse.data.find(c => c.Symbol === 'ACH') || currenciesResponse.data[0]);
+
+        if (feesResponse.ok) {
+          const feesData = await feesResponse.json();
+          setTransactionFee(feesData.TransactionFee);
+          setNetworkFee(feesData.NetworkFee);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
         setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching currencies:', error);
-        setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleUsdtChange = (e) => {
@@ -447,8 +379,8 @@ useEffect(() => {
   const handleSellNowClick = () => {
     if (isValid && selectedCurrency) {
       localStorage.setItem('transactionDetails', JSON.stringify({
-        amountPay:usdt,
-        symbol: selectedCurrency ? selectedCurrency.Symbol : ''
+        amountPay: usdt,
+        symbol: selectedCurrency.Symbol
       }));
       const token = localStorage.getItem('token');
       if (token) {
@@ -463,122 +395,154 @@ useEffect(() => {
     setIsDetailsExpanded(!isDetailsExpanded);
   };
 
+  const filteredCurrencies = currencies.filter(currency =>
+    currency.Symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
-
       <Navbar />
       <TradingEnvironment>
         <ExchangeCard>
-          <InputContainer>
-        <FormTitle>Sell</FormTitle>
-          <InputWrapper>
-              <Input
-                type="number"
-                value={usdt}
-                onChange={handleUsdtChange}
-                placeholder="500"
-              />
-              <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px' }} />
-                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
-                <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
-              </CurrencyToggle>
-            </InputWrapper>
-            {isDropdownOpen && (
-              <DropdownList>
-                {currencies.map(currency => (
-                  <DropdownItem
-                    key={currency._id}
-                    onClick={() => handleCurrencySelect(currency)}
-                  >
-                    <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px', marginRight: '0.5rem' }} />
-                    {currency.Symbol}
-                  </DropdownItem>
-                ))}
-              </DropdownList>
-            )}
-          </InputContainer>
+          <TabContainer>
+            <Tab>Buy Crypto</Tab>
+            <Tab active>Sell Crypto</Tab>
+          </TabContainer>
+          
+          <InputLabel>You sell</InputLabel>
           <InputContainer>
             <InputWrapper>
               <Input
                 type="text"
-                value={inr.toFixed(5)}
+                value={usdt}
+                onChange={handleUsdtChange}
+              />
+              <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                {selectedCurrency && (
+                  <CurrencyIcon src={`/path/to/${selectedCurrency.Symbol.toLowerCase()}.png`} alt={selectedCurrency.Symbol} />
+                )}
+                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
+                <ChevronDown size={16} />
+              </CurrencyToggle>
+            </InputWrapper>
+            {isDropdownOpen && (
+              <DropdownContainer>
+                <DropdownHeader>
+                  <DropdownTitle>Select crypto</DropdownTitle>
+                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                    <X size={24} />
+                  </CloseButton>
+                </DropdownHeader>
+                <SearchInput
+                  type="text"
+                  placeholder="Search here..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <CurrencyList>
+                  {filteredCurrencies.map(currency => (
+                    <CurrencyItem
+                      key={currency._id}
+                      onClick={() => handleCurrencySelect(currency)}
+                    >
+                      <CurrencyIcon src={`/path/to/${currency.Symbol.toLowerCase()}.png`} alt={currency.Symbol} />
+                      <CurrencyInfo>
+                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                        <CurrencyName>{currency.Name}</CurrencyName>
+                      </CurrencyInfo>
+                    </CurrencyItem>
+                  ))}
+                </CurrencyList>
+              </DropdownContainer>
+            )}
+          </InputContainer>
+          
+          <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
+          <InputContainer>
+            <InputWrapper>
+              <Input
+                type="text"
+                value={inr.toFixed(2)}
                 readOnly
               />
-              <CurrencyToggle disabled>
-                <img src={ind} alt="India flag" style={{ width: '16px', height: '16px' }} />
+              <CurrencyToggle>
+                <CurrencyIcon as="div">
+                  <div style={{ width: '100%', height: '50%', background: '#FF9933' }}></div>
+                  <div style={{ width: '100%', height: '50%', background: '#138808' }}></div>
+                </CurrencyIcon>
                 INR
+                <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
           </InputContainer>
-          <DetailsContainer>
-            <DetailsHeader onClick={toggleDetailsExpanded}>
-              <span>Transaction Details</span>
-              {isDetailsExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </DetailsHeader>
+          
+          <UpdateText>Updating rates</UpdateText>
+          
+          <OrderSummary>
+            <OrderTitle onClick={toggleDetailsExpanded}>
+              Your order
+              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </OrderTitle>
             {isDetailsExpanded && (
-              <DetailsContent>
-                <DetailRow>
-                  <DetailLabel>You get {inr.toFixed(5)} INR for A${usdt}</DetailLabel>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>{inr.toFixed(5)} INR @ A${selectedCurrency ? selectedCurrency.Rate : 'N/A'}</DetailLabel>
-                  <DetailValue>A${(usdt * (selectedCurrency ? selectedCurrency.Rate : 1)).toFixed(2)}</DetailValue>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>Network fee</DetailLabel>
-                  <DetailValue>₹{networkFee}</DetailValue>
-                </DetailRow>
-                <DetailRow>
-                  <DetailLabel>Processing fee</DetailLabel>
-                  <DetailValue>₹{transactionFee}</DetailValue>
-                </DetailRow>
-              </DetailsContent>
+              <>
+                <OrderDetail>
+                  <span>1 {selectedCurrency?.Symbol}</span>
+                  <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+                </OrderDetail>
+                <OrderDetail>
+                  <span>Processing fee <Info size={14} /></span>
+                  <span>as low as Rs {transactionFee}</span>
+                </OrderDetail>
+              </>
             )}
-          </DetailsContainer>
-
-          <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
-            Continue
-            <ArrowIcon>→</ArrowIcon>
-          </ContinueButton>
-          <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
+          </OrderSummary>
+          
+          <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
+            Proceed · Sell {selectedCurrency?.Symbol} →
+          </ProceedButton>
+          
+          <PaymentMethods>
+            <PaymentIcon />
+            <PaymentIcon />
+            <PaymentIcon />
+            <PaymentIcon />
+          </PaymentMethods>
+          
+          <PoweredBy>
+            Powered by Alchemy Pay
+          </PoweredBy>
         </ExchangeCard>
 
-        {selectedAsset && (
-          <MarketDataPanel>
-            <RefreshIndicator>
-              Auto-refresh in {refreshCountdown}s
-              <RefreshTrigger>↻</RefreshTrigger>
-            </RefreshIndicator>
-            <ExchangeRate>
-              {selectedAsset.Rate}
-              <BaseIndicator>Base</BaseIndicator>
-            </ExchangeRate>
-            <RateDescription>1 {selectedAsset.Symbol} = {selectedAsset.Rate} INR</RateDescription>
-            <TierTable>
-              <tbody>
-                <TableRow>
-                  <HeaderCell>Volume ($)</HeaderCell>
-                  <HeaderCell>Rate (INR)</HeaderCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>1075.27 - 2150.53</TableCell>
-                  <TableCell>{selectedAsset.Rate + 0.25}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>2150.54 - 3225.80</TableCell>
-                  <TableCell>{selectedAsset.Rate - 0.5}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>3225.81+</TableCell>
-                  <TableCell>{selectedAsset.Rate + 1}</TableCell>
-                </TableRow>
-              </tbody>
-            </TierTable>
-            <PolicyLink href="#">Learn about our tiered pricing policy</PolicyLink>
-          </MarketDataPanel>
-        )}
-
+        <PriceContainer>
+      <TimerSection>
+        <span>Automatic refresh after {timer}s</span>
+        <RefreshButton onClick={handleRefresh}>🔄</RefreshButton>
+      </TimerSection>
+      <PriceValue>
+        93 <PriceTag>Base</PriceTag>
+      </PriceValue>
+      <ConversionText>1USDT=93</ConversionText>
+      <PricingTable>
+        <PricingRow>
+          <PricingCell>≥ 1075.27 and &lt; 2150.54</PricingCell>
+          <PricingCell>93 + 0.25</PricingCell>
+        </PricingRow>
+        <PricingRow>
+          <PricingCell>≥ 2150.54 and &lt; 3225.81</PricingCell>
+          <PricingCell>93 + 0.5</PricingCell>
+        </PricingRow>
+        <PricingRow>
+          <PricingCell>≥ 3225.81</PricingCell>
+          <PricingCell>93 + 1</PricingCell>
+        </PricingRow>
+      </PricingTable>
+      <PolicyDescription>What is tiered price policy?</PolicyDescription>
+    </PriceContainer>
       </TradingEnvironment>
       <HomeContact />
       <Footer />
@@ -586,4 +550,4 @@ useEffect(() => {
   );
 };
 
-export default DigitalAssetExchange;
+export default Sell1;

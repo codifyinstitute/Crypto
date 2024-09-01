@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.jpeg";
 
@@ -18,6 +18,7 @@ const Home = () => {
   const [networkFee, setNetworkFee] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
   const navigate = useNavigate();
@@ -86,6 +87,14 @@ useEffect(() => {
   const toggleDetailsExpanded = () => {
     setIsDetailsExpanded(!isDetailsExpanded);
   };
+  const filteredCurrencies = currencies.filter(currency =>
+    currency.Symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
     return (
         <Container>
@@ -99,85 +108,116 @@ useEffect(() => {
                 </ExchangeRateBox>
             </ContentSection>
             <ExchangeSection>
-                <ExchangeCard>
-                <FormTitle>Sell</FormTitle>
-                    <InputContainer>
-                   
-                        <InputWrapper>
-            
-                            <Input
-                                type="number"
-                                value={usdt}
-                                onChange={handleUsdtChange}
-                                placeholder="500"
-                            />
-                            <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                                <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px' }} />
-                                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
-                                <ArrowIcon isOpen={isDropdownOpen}>▼</ArrowIcon>
-                            </CurrencyToggle>
-                        </InputWrapper>
-                        {isDropdownOpen && (
-                            <DropdownList>
-                                {currencies.map(currency => (
-                                    <DropdownItem
-                                        key={currency._id}
-                                        onClick={() => handleCurrencySelect(currency)}
-                                    >
-                                        <img src={usdtt} alt="USDT" style={{ width: '16px', height: '16px', marginRight: '0.5rem' }} />
-                                        {currency.Symbol}
-                                    </DropdownItem>
-                                ))}
-                            </DropdownList>
-                        )}
-                    </InputContainer>
-                    <InputContainer>
-        
-                        <InputWrapper>
-            
-                            <Input
-                                type="text"
-                                value={inr.toFixed(5)}
-                                readOnly
-                            />
-                            <CurrencyToggle disabled>
-                                <img src={ind} alt="India flag" style={{ width: '16px', height: '16px' }} />
-                                INR
-                            </CurrencyToggle>
-                        </InputWrapper>
-                    </InputContainer>
-                    <DetailsContainer>
-                        <DetailsHeader onClick={toggleDetailsExpanded}>
-                            <span>Transaction Details</span>
-                            {isDetailsExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                        </DetailsHeader>
-                        {isDetailsExpanded && (
-                            <DetailsContent>
-                                <DetailRow>
-                                    <DetailLabel>You get {inr.toFixed(5)} INR for A${usdt}</DetailLabel>
-                                </DetailRow>
-                                <DetailRow>
-                                    <DetailLabel>{inr.toFixed(5)} INR @ A${selectedCurrency ? selectedCurrency.Rate : 'N/A'}</DetailLabel>
-                                    <DetailValue>A${(usdt * (selectedCurrency ? selectedCurrency.Rate : 1)).toFixed(2)}</DetailValue>
-                                </DetailRow>
-                                <DetailRow>
-                                    <DetailLabel>Network fee</DetailLabel>
-                                    <DetailValue>₹{networkFee}</DetailValue>
-                                </DetailRow>
-                                <DetailRow>
-                                    <DetailLabel>Processing fee</DetailLabel>
-                                    <DetailValue>₹{transactionFee}</DetailValue>
-                                </DetailRow>
-                            </DetailsContent>
-                        )}
-                    </DetailsContainer>
-        
-                    <ContinueButton onClick={handleSellNowClick} disabled={!isValid}>
-                        Continue
-                        <ArrowIcon>→</ArrowIcon>
-                    </ContinueButton>
-                    <PolicyText>By continuing, you agree to our cookie policy</PolicyText>
-                </ExchangeCard>
+            <ExchangeCard>
+          <TabContainer>
+            <Tab>Buy Crypto</Tab>
+            <Tab active>Sell Crypto</Tab>
+          </TabContainer>
+          
+          <InputLabel>You sell</InputLabel>
+          <InputContainer>
+            <InputWrapper>
+              <Input
+                type="text"
+                value={usdt}
+                onChange={handleUsdtChange}
+              />
+              <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                {selectedCurrency && (
+                  <CurrencyIcon src={`/path/to/${selectedCurrency.Symbol.toLowerCase()}.png`} alt={selectedCurrency.Symbol} />
+                )}
+                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
+                <ChevronDown size={16} />
+              </CurrencyToggle>
+            </InputWrapper>
+            {isDropdownOpen && (
+              <DropdownContainer>
+                <DropdownHeader>
+                  <DropdownTitle>Select crypto</DropdownTitle>
+                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                    <X size={24} />
+                  </CloseButton>
+                </DropdownHeader>
+                <SearchInput
+                  type="text"
+                  placeholder="Search here..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <CurrencyList>
+                  {filteredCurrencies.map(currency => (
+                    <CurrencyItem
+                      key={currency._id}
+                      onClick={() => handleCurrencySelect(currency)}
+                    >
+                      <CurrencyIcon src={`/path/to/${currency.Symbol.toLowerCase()}.png`} alt={currency.Symbol} />
+                      <CurrencyInfo>
+                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                        <CurrencyName>{currency.Name}</CurrencyName>
+                      </CurrencyInfo>
+                    </CurrencyItem>
+                  ))}
+                </CurrencyList>
+              </DropdownContainer>
+            )}
+          </InputContainer>
+          
+          <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
+          <InputContainer>
+            <InputWrapper>
+              <Input
+                type="text"
+                value={inr.toFixed(2)}
+                readOnly
+              />
+              <CurrencyToggle>
+                <CurrencyIcon as="div">
+                  <div style={{ width: '100%', height: '50%', background: '#FF9933' }}></div>
+                  <div style={{ width: '100%', height: '50%', background: '#138808' }}></div>
+                </CurrencyIcon>
+                INR
+                <ChevronDown size={16} />
+              </CurrencyToggle>
+            </InputWrapper>
+          </InputContainer>
+          
+          <UpdateText>Updating rates</UpdateText>
+          
+          <OrderSummary>
+            <OrderTitle onClick={toggleDetailsExpanded}>
+              Your order
+              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </OrderTitle>
+            {isDetailsExpanded && (
+              <>
+                <OrderDetail>
+                  <span>1 {selectedCurrency?.Symbol}</span>
+                  <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+                </OrderDetail>
+                <OrderDetail>
+                  <span>Processing fee <Info size={14} /></span>
+                  <span>as low as Rs {transactionFee}</span>
+                </OrderDetail>
+              </>
+            )}
+          </OrderSummary>
+          
+          <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
+            Proceed · Sell {selectedCurrency?.Symbol} →
+          </ProceedButton>
+          
+          <PaymentMethods>
+            <PaymentIcon />
+            <PaymentIcon />
+            <PaymentIcon />
+            <PaymentIcon />
+          </PaymentMethods>
+          
+          <PoweredBy>
+            Powered by Alchemy Pay
+          </PoweredBy>
+        </ExchangeCard>
+
             </ExchangeSection>
         </Container>
     );
@@ -292,32 +332,33 @@ const ExchangeSection = styled.div`
 
 const ExchangeCard = styled.div`
   background-color: white;
-  color: black;
-  padding: 2rem;
-  border-radius: 1rem;
-  width: 480px;
-  height: 520px;
+  color: #333333;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  width: 380px;
+  height: 580px;
   max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-    width: auto;
-    height: auto;
-  }
-  @media (max-width: 1024px) {
-    margin: 1rem;
-
-  }
-
+  margin-top: 10%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const CardHeader = styled.h1`
-  color: orange;
-  text-align: center;
-  padding-bottom: 15px;
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: ${props => props.active ? '#0052FF' : '#888'};
+  border-bottom: 2px solid ${props => props.active ? '#0052FF' : 'transparent'};
+  cursor: pointer;
+`;
+
+const InputLabel = styled.div`
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 0.5rem;
 `;
 
 const InputContainer = styled.div`
@@ -327,19 +368,20 @@ const InputContainer = styled.div`
 
 const InputWrapper = styled.div`
   display: flex;
-  background-color: white;
+  align-items: center;
+  background-color: #f8f9fa;
   border-radius: 0.5rem;
-  overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 1rem;
 `;
 
 const Input = styled.input`
   flex: 1;
-  padding: 1rem;
   border: none;
   background-color: transparent;
-  color: black;
-  font-size: 1.2rem;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
   width: 20%;
 
   &:focus {
@@ -348,110 +390,54 @@ const Input = styled.input`
 `;
 
 const CurrencyToggle = styled.div`
-  padding: 1rem;
-  background-color: #f0f0f0;
-  color: black;
-  font-size: 1rem;
-  cursor: pointer;
   display: flex;
   align-items: center;
-  min-width: 80px;
-  justify-content: space-between;
-`;
-
-const ArrowIcon = styled.span`
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
-  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0deg)")};
-`;
-
-const DropdownList = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 0.5rem 0.5rem;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 10;
-`;
-
-const DropdownItem = styled.div`
-  padding: 0.75rem 1rem;
-  color: black;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-
-  svg {
-    margin-right: 0.5rem;
-  }
 `;
 
-const DetailsContainer = styled.div`
-  background-color: white;
-  border-radius: 0.5rem;
+const UpdateText = styled.div`
+  font-size: 0.8rem;
+  color: #888;
+  text-align: right;
+  margin-top: 0.5rem;
+`;
+
+const OrderSummary = styled.div`
   margin-top: 1rem;
-  border: 1px solid #ccc;
-  color: white;
-  overflow: hidden;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
 `;
 
-const DetailsHeader = styled.div`
-  padding: 1rem;
+const OrderTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f0f0f0;
-  color: black;
+  margin-bottom: 0.5rem;
   cursor: pointer;
 `;
 
-const DetailsContent = styled.div`
-  padding: 1rem;
-`;
-
-const DetailRow = styled.div`
+const OrderDetail = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size: 0.9rem;
+  color: #888;
   margin-bottom: 0.5rem;
 `;
 
-const DetailLabel = styled.span`
-  color: black;
-  font-size: 0.9rem;
-`;
-
-const DetailValue = styled.span`
-  color: black;
-  font-size: 0.9rem;
-`;
-
-const ContinueButton = styled.button`
+const ProceedButton = styled.button`
   width: 100%;
   padding: 1rem;
-  background-color: orange;
+  background-color: #0052ff;
   color: white;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
   margin-top: 1rem;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #e69500;
+    background-color: #0039cb;
   }
 
   &:disabled {
@@ -460,8 +446,180 @@ const ContinueButton = styled.button`
   }
 `;
 
-const PolicyText = styled.p`
-  color: #888;
+const PaymentMethods = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 0.5rem;
+`;
+
+const PaymentIcon = styled.div`
+  width: 40px;
+  height: 24px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+`;
+
+const PoweredBy = styled.div`
   font-size: 0.8rem;
+  color: #888;
   text-align: center;
+  margin-top: 0.5rem;
+`;
+
+const DropdownContainer = styled.div`
+  position: absolute;
+  top: -110px;
+  left: -25px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 380px;
+  height: 580px;
+`;
+
+const DropdownHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+`;
+
+const DropdownTitle = styled.h3`
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+`;
+
+const SearchInput = styled.input`
+  width: calc(100% - 2rem);
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  margin: 1rem;
+  font-size: 1rem;
+
+  &:focus {
+    outline: none;
+    border-color: #0052FF;
+  }
+`;
+
+const CurrencyList = styled.div`
+  max-height: 300px;
+  overflow-y: auto;
+`;
+
+const CurrencyItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+const CurrencyIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+`;
+
+const CurrencyInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CurrencySymbol = styled.span`
+  font-weight: 600;
+`;
+
+const CurrencyName = styled.span`
+  font-size: 0.8rem;
+  color: #888;
+`;
+const PriceContainer = styled.div`
+  background-color: #27201c;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative;
+  margin-top: 4%;
+`;
+
+const TimerSection = styled.div`
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const RefreshButton = styled.div`
+  cursor: pointer;
+  font-size: 20px;
+`;
+
+const PriceValue = styled.div`
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const PriceTag = styled.span`
+  background-color: #e83d2f;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+`;
+
+const ConversionText = styled.div`
+  font-size: 14px;
+  margin-bottom: 20px;
+`;
+
+const PricingTable = styled.div`
+  background-color: #f7a71e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  margin-top: 10px;
+`;
+
+const PricingRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-top: 1px solid #fff;
+
+  &:first-child {
+    border-top: none;
+  }
+`;
+
+const PricingCell = styled.div`
+  font-size: 14px;
+`;
+
+const PolicyDescription = styled.div`
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
 `;
