@@ -25,24 +25,24 @@ const Home = () => {
 
   const fetchTransactionFee = async () => {
     try {
-        const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log(data)
-        setTransactionFee(data.TransactionFee);
-        setNetworkFee(data.NetworkFee);
+      const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log(data)
+      setTransactionFee(data.TransactionFee);
+      setNetworkFee(data.NetworkFee);
     } catch (error) {
-        console.log(error)
+      console.log(error)
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     fetchTransactionFee();
-}, []);
+  }, []);
 
   useEffect(() => {
     axios
@@ -96,24 +96,24 @@ useEffect(() => {
     return <div>Loading...</div>;
   }
 
-    return (
-        <Container>
-            <ContentSection>
-                <Title>Discover Your Dream Property with Estatein</Title>
-                <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
-                <ExchangeRateBox>
-                    <RefreshText>Automatic refresh after 30s</RefreshText>
-                    <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
-                    <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
-                </ExchangeRateBox>
-            </ContentSection>
-            <ExchangeSection>
-            <ExchangeCard>
+  return (
+    <Container>
+      <ContentSection>
+        <Title>Discover Your Dream Property with Estatein</Title>
+        <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
+        <ExchangeRateBox>
+          <RefreshText>Automatic refresh after 30s</RefreshText>
+          <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
+          <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
+        </ExchangeRateBox>
+      </ContentSection>
+      <ExchangeSection>
+        <ExchangeCard>
           <TabContainer>
             <Tab>Buy Crypto</Tab>
             <Tab active>Sell Crypto</Tab>
           </TabContainer>
-          
+
           <InputLabel>You sell</InputLabel>
           <InputContainer>
             <InputWrapper>
@@ -161,7 +161,7 @@ useEffect(() => {
               </DropdownContainer>
             )}
           </InputContainer>
-          
+
           <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
           <InputContainer>
             <InputWrapper>
@@ -180,13 +180,16 @@ useEffect(() => {
               </CurrencyToggle>
             </InputWrapper>
           </InputContainer>
-          
+
           <UpdateText>Updating rates</UpdateText>
-          
+
           <OrderSummary>
             <OrderTitle onClick={toggleDetailsExpanded}>
               Your order
-              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              <div style={{ display: "flex" }}>
+                {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} {selectedCurrency.Symbol} to {inr.toFixed(2)} INR</p>}
+                {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </div>
             </OrderTitle>
             {isDetailsExpanded && (
               <>
@@ -198,29 +201,33 @@ useEffect(() => {
                   <span>Processing fee <Info size={14} /></span>
                   <span>as low as Rs {transactionFee}</span>
                 </OrderDetail>
+                <OrderDetail>
+                  <span>networkFee fee <Info size={14} /></span>
+                  <span>as low as Rs {networkFee}</span>
+                </OrderDetail>
               </>
             )}
           </OrderSummary>
-          
+
           <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
             Proceed · Sell {selectedCurrency?.Symbol} →
           </ProceedButton>
-          
+
           <PaymentMethods>
             <PaymentIcon />
             <PaymentIcon />
             <PaymentIcon />
             <PaymentIcon />
           </PaymentMethods>
-          
+
           <PoweredBy>
             Powered by Alchemy Pay
           </PoweredBy>
         </ExchangeCard>
 
-            </ExchangeSection>
-        </Container>
-    );
+      </ExchangeSection>
+    </Container>
+  );
 };
 
 export default Home;
