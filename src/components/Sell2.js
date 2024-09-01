@@ -15,7 +15,7 @@ const PageContainer = styled.div`
   min-height: fit-content;
   justify-content: space-between;
   gap: 10rem;
-  background-color: #1c1c1c;
+  background-color: black;
   color: white;
   padding: 20px;
 `;
@@ -25,7 +25,7 @@ const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   width: 380px;
-  height: 580px;
+  height: 610px;
   color: black;
   margin-top: 5%;
   margin-bottom: 20px;
@@ -36,10 +36,20 @@ const Card = styled.div`
   }
 `;
 
-const Title = styled.h1`
-  color: #ffa500;
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: orange;
+  border-bottom: 2px solid orange;
+  cursor: pointer;
   font-size: 18px;
-  margin-bottom: 20px;
 `;
 
 const Logo = styled.div`
@@ -114,7 +124,7 @@ const LoadingSpinner = styled.div`
   }
 `;
 const Boxx = styled.div`
- margin-bottom: 64%;
+ margin-bottom: 65%;
 `;
 const Boo = styled.div`
  
@@ -183,7 +193,9 @@ const Sell2 = () => {
       <PageContainer>
         <Card>
 
-          <Title>Login To Moon Pay</Title>
+        <TabContainer>
+            <Tab active>Login To Moon Pay</Tab>
+          </TabContainer>
           <Logo>LOGO</Logo>
           <Subtitle>Checkout with Moon Pay</Subtitle>
     
@@ -215,8 +227,9 @@ const Sell2 = () => {
           </Forg>
         
         </Card>
-        <HomeContact />
       </PageContainer>
+      <HomeContact />
+
       <Footer />
       <ToastContainer />
     </>
