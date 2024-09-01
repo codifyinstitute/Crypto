@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, Info, X } from "lucide-react";
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.jpeg";
+import payment from "./../assets/payment.png";
 
 // Assume we have these images imported
 // import USDTImage from './path-to-usdt-image.png';
@@ -18,7 +19,7 @@ const Home = () => {
   const [networkFee, setNetworkFee] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
   const navigate = useNavigate();
@@ -87,9 +88,10 @@ const Home = () => {
   const toggleDetailsExpanded = () => {
     setIsDetailsExpanded(!isDetailsExpanded);
   };
-  const filteredCurrencies = currencies.filter(currency =>
-    currency.Symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCurrencies = currencies.filter(
+    (currency) =>
+      currency.Symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -109,8 +111,10 @@ const Home = () => {
       </ContentSection>
       <ExchangeSection>
         <ExchangeCard>
+        <div>
+
           <TabContainer>
-            <Tab>Buy Crypto</Tab>
+            {/* <Tab>Buy Crypto</Tab> */}
             <Tab active>Sell Crypto</Tab>
           </TabContainer>
 
@@ -208,21 +212,20 @@ const Home = () => {
               </>
             )}
           </OrderSummary>
-
+          </div>
+<div>
           <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
             Proceed · Sell {selectedCurrency?.Symbol} →
           </ProceedButton>
 
           <PaymentMethods>
             <PaymentIcon />
-            <PaymentIcon />
-            <PaymentIcon />
-            <PaymentIcon />
           </PaymentMethods>
 
           <PoweredBy>
             Powered by Alchemy Pay
           </PoweredBy>
+          </div>
         </ExchangeCard>
 
       </ExchangeSection>
@@ -233,13 +236,13 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-    align-items: stretch;
-    background-color: #000000;
-    color: white;
-    min-height: 100vh;
+  align-items: stretch;
+  background-color: #000000;
+  color: white;
+  min-height: 100vh;
 
   @media (max-width: 1024px) {
     flex-direction: column;
@@ -248,14 +251,12 @@ const Container = styled.div`
 `;
 
 const ContentSection = styled.div`
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-   
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -264,14 +265,14 @@ const ContentSection = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    width: 80% ;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  width: 80%;
 
-    @media (max-width: 768px) {
-        font-size: 2.5rem;
-        width: auto;
-    }
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    width: auto;
+  }
 `;
 
 const FormTitle = styled.h2`
@@ -282,26 +283,26 @@ const FormTitle = styled.h2`
 `;
 const Subtitle = styled.p`
   font-size: 1.2em;
-    color: #888;
-    margin-bottom: 2rem;
-    width: 80% ;
-        
+  color: #888;
+  margin-bottom: 2rem;
+  width: 80%;
+
   @media (max-width: 430px) {
     width: 100%;
   }
 `;
 
 const ExchangeRateBox = styled.div`
-    background-color: #111;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    border: 1px orange solid;
-    width: 80% ;
-    
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  border: 1px orange solid;
+  width: 80%;
+
   @media (max-width: 430px) {
     width: 100%;
   }
@@ -325,12 +326,12 @@ const RateLabel = styled.span`
 `;
 
 const ExchangeSection = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1a1a1a;
-    /* padding: 2rem; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  /* padding: 2rem; */
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -347,6 +348,9 @@ const ExchangeCard = styled.div`
   max-width: 100%;
   margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const TabContainer = styled.div`
@@ -357,9 +361,10 @@ const TabContainer = styled.div`
 const Tab = styled.div`
   padding: 0.5rem 0;
   margin-right: 1rem;
-  color: ${props => props.active ? '#0052FF' : '#888'};
-  border-bottom: 2px solid ${props => props.active ? '#0052FF' : 'transparent'};
+  color: orange;
+  border-bottom: 2px solid orange;
   cursor: pointer;
+  font-size: 18px;
 `;
 
 const InputLabel = styled.div`
@@ -434,7 +439,7 @@ const OrderDetail = styled.div`
 const ProceedButton = styled.button`
   width: 100%;
   padding: 1rem;
-  background-color: #0052ff;
+  background-color: orange;
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -462,10 +467,14 @@ const PaymentMethods = styled.div`
 `;
 
 const PaymentIcon = styled.div`
-  width: 40px;
-  height: 24px;
-  background-color: #e0e0e0;
+  width: 210px;
+  height: 35px;
+  background-color: white;
   border-radius: 4px;
+  background-image: url(${payment});
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
 
 const PoweredBy = styled.div`
@@ -520,7 +529,7 @@ const SearchInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #0052FF;
+    border-color: #0052ff;
   }
 `;
 
