@@ -22,6 +22,7 @@ import AdminUsers from './components/Admin/AdminUsers';
 import AdminTransaction from './components/Admin/AdminTransaction';
 import AdminAddCurrency from './components/Admin/AdminAddCurrency';
 import OTPPage from './components/OTP';
+import QRCodeCard from './components/QRCode';
 
 
 
@@ -31,15 +32,16 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<HomeConatiner />} />
-          <Route path="/Sell1" element={<Sell1 />} />
-          <Route path="/Sell2" element={<Sell2 />} />
-          <Route path="/Sell3" element={<Sell3 />} />
-          <Route path="/Sell4" element={<Sell4 />} /> 
-          <Route path="/Sell5" element={<Sell5 />} />
-          <Route path="/otp" element={<OTPPage />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/Bank" element={<Bank />} />
-          <Route path="/Transaction" element={<Transaction />} />
+        <Route path="/Sell1" element={<Sell1 />} />
+        <Route path="/Sell2" element={<Sell2 />} />
+        <Route path="/Sell3" element={<Sell3 />} />
+        <Route path="/Sell4" element={<Sell4 />} />
+        <Route path="/qr-code" element={<QRCodeCard />} />
+        <Route path="/Sell5" element={<Sell5 />} />
+        <Route path="/otp" element={<OTPPage />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Bank" element={<Bank />} />
+        <Route path="/Transaction" element={<Transaction />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/addCurrency" element={<AdminAddCurrency />} />

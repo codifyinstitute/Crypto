@@ -21,11 +21,11 @@ const Card = styled.div`
     padding: 2rem;
     border-radius: 1rem;
     width: 480px;
-    height: 678px;
+    height: 500px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 5%;
 
     @media (max-width: 480px) {
@@ -58,26 +58,6 @@ color: #f7a600;
   font-weight: bold;
 `;
 
-const QRCodeContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-`;
-
-const QRCode = styled.div`
-  background-color: #f0f0f0;
-  border: 2px solid #f7a600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TransactionLabel = styled.p`
-color: #f7a600;
-  text-align: center;
-  margin: 10px 0;
-`;
-
 const Button = styled.button`
   background-color: #f7a600;
   color: white;
@@ -97,6 +77,7 @@ const Button = styled.button`
 const Sell4 = () => {
   const [localData, setLocalData] = useState({});
   const [transactionFee, setTransactionFee] = useState(0);
+  const [networkFee, setNetworkFee] = useState(0);
   const [currencyRate, setCurrencyRate] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -116,6 +97,7 @@ const Sell4 = () => {
       }
       const data = await response.json();
       setTransactionFee(data.TransactionFee);
+      setNetworkFee(data.NetworkFee);
     } catch (error) {
       setError('Error fetching transaction fee');
     }
@@ -157,9 +139,9 @@ const Sell4 = () => {
   }, [localData.symbol]);
 
   const calculateReceivedAmount = () => {
-    if (!currencyRate || !localData.amountPay || !transactionFee) return 0;
+    if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee) return 0;
     const totalAmount = localData.amountPay * currencyRate;
-    return totalAmount - transactionFee;
+    return totalAmount - transactionFee - networkFee;
   };
 
   const handleProceedClick = () => {
@@ -215,8 +197,8 @@ const Sell4 = () => {
       <PageContainer>
         <Navbar />
         <Card>
-          {console.log(localData.Name)}
           <Title>Sell {localData.symbol}</Title>
+          <div>
           <InfoRow>
             <Label>Name</Label>
             <Value>{localData.Name}</Value>
@@ -250,14 +232,19 @@ const Sell4 = () => {
             <Value>{transactionFee}</Value>
           </InfoRow>
           <InfoRow>
+            <Label>Network Fee</Label>
+            <Value>{networkFee}</Value>
+          </InfoRow>
+          <InfoRow>
             <Label>Received Amount</Label>
             <Value>{calculateReceivedAmount()}</Value>
           </InfoRow>
-          <QRCodeContainer>
+          </div>
+          {/* <QRCodeContainer>
             <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
           </QRCodeContainer>
-          <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel>
-          <Button onClick={handleProceedClick}>Proceed - Buy ACH →</Button>
+          <TransactionLabel>Transaction ID: {transactionId}</TransactionLabel> */}
+          <Button onClick={handleProceedClick}>Proceed</Button>
         </Card>
       </PageContainer>
       <HomeContact />

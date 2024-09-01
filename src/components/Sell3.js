@@ -40,7 +40,6 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 5%;
 
     @media (max-width: 480px) {
         padding: 1rem;
@@ -106,15 +105,23 @@ const FormWarning = styled.p`
 `;
 
 const CardsContainer = styled.div`
-  margin-top: 2rem;
+  margin-top: 7%;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
- 
+  flex-direction: column;
+  align-items:center;
   @media (max-width: 480px) {
      width: 90%;
-  
     }
+`;
+const CardsSection = styled.div`
+  width:90%;
+  border: .2rem #f7a600 solid;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  gap:1rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 const Card = styled.div`
@@ -123,7 +130,7 @@ const Card = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
   font-family: Arial, sans-serif;
   color: #333;
   cursor: pointer;
@@ -145,6 +152,7 @@ const Sell3 = () => {
   const [ifsc, setIfsc] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [isFormValid, setIsFormValid] = useState(false);
+
 
   useEffect(() => {
     fetchData();
@@ -230,16 +238,34 @@ const Sell3 = () => {
     };
 
     localStorage.setItem('transactionDetails', JSON.stringify(updatedTransactionDetails));
-    navigate('/sell4');
+    navigate('/qr-code');
   };
 
   return (
     <PageContainer>
       <Navbar />
-      <ToastContainer />  {/* Add ToastContainer */}
+      <ToastContainer />
+      <CardsContainer>
+        <FormTitle>Choose Account</FormTitle>
+        <CardsSection>
+          {accounts.map((account, index) => (
+            <Card key={index} onClick={() => handleCardClick(account)}>
+              <CardTitle>Account {index + 1}</CardTitle>
+              <p><strong>Account Holder:</strong> {account.Name}</p>
+              <p><strong>Country:</strong> {account.Country}</p>
+              <p><strong>Bank Name:</strong> {account.BankName}</p>
+              <p><strong>Account Number:</strong> {account.AccountNumber}</p>
+              <p><strong>IFSC:</strong> {account.IFSC}</p>
+            </Card>
+          ))}
+        </CardsSection>
+        {/* <FormButton style={{width:"20%"}}>
+          Add Account
+        </FormButton> */}
+      </CardsContainer>
       <FormWrapper>
         <FormContainer>
-          <FormTitle>Choose Payment Method</FormTitle>
+          <FormTitle>Add Account</FormTitle>
 
           <form onSubmit={handleFormSubmit}>
             <FormSection>
@@ -288,23 +314,11 @@ const Sell3 = () => {
             </FormWarning>
 
             <FormButton type="submit" disabled={!isFormValid}>
-              Proceed - Buy ACH →
+              Proceed To Pay
             </FormButton>
           </form>
         </FormContainer>
       </FormWrapper>
-      <CardsContainer>
-        {accounts.map((account, index) => (
-          <Card key={index} onClick={() => handleCardClick(account)}>
-            <CardTitle>Account {index + 1}</CardTitle>
-            <p><strong>Account Holder:</strong> {account.Name}</p>
-            <p><strong>Country:</strong> {account.Country}</p>
-            <p><strong>Bank Name:</strong> {account.BankName}</p>
-            <p><strong>Account Number:</strong> {account.AccountNumber}</p>
-            <p><strong>IFSC:</strong> {account.IFSC}</p>
-          </Card>
-        ))}
-      </CardsContainer>
       <HomeContact />
       <Footer />
     </PageContainer>
