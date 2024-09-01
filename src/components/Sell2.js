@@ -125,6 +125,30 @@ const Forg = styled.div`
  justify-content: space-between;
 `;
 
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+
 const Sell2 = () => {
   const [email, setEmail] = useState('');
   const [isChecked, setIsChecked] = useState(false);
@@ -155,6 +179,7 @@ const Sell2 = () => {
   return (
     <>
       <Navbar />
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
       <PageContainer>
         <Card>
 

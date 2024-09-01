@@ -8,6 +8,7 @@ import Modal from './ConformationModal';  // Import the Modal component
 
 const PageContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -73,6 +74,30 @@ const Button = styled.button`
 
   &:hover {
     background-color: #e69500;
+  }
+`;
+
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
   }
 `;
 
@@ -197,50 +222,53 @@ const Sell4 = () => {
   return (
     <>
       <PageContainer>
+        <div style={{ width: "100%" }}>
+          <BackButton onClick={() => window.history.back()}>Back</BackButton>
+        </div>
         <Navbar />
         <Card>
           <Title>Sell {localData.symbol}</Title>
           <div>
-          <InfoRow>
-            <Label>Name</Label>
-            <Value>{localData.Name}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Country</Label>
-            <Value>{localData.Country}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Bank Name</Label>
-            <Value>{localData.BankName}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Account Number</Label>
-            <Value>{localData.AccountNumber}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>IFSC Code</Label>
-            <Value>{localData.IFSC}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Amount Pay</Label>
-            <Value>{localData.amountPay}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>INR Amount</Label>
-            <Value>{localData.amountPay * currencyRate}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Transaction Fee</Label>
-            <Value>{transactionFee}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Network Fee</Label>
-            <Value>{networkFee}</Value>
-          </InfoRow>
-          <InfoRow>
-            <Label>Received Amount</Label>
-            <Value>{calculateReceivedAmount()}</Value>
-          </InfoRow>
+            <InfoRow>
+              <Label>Name</Label>
+              <Value>{localData.Name}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Country</Label>
+              <Value>{localData.Country}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Bank Name</Label>
+              <Value>{localData.BankName}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Account Number</Label>
+              <Value>{localData.AccountNumber}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>IFSC Code</Label>
+              <Value>{localData.IFSC}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Amount Pay</Label>
+              <Value>{localData.amountPay}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>INR Amount</Label>
+              <Value>{localData.amountPay * currencyRate}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Transaction Fee</Label>
+              <Value>{transactionFee}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Network Fee</Label>
+              <Value>{networkFee}</Value>
+            </InfoRow>
+            <InfoRow>
+              <Label>Received Amount</Label>
+              <Value>{calculateReceivedAmount()}</Value>
+            </InfoRow>
           </div>
           {/* <QRCodeContainer>
             <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>

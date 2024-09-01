@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
-
+import ind from "./../assets/ind.jpeg";
+import usdtt from "./../assets/usdtt.jpeg";
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
@@ -87,6 +88,10 @@ const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  background-color:  orange;
+  padding: 9px;
+  color: white;
+  border-radius: 20px;
 `;
 
 const UpdateText = styled.div`
@@ -372,9 +377,31 @@ const TableFooter = styled.p`
   color: #69502F;
 `;
 
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
 
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++
 const Sell1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -472,6 +499,7 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
       <TradingEnvironment>
         <ExchangeCard>
           <div>
@@ -489,7 +517,7 @@ const Sell1 = () => {
               />
               <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 {selectedCurrency && (
-                  <CurrencyIcon src={`/path/to/${selectedCurrency.Symbol.toLowerCase()}.png`} alt={selectedCurrency.Symbol} />
+                  <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
                 {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
                 <ChevronDown size={16} />
@@ -515,7 +543,7 @@ const Sell1 = () => {
                       key={currency._id}
                       onClick={() => handleCurrencySelect(currency)}
                     >
-                      <CurrencyIcon src={`/path/to/${currency.Symbol.toLowerCase()}.png`} alt={currency.Symbol} />
+                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
                       <CurrencyInfo>
                         <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
                         <CurrencyName>{currency.Name}</CurrencyName>
@@ -537,11 +565,10 @@ const Sell1 = () => {
               />
               <CurrencyToggle>
                 <CurrencyIcon as="div">
-                  <div style={{ width: '100%', height: '50%', background: '#FF9933' }}></div>
-                  <div style={{ width: '100%', height: '50%', background: '#138808' }}></div>
+                <CurrencyIcon src={ind}  />
                 </CurrencyIcon>
                 INR
-                <ChevronDown size={16} />
+     
               </CurrencyToggle>
             </InputWrapper>
           </InputContainer>

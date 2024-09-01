@@ -273,13 +273,13 @@ const Bank = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(`https://crypto-anl6.onrender.com/users/del/${token}/accounts/${accountNumber}`);
-      
+
       setAccounts((prevAccounts) =>
         prevAccounts.filter((account) => account.AccountNumber !== accountNumber)
       );
-      
+
       toast.success('Account deleted successfully!');
-      
+
     } catch (error) {
       console.error('Error deleting account:', error);
       toast.error('Failed to delete account.');
@@ -292,7 +292,7 @@ const Bank = () => {
 
       <Container>
         <Header>
-        <BackButton onClick={() => window.history.back()}>Back</BackButton>
+          <BackButton onClick={() => window.history.back()}>Back</BackButton>
           <Title>Payment Methods</Title>
           <AddButton onClick={() => setShowForm(true)}>Add new +</AddButton>
         </Header>

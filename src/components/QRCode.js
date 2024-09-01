@@ -7,6 +7,7 @@ import HomeContact from './HomeContact';
 
 const PageContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -78,6 +79,30 @@ const Title = styled.h2`
   text-align: center;
 `;
 
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+
 const QRCodeCard = () => {
     const [localData, setLocalData] = useState({});
     const [transactionFee, setTransactionFee] = useState(0);
@@ -147,6 +172,9 @@ const QRCodeCard = () => {
     return (
         <>
             <PageContainer>
+                <div style={{ width: "100%" }}>
+                    <BackButton onClick={() => window.history.back()}>Back</BackButton>
+                </div>
                 <Navbar />
                 <Card>
                     <Title>Sell {localData.symbol}</Title>
