@@ -124,7 +124,12 @@ const LoadingSpinner = styled.div`
   }
 `;
 const Boxx = styled.div`
- margin-bottom: 65%;
+ margin-bottom: 63%;
+
+ @media (max-width: 380px) {
+ margin-bottom: 66%;
+    
+  }
 `;
 const Boo = styled.div`
  
