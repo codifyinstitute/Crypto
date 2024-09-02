@@ -334,6 +334,11 @@ const ExchangeCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  
+  @media (max-width:1024px) {
+    margin-bottom: 50px;
+  } 
 `;
 
 const TabContainer = styled.div`
