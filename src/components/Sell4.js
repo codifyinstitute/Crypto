@@ -12,7 +12,7 @@ const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #1a1a1a;
+  background-color: black;
   padding: 20px;
 `;
 

@@ -11,14 +11,18 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color:  #1a1a1a;
+  background-color:  black;
+
+    flex-direction: column;
+   
+    padding: 20px;
 `;
 
 const Container = styled.div`
   border: 1px solid #e5e7eb;
   background-color: white;
   color: #1f2937;
-  padding: 24px;
+  padding: 1.5rem;
   border-radius: 12px;
   width: 380px;
   height: 580px;
@@ -28,16 +32,25 @@ const Container = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   margin-bottom: 24px;
 `;
 
-const Title = styled.h1`
-  margin: 0;
-  color: #fbaf53;
-  text-align: center;
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
 `;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: orange;
+  border-bottom: 2px solid orange;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: left;
+`;
+
 
 const EUFlag = styled.div`
   background-color: #003399;
@@ -165,11 +178,13 @@ const Sell5 = () => {
 
   return (
     <>
-    <Main>
     <Navbar/>
+    <Main>
       <Container>
         <Header>
-          <Title>Almost done</Title>
+        <TabContainer>
+            <Tab active>Almost Done</Tab>
+          </TabContainer>
         </Header>
 
         <EUFlag>

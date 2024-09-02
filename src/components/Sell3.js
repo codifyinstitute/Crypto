@@ -12,7 +12,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #1a1a1a;
+  background-color: black;
   @media (max-width: 480px) {
 
      display: flex;
@@ -33,9 +33,9 @@ const FormContainer = styled.div`
     background-color: white;
     color: white;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     width: 380px;
-    height: 580px;
+    height: 610px;
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -56,11 +56,31 @@ const FormTitle = styled.h2`
   text-align: center;
 `;
 
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+  
+`;
+
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: orange;
+  border-bottom: 2px solid orange;
+  cursor: pointer;
+  font-size: 18px;
+`;
+
 const FormSection = styled.div`
   /* margin-bottom: 1.5rem; */
 
   h3 {
+    color: orange;
     margin-bottom: 0.5rem;
+    font-size: 18px;
+    font-size: medium;
+    font-weight: 100;
+    margin: 8px auto;
   }
 `;
 
@@ -253,6 +273,7 @@ const Sell3 = () => {
   };
 
   return (
+    <>
     <PageContainer>
       <Navbar />
       <ToastContainer />
@@ -276,7 +297,9 @@ const Sell3 = () => {
       </CardsContainer>
       <FormWrapper>
         <FormContainer>
-          <FormTitle>Add Account</FormTitle>
+          <TabContainer>
+            <Tab active>Add Account</Tab>
+          </TabContainer>
 
           <form onSubmit={handleFormSubmit}>
             <FormSection>
@@ -330,9 +353,10 @@ const Sell3 = () => {
           </form>
         </FormContainer>
       </FormWrapper>
+    </PageContainer>
       <HomeContact />
       <Footer />
-    </PageContainer>
+      </>
   );
 };
 

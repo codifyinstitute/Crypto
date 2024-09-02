@@ -441,7 +441,7 @@ const ProceedButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    color: rgb(227, 148, 0);
+    background-color: rgb(227, 148, 0);
   }
 
   &:disabled {

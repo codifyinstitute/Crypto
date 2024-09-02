@@ -15,6 +15,9 @@ import { RefreshCw } from 'lucide-react';
 const TradingEnvironment = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+
   align-items: center;
   padding: 20px;
   background-color:black;
@@ -140,7 +143,7 @@ const ProceedButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    color: rgb(227, 148, 0);
+    background-color: rgb(227, 148, 0);
   }
 
   &:disabled {
