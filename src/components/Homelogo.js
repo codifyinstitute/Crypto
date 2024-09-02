@@ -21,28 +21,27 @@ import image18 from '../assets/image18.png'
 import image19 from '../assets/image19.png'
 import image20 from '../assets/image20.png'
 
-
 const logos = [
-  { name: 'OKX', url:image1, link: '#' },
-  { name: 'Bitget', url: image2, link: '#' },
-  { name: 'NEAR', url: image3, link: '#' },
-  { name: 'Polygon', url: image4, link: '#' },
-  { name: 'Arbitrum', url: image5, link: '#' },
-  { name: 'ChainUP', url: image6, link: '#' },
-  { name: 'Sui', url: image7, link: '#' },
-  { name: 'Token Pocket', url: image8, link: '#' },
-  { name: 'Bitget Wallet', url: image9, link: '#' },
-  { name: 'Bitrue', url: image10, link: '#' },
-  { name: 'CELO', url: image11, link: '#' },
-  { name: 'Pionex', url: image12, link: '#' },
-  { name: 'DODO', url: image13, link: '#' },
-  { name: 'BingX', url: image14, link: '#' },
-  { name: 'LBANK', url: image15, link: '#' },
-  { name: 'MEXC', url: image16, link: '#' },
-  { name: 'CoinTR', url: image17, link: '#' },
-  { name: 'SaaSGo', url: image18, link: '#' },
-  { name: 'BEFI WALLET', url: image19, link: '#' },
-  { name: 'Bit.Store', url: image20, link: '#' },
+  { name: 'Bitget', url:image1, link: 'https://www.bitget.com/' },
+  { name: 'NEAR', url: image2, link: 'https://near.org/' },
+  { name: 'Polygon', url: image3, link: 'https://polygon.technology/' },
+  { name: 'Arbitrum', url: image4, link: 'https://arbitrum.io/' },
+  { name: 'OKX', url: image5, link: 'https://www.okx.com/' },
+  { name: 'Sui', url: image6, link: 'https://sui.io/' },
+  { name: 'Token Pocket', url: image7, link: 'https://www.tokenpocket.pro/' },
+  { name: 'Bitget Wallet', url: image8, link: 'https://web3.bitget.com/zh-CN' },
+  { name: 'Bitrue', url: image9, link: 'https://www.bitrue.com/' },
+  { name: 'CELO', url: image10, link: 'https://celo.org/' },
+  { name: 'Pionex', url: image11, link: 'https://www.pionex.com/en/' },
+  { name: 'DODO', url: image12, link: 'https://dodoex.io/en' },
+  { name: 'BingX', url: image13, link: 'https://bingx.com/en/' },
+  { name: 'LBANK', url: image14, link: 'https://www.lbank.com/' },
+  { name: 'MEXC', url: image15, link: '#' },
+  { name: 'CoinTR', url: image16, link: '#' },
+  { name: 'SaaSGo', url: image17, link: 'https://saasgo.xyz/#/' },
+  { name: 'BEFI WALLET', url: image18, link: '#' },
+  { name: 'Bit.Store', url: image19, link: 'https://bit.store/home' },
+  { name: 'ChainUP', url: image20, link: 'https://www.chainup.com/' },
 ];
 
 const Container = styled.div`

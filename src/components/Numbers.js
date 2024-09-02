@@ -79,7 +79,7 @@ const StatValue = styled.p`
 
 const StatTitle = styled.p`
   font-size: 0.875rem;
-  color: #a0aec0;
+  color: white;
 `;
 
 const IconWrapper = styled.div`
@@ -107,7 +107,7 @@ const PaymentLogo = styled.img`
 
 const StyledIcon = styled.div`
   margin-bottom: 0.25rem;
-  color: #a0aec0;
+  color: white;
 `;
 
 const StatItem = ({ title, value, icons }) => (

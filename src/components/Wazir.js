@@ -67,6 +67,7 @@ const Price = styled.div`
 const SubText = styled.div`
   font-size: 0.8rem;
   color: #888;
+  margin: 5px;
 `;
 
 const MinMaxPrice = styled.div`
