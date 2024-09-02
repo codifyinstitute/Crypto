@@ -14,18 +14,18 @@ import image11 from "../assets/exchange11.png";
 import image12 from "../assets/exchange12.png";
 
 const logos = [
-  { name: "OKX", url: image1, link: "#" },
-  { name: "Bitget", url: image2, link: "#" },
-  { name: "NEAR", url: image3, link: "#" },
-  { name: "Polygon", url: image4, link: "#" },
-  { name: "Arbitrum", url: image5, link: "#" },
-  { name: "ChainUP", url: image6, link: "#" },
-  { name: "Sui", url: image7, link: "#" },
-  { name: "Token Pocket", url: image8, link: "#" },
-  { name: "Bitget Wallet", url: image9, link: "#" },
-  { name: "Bitrue", url: image10, link: "#" },
-  { name: "CELO", url: image11, link: "#" },
-  { name: "Pionex", url: image12, link: "#" },
+  { name: "OKX", url: image1, link: "https://www.binance.com/en" },
+  { name: "Bitget", url: image2, link: "https://www.coinbase.com/" },
+  { name: "NEAR", url: image3, link: "https://uniswap.org/" },
+  { name: "Polygon", url: image4, link: "https://curve.fi/#/ethereum/swap" },
+  { name: "Arbitrum", url: image5, link: "https://www.okx.com/" },
+  { name: "ChainUP", url: image6, link: "https://crypto.com/" },
+  { name: "Sui", url: image7, link: "https://pancakeswap.finance/" },
+  { name: "Token Pocket", url: image8, link: "https://dydx.exchange/" },
+  { name: "Bitget Wallet", url: image9, link: "https://www.bitfinex.com/" },
+  { name: "Bitrue", url: image10, link: "https://www.kraken.com/" },
+  { name: "CELO", url: image11, link: "https://www.sushi.com/swap" },
+  { name: "Pionex", url: image12, link: "https://quickswap.exchange/#/" },
 ];
 
 const Container = styled.div`

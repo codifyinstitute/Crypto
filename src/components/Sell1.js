@@ -82,6 +82,11 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+
+ @media (max-width: 480px) {
+  font-size: 1.2rem;
+
+  } 
 `;
 
 const CurrencyToggle = styled.div`
@@ -92,6 +97,11 @@ const CurrencyToggle = styled.div`
   padding: 9px;
   color: white;
   border-radius: 20px;
+  
+  @media (max-width: 480px) {
+  padding: 5px;
+    font-size: 15px;
+  }
 `;
 
 const UpdateText = styled.div`
@@ -251,6 +261,15 @@ const CurrencyIcon = styled.img`
   width: 24px;
   height: 24px;
   margin-right: 0.75rem;
+
+  @media (max-width: 480px) {
+    width: 16px;
+    height: 16px;
+  margin-right: 0.6rem;
+  margin-left: 0.15rem;
+
+  }
+
 `;
 
 const CurrencyInfo = styled.div`
@@ -313,7 +332,7 @@ const Header = styled.div`
 
 const RefreshText = styled.p`
   font-size: 14px;
-  color: #BDBDBD;
+  color: white;
 `;
 
 const PriceDisplay = styled.div`
@@ -339,7 +358,7 @@ const BaseLabel = styled.span`
 const Subtext = styled.p`
   text-align: center;
   margin-bottom: 16px;
-  color: #BDBDBD;
+  color: white;
   font-size: 14px;
 `;
 const Center = styled.div`
@@ -351,14 +370,14 @@ justify-content: center;
 const TableContainer = styled.div`
   background-color: orange;
   border-radius: 10px;
-  padding: 16px;
+  padding: 9px;
   width: 350px;
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 8px;
+  border-spacing: 0px 0px;
   border: 1px solid orange;
   tbody{
   background-color: white;
@@ -373,23 +392,24 @@ const TableHeader = styled.th`
   color: black;
   border: 1px solid orange;
   font-weight: 800;
-    font-size: 16px;
+    font-size: 17px;
+    padding: 8px;
 
 `;
 
 const TableCell = styled.td`
   font-size: 14px;
-  padding: 4px 0;
+  padding: 10px;
   color: black;
   border: 1px solid orange;
-
+text-align: center;
 `;
 
 const TableFooter = styled.p`
   text-align: center;
   margin-top: 16px;
-  font-size: 14px;
-  color: #69502F;
+  font-size: 16px;
+  color: white;
 `;
 
 
@@ -417,6 +437,14 @@ const BackButton = styled.button`
   }
 
 `;
+
+const Right = styled.div`
+display: flex;
+justify-content: left;
+    width: 100%;
+
+`
+
 
 
 const Sell1 = () => {
@@ -516,11 +544,10 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
-
       <TradingEnvironment>
-      <div style={{ width: "100%" }}>
+        <Right>
       <BackButton onClick={() => window.history.back()}>Back</BackButton>
-  </div>
+      </Right>
         <ExchangeCard>
           <div>
           <TabContainer>
@@ -668,7 +695,7 @@ const Sell1 = () => {
 <Container>
       <Header>
         <RefreshText>Automatic refresh after {timer}s</RefreshText>
-        <RefreshCw size={20} color="#BDBDBD" />
+        <RefreshCw size={20} color="white" />
       </Header>
       
       <PriceDisplay>
@@ -676,7 +703,7 @@ const Sell1 = () => {
         <BaseLabel>Base</BaseLabel>
       </PriceDisplay>
       
-      <Subtext>1USDT=93</Subtext>
+      <Subtext>1USDT = 93</Subtext>
       <Center>
       <TableContainer>
         <Table>
@@ -689,15 +716,15 @@ const Sell1 = () => {
           <tbody>
             <tr>
               <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93+0.25</TableCell>
+              <TableCell >93+0.25</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93-0.5</TableCell>
+              <TableCell >93-0.5</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=3225.81</TableCell>
-              <TableCell style={{textAlign: 'right'}}>93-1</TableCell>
+              <TableCell >93-1</TableCell>
             </tr>
           </tbody>
         </Table>
