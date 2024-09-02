@@ -23,7 +23,7 @@ import image20 from '../assets/image20.png'
 
 
 const logos = [
-  { name: 'OKX', url:image1, link: '#' },
+  { name: 'OKX', url:image1, link: '/https://www.binance.com/en' },
   { name: 'Bitget', url: image2, link: '#' },
   { name: 'NEAR', url: image3, link: '#' },
   { name: 'Polygon', url: image4, link: '#' },

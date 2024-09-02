@@ -478,23 +478,30 @@ const PoweredBy = styled.div`
   text-align: center;
   margin-top: 0.5rem;
 `;
-
 const AnimatedDropdownContainer = styled.div`
   position: absolute;
   top: -110px;
   left: -25px;
   right: 0;
   background-color: white;
-  border: 1px solid #e0e0e0;
+  /* border: 1px solid #e0e0e0; */
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
   height: 610px;
+  max-width: 115%;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
   transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+
+
+  
+  /* @media (max-width: 375px) {
+    max-width: 100%;
+
+  } */
 `;
 
 const DropdownHeader = styled.div`

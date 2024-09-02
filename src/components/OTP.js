@@ -26,7 +26,7 @@ const Card = styled.div`
   padding: 20px;
   width: 100%;
   max-width: 380px;
-  /* height: 610px; */
+  height: 610px;
   color: black;
   margin-top: 4%;
   margin-bottom: 20px;
@@ -202,9 +202,9 @@ const OTPPage = () => {
     <>
       <Navbar />
       <PageContainer>
-      <div style={{ width: "100%" }}>
-      <BackButton onClick={() => window.history.back()}>Back</BackButton>
-  </div>
+          <div style={{ width: "100%" }}>
+    <BackButton onClick={() => window.history.back()}>Back</BackButton>
+</div>
         <Card>
           <TabContainer>
             <Tab active>Enter OTP</Tab>
