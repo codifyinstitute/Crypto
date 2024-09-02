@@ -420,7 +420,7 @@ const AnimatedDropdownContainer = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   width: 380px;
-  height: 610px;
+  height: 580px;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
@@ -524,11 +524,8 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
-
-      <TradingEnvironment>
-      <div style={{ width: "100%" }}>
       <BackButton onClick={() => window.history.back()}>Back</BackButton>
-  </div>
+      <TradingEnvironment>
         <ExchangeCard>
           <div>
           <TabContainer>
