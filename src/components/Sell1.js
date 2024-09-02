@@ -15,9 +15,6 @@ import { RefreshCw } from 'lucide-react';
 const TradingEnvironment = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-
   align-items: center;
   padding: 20px;
   background-color:black;
@@ -92,13 +89,9 @@ const CurrencyToggle = styled.div`
   align-items: center;
   cursor: pointer;
   background-color:  orange;
-  /* padding: 9px; */
+  padding: 9px;
   color: white;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 16px;
+  border-radius: 20px;
 `;
 
 const UpdateText = styled.div`
@@ -143,7 +136,7 @@ const ProceedButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgb(227, 148, 0);
+    color: rgb(227, 148, 0);
   }
 
   &:disabled {
@@ -177,28 +170,29 @@ const PoweredBy = styled.div`
   text-align: center;
   margin-top: 0.5rem;
 `;
-
-const DropdownContainer = styled.div`
+const AnimatedDropdownContainer = styled.div`
   position: absolute;
-  top: -111px;
-  left: -24px;
+  top: -110px;
+  left: -25px;
   right: 0;
   background-color: white;
   /* border: 1px solid #e0e0e0; */
   border-radius: 0.5rem;
-  max-width: 115%;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
   height: 610px;
-  display: flex;
-  flex-direction: column;
-/* 
-  @media (max-width: 430px)and (min-width: 380px) {
-    max-width:115% ;
-  }
-  @media (max-width: 380px) {
-    max-width:121% ;
+  max-width: 115%;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+
+
+  
+  /* @media (max-width: 375px) {
+    max-width: 100%;
+
   } */
 `;
 
@@ -233,7 +227,7 @@ const SearchInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #0052FF;
+    border-color: #0052ff;
   }
 `;
 
@@ -272,6 +266,20 @@ const CurrencyName = styled.span`
   font-size: 0.8rem;
   color: #888;
 `;
+
+const PriceContainer = styled.div`
+  background-color: #27201c;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative;
+  margin-top: 4%;
+`;
+
+
 
 
 
@@ -374,7 +382,6 @@ const TableCell = styled.td`
   padding: 4px 0;
   color: black;
   border: 1px solid orange;
-  text-align: center;
 
 `;
 
@@ -384,6 +391,7 @@ const TableFooter = styled.p`
   font-size: 14px;
   color: #69502F;
 `;
+
 
 const BackButton = styled.button`
   background-color: #FFA500;
@@ -407,25 +415,9 @@ const BackButton = styled.button`
     top: 10px;
     left: 10px;
   }
+
 `;
 
-const AnimatedDropdownContainer = styled.div`
-  position: absolute;
-  top: -110px;
-  left: -25px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  width: 380px;
-  height: 610px;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
-  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
-`;
 
 const Sell1 = () => {
   const location = useLocation();
@@ -552,33 +544,33 @@ const Sell1 = () => {
               </CurrencyToggle>
             </InputWrapper>
             <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-            <DropdownHeader>
-              <DropdownTitle>Select crypto</DropdownTitle>
-              <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                <X size={24} />
-              </CloseButton>
-            </DropdownHeader>
-            <SearchInput
-              type="text"
-              placeholder="Search here..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <CurrencyList>
-              {filteredCurrencies.map(currency => (
-                <CurrencyItem
-                  key={currency._id}
-                  onClick={() => handleCurrencySelect(currency)}
-                >
-                  <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                  <CurrencyInfo>
-                    <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                    <CurrencyName>{currency.Name}</CurrencyName>
-                  </CurrencyInfo>
-                </CurrencyItem>
-              ))}
-            </CurrencyList>
-          </AnimatedDropdownContainer>
+              <DropdownHeader>
+                <DropdownTitle>Select crypto</DropdownTitle>
+                <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                  <X size={24} />
+                </CloseButton>
+              </DropdownHeader>
+              <SearchInput
+                type="text"
+                placeholder="Search here..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <CurrencyList>
+                {filteredCurrencies.map(currency => (
+                  <CurrencyItem
+                    key={currency._id}
+                    onClick={() => handleCurrencySelect(currency)}
+                  >
+                    <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                    <CurrencyInfo>
+                      <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                      <CurrencyName>{currency.Name}</CurrencyName>
+                    </CurrencyInfo>
+                  </CurrencyItem>
+                ))}
+              </CurrencyList>
+            </AnimatedDropdownContainer>
           </InputContainer>
           
           <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
@@ -697,15 +689,15 @@ const Sell1 = () => {
           <tbody>
             <tr>
               <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-              <TableCell >93+0.25</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93+0.25</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-              <TableCell >93-0.5</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93-0.5</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=3225.81</TableCell>
-              <TableCell >93-1</TableCell>
+              <TableCell style={{textAlign: 'right'}}>93-1</TableCell>
             </tr>
           </tbody>
         </Table>
