@@ -329,17 +329,14 @@ const ExchangeCard = styled.div`
   width: 380px;
   height: 610px;
   max-width: 100%;
-  /* margin-top: 10%; */
+  margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  margin: 100px;
   
-  @media (max-width:1024px) {
-    margin-bottom: 50px;
-  } 
+  
 `;
 
 const TabContainer = styled.div`

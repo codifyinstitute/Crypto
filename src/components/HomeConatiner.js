@@ -57,10 +57,8 @@ const FooterWrapper = styled.div`
 
 const HomeContainer = () => {
   return (
-    <>
-    <Navbar />
-
     <GlobeContainer>
+      <Navbar />
       <GlobeWrapper>
         {/* Uncomment this if you want to display the Globe component */}
         {/* <GlobeComponent /> */}
@@ -82,7 +80,6 @@ const HomeContainer = () => {
         <Footer />
  
     </GlobeContainer>
-    </>
   );
 };
 
