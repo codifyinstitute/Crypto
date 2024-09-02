@@ -15,9 +15,6 @@ import { RefreshCw } from 'lucide-react';
 const TradingEnvironment = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-
   align-items: center;
   padding: 20px;
   background-color:black;
@@ -85,6 +82,11 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+
+ @media (max-width: 480px) {
+  font-size: 1.2rem;
+
+  } 
 `;
 
 const CurrencyToggle = styled.div`
@@ -92,13 +94,14 @@ const CurrencyToggle = styled.div`
   align-items: center;
   cursor: pointer;
   background-color:  orange;
-  /* padding: 9px; */
+  padding: 9px;
   color: white;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 16px;
+  border-radius: 20px;
+  
+  @media (max-width: 480px) {
+  padding: 5px;
+    font-size: 15px;
+  }
 `;
 
 const UpdateText = styled.div`
@@ -143,7 +146,7 @@ const ProceedButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgb(227, 148, 0);
+    color: rgb(227, 148, 0);
   }
 
   &:disabled {
@@ -177,28 +180,29 @@ const PoweredBy = styled.div`
   text-align: center;
   margin-top: 0.5rem;
 `;
-
-const DropdownContainer = styled.div`
+const AnimatedDropdownContainer = styled.div`
   position: absolute;
-  top: -111px;
-  left: -24px;
+  top: -110px;
+  left: -25px;
   right: 0;
   background-color: white;
   /* border: 1px solid #e0e0e0; */
   border-radius: 0.5rem;
-  max-width: 115%;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
   height: 610px;
-  display: flex;
-  flex-direction: column;
-/* 
-  @media (max-width: 430px)and (min-width: 380px) {
-    max-width:115% ;
-  }
-  @media (max-width: 380px) {
-    max-width:121% ;
+  max-width: 115%;
+  opacity: ${props => props.isOpen ? 1 : 0};
+  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
+  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+
+
+  
+  /* @media (max-width: 375px) {
+    max-width: 100%;
+
   } */
 `;
 
@@ -233,7 +237,7 @@ const SearchInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: #0052FF;
+    border-color: #0052ff;
   }
 `;
 
@@ -257,6 +261,15 @@ const CurrencyIcon = styled.img`
   width: 24px;
   height: 24px;
   margin-right: 0.75rem;
+
+  @media (max-width: 480px) {
+    width: 16px;
+    height: 16px;
+  margin-right: 0.6rem;
+  margin-left: 0.15rem;
+
+  }
+
 `;
 
 const CurrencyInfo = styled.div`
@@ -272,6 +285,20 @@ const CurrencyName = styled.span`
   font-size: 0.8rem;
   color: #888;
 `;
+
+const PriceContainer = styled.div`
+  background-color: #27201c;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative;
+  margin-top: 4%;
+`;
+
+
 
 
 
@@ -305,7 +332,7 @@ const Header = styled.div`
 
 const RefreshText = styled.p`
   font-size: 14px;
-  color: #BDBDBD;
+  color: white;
 `;
 
 const PriceDisplay = styled.div`
@@ -331,7 +358,7 @@ const BaseLabel = styled.span`
 const Subtext = styled.p`
   text-align: center;
   margin-bottom: 16px;
-  color: #BDBDBD;
+  color: white;
   font-size: 14px;
 `;
 const Center = styled.div`
@@ -343,14 +370,14 @@ justify-content: center;
 const TableContainer = styled.div`
   background-color: orange;
   border-radius: 10px;
-  padding: 16px;
+  padding: 9px;
   width: 350px;
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 8px;
+  border-spacing: 0px 0px;
   border: 1px solid orange;
   tbody{
   background-color: white;
@@ -365,25 +392,26 @@ const TableHeader = styled.th`
   color: black;
   border: 1px solid orange;
   font-weight: 800;
-    font-size: 16px;
+    font-size: 17px;
+    padding: 8px;
 
 `;
 
 const TableCell = styled.td`
   font-size: 14px;
-  padding: 4px 0;
+  padding: 10px;
   color: black;
   border: 1px solid orange;
-  text-align: center;
-
+text-align: center;
 `;
 
 const TableFooter = styled.p`
   text-align: center;
   margin-top: 16px;
-  font-size: 14px;
-  color: #69502F;
+  font-size: 16px;
+  color: white;
 `;
+
 
 const BackButton = styled.button`
   background-color: #FFA500;
@@ -407,25 +435,17 @@ const BackButton = styled.button`
     top: 10px;
     left: 10px;
   }
+
 `;
 
-const AnimatedDropdownContainer = styled.div`
-  position: absolute;
-  top: -110px;
-  left: -25px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  width: 380px;
-  height: 580px;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
-  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
-`;
+const Right = styled.div`
+display: flex;
+justify-content: left;
+    width: 100%;
+
+`
+
+
 
 const Sell1 = () => {
   const location = useLocation();
@@ -524,8 +544,10 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
-      <BackButton onClick={() => window.history.back()}>Back</BackButton>
       <TradingEnvironment>
+        <Right>
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
+      </Right>
         <ExchangeCard>
           <div>
           <TabContainer>
@@ -549,33 +571,33 @@ const Sell1 = () => {
               </CurrencyToggle>
             </InputWrapper>
             <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-            <DropdownHeader>
-              <DropdownTitle>Select crypto</DropdownTitle>
-              <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                <X size={24} />
-              </CloseButton>
-            </DropdownHeader>
-            <SearchInput
-              type="text"
-              placeholder="Search here..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <CurrencyList>
-              {filteredCurrencies.map(currency => (
-                <CurrencyItem
-                  key={currency._id}
-                  onClick={() => handleCurrencySelect(currency)}
-                >
-                  <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                  <CurrencyInfo>
-                    <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                    <CurrencyName>{currency.Name}</CurrencyName>
-                  </CurrencyInfo>
-                </CurrencyItem>
-              ))}
-            </CurrencyList>
-          </AnimatedDropdownContainer>
+              <DropdownHeader>
+                <DropdownTitle>Select crypto</DropdownTitle>
+                <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                  <X size={24} />
+                </CloseButton>
+              </DropdownHeader>
+              <SearchInput
+                type="text"
+                placeholder="Search here..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <CurrencyList>
+                {filteredCurrencies.map(currency => (
+                  <CurrencyItem
+                    key={currency._id}
+                    onClick={() => handleCurrencySelect(currency)}
+                  >
+                    <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                    <CurrencyInfo>
+                      <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                      <CurrencyName>{currency.Name}</CurrencyName>
+                    </CurrencyInfo>
+                  </CurrencyItem>
+                ))}
+              </CurrencyList>
+            </AnimatedDropdownContainer>
           </InputContainer>
           
           <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
@@ -673,7 +695,7 @@ const Sell1 = () => {
 <Container>
       <Header>
         <RefreshText>Automatic refresh after {timer}s</RefreshText>
-        <RefreshCw size={20} color="#BDBDBD" />
+        <RefreshCw size={20} color="white" />
       </Header>
       
       <PriceDisplay>
@@ -681,7 +703,7 @@ const Sell1 = () => {
         <BaseLabel>Base</BaseLabel>
       </PriceDisplay>
       
-      <Subtext>1USDT=93</Subtext>
+      <Subtext>1USDT = 93</Subtext>
       <Center>
       <TableContainer>
         <Table>
