@@ -19,19 +19,24 @@ const PageContainer = styled.div`
 const Card = styled.div`
     background-color: white;
     color: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     width: 380px;
-    height: 580px;
-    max-width: 100%;
+    height: 610px;
+    /* max-width: 100%; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 5%;
 
-    @media (max-width: 480px) {
+    @media (max-width: 375px) {
         /* padding: 1rem; */
-        width: 100%;
+        width: 320px;
+        /* height: auto; */
+    }
+    @media (max-width: 320px) {
+        /* padding: 1rem; */
+        width: 300px;
         /* height: auto; */
     }
 `;

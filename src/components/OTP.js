@@ -127,7 +127,29 @@ const Tab = styled.div`
   cursor: pointer;
   font-size: 18px;
 `;
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
 
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
 const OTPPage = () => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const [loading, setLoading] = useState(false);
@@ -180,6 +202,9 @@ const OTPPage = () => {
     <>
       <Navbar />
       <PageContainer>
+      <div style={{ width: "100%" }}>
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
+  </div>
         <Card>
           <TabContainer>
             <Tab active>Enter OTP</Tab>

@@ -25,9 +25,15 @@ const Container = styled.div`
   padding: 1.5rem;
   border-radius: 12px;
   width: 380px;
-  height: 580px;
+  height: 610px;
   font-family: 'Inter', Arial, sans-serif;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  @media (max-width: 430px) {
+
+    width: 100%;
+
+    
+  }
 `;
 
 const Header = styled.div`
@@ -172,14 +178,41 @@ const Button = styled.button`
     background-color: #d78b2d;
   }
 `;
+const BackButton = styled.button`
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  /* background-color: black; */
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
 
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
 const Sell5 = () => {
   const starCount = 12;
 
   return (
     <>
     <Navbar/>
+
     <Main>
+    <div style={{ width: "100%" }}>
+    <BackButton onClick={() => window.history.back()}>Back</BackButton>
+</div>
       <Container>
         <Header>
         <TabContainer>

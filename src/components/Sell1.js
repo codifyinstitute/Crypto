@@ -524,8 +524,11 @@ const Sell1 = () => {
   return (
     <>
       <Navbar />
-      <BackButton onClick={() => window.history.back()}>Back</BackButton>
+
       <TradingEnvironment>
+      <div style={{ width: "100%" }}>
+      <BackButton onClick={() => window.history.back()}>Back</BackButton>
+  </div>
         <ExchangeCard>
           <div>
           <TabContainer>
