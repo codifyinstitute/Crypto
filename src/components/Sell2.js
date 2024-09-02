@@ -14,7 +14,6 @@ const PageContainer = styled.div`
   align-items: center;
   min-height: fit-content;
   justify-content: space-between;
-  gap: 10rem;
   background-color: black;
   color: white;
   padding: 20px;
@@ -27,7 +26,7 @@ const Card = styled.div`
   width: 380px;
   height: 610px;
   color: black;
-  margin-top: 5%;
+  margin-top: 6%;
   margin-bottom: 20px;
   
   @media (max-width: 430px) {
