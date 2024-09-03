@@ -67,13 +67,14 @@ const HomeContainer = () => {
         <Home />
         <Wazir />
         <Customer />
+        
+        <Mobile />
         <Homemap />
        {/* Include your CustomWorldMap component here */}
         <Numbers />
         <Homelogo />
         <Homelogo2 />
 
-        <Mobile />
       
       </ContentWrapper>
       <HomeContact1 />

@@ -86,7 +86,18 @@ const PriceInfo = styled.div`
   font-size: 0.8rem;
   color: #aaa;
 `;
-
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  color: white;
+margin-top: 2%;
+  @media (max-width: 480px) {
+    font-size: 1.87rem;
+    text-align: center;
+    width: auto;
+    /* padding-right: 15px; */
+  }`;
 const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice,maxPrice }) => (
   <Card>
     <CoinIcon>
@@ -125,7 +136,10 @@ const CryptoPriceGrid = () => {
   }, []);
 
   return(
+  <>
+  <Title>Prices onother Exchanges</Title>
   <Grid>
+  
     <CryptoPriceCard
       exchange="Binance"
       avgPrice={data?.Binance?.Average || null}
@@ -155,6 +169,7 @@ const CryptoPriceGrid = () => {
       maxPrice = {data?.Wazirx?.Max || null}
     />
   </Grid>
+  </>
 )};
 
 export default CryptoPriceGrid;

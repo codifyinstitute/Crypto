@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import axios from 'axios';
+import { ChevronLeft } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { X } from 'lucide-react';
@@ -12,7 +13,7 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 20px;
   color: white;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 `;
 
 const Header = styled.div`
@@ -21,6 +22,10 @@ const Header = styled.div`
   align-items: center;
   margin-bottom: 20px;
   margin-top: 5%;
+
+  @media (max-width: 430px) {
+    margin-top: 7%;
+  }
 `;
 
 const Title = styled.h1`
@@ -32,7 +37,7 @@ const AddButton = styled.button`
   background-color: #FFA500;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 9px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
@@ -42,20 +47,20 @@ const AddButton = styled.button`
   }
 `;
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  /* position: fixed; */
-  /* top: 20px; */
-  /* left: 20px; */
   z-index: 1001;
-  display: none; // Hidden by default
+  /* display: none; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -133,6 +138,7 @@ const FormSection = styled.div`
 const FormSectionTitle = styled.h3`
   font-size: 16px;
   margin-bottom: 10px;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -164,13 +170,15 @@ const AccountCard = styled.div`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
+  /* width: fit-content; */
 `;
 
 const AccountInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 10%;
+  width: 100%;
   
   @media (max-width: 1024px) {
     width: 30%;
@@ -235,12 +243,14 @@ const DeleteButton = styled.button`
   font-size: 18px;
   padding: 5px 10px;
   border-radius: 5px;
+  
   width: 4rem;
   height: 2rem;
   cursor: pointer;
   font-weight: bold;
   @media (max-width: 430px) {
     font-size: 14px;
+    margin-top: 3%;
   }
 `;
 
@@ -291,9 +301,10 @@ const Bank = () => {
 
       <Container>
         <Header>
-          <BackButton onClick={() => window.history.back()}>Back</BackButton>
-          <Title>Payment Methods</Title>
-          <AddButton onClick={() => setShowForm(true)}>Add new +</AddButton>
+       
+          
+        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton><Title>Payment Methods</Title>
+          <AddButton onClick={() => setShowForm(true)}>Add new </AddButton>
         </Header>
 
         {showForm && (
@@ -330,8 +341,10 @@ const Bank = () => {
               <AccountDetails><Label>Country:</Label> {account.Country}</AccountDetails>
               <AccountNumberValue><Label>Account No:</Label> {account.AccountNumber}</AccountNumberValue>
               <AccountDetails><Label>IFSC:</Label> {account.IFSC}</AccountDetails>
+
+       
             </AccountInfo>
-            <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
+                   <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
               Delete
             </DeleteButton>
           </AccountCard>

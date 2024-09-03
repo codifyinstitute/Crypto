@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { ChevronLeft } from 'lucide-react';
 import { toast } from 'react-toastify'; // For toast notifications
 import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
 
@@ -19,6 +20,10 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+  margin-top: 6%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const TabContainer = styled.div`
@@ -27,7 +32,7 @@ const TabContainer = styled.div`
   border-radius: 25px;
   overflow: hidden;
   margin-bottom: 20px;
-  margin-top: 4%;
+  /* margin-top: 4%; */
 `;
 
 const Tab = styled.button`
@@ -71,6 +76,32 @@ const TransactionDetails = styled.div`
 const TransactionColumn = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const BackButton = styled.button`
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
+  border: none;
+  /* padding: 8px 16px; */
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  z-index: 1001;
+  display: none;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
+
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 const Label = styled.span`
@@ -121,11 +152,12 @@ const Transaction = () => {
     <>
       <Navbar/>
       <Container>
-        <Title>Transactions</Title>
+            
+      <Title> <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton> Transactions</Title>
         <TabContainer>
           <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
           <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
-          <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>
+  {  /*      <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>*/}
           <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
         </TabContainer>
         <TransactionList>

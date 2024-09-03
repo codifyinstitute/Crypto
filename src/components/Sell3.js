@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import HomeContact from './HomeContact';
+import { ChevronLeft } from 'lucide-react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const PageContainer = styled.div`
   display: flex;
@@ -79,7 +81,7 @@ const FormSection = styled.div`
     margin-bottom: 0.5rem;
     font-size: 18px;
     font-size: medium;
-    font-weight: 100;
+    font-weight: 500;
     margin: 8px auto;
   }
 `;
@@ -122,16 +124,17 @@ const FormButton = styled.button`
 const FormWarning = styled.p`
   font-size: 0.8rem;
   color: #666;
-  margin-bottom: 1rem;
+  margin-bottom: 0%.5;
 `;
 
 const CardsContainer = styled.div`
-  margin-top: 7%;
+  /* margin-top: 7%; */
   display: flex;
   flex-direction: column;
   align-items:center;
+  background-color: black;
   @media (max-width: 480px) {
-     width: 90%;
+     width: 100%;
     }
 `;
 const CardsSection = styled.div`
@@ -141,6 +144,7 @@ const CardsSection = styled.div`
   margin-top: 1rem;
   display: flex;
   gap:1rem;
+  margin-bottom: 2%;
   justify-content: space-around;
   flex-wrap: wrap;
 `;
@@ -158,10 +162,15 @@ const Card = styled.div`
 `;
 
 const CardTitle = styled.h4`
-  color: #f7a600;
-  margin-top: 0;
-  text-align: center;
-
+margin-right: 1rem;
+    color: orange;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0.3rem 0px;
+    border-bottom: 2px solid orange;
+    width: fit-content;
+  font-weight:500;
+    margin-bottom: 1%;
   
 `;
 
@@ -173,17 +182,20 @@ justify-content: space-between;
   
 `;
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  display: none;
+  /* display: none; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -205,7 +217,7 @@ const Sell3 = () => {
   const [ifsc, setIfsc] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [isFormValid, setIsFormValid] = useState(false);
-
+ 
 
   useEffect(() => {
     fetchData();
@@ -297,33 +309,18 @@ const Sell3 = () => {
   return (
     <>
     <PageContainer>
-    <div style={{ width: "100%" }}>
-    <BackButton onClick={() => window.history.back()}>Back</BackButton>
-</div>
+
       <Navbar />
       <ToastContainer />
-      <CardsContainer>
-        <FormTitle>Choose Account</FormTitle>
-        <CardsSection>
-          {accounts.map((account, index) => (
-            <Card key={index} onClick={() => handleCardClick(account)}>
-              <CardTitle>Account {index + 1}</CardTitle>
-              <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
-              <Crosss><strong>Country:</strong> {account.Country}</Crosss>
-              <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss>
-              <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>
-              <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
-            </Card>
-          ))}
-        </CardsSection>
-        {/* <FormButton style={{width:"20%"}}>
-          Add Account
-        </FormButton> */}
-      </CardsContainer>
+      
       <FormWrapper>
         <FormContainer>
+  
+      
+   
           <TabContainer>
-            <Tab active>Add Account</Tab>
+      
+          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton> <Tab active>Add Account</Tab>
           </TabContainer>
 
           <form onSubmit={handleFormSubmit}>
@@ -379,6 +376,30 @@ const Sell3 = () => {
         </FormContainer>
       </FormWrapper>
     </PageContainer>
+    <CardsContainer>
+ 
+        <FormTitle>Choose Account</FormTitle>
+        <CardsSection>
+    
+          {accounts.map((account, index) => (
+            <Card key={index} onClick={() => handleCardClick(account)}>
+   
+          
+              <CardTitle>Account {index + 1}</CardTitle>
+              <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
+  {         /*   <Crosss><strong>Country:</strong> {account.Country}</Crosss>
+              <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss>
+              <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>*/}
+              <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
+
+            </Card>
+          ))}
+        </CardsSection>
+
+        {/* <FormButton style={{width:"20%"}}>
+          Add Account
+        </FormButton> */}
+      </CardsContainer>
       <HomeContact />
       <Footer />
       </>

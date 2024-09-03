@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.jpeg";
 import Footer from './Footer';
@@ -93,15 +94,14 @@ const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color:  orange;
-  padding: 9px;
-  color: white;
-  border-radius: 20px;
-  
-  @media (max-width: 480px) {
-  padding: 5px;
-    font-size: 15px;
-  }
+  background-color:  #e1dcdc;
+  /* padding: 9px; */
+  color: black;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 16px;
 `;
 
 const UpdateText = styled.div`
@@ -413,18 +413,22 @@ const TableFooter = styled.p`
 `;
 
 
+
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  display: none;
+  /* display: none; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -435,9 +439,7 @@ const BackButton = styled.button`
     top: 10px;
     left: 10px;
   }
-
 `;
-
 const Right = styled.div`
 display: flex;
 justify-content: left;
@@ -545,122 +547,120 @@ const Sell1 = () => {
     <>
       <Navbar />
       <TradingEnvironment>
-        <Right>
-      <BackButton onClick={() => window.history.back()}>Back</BackButton>
-      </Right>
-        <ExchangeCard>
-          <div>
-          <TabContainer>
-            <Tab active>Sell Crypto</Tab>
-          </TabContainer>
-          
-          <InputLabel>You sell</InputLabel>
-          <InputContainer>
-            <InputWrapper>
-              <Input
-                type="text"
-                value={usdt}
-                onChange={handleUsdtChange}
-              />
-              <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                {selectedCurrency && (
-                  <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
-                )}
-                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
-                <ChevronDown size={16} />
-              </CurrencyToggle>
-            </InputWrapper>
-            <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-              <DropdownHeader>
-                <DropdownTitle>Select crypto</DropdownTitle>
-                <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                  <X size={24} />
-                </CloseButton>
-              </DropdownHeader>
-              <SearchInput
-                type="text"
-                placeholder="Search here..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <CurrencyList>
-                {filteredCurrencies.map(currency => (
-                  <CurrencyItem
-                    key={currency._id}
-                    onClick={() => handleCurrencySelect(currency)}
-                  >
-                    <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                    <CurrencyInfo>
-                      <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                      <CurrencyName>{currency.Name}</CurrencyName>
-                    </CurrencyInfo>
-                  </CurrencyItem>
-                ))}
-              </CurrencyList>
-            </AnimatedDropdownContainer>
-          </InputContainer>
-          
-          <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
-          <InputContainer>
-            <InputWrapper>
-              <Input
-                type="text"
-                value={inr.toFixed(2)}
-                readOnly
-              />
-              <CurrencyToggle>
-                <CurrencyIcon as="div">
-                <CurrencyIcon src={ind}  />
-                </CurrencyIcon>
-                INR
-     
-              </CurrencyToggle>
-            </InputWrapper>
-          </InputContainer>
-          
-          <UpdateText>Updating rates</UpdateText>
-          
-          <OrderSummary>
-            <OrderTitle onClick={toggleDetailsExpanded}>
-              Your order
-              <div style={{ display: "flex" }}>
-                {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} {selectedCurrency.Symbol} to {inr.toFixed(2)} INR</p>}
-                {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              </div>
-            </OrderTitle>
-            {isDetailsExpanded && (
-              <>
-                <OrderDetail>
-                  <span>1 {selectedCurrency?.Symbol}</span>
-                  <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
-                </OrderDetail>
-                <OrderDetail>
-                  <span>Processing fee <Info size={14} /></span>
-                  <span>as low as Rs {transactionFee}</span>
-                </OrderDetail>
-                <OrderDetail>
-                  <span>networkFee fee <Info size={14} /></span>
-                  <span>as low as Rs {networkFee}</span>
-                </OrderDetail>
-              </>
-            )}
-          </OrderSummary>
-          </div>
 
-          <div>
-          <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-            Proceed · Sell {selectedCurrency?.Symbol} →
-          </ProceedButton>
-          
-          <PaymentMethods>
-            <PaymentIcon />
-          </PaymentMethods>
-          
-          <PoweredBy>
-            Powered by Alchemy Pay
-          </PoweredBy>
-          </div>
-        </ExchangeCard>
+      <ExchangeCard>
+      <div>
+        <TabContainer>
+        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+        </BackButton> <Tab active>Sell Crypto</Tab>
+        </TabContainer>
+
+        <InputLabel>You sell</InputLabel>
+        <InputContainer>
+          <InputWrapper>
+            <Input
+              type="text"
+              value={usdt}
+              onChange={handleUsdtChange}
+            />
+            <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              {selectedCurrency && (
+                <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
+              )}
+              {selectedCurrency ? selectedCurrency.Name : 'Select'}
+              <ChevronDown size={16} />
+            </CurrencyToggle>
+          </InputWrapper>
+          <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+            <DropdownHeader>
+              <DropdownTitle>Select crypto</DropdownTitle>
+              <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                <X size={24} />
+              </CloseButton>
+            </DropdownHeader>
+            <SearchInput
+              type="text"
+              placeholder="Search here..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <CurrencyList>
+              {filteredCurrencies.map(currency => (
+                <CurrencyItem
+                  key={currency._id}
+                  onClick={() => handleCurrencySelect(currency)}
+                >
+                  <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                  <CurrencyInfo>
+                  <CurrencyName>{currency.Name}</CurrencyName>
+                    <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+        
+                  </CurrencyInfo>
+                </CurrencyItem>
+              ))}
+            </CurrencyList>
+          </AnimatedDropdownContainer>
+        </InputContainer>
+
+        <InputLabel>You receive (estimate) <Info size={14} /></InputLabel>
+        <InputContainer>
+          <InputWrapper>
+            <Input
+              type="text"
+              value={inr.toFixed(2)}
+              readOnly
+            />
+            <CurrencyToggle>
+              <CurrencyIcon as="div">
+              <CurrencyIcon src={ind} />
+              </CurrencyIcon>
+              INR
+            </CurrencyToggle>
+          </InputWrapper>
+        </InputContainer>
+
+        <UpdateText>Updating rates</UpdateText>
+
+        <OrderSummary>
+          <OrderTitle onClick={toggleDetailsExpanded}>
+           <b>Your order</b> 
+            <div style={{ display: "flex" }}>
+              {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </div>
+          </OrderTitle>
+          {isDetailsExpanded && (
+            <>
+              <OrderDetail>
+                <span>1 {selectedCurrency?.Name}</span>
+                <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+              </OrderDetail>
+              <OrderDetail>
+                <span>Processing fee <Info size={14} /></span>
+                <span>as low as Rs {transactionFee}</span>
+              </OrderDetail>
+              <OrderDetail>
+                <span>Network fee <Info size={14} /></span>
+                <span>as low as Rs {networkFee}</span>
+              </OrderDetail>
+            </>
+          )}
+        </OrderSummary>
+        </div>
+        <div>
+        <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
+              Proceed · Sell {selectedCurrency?.Name}    <CurrencyIcon src={usdtt} alt={selectedCurrency?.Symbol} /> →
+        </ProceedButton>
+
+        <PaymentMethods>
+          <PaymentIcon />
+        </PaymentMethods>
+
+        <PoweredBy>
+          Powered by Alchemy Pay
+        </PoweredBy>
+        </div>
+      </ExchangeCard>
 
 
 
@@ -700,10 +700,10 @@ const Sell1 = () => {
       
       <PriceDisplay>
         <Price>93</Price>
-        <BaseLabel>Base</BaseLabel>
+
       </PriceDisplay>
       
-      <Subtext>1USDT = 93</Subtext>
+      <Subtext>1USDT = 93 INR</Subtext>
       <Center>
       <TableContainer>
         <Table>
