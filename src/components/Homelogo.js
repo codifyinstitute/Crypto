@@ -22,28 +22,6 @@ import image19 from '../assets/image19.png'
 import image20 from '../assets/image20.png'
 
 const logos = [
-<<<<<<< HEAD
-  { name: 'OKX', url:image1, link: '/https://www.binance.com/en' },
-  { name: 'Bitget', url: image2, link: '#' },
-  { name: 'NEAR', url: image3, link: '#' },
-  { name: 'Polygon', url: image4, link: '#' },
-  { name: 'Arbitrum', url: image5, link: '#' },
-  { name: 'ChainUP', url: image6, link: '#' },
-  { name: 'Sui', url: image7, link: '#' },
-  { name: 'Token Pocket', url: image8, link: '#' },
-  { name: 'Bitget Wallet', url: image9, link: '#' },
-  { name: 'Bitrue', url: image10, link: '#' },
-  { name: 'CELO', url: image11, link: '#' },
-  { name: 'Pionex', url: image12, link: '#' },
-  { name: 'DODO', url: image13, link: '#' },
-  { name: 'BingX', url: image14, link: '#' },
-  { name: 'LBANK', url: image15, link: '#' },
-  { name: 'MEXC', url: image16, link: '#' },
-  { name: 'CoinTR', url: image17, link: '#' },
-  { name: 'SaaSGo', url: image18, link: '#' },
-  { name: 'BEFI WALLET', url: image19, link: '#' },
-  { name: 'Bit.Store', url: image20, link: '#' },
-=======
   { name: 'Bitget', url:image1, link: 'https://www.bitget.com/' },
   { name: 'NEAR', url: image2, link: 'https://near.org/' },
   { name: 'Polygon', url: image3, link: 'https://polygon.technology/' },
@@ -64,7 +42,6 @@ const logos = [
   { name: 'BEFI WALLET', url: image18, link: '#' },
   { name: 'Bit.Store', url: image19, link: 'https://bit.store/home' },
   { name: 'ChainUP', url: image20, link: 'https://www.chainup.com/' },
->>>>>>> 30ab097452e129324c0c2c32cbab0a91af976f01
 ];
 
 const Container = styled.div`
