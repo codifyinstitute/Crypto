@@ -535,7 +535,7 @@ const AccountCard = styled.div`
   margin-left: 30%;
   margin-top: 3%;
  
-  padding-right: 30%;
+  /* padding-right: 30%; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -604,8 +604,9 @@ const AccountBalance = styled.span`
   font-size: 18px;
   display: flex;
   align-items: center;
+  justify-content: center;
   
-  justify-content: space-between;
+  /* justify-content: space-between; */
 
   @media (max-width: 430px) {
     font-size: 14px;
@@ -639,10 +640,27 @@ const DeleteButton = styled.button`
 
 const Label = styled.p`
   color: white;
-  white-space: pre;
+  /* white-space: pre; */
   font-size: 14px;
   font-weight: bold;
 `;
+const Col1 = styled.div`
+width: 150px;
+`;
+const Col2 = styled.div`
+width: max-content;
+`;
+const Maincol = styled.div`
+/* width: 100%;y */
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap: 10%;
+`;
+
+
+
 
 const Bank = () => {
   const [showForm, setShowForm] = useState(false);
@@ -719,11 +737,11 @@ const Bank = () => {
         {accounts.map((account) => (
           <AccountCard key={account.AccountNumber}>
             <AccountInfo><br/><br/>
-              <AccountName><Label>Bank Name:    {account.BankName}  </Label>   </AccountName>
-              <AccountDetails><Label>Account Name:   {account.Name}</Label> </AccountDetails>
-              <AccountDetails><Label>Country:   {account.Country}</Label> </AccountDetails>
-              <AccountNumberValue><Label>Account No:  {account.AccountNumber}</Label> </AccountNumberValue>
-              <AccountDetails><Label>IFSC:     {account.IFSC}</Label> </AccountDetails>
+              <AccountName><Maincol><Col1><Label>   Bank Name:  </Label></Col1>   <Col2>      {account.BankName} </Col2> </Maincol> </AccountName>
+              <AccountDetails><Maincol><Col1><Label>Account Name:</Label></Col1>     <Col2>          {account.Name}</Col2>  </Maincol> </AccountDetails>
+              <AccountDetails><Maincol><Col1><Label>Country:</Label> </Col1>       <Col2>         {account.Country}</Col2></Maincol>  </AccountDetails>
+              <AccountNumberValue><Maincol><Col1><Label>Account No:</Label> </Col1>    <Col2>        {account.AccountNumber}</Col2> </Maincol> </AccountNumberValue>
+              <AccountDetails><Maincol><Col1><Label>IFSC:</Label>      </Col1>       <Col2>   {account.IFSC}</Col2></Maincol> </AccountDetails>
             </AccountInfo>
             <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
               Delete

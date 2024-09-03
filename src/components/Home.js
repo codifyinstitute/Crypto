@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ChevronDown, ChevronUp, Info, X } from "lucide-react";
 import ind from "./../assets/ind.jpeg";
-import usdtt from "./../assets/usdtt.jpeg";
+import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/payment.png";
 
 const Home = () => {
@@ -126,7 +126,7 @@ const Home = () => {
                   <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
                <Rocks>{selectedCurrency ? selectedCurrency.Name   : 'Select'}
-                <CurrencySymbols>{selectedCurrency.Symbol}</CurrencySymbols></Rocks> 
+                <CurrencySymbols>{selectedCurrency?.Symbol}</CurrencySymbols></Rocks> 
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
