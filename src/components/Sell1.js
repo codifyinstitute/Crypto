@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
-import usdtt from "./../assets/usdtt.jpeg";
+import usdtt from "./../assets/usdtt.png";
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
@@ -143,14 +143,17 @@ const ProceedButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: background-color 0.3s ease;
 
   &:hover {
-    color: rgb(227, 148, 0);
+    /* color: rgb(227, 148, 0); */
   }
 
   &:disabled {
-    background-color: #ccc;
+    /* background-color: #ccc; */
     cursor: not-allowed;
   }
 `;
@@ -436,7 +439,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
@@ -578,7 +581,7 @@ const Sell1 = () => {
               {selectedCurrency && (
                 <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
               )}
-              <Rocks>{selectedCurrency ? selectedCurrency.Name   : 'Select'}
+              <Rocks><b>{selectedCurrency ? selectedCurrency.Name   : 'Select'}</b>
               <CurrencySymbols>{selectedCurrency.Symbol}</CurrencySymbols></Rocks> 
               <ChevronDown size={16} />
             </CurrencyToggle>
@@ -626,7 +629,7 @@ const Sell1 = () => {
               <CurrencyIcon as="div">
               <CurrencyIcon src={ind} />
               </CurrencyIcon>
-              INR
+              <b>INR</b>
             </CurrencyToggle>
           </InputWrapper>
         </InputContainer>

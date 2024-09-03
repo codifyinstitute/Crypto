@@ -74,10 +74,11 @@ const MenuList = styled.ul`
 `;
 
 const MenuItem = styled.li`
-  background-color: #1E1E1E;
+  background-color: white;
   border-radius: 10px;
   margin-bottom: 10px;
   overflow: hidden;
+  color: black;
   border: 1px solid #FFA500;
 `;
 
@@ -85,7 +86,7 @@ const MenuLink = styled.a`
   display: flex;
   align-items: center;
   padding: 15px;
-  color: white;
+  color: black;
   text-decoration: none;
   font-weight: bold;
   justify-content: space-between;
