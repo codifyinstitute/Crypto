@@ -354,6 +354,17 @@ const BaseLabel = styled.span`
   border-radius: 2px;
   vertical-align: super;
 `;
+const Rocks = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`;
+const CurrencySymbols = styled.div`
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
+
+`;
 
 const Subtext = styled.p`
   text-align: center;
@@ -567,7 +578,8 @@ const Sell1 = () => {
               {selectedCurrency && (
                 <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
               )}
-              {selectedCurrency ? selectedCurrency.Name : 'Select'}
+              <Rocks>{selectedCurrency ? selectedCurrency.Name   : 'Select'}
+              <CurrencySymbols>{selectedCurrency.Symbol}</CurrencySymbols></Rocks> 
               <ChevronDown size={16} />
             </CurrencyToggle>
           </InputWrapper>
