@@ -88,7 +88,18 @@ const PriceInfo = styled.div`
   font-size: 0.8rem;
   color: #aaa;
 `;
-
+const Title = styled.h2`
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  color: white;
+margin-top: 2%;
+  @media (max-width: 480px) {
+    font-size: 1.87rem;
+    text-align: center;
+    width: auto;
+    /* padding-right: 15px; */
+  }`;
 const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice }) => (
   <Card>
     <CoinIcon>
@@ -105,7 +116,10 @@ const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice }) => (
 );
 
 const CryptoPriceGrid = () => (
+  <>
+  <Title>Prices onother Exchanges</Title>
   <Grid>
+  
     <CryptoPriceCard
       exchange="wazirx"
       avgPrice="95.26"
@@ -131,6 +145,7 @@ const CryptoPriceGrid = () => (
       minPrice="94.7"
     />
   </Grid>
+  </>
 );
 
 export default CryptoPriceGrid;

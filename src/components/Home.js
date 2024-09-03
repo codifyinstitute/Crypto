@@ -103,7 +103,7 @@ const Home = () => {
         <ExchangeRateBox>
           <RefreshText>Automatic refresh after 30s</RefreshText>
           <RateValue>{selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateValue>
-          <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'}</RateLabel>
+          <RateLabel>1 USDT = {selectedCurrency ? selectedCurrency.Rate : 'N/A'} INR</RateLabel>
         </ExchangeRateBox>
       </ContentSection>
       <ExchangeSection>
@@ -125,7 +125,7 @@ const Home = () => {
                 {selectedCurrency && (
                   <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
-                {selectedCurrency ? selectedCurrency.Symbol : 'Select'}
+                {selectedCurrency ? selectedCurrency.Name : 'Select'}
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
@@ -150,8 +150,9 @@ const Home = () => {
                   >
                     <CurrencyIcon src={usdtt} alt={currency.Symbol} />
                     <CurrencyInfo>
+                    <CurrencyName>{currency.Name}</CurrencyName>
                       <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                      <CurrencyName>{currency.Name}</CurrencyName>
+          
                     </CurrencyInfo>
                   </CurrencyItem>
                 ))}
@@ -180,16 +181,16 @@ const Home = () => {
 
           <OrderSummary>
             <OrderTitle onClick={toggleDetailsExpanded}>
-              Your order
+             <b>Your order</b> 
               <div style={{ display: "flex" }}>
-                {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} {selectedCurrency.Symbol} to {inr.toFixed(2)} INR</p>}
+                {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
                 {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </div>
             </OrderTitle>
             {isDetailsExpanded && (
               <>
                 <OrderDetail>
-                  <span>1 {selectedCurrency?.Symbol}</span>
+                  <span>1 {selectedCurrency?.Name}</span>
                   <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
                 </OrderDetail>
                 <OrderDetail>
@@ -206,7 +207,7 @@ const Home = () => {
           </div>
           <div>
           <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-            Proceed · Sell {selectedCurrency?.Symbol} →
+            Proceed · Sell {selectedCurrency?.Name}    <CurrencyIcon src={usdtt} alt={selectedCurrency?.Symbol} /> →
           </ProceedButton>
 
           <PaymentMethods>
@@ -392,9 +393,9 @@ const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color:  orange;
+  background-color:  #e1dcdc;
   /* padding: 9px; */
-  color: white;
+  color: black;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 5px;
@@ -442,6 +443,9 @@ const ProceedButton = styled.button`
   cursor: pointer;
   margin-top: 1rem;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: rgb(227, 148, 0);
@@ -567,12 +571,14 @@ const CurrencyInfo = styled.div`
 `;
 
 const CurrencySymbol = styled.span`
-  font-weight: 600;
+  font-size: 0.8rem;
+  color: #888;
 `;
 
 const CurrencyName = styled.span`
-  font-size: 0.8rem;
-  color: #888;
+
+  /* color: #888; */
+  font-weight: 600;
 `;
 
 const PriceContainer = styled.div`

@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import HomeContact from './HomeContact';
 import axios from 'axios';
+import { ChevronLeft } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -28,14 +29,11 @@ const Card = styled.div`
   color: black;
   margin-top: 6%;
   margin-bottom: 20px;
-  
+
   @media (max-width: 430px) {
     width: 100%;
-
   }
 `;
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const TabContainer = styled.div`
   display: flex;
@@ -62,23 +60,24 @@ const Subtitle = styled.h2`
   font-size: 20px;
   margin-bottom: 20px;
 `;
-const Label = styled.label`
-font-size: 18px;
-`
 
+const Label = styled.label`
+  font-size: 18px;
+`;
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
-  margin:10px auto;
+  margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
 `;
 
 const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
-  font-size: 15px;
+  font-size: 14px;
   margin-bottom: 20px;
   margin: 10px auto;
 `;
@@ -116,41 +115,41 @@ const LoadingSpinner = styled.div`
   width: 30px;
   height: 30px;
   animation: spin 1s linear infinite;
-  
+
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
 `;
-const Boxx = styled.div`
- margin-bottom: 63%;
 
- @media (max-width: 380px) {
- margin-bottom: 66%;
-    
+const Boxx = styled.div`
+  margin-bottom: 38%;
+
+  @media (max-width: 380px) {
+    margin-bottom: 44%;
   }
 `;
-const Boo = styled.div`
- 
-`;
+
+const Boo = styled.div``;
+
 const Forg = styled.div`
- display: flex;
- flex-direction: column;
- justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  display: none;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -165,28 +164,36 @@ const BackButton = styled.button`
 
 const Sell2 = () => {
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const isFormValid = email !== '' && isChecked;
+  const isFormValid = email !== '' && phone.length === 10 && isChecked;
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    if (/^\d{0,10}$/.test(value)) {
+      setPhone(value);
+    }
+  };
 
   const handleProceed = async () => {
     if (isFormValid) {
       setLoading(true);
       try {
-        const response = await axios.post('https://crypto-anl6.onrender.com/users/login', { Email: email });
+        const response = await axios.post('https://crypto-anl6.onrender.com/users/login', { Email: email, Phone: phone });
         if (response.status === 200) {
-          navigate('/otp', { state: { email: email } });
+          navigate('/otp', { state: { email: email, phone: phone } });
         }
       } catch (error) {
         console.error("Error during login:", error);
-        toast.error("Invalid email or server error. Please try again.");
+        toast.error("Invalid email, phone number, or server error. Please try again.");
       } finally {
         setLoading(false);
       }
     } else {
-      toast.error("Please enter a valid email and agree to the terms.");
+      toast.error("Please enter a valid email, phone number, and agree to the terms.");
     }
   };
 
@@ -194,12 +201,11 @@ const Sell2 = () => {
     <>
       <Navbar />
       <PageContainer>
-      <div style={{ width: "100%" }}>
-                    <BackButton onClick={() => window.history.back()}>Back</BackButton>
-                </div>
         <Card>
-
-        <TabContainer>
+          <TabContainer>
+            <BackButton onClick={() => window.history.back()}>
+              <ChevronLeft />
+            </BackButton>
             <Tab active>Login To Moon Pay</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>
@@ -207,12 +213,19 @@ const Sell2 = () => {
 
           <Forg>
             <Boxx>
-              <Label>What is your email address?</Label>
+              <Label>What is your Email Address?</Label>
               <Input
                 type="email"
                 placeholder="Enter your mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+              <Label>What is your Phone Number?</Label>
+              <Input
+                type="tel"
+                placeholder="Enter your Phone Number"
+                value={phone}
+                onChange={handlePhoneChange}
               />
               <CheckboxLabel>
                 <Checkbox
@@ -222,7 +235,6 @@ const Sell2 = () => {
                 />
                 I have read and agree to Moon Pay's Terms Of Services and privacy policy.
               </CheckboxLabel>
-
             </Boxx>
             <Boo>
               <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
@@ -231,11 +243,9 @@ const Sell2 = () => {
               <PoweredBy>Powered by Moon Pay</PoweredBy>
             </Boo>
           </Forg>
-
         </Card>
       </PageContainer>
       <HomeContact />
-
       <Footer />
       <ToastContainer />
     </>

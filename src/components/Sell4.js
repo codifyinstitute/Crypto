@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import HomeContact from './HomeContact';
 import Modal from './ConformationModal';  // Import the Modal component
 
@@ -15,7 +16,19 @@ const PageContainer = styled.div`
   background-color: black;
   padding: 20px;
 `;
+const TabContainer = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
 
+const Tab = styled.div`
+  padding: 0.5rem 0;
+  margin-right: 1rem;
+  color: orange;
+  border-bottom: 2px solid orange;
+  cursor: pointer;
+  font-size: 18px;
+`;
 const Card = styled.div`
     background-color: white;
     color: white;
@@ -83,17 +96,20 @@ const Button = styled.button`
 `;
 
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  display: none;
+  /* display: none; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -105,6 +121,7 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
+
 
 const Center = styled.div`
     height: calc(100vh - 64px);
@@ -234,13 +251,15 @@ const Sell4 = () => {
   return (
     <>
       <PageContainer>
-        <div style={{ width: "100%" }}>
-          <BackButton onClick={() => window.history.back()}>Back</BackButton>
-        </div>
+
         <Navbar />
         <Center>
           <Card>
-            <Title>Sell {localData.symbol}</Title>
+          <TabContainer>
+          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+          </BackButton> <Tab active>Sell {localData.symbol}</Tab>
+          </TabContainer>
+       
             <div>
               <InfoRow>
                 <Label>Name</Label>
