@@ -264,7 +264,7 @@ const Sell3 = () => {
     };
 
     try {
-      await axios.put(`https://crypto-anl6.onrender.com/users/put/${email}/accounts`, accountData);
+      await axios.put(`http://localhost:8000/users/put/${email}/accounts`, accountData);
       toast.success('Account data successfully submitted');
       setAccountHolder('');  // Clear input fields
       setCountry('');

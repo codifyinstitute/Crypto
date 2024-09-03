@@ -35,8 +35,6 @@ const Card = styled.div`
   }
 `;
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 const TabContainer = styled.div`
   display: flex;
   margin-bottom: 1.5rem;
@@ -194,12 +192,12 @@ const Sell2 = () => {
     <>
       <Navbar />
       <PageContainer>
-      <div style={{ width: "100%" }}>
-                    <BackButton onClick={() => window.history.back()}>Back</BackButton>
-                </div>
+        <div style={{ width: "100%" }}>
+          <BackButton onClick={() => window.history.back()}>Back</BackButton>
+        </div>
         <Card>
 
-        <TabContainer>
+          <TabContainer>
             <Tab active>Login To Moon Pay</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>

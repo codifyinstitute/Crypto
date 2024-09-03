@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Bitcoin } from 'lucide-react';
 
@@ -15,8 +15,6 @@ const Grid = styled.div`
     justify-items: center;
 
   }
-  
- 
 `;
 
 const Card = styled.div`
@@ -89,7 +87,7 @@ const PriceInfo = styled.div`
   color: #aaa;
 `;
 
-const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice }) => (
+const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice,maxPrice }) => (
   <Card>
     <CoinIcon>
       <Bitcoin size={48} color="#ffd700" />
@@ -99,38 +97,64 @@ const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice }) => (
     <SubText>1 USDT = {usdtPrice}</SubText>
     <MinMaxPrice>
       <PriceInfo>Min {minPrice}$</PriceInfo>
-      <PriceInfo>Min {minPrice}$</PriceInfo>
+      <PriceInfo>Max {maxPrice}$</PriceInfo>
     </MinMaxPrice>
   </Card>
 );
 
-const CryptoPriceGrid = () => (
+const CryptoPriceGrid = () => {
+  const [data, setData] = useState({})
+
+  const fetchTransactionFee = async () => {
+    try {
+      const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setData(data)
+      console.log(data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactionFee();
+  }, []);
+
+  return(
   <Grid>
     <CryptoPriceCard
-      exchange="wazirx"
-      avgPrice="95.26"
-      usdtPrice="₹95.26"
-      minPrice="94.5"
+      exchange="Binance"
+      avgPrice={data?.Binance?.Average || null}
+      usdtPrice={data?.Binance?.Average || null}
+      minPrice={data?.Binance?.Min || null}
+      maxPrice = {data?.Binance?.Max || null}
     />
     <CryptoPriceCard
-      exchange="binance"
-      avgPrice="95.30"
-      usdtPrice="₹95.30"
-      minPrice="94.6"
+      exchange="Coinbase"
+      avgPrice={data?.Coinbase?.Average || null}
+      usdtPrice={data?.Coinbase?.Average || null}
+      minPrice={data?.Coinbase?.Min || null}
+      maxPrice = {data?.Coinbase?.Max || null}
     />
     <CryptoPriceCard
-      exchange="coinbase"
-      avgPrice="95.28"
-      usdtPrice="₹95.28"
-      minPrice="94.4"
+      exchange="Kraken"
+      avgPrice={data?.Kraken?.Average || null}
+      usdtPrice={data?.Kraken?.Average || null}
+      minPrice={data?.Kraken?.Min || null}
+      maxPrice = {data?.Kraken?.Max || null}
     />
     <CryptoPriceCard
-      exchange="kraken"
-      avgPrice="95.32"
-      usdtPrice="₹95.32"
-      minPrice="94.7"
+      exchange="Wazirx"
+      avgPrice={data?.Wazirx?.Average || null}
+      usdtPrice={data?.Wazirx?.Average || null}
+      minPrice={data?.Wazirx?.Min || null}
+      maxPrice = {data?.Wazirx?.Max || null}
     />
   </Grid>
-);
+)};
 
 export default CryptoPriceGrid;
