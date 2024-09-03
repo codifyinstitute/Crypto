@@ -24,7 +24,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   /* display: none; */
   width: 100%;
   text-align: left;

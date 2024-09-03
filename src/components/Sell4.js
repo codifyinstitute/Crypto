@@ -128,7 +128,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
@@ -411,7 +411,7 @@ const Sell4 = () => {
           <Card className='example'>
             <TabContainer>
               <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
-              </BackButton> <Tab active>How to Complete Your Sale</Tab>
+              </BackButton> <Tab active>How to Complete Your Sell</Tab>
             </TabContainer>
 
             <div>

@@ -165,7 +165,6 @@ const Card = styled.div`
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  /* margin: 1rem; */
   font-family: Arial, sans-serif;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, border 0.3s;
@@ -204,7 +203,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   width: fit-content;
   margin: 0 5px 0 0;
 
@@ -222,12 +221,12 @@ const BackButton = styled.button`
 const Sell3 = () => {
   const navigate = useNavigate();
   const [accountHolder, setAccountHolder] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('India');
   const [bankName, setBankName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [ifsc, setIfsc] = useState('');
   const [accounts, setAccounts] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState(null); // State to track the selected account
+  const [selectedAccount, setSelectedAccount] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [form, setForm] = useState(false);
 
@@ -261,11 +260,11 @@ const Sell3 = () => {
 
   const validateForm = () => {
     const isValid =
-      accountHolder.trim() !== '' &&
+      /^[A-Za-z\s]+$/.test(accountHolder.trim()) &&
       country.trim() !== '' &&
-      bankName.trim() !== '' &&
-      accountNumber.trim() !== '' &&
-      ifsc.trim() !== '';
+      /^[A-Za-z\s]+$/.test(bankName.trim()) &&
+      /^\d{15}$/.test(accountNumber.trim()) &&
+      /^[A-Z0-9]+$/.test(ifsc.trim());
     setIsFormValid(isValid);
   };
 
@@ -288,10 +287,10 @@ const Sell3 = () => {
     };
 
     try {
-      await axios.put(`http://localhost:8000/users/put/${email}/accounts`, accountData);
+      await axios.put(`https://crypto-anl6.onrender.com/users/put/${email}/accounts`, accountData);
       toast.success('Account data successfully submitted');
-      setAccountHolder('');  // Clear input fields
-      setCountry('');
+      setAccountHolder('');
+      setCountry('India');
       setBankName('');
       setAccountNumber('');
       setIfsc('');
@@ -303,7 +302,7 @@ const Sell3 = () => {
   };
 
   const handleCardClick = (account) => {
-    setSelectedAccount(account); // Set the selected account
+    setSelectedAccount(account);
 
     const existingTransactionDetails = JSON.parse(localStorage.getItem('transactionDetails')) || {};
 
@@ -323,6 +322,26 @@ const Sell3 = () => {
   const AddAccount = () => {
     setForm(!form);
   }
+
+  const handleAccountHolderChange = (e) => {
+    const value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    setAccountHolder(value);
+  };
+
+  const handleBankNameChange = (e) => {
+    const value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    setBankName(value);
+  };
+
+  const handleAccountNumberChange = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 15);
+    setAccountNumber(value);
+  };
+
+  const handleIfscChange = (e) => {
+    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0,11);
+    setIfsc(value);
+  };
 
   return (
     <>
@@ -345,7 +364,7 @@ const Sell3 = () => {
                   <FormLabel>Account Holder</FormLabel>
                   <FormInput
                     value={accountHolder}
-                    onChange={(e) => setAccountHolder(e.target.value)}
+                    onChange={handleAccountHolderChange}
                     placeholder="Please enter your full name"
                   />
 
@@ -354,6 +373,7 @@ const Sell3 = () => {
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     placeholder="Choose your country"
+                    readOnly
                   />
                 </FormSection>
 
@@ -362,21 +382,22 @@ const Sell3 = () => {
                   <FormLabel>Bank Name</FormLabel>
                   <FormInput
                     value={bankName}
-                    onChange={(e) => setBankName(e.target.value)}
+                    onChange={handleBankNameChange}
                     placeholder="Enter Your Bank Name"
                   />
 
                   <FormLabel>Account Number</FormLabel>
                   <FormInput
                     value={accountNumber}
-                    onChange={(e) => setAccountNumber(e.target.value)}
+                    onChange={handleAccountNumberChange}
                     placeholder="Enter Your Account Number"
+                    maxLength={15}
                   />
 
                   <FormLabel>IFSC</FormLabel>
                   <FormInput
                     value={ifsc}
-                    onChange={(e) => setIfsc(e.target.value)}
+                    onChange={handleIfscChange}
                     placeholder="Enter Your IFSC"
                   />
                 </FormSection>
@@ -396,13 +417,10 @@ const Sell3 = () => {
                   {accounts.map((account, index) => (
                     <Card
                       key={index}
-                      selected={selectedAccount?.AccountNumber === account.AccountNumber} // Check if the account is selected
+                      selected={selectedAccount?.AccountNumber === account.AccountNumber}
                       onClick={() => handleCardClick(account)}
                     >
                       <CardTitle>Account {index + 1}</CardTitle>
-                      {/* <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
-                      <Crosss><strong>Country:</strong> {account.Country}</Crosss>
-                      <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss> */}
                       <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>
                       <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
                     </Card>

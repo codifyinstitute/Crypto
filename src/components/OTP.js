@@ -61,7 +61,7 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height:75%;
+  height:69%;
 `;
 
 const OTPInput = styled.input`
@@ -243,13 +243,11 @@ const OTPPage = () => {
             <Tab active>Enter OTP</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>
-          <TimerContainer>
-            Time left: {formatTime(timer)}
-          </TimerContainer>
+       
           <FormContainer>
             <div>
               <Subtitle>Enter the OTP sent to your email</Subtitle>
-              <p>{location.state.email}</p>
+              <p> You have loged in with <b>{location.state.email}</b></p><br/>
               <OTPContainer>
                 {otp.map((data, index) => (
                   <OTPInput
@@ -261,6 +259,11 @@ const OTPPage = () => {
                   />
                 ))}
               </OTPContainer>
+              <TimerContainer>
+              Your code expires in: {formatTime(timer)}
+            </TimerContainer>
+            
+             
             </div>
             <Button type="button" disabled={!isFormValid || loading} onClick={handleVerify}>
               {loading ? <LoadingSpinner /> : 'Verify OTP'}

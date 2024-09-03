@@ -191,7 +191,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { ChevronLeft } from 'lucide-react';
-import { toast } from 'react-toastify'; // For toast notifications
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   background-color: #121212;
@@ -32,7 +32,6 @@ const TabContainer = styled.div`
   border-radius: 25px;
   overflow: hidden;
   margin-bottom: 20px;
-  /* margin-top: 4%; */
 `;
 
 const Tab = styled.button`
@@ -77,23 +76,22 @@ const TransactionColumn = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const BackButton = styled.button`
-  /* background-color: #FFA500; */
   background-color: transparent;
   color: #FFA500;
   border: none;
-  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   display: none;
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
-  @media (max-width: 1024px) { // Show on tablet and mobile
+  @media (max-width: 1024px) {
     display: block;
   }
 
@@ -115,7 +113,18 @@ const Value = styled.span`
 `;
 
 const StatusValue = styled(Value)`
-  color: ${props => props.status === 'Successfully' ? '#4CAF50' : '#FF6347'};
+  color: ${props => {
+    switch (props.status) {
+      case 'Completed':
+        return '#4CAF50'; // Green
+      case 'Pending':
+        return '#FF6347'; // Red
+      case 'Successfully':
+        return '#4CAF50'; // Green (keeping the original green for 'Successfully')
+      default:
+        return 'inherit'; // Default color for other statuses
+    }
+  }};
 `;
 
 const Transaction = () => {
@@ -125,7 +134,7 @@ const Transaction = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const email = localStorage.getItem('token'); // Get email from local storage
+      const email = localStorage.getItem('token');
       if (email) {
         try {
           const response = await fetch(`https://crypto-anl6.onrender.com/transactions/get/email/${email}`);
@@ -150,14 +159,17 @@ const Transaction = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Container>
-            
-      <Title> <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton> Transactions</Title>
+        <Title>
+          <BackButton onClick={() => window.history.back()}>
+            <ChevronLeft />
+          </BackButton>
+          Transactions
+        </Title>
         <TabContainer>
           <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
           <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
-  {  /*      <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>*/}
           <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
         </TabContainer>
         <TransactionList>
@@ -191,7 +203,7 @@ const Transaction = () => {
             ))}
         </TransactionList>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

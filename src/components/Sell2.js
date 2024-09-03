@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { useNavigate } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
 import HomeContact from './HomeContact';
 import axios from 'axios';
 import { ChevronLeft } from 'lucide-react';
@@ -80,6 +81,13 @@ const CheckboxLabel = styled.label`
   font-size: 14px;
   margin-bottom: 20px;
   margin: 10px auto;
+
+  a{
+    color: blue;
+    font-weight: 800;
+    text-decoration: none;
+    display: contents;
+  }
 `;
 
 const Checkbox = styled.input`
@@ -147,7 +155,7 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  z-index: 1001;
+  /* z-index: 1001; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
@@ -233,7 +241,7 @@ const Sell2 = () => {
                   checked={isChecked}
                   onChange={(e) => setIsChecked(e.target.checked)}
                 />
-                I have read and agree to Moon Pay's Terms Of Services and privacy policy.
+                I have read and agree to Moon Pay's <Link to='/TandC'>Terms  and conditions</Link> Of Services and privacy policy.
               </CheckboxLabel>
             </Boxx>
             <Boo>
