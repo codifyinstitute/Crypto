@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ChevronLeft } from 'lucide-react';
+
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -150,9 +151,17 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
+
+const TimerContainer = styled.div`
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #ffa500;
+`;
+
 const OTPPage = () => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(10 * 60); // 10 minutes in seconds
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -161,6 +170,24 @@ const OTPPage = () => {
       navigate('/sell2');
     }
   }, [location, navigate]);
+
+  useEffect(() => {
+    if (timer <= 0) return;
+
+    const intervalId = setInterval(() => {
+      setTimer(prevTimer => prevTimer - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timer]);
+
+  useEffect(() => {
+    if (timer <= 0) {
+      toast.error("Your OTP has expired. Please request a new one.");
+      // Redirect or handle expired OTP scenario
+      navigate('/sell2'); // Example: Navigate to a different page
+    }
+  }, [timer, navigate]);
 
   const handleChange = (element, index) => {
     if (/^\d*$/.test(element.value)) {
@@ -198,22 +225,31 @@ const OTPPage = () => {
     }
   };
 
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  };
+
   return (
     <>
       <Navbar />
       <PageContainer>
-          <div style={{ width: "100%" }}>
-
-</div>
         <Card>
           <TabContainer>
-          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
-          </BackButton><Tab active>Enter OTP</Tab>
+            <BackButton onClick={() => window.history.back()}>
+              <ChevronLeft />
+            </BackButton>
+            <Tab active>Enter OTP</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>
+          <TimerContainer>
+            Time left: {formatTime(timer)}
+          </TimerContainer>
           <FormContainer>
             <div>
               <Subtitle>Enter the OTP sent to your email</Subtitle>
+              <p>{location.state.email}</p>
               <OTPContainer>
                 {otp.map((data, index) => (
                   <OTPInput
@@ -226,11 +262,9 @@ const OTPPage = () => {
                 ))}
               </OTPContainer>
             </div>
-
             <Button type="button" disabled={!isFormValid || loading} onClick={handleVerify}>
               {loading ? <LoadingSpinner /> : 'Verify OTP'}
             </Button>
-
           </FormContainer>
           <PoweredBy>Powered by Moon Pay</PoweredBy>
         </Card>

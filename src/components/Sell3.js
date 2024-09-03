@@ -9,18 +9,16 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: black;
   @media (max-width: 480px) {
-
-     display: flex;
-     align-items: center;
-     justify-content: center;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const FormWrapper = styled.div`
@@ -32,24 +30,23 @@ const FormWrapper = styled.div`
 `;
 
 const FormContainer = styled.div`
-    background-color: white;
-    color: white;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    width: 380px;
-    height: 610px;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  background-color: white;
+  color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 380px;
+  height: 610px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 
-    @media (max-width: 480px) {
-        padding: 1rem;
-        width: auto;
-        height: auto;
-    }
+  @media (max-width: 480px) {
+    padding: 1rem;
+    width: auto;
+    height: auto;
+  }
 `;
-
 
 const FormTitle = styled.h2`
   color: #f7a600;
@@ -61,7 +58,7 @@ const FormTitle = styled.h2`
 const TabContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
-  
+  justify-content: space-between;
 `;
 
 const Tab = styled.div`
@@ -74,13 +71,10 @@ const Tab = styled.div`
 `;
 
 const FormSection = styled.div`
-  /* margin-bottom: 1.5rem; */
-
   h3 {
     color: orange;
     margin-bottom: 0.5rem;
     font-size: 18px;
-    font-size: medium;
     font-weight: 500;
     margin: 8px auto;
   }
@@ -121,29 +115,43 @@ const FormButton = styled.button`
   }
 `;
 
+const Button = styled.button`
+  background-color: #f7a600;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+
+  &:hover {
+    background-color: #e69500;
+  }
+`;
+
 const FormWarning = styled.p`
   font-size: 0.8rem;
   color: #666;
-  margin-bottom: 0%.5;
+  margin-bottom: 0.5rem;
 `;
 
 const CardsContainer = styled.div`
-  /* margin-top: 7%; */
   display: flex;
   flex-direction: column;
-  align-items:center;
-  background-color: black;
+  align-items: center;
   @media (max-width: 480px) {
-     width: 100%;
-    }
+    width: 100%;
+  }
 `;
+
 const CardsSection = styled.div`
-  width:90%;
-  border: .2rem #f7a600 solid;
+  width: 100%;
   border-radius: 1rem;
   margin-top: 1rem;
   display: flex;
-  gap:1rem;
+  gap: 1rem;
   margin-bottom: 2%;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -151,53 +159,56 @@ const CardsSection = styled.div`
 
 const Card = styled.div`
   width: 480px;
-  background-color: white;
+  background-color: ${({ selected }) => (selected ? '#f7a600' : 'white')};
+  color: ${({ selected }) => (selected ? 'white' : '#333')};
+  border: 2px solid ${({ selected }) => (selected ? '#f7a600' : '#ccc')};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  margin: 1rem;
+  /* margin: 1rem; */
   font-family: Arial, sans-serif;
-  color: #333;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+
+  &:hover {
+    background-color: ${({ selected }) => (selected ? '#e69500' : '#f7a600')};
+    color: ${({ selected }) => (selected ? 'white' : '#fff')};
+    border-color: ${({ selected }) => (selected ? '#e69500' : '#e69500')};
+  }
 `;
 
 const CardTitle = styled.h4`
-margin-right: 1rem;
-    color: orange;
-    cursor: pointer;
-    font-size: 18px;
-    padding: 0.3rem 0px;
-    border-bottom: 2px solid orange;
-    width: fit-content;
-  font-weight:500;
-    margin-bottom: 1%;
-  
+  margin-right: 1rem;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid inherit;
+  width: fit-content;
+  font-weight: 500;
+  margin-bottom: 1%;
 `;
 
 const Crosss = styled.p`
-display: flex;
-width: 100%;
-justify-content: space-between;
-
-  
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;
+
 const BackButton = styled.button`
-  /* background-color: #FFA500; */
   background-color: transparent;
   color: #FFA500;
   border: none;
-  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  /* display: none; */
   width: fit-content;
-  margin: 0px 5px 0px 0px;
+  margin: 0 5px 0 0;
 
-  @media (max-width: 1024px) { // Show on tablet and mobile
+  @media (max-width: 1024px) {
     display: block;
   }
 
@@ -216,8 +227,9 @@ const Sell3 = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [ifsc, setIfsc] = useState('');
   const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState(null); // State to track the selected account
   const [isFormValid, setIsFormValid] = useState(false);
- 
+  const [form, setForm] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -276,7 +288,7 @@ const Sell3 = () => {
     };
 
     try {
-      await axios.put(`https://crypto-anl6.onrender.com/users/put/${email}/accounts`, accountData);
+      await axios.put(`http://localhost:8000/users/put/${email}/accounts`, accountData);
       toast.success('Account data successfully submitted');
       setAccountHolder('');  // Clear input fields
       setCountry('');
@@ -291,6 +303,8 @@ const Sell3 = () => {
   };
 
   const handleCardClick = (account) => {
+    setSelectedAccount(account); // Set the selected account
+
     const existingTransactionDetails = JSON.parse(localStorage.getItem('transactionDetails')) || {};
 
     const updatedTransactionDetails = {
@@ -306,103 +320,102 @@ const Sell3 = () => {
     navigate('/sell4');
   };
 
+  const AddAccount = () => {
+    setForm(!form);
+  }
+
   return (
     <>
-    <PageContainer>
+      <PageContainer>
+        <Navbar />
+        <ToastContainer />
 
-      <Navbar />
-      <ToastContainer />
-      
-      <FormWrapper>
-        <FormContainer>
-  
-      
-   
-          <TabContainer>
-      
-          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton> <Tab active>Add Account</Tab>
-          </TabContainer>
+        <FormWrapper>
+          <FormContainer>
+            <TabContainer>
+              <BackButton onClick={() => window.history.back()}> <ChevronLeft /> </BackButton>
+              <Tab active>Accounts</Tab>
+              {form ? <Button onClick={AddAccount}>Choose Account</Button> : <Button onClick={AddAccount}>Add Account +</Button>}
+            </TabContainer>
 
-          <form onSubmit={handleFormSubmit}>
-            <FormSection>
-              <h3>Personal Information</h3>
-              <FormLabel>Account Holder</FormLabel>
-              <FormInput
-                value={accountHolder}
-                onChange={(e) => setAccountHolder(e.target.value)}
-                placeholder="Please enter your full name"
-              />
+            {form ?
+              <form onSubmit={handleFormSubmit}>
+                <FormSection>
+                  <h3>Personal Information</h3>
+                  <FormLabel>Account Holder</FormLabel>
+                  <FormInput
+                    value={accountHolder}
+                    onChange={(e) => setAccountHolder(e.target.value)}
+                    placeholder="Please enter your full name"
+                  />
 
-              <FormLabel>Country</FormLabel>
-              <FormInput
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                placeholder="Choose your country"
-              />
-            </FormSection>
+                  <FormLabel>Country</FormLabel>
+                  <FormInput
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="Choose your country"
+                  />
+                </FormSection>
 
-            <FormSection>
-              <h3>Account Information</h3>
-              <FormLabel>Bank Name</FormLabel>
-              <FormInput
-                value={bankName}
-                onChange={(e) => setBankName(e.target.value)}
-                placeholder="Enter Your Bank Name"
-              />
+                <FormSection>
+                  <h3>Account Information</h3>
+                  <FormLabel>Bank Name</FormLabel>
+                  <FormInput
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
+                    placeholder="Enter Your Bank Name"
+                  />
 
-              <FormLabel>Account Number</FormLabel>
-              <FormInput
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
-                placeholder="Enter Your Account Number"
-              />
+                  <FormLabel>Account Number</FormLabel>
+                  <FormInput
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
+                    placeholder="Enter Your Account Number"
+                  />
 
-              <FormLabel>IFSC</FormLabel>
-              <FormInput
-                value={ifsc}
-                onChange={(e) => setIfsc(e.target.value)}
-                placeholder="Enter Your IFSC"
-              />
-            </FormSection>
+                  <FormLabel>IFSC</FormLabel>
+                  <FormInput
+                    value={ifsc}
+                    onChange={(e) => setIfsc(e.target.value)}
+                    placeholder="Enter Your IFSC"
+                  />
+                </FormSection>
 
-            <FormWarning>
-              Attention: Please ensure the bank account belongs to you and the information is accurate.
-            </FormWarning>
+                <FormWarning>
+                  Attention: Please ensure the bank account belongs to you and the information is accurate.
+                </FormWarning>
 
-            <FormButton type="submit" disabled={!isFormValid}>
-              Proceed To Pay
-            </FormButton>
-          </form>
-        </FormContainer>
-      </FormWrapper>
-    </PageContainer>
-    <CardsContainer>
- 
-        <FormTitle>Choose Account</FormTitle>
-        <CardsSection>
-    
-          {accounts.map((account, index) => (
-            <Card key={index} onClick={() => handleCardClick(account)}>
-   
-          
-              <CardTitle>Account {index + 1}</CardTitle>
-              <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
-  {         /*   <Crosss><strong>Country:</strong> {account.Country}</Crosss>
-              <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss>
-              <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>*/}
-              <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
-
-            </Card>
-          ))}
-        </CardsSection>
-
-        {/* <FormButton style={{width:"20%"}}>
-          Add Account
-        </FormButton> */}
-      </CardsContainer>
+                <FormButton type="submit" disabled={!isFormValid}>
+                  Proceed To Pay
+                </FormButton>
+              </form>
+              :
+              <CardsContainer>
+                <FormTitle>Choose Account</FormTitle>
+                <CardsSection>
+                  {accounts.map((account, index) => (
+                    <Card
+                      key={index}
+                      selected={selectedAccount?.AccountNumber === account.AccountNumber} // Check if the account is selected
+                      onClick={() => handleCardClick(account)}
+                    >
+                      <CardTitle>Account {index + 1}</CardTitle>
+                      {/* <Crosss><strong>Account Holder:</strong> {account.Name}</Crosss>
+                      <Crosss><strong>Country:</strong> {account.Country}</Crosss>
+                      <Crosss><strong>Bank Name:</strong> {account.BankName}</Crosss> */}
+                      <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>
+                      <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
+                    </Card>
+                  ))}
+                </CardsSection>
+              </CardsContainer>
+            }
+          </FormContainer>
+        </FormWrapper>
+      </PageContainer>
       <HomeContact />
       <Footer />
-      </>
+    </>
   );
 };
 
