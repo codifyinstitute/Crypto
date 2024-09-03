@@ -581,7 +581,7 @@ const Sell1 = () => {
               {selectedCurrency && (
                 <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
               )}
-              <Rocks>{selectedCurrency ? selectedCurrency.Name   : 'Select'}
+              <Rocks><b>{selectedCurrency ? selectedCurrency.Name   : 'Select'}</b>
               <CurrencySymbols>{selectedCurrency.Symbol}</CurrencySymbols></Rocks> 
               <ChevronDown size={16} />
             </CurrencyToggle>
@@ -629,7 +629,7 @@ const Sell1 = () => {
               <CurrencyIcon as="div">
               <CurrencyIcon src={ind} />
               </CurrencyIcon>
-              INR
+              <b>INR</b>
             </CurrencyToggle>
           </InputWrapper>
         </InputContainer>
