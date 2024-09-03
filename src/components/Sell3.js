@@ -227,7 +227,7 @@ const Sell3 = () => {
   const [accountNumber, setAccountNumber] = useState('');
   const [ifsc, setIfsc] = useState('');
   const [accounts, setAccounts] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState(null); // State to track the selected account
+  const [selectedAccount, setSelectedAccount] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [form, setForm] = useState(false);
 
@@ -288,7 +288,7 @@ const Sell3 = () => {
     };
 
     try {
-      await axios.put(`http://localhost:8000/users/put/${email}/accounts`, accountData);
+      await axios.put(`https://crypto-anl6.onrender.com/users/put/${email}/accounts`, accountData);
       toast.success('Account data successfully submitted');
       setAccountHolder('');  // Clear input fields
       setCountry('');

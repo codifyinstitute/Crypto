@@ -438,21 +438,6 @@ const BackButton = styled.button`
   }
 `;
 
-const Card = styled.div`
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-
-  @media (max-width: 430px) {
-    padding: 15px;
-  }
-`;
-
 const CloseButton = styled.button`
   position: absolute;
   top: 10px;
@@ -464,6 +449,25 @@ const CloseButton = styled.button`
   color: #333;
 `;
 
+const Card = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed; /* Changed to fixed to keep it on top */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+
+  @media (max-width: 430px) {
+    padding: 15px;
+  }
+`;
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -471,13 +475,15 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000; /* Ensure this is lower than Card's z-index */
 `;
+
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+  z-index: 2000;
 `;
 
 const FormTitle = styled.h2`

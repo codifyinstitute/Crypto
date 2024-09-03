@@ -24,6 +24,7 @@ import AdminAddCurrency from './components/Admin/AdminAddCurrency';
 import OTPPage from './components/OTP';
 import QRCodeCard from './components/QRCode';
 import Refer from './components/Refer';
+import OtherPrice from './components/Admin/OtherPrice';
 
 
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/admin/transactions" element={<AdminTransaction />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/transactionFee" element={<AdminTransactionFee />} />
+        <Route path="/admin/otherprice" element={<OtherPrice />} />
       </Routes>
     </ThemeProvider>
   );

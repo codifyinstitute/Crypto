@@ -146,6 +146,7 @@ const AdminUsers = () => {
                             <thead>
                                 <tr>
                                     <th>Email</th>
+                                    <th>MobileNo</th>
                                     <th>Accounts</th>
                                 </tr>
                             </thead>
@@ -154,6 +155,7 @@ const AdminUsers = () => {
                                     <React.Fragment key={user._id}>
                                         <tr>
                                             <td>{user.Email}</td>
+                                            <td>{user.MobileNo}</td>
                                             <td>
                                                 {user.Accounts.length > 0 ? (
                                                     <NestedTable>
