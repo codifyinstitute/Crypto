@@ -699,11 +699,11 @@ const Sell1 = () => {
       </Header>
       
       <PriceDisplay>
-        <Price>93</Price>
+        <Price>{selectedCurrency?.Rate.toFixed(2)}</Price>
 
       </PriceDisplay>
       
-      <Subtext>1USDT = 93 INR</Subtext>
+      <Subtext>1USDT = {selectedCurrency?.Rate.toFixed(2)}</Subtext>
       <Center>
       <TableContainer>
         <Table>
@@ -716,15 +716,15 @@ const Sell1 = () => {
           <tbody>
             <tr>
               <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-              <TableCell >93+0.25</TableCell>
+              <TableCell >{selectedCurrency?.Rate.toFixed(2)}+0.25</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-              <TableCell >93-0.5</TableCell>
+              <TableCell >{selectedCurrency?.Rate.toFixed(2)}-0.5</TableCell>
             </tr>
             <tr>
               <TableCell>&gt;=3225.81</TableCell>
-              <TableCell >93-1</TableCell>
+              <TableCell >{selectedCurrency?.Rate.toFixed(2)}-1</TableCell>
             </tr>
           </tbody>
         </Table>

@@ -303,7 +303,7 @@ const Sell3 = () => {
     };
 
     localStorage.setItem('transactionDetails', JSON.stringify(updatedTransactionDetails));
-    navigate('/qr-code');
+    navigate('/sell4');
   };
 
   return (

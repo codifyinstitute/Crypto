@@ -211,6 +211,8 @@ const Sell4 = () => {
   const textTransactionRef = useRef();
   const [localData, setLocalData] = useState({});
   const [transactionFee, setTransactionFee] = useState(0);
+  const [submited, setSubmitted] = useState(false);
+  const [transaction, setTransaction] = useState("");
   const [networkFee, setNetworkFee] = useState(0);
   const [currencyRate, setCurrencyRate] = useState(0);
   const [coinName, setCoinName] = useState("");
@@ -222,10 +224,39 @@ const Sell4 = () => {
   const [savedData, setSavedData] = useState(null);
   const [transactionId, setTransactionId] = useState('');
   const [image, setImage] = useState("");
+  const [timeLeft, setTimeLeft] = useState('00:00:00');
+  const targetDate = useRef(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)); // 2 days from now
 
   const navigate = useNavigate();
 
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const timeDifference = targetDate.current - now;
+
+      if (timeDifference <= 0) return '00:00:00';
+
+      let totalSeconds = Math.floor(timeDifference / 1000);
+      let hours = Math.floor(totalSeconds / 3600);
+      let minutes = Math.floor((totalSeconds % 3600) / 60);
+      let seconds = totalSeconds % 60;
+
+      const formatTime = (time) => time.toString().padStart(2, '0');
+
+      return `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+    };
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+
   const fetchTransactionFee = async () => {
+    console.log("1")
     try {
       const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
       const countResponse = await fetch('https://crypto-anl6.onrender.com/transactions/get/count');
@@ -235,7 +266,7 @@ const Sell4 = () => {
       }
       const data = await response.json();
       const countData = await countResponse.json();
-      setOrderId(countData.Count.toString().padStart(10, '0'))
+      setOrderId((countData.Count + 1).toString().padStart(10, '0'))
       setTransactionFee(data.TransactionFee);
       setNetworkFee(data.NetworkFee);
 
@@ -267,18 +298,26 @@ const Sell4 = () => {
     }
   };
 
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('transactionDetails'));
-    setLocalData(data);
-    // console.log(data);
-    fetchTransactionFee();
-  }, []);
+  // useEffect(() => {
+  //   const data = JSON.parse(localStorage.getItem('transactionDetails'));
+  //   setLocalData(data);
+  //   // console.log(data);
+  //   fetchTransactionFee();
+  // }, []);
 
   useEffect(() => {
     if (localData.symbol) {
       fetchCurrencyData();
     }
   }, [localData.symbol]);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('transactionDetails'));
+    setLocalData(data);
+    fetchTransactionFee();
+    const intervalId = setInterval(fetchTransactionFee, 10000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   const calculateReceivedAmount = () => {
     if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee) return 0;
@@ -287,7 +326,11 @@ const Sell4 = () => {
   };
 
   const handleProceedClick = () => {
-    setShowConfirmation(true);
+    if (transaction === "") {
+      toast.error("Please Enter TxID");
+    } else {
+      setShowConfirmation(true);
+    }
   };
 
   const confirmTransaction = async () => {
@@ -301,7 +344,7 @@ const Sell4 = () => {
         body: JSON.stringify({
           Email: localStorage.getItem("token"), // Ensure this field exists in localData
           Name: localData.Name,
-          TransactionId: "Test",
+          TransactionId: transaction,
           Country: localData.Country,
           BankName: localData.BankName,
           AccountNumber: localData.AccountNumber,
@@ -352,6 +395,15 @@ const Sell4 = () => {
     }
   };
 
+  const submitTrans = () => {
+    localStorage.setItem("transaction", transaction);
+    setSubmitted(true);
+  }
+
+  const editId = () => {
+    setSubmitted(false);
+  }
+
   return (
     <>
       <PageContainer>
@@ -360,11 +412,11 @@ const Sell4 = () => {
         <Navbar />
         <Center>
           <Card className='example'>
-          <TabContainer>
-          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
-          </BackButton> <Tab active>How to Complete Your Sale</Tab>
-          </TabContainer>
-       
+            <TabContainer>
+              <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+              </BackButton> <Tab active>How to Complete Your Sale</Tab>
+            </TabContainer>
+
             <div>
               <InfoRow>
                 <Label>Order ID</Label>
@@ -413,8 +465,9 @@ const Sell4 = () => {
             </div>
             <hr />
             <BoxPara>
-              Please Transfer USDT to the address within <span style={{ color: "red" }}>{"HH:MM:SS"}</span> after that time, transaction will expire.
+              Please Transfer USDT to the address within <span style={{ color: "red" }}>{timeLeft}</span> after that time, transaction will expire.
             </BoxPara>
+
             <Text>
               From Your Wallet, send {localData.amountPay} {coinName} to MoonPay's deposit address below.
             </Text>
@@ -430,11 +483,12 @@ const Sell4 = () => {
             </QRCodeContainer>
             <InfoRow>
               <Label>TxID:</Label>
-              <input style={{ padding: "5px", margin:"0 5px",fontSize: "14px", flexGrow:1, border:"black solid 1px",borderRadius:"5px" }} type="text" />
-              <SubmitButton>Submit</SubmitButton>
+              {submited ? <input style={{ padding: "5px", margin: "0 5px", fontSize: "14px", flexGrow: 1, border: "black solid 1px", borderRadius: "5px" }} type="text" value={transaction} onChange={(e) => setTransaction(e.target.value)} disabled /> : <input style={{ padding: "5px", margin: "0 5px", fontSize: "14px", flexGrow: 1, border: "black solid 1px", borderRadius: "5px" }} type="text" value={transaction} onChange={(e) => setTransaction(e.target.value)} />}
+
+              {submited ? <SubmitButton onClick={editId}>Edit</SubmitButton> : <SubmitButton onClick={submitTrans}>Submit</SubmitButton>}
             </InfoRow>
             <hr />
-            <Heading style={{marginTop:"15px"}}>What Happens Next?</Heading>
+            <Heading style={{ marginTop: "15px" }}>What Happens Next?</Heading>
             <Text>Once We've received your crypto deposit, we'll send the pay-out within 2 days.</Text>
             <Button onClick={handleProceedClick}>Deposit Sent</Button>
           </Card>
