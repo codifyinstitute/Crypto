@@ -182,7 +182,7 @@ const Sell2 = () => {
     if (isFormValid) {
       setLoading(true);
       try {
-        const response = await axios.post('https://crypto-anl6.onrender.com/users/login', { Email: email, Phone: phone });
+        const response = await axios.post('https://crypto-anl6.onrender.com/users/login', { Email: email, MobileNo: phone });
         if (response.status === 200) {
           navigate('/otp', { state: { email: email, phone: phone } });
         }

@@ -125,7 +125,8 @@ const Home = () => {
                 {selectedCurrency && (
                   <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
-                {selectedCurrency ? selectedCurrency.Name : 'Select'}
+                {selectedCurrency ? selectedCurrency.Name   : 'Select'}<br></br>
+           
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
