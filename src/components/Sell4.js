@@ -120,21 +120,19 @@ const SubmitButton = styled.button`
 `;
 
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
-  @media (max-width: 1024px) { 
+  @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
   }
 
@@ -144,7 +142,6 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
-
 
 const Center = styled.div`
   height: calc(100vh - 64px);

@@ -7,7 +7,7 @@ import HomeContact from './HomeContact';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { ChevronLeft } from 'lucide-react';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -128,17 +128,17 @@ const Tab = styled.div`
   font-size: 18px;
 `;
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
   z-index: 1001;
-  display: none;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -203,11 +203,12 @@ const OTPPage = () => {
       <Navbar />
       <PageContainer>
           <div style={{ width: "100%" }}>
-    <BackButton onClick={() => window.history.back()}>Back</BackButton>
+
 </div>
         <Card>
           <TabContainer>
-            <Tab active>Enter OTP</Tab>
+          <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+          </BackButton><Tab active>Enter OTP</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>
           <FormContainer>

@@ -125,7 +125,8 @@ const Home = () => {
                 {selectedCurrency && (
                   <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
                 )}
-                {selectedCurrency ? selectedCurrency.Name : 'Select'}
+               <Rocks>{selectedCurrency ? selectedCurrency.Name   : 'Select'}
+                <CurrencySymbols>{selectedCurrency.Symbol}</CurrencySymbols></Rocks> 
                 <ChevronDown size={16} />
               </CurrencyToggle>
             </InputWrapper>
@@ -240,6 +241,19 @@ const Container = styled.div`
     height: auto;
   }
 `;
+const Rocks = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`;
+const CurrencySymbols = styled.div`
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
+
+`;
+
+
 
 const ContentSection = styled.div`
   flex: 1;
