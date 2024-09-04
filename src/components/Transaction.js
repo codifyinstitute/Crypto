@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { toast } from 'react-toastify'; // For toast notifications
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { ChevronLeft } from 'lucide-react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   background-color: #121212;
@@ -19,6 +20,10 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+  margin-top: 6%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const TabContainer = styled.div`
@@ -27,7 +32,6 @@ const TabContainer = styled.div`
   border-radius: 25px;
   overflow: hidden;
   margin-bottom: 20px;
-  margin-top: 4%;
 `;
 
 const Tab = styled.button`
@@ -73,6 +77,31 @@ const TransactionColumn = styled.div`
   flex-direction: column;
 `;
 
+const BackButton = styled.button`
+  background-color: transparent;
+  color: #FFA500;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  /* z-index: 1001; */
+  display: none;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+
 const Label = styled.span`
   color: #FFA500;
   font-size: 12px;
@@ -84,7 +113,18 @@ const Value = styled.span`
 `;
 
 const StatusValue = styled(Value)`
-  color: ${props => props.status === 'Successfully' ? '#4CAF50' : '#FF6347'};
+  color: ${props => {
+    switch (props.status) {
+      case 'Completed':
+        return '#4CAF50'; // Green
+      case 'Pending':
+        return '#FF6347'; // Red
+      case 'Successfully':
+        return '#4CAF50'; // Green (keeping the original green for 'Successfully')
+      default:
+        return 'inherit'; // Default color for other statuses
+    }
+  }};
 `;
 
 const Transaction = () => {
@@ -94,7 +134,7 @@ const Transaction = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const email = localStorage.getItem('token'); // Get email from local storage
+      const email = localStorage.getItem('token');
       if (email) {
         try {
           const response = await fetch(`https://crypto-anl6.onrender.com/transactions/get/email/${email}`);
@@ -119,13 +159,17 @@ const Transaction = () => {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Container>
-        <Title>Transactions</Title>
+        <Title>
+          <BackButton onClick={() => window.history.back()}>
+            <ChevronLeft />
+          </BackButton>
+          Transactions
+        </Title>
         <TabContainer>
           <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
           <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
-          <Tab active={activeTab === 'Transaction Started'} onClick={() => setActiveTab('Transaction Started')}>Transaction Started</Tab>
           <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
         </TabContainer>
         <TransactionList>
@@ -159,7 +203,7 @@ const Transaction = () => {
             ))}
         </TransactionList>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

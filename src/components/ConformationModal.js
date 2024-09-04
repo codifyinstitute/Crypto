@@ -1,7 +1,57 @@
 // src/components/Modal.js
-import React from 'react';
-import styled from 'styled-components';
-import pic from "../assets/Success.gif"
+import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+
+// Keyframe animation for the check mark
+const checkMarkAnimation = keyframes`
+  0% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+  50% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+`;
+
+// Container for the success message and animation
+const SuccessContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #dff0d8;
+  border-radius: 10px;
+  padding: 20px;
+`;
+
+// Styled check mark
+const CheckMark = styled.svg`
+  width: 80px;
+  height: 80px;
+  stroke: #4caf50;
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: ${checkMarkAnimation} 3s ease forwards;
+`;
+
+// Success message text
+const SuccessMessage = styled.p`
+  font-size: 20px;
+  color: #4caf50;
+  margin-top: 10px;
+`;
+
 
 const Overlay = styled.div`
   position: fixed;
@@ -52,16 +102,22 @@ const CancelButton = styled(Button)`
   }
 `;
 
+
+
 const Modal = ({ title, message, onConfirm, onCancel, showDoneButton }) => (
     <Overlay>
         <ModalContainer>
             <Header>{title}</Header>
             <div style={{display:"flex",justifyContent:"center"}}>
             {showDoneButton ? (
-                    <img src={pic} alt="Success" height="200px"/>
+              <SuccessContainer>
+              <CheckMark viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" />
+              </CheckMark>
+              <SuccessMessage>{message}</SuccessMessage>
+            </SuccessContainer>
                 ) : null}
             </div>
-            <p style={{display:"flex",justifyContent:"center"}}>{message}</p>
             <div style={{display:"flex",justifyContent:"center", marginTop:"1rem"}}>
                 {showDoneButton ? (
                     <Button onClick={onConfirm}>Done</Button>

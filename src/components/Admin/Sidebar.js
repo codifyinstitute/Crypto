@@ -100,6 +100,7 @@ const Sidebar = ({ isOpen, setIsSidebarOpen }) => {
                 <SidebarButton onClick={() => handleNavigation('/admin/dashboard')}>Dashboard</SidebarButton>
                 <SidebarButton onClick={() => handleNavigation('/admin/addCurrency')}>Add Currency</SidebarButton>
                 <SidebarButton onClick={() => handleNavigation('/admin/transactionFee')}>Transaction Management</SidebarButton>
+                <SidebarButton onClick={() => handleNavigation('/admin/otherprice')}>Other Price</SidebarButton>
                 <SidebarButton onClick={() => handleNavigation('/admin/transactions')}>Transaction</SidebarButton>
                 <SidebarButton onClick={() => handleNavigation('/admin/users')}>Users</SidebarButton>
                 <SidebarButton onClick={() => handleLogOut('/admin/login')}>Logout</SidebarButton>

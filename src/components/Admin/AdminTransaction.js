@@ -246,6 +246,7 @@ const AdminTransaction = () => {
               <thead>
                 <tr>
                   <th>Order ID</th>
+                  <th>Transaction Id</th>
                   <th>Email</th>
                   <th>Name</th>
                   <th>Country</th>
@@ -267,6 +268,7 @@ const AdminTransaction = () => {
                 {filteredTransactions.map(transaction => (
                   <tr key={transaction._id}>
                     <td>{transaction.OrderId}</td>
+                    <td>{transaction.TransactionId}</td>
                     <td>{transaction.Email}</td>
                     <td>{transaction.Name}</td>
                     <td>{transaction.Country}</td>

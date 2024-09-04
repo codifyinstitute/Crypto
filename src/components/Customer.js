@@ -145,7 +145,7 @@ const Title = styled.h2`
 
   @media (max-width: 480px) {
     font-size: 1.87rem;
-    text-align: left;
+    text-align: center;
     width: auto;
     /* padding-right: 15px; */
   }
@@ -160,7 +160,7 @@ const Component = () => {
       name: 'Sandeep Nailwal',
       title: 'Co-Founder Polygon',
       quote: "Thanks to Alchemy Pay, we can provide an essential gateway between fiat and crypto transactions. This development opens up new capital inroads that will propel users of polygon's DeFi ecosystem to the next level.",
-      image: '/path/to/sandeep-image.jpg' // Replace with the actual image path
+     // Replace with the actual image path
     },
     {
       name: 'John Doe',

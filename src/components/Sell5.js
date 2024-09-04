@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { ChevronLeft } from 'lucide-react';
 import HomeContact from "./HomeContact";
 
 
@@ -178,19 +179,22 @@ const Button = styled.button`
     background-color: #d78b2d;
   }
 `;
+
 const BackButton = styled.button`
-  background-color: #FFA500;
-  color: white;
+  /* background-color: #FFA500; */
+  background-color: transparent;
+  color: #FFA500;
   border: none;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
-  /* background-color: black; */
   margin: 1rem;
-  z-index: 1001;
-  display: none;
+  /* z-index: 1001; */
+  /* display: none; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
   @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
@@ -202,6 +206,7 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
+
 const Sell5 = () => {
   const starCount = 12;
 
@@ -210,13 +215,12 @@ const Sell5 = () => {
     <Navbar/>
 
     <Main>
-    <div style={{ width: "100%" }}>
-    <BackButton onClick={() => window.history.back()}>Back</BackButton>
-</div>
+
       <Container>
         <Header>
         <TabContainer>
-            <Tab active>Almost Done</Tab>
+        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+        </BackButton><Tab active>Almost Done</Tab>
           </TabContainer>
         </Header>
 
