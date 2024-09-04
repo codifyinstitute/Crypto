@@ -25,7 +25,6 @@ const NavbarContainer = styled.nav`
     width: 98%;
     margin: 1%;
     background-color: #000;
-    margin-bottom: 20%;
   }
 `;
 
@@ -62,7 +61,6 @@ const NavLinks = styled.ul`
       flex: 1;
       text-align: center;
       margin: 1%;
-     
     }
 
     a {

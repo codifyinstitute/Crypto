@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ChevronDown, ChevronUp, Info, X } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronLeft, Info, X, ChevronRight } from "lucide-react";
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/payment.png";
@@ -230,7 +230,7 @@ const Home = () => {
           </div>
           <div>
             <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-              Proceed · Sell {selectedCurrency?.Name} →
+              Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
             </ProceedButton>
 
             <PaymentMethods>

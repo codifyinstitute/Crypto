@@ -47,7 +47,8 @@ const Tab = styled.div`
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-weight:700 ;
+  font-size: 25px;
 `;
 
 const Logo = styled.div`
@@ -99,9 +100,10 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   background-color: #ffa500;
-  color: white;
+  color: black;
   border: none;
-  font-size: 15px;
+  font-size: 20px;
+  font-weight: 700;
   border-radius: 5px;
   padding: 10px;
   width: 100%;
@@ -259,5 +261,8 @@ const Sell2 = () => {
     </>
   );
 };
+
+
+
 
 export default Sell2;
