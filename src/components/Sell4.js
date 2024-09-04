@@ -32,7 +32,8 @@ const Tab = styled.div`
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 24px;
+  font-weight: 700;
 `;
 const Card = styled.div`
     background-color: white;
@@ -75,6 +76,11 @@ const InfoRow = styled.div`
   margin-bottom: 10px;
 `;
 
+const Label1 = styled.span`
+ color: black;
+
+`;
+
 const Label = styled.span`
   color: black;
   font-weight: bolder;
@@ -91,11 +97,12 @@ const Value = styled.span`
 
 const Button = styled.button`
   background-color: #f7a600;
-  color: white;
+  color: black;
   border: none;
   padding: 12px;
   width: 100%;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 700;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
@@ -113,10 +120,15 @@ const SubmitButton = styled.button`
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
+  
 
   &:hover {
     background-color: #e69500;
   }
+
+  @media (max-width: 480px) {
+width: 80px;
+  } 
 `;
 
 const BackButton = styled.button`
@@ -160,7 +172,7 @@ const Center = styled.div`
 const QRCodeContainer = styled.div`
   display: flex;
   justify-content: center;
-  border: 2px solid #f7a600;
+  border: 0.1px solid #efdebc;
   background-color: #f7a6000a;
   padding: 30px;
   border-radius: 5px;
@@ -178,8 +190,14 @@ const Heading = styled.p`
   color: black;
   font-size: 24px;
   border-bottom: 1px solid #f7a600;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   width: fit-content;
+  font-weight: bold;
+  
+  @media (max-width: 480px) {
+    font-size: 19px;
+
+  } 
 `;
 
 const BoxPara = styled.p`
@@ -187,7 +205,7 @@ const BoxPara = styled.p`
   border-radius: 5px;
   background-color: #f7a60042;
   color: black;
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 10px;
   font-size: 14px;
 `;
@@ -418,7 +436,7 @@ const Sell4 = () => {
               <InfoRow>
                 <Label>Order ID</Label>
                 <Value>
-                  <input style={{ width: "100px", backgroundColor: "transparent", border: "none", fontSize: "16px", fontWeight: 'bolder', color: "black" }} value={orderId} disabled type="text" ref={textRef} />
+                  <input style={{ width: "100px", backgroundColor: "transparent", border: "none", fontSize: "16px", fontWeight: 'bold', color: "rgb(123 119 119)" }} value={orderId} disabled type="text" ref={textRef} />
                   <MdContentCopy style={{ cursor: "pointer" }} onClick={copyToClipboard} />
                 </Value>
               </InfoRow>
@@ -440,15 +458,15 @@ const Sell4 = () => {
                 <Value>{localData.IFSC}</Value>
               </InfoRow> */}
               <InfoRow>
-                <Label>You're Selling</Label>
+                <Label1>You're Selling</Label1>
                 <Value>{localData.amountPay} {coinName} </Value>
               </InfoRow>
               <InfoRow>
-                <Label>Transaction Fee</Label>
+                <Label1>Transaction Fee</Label1>
                 <Value>₹{transactionFee}</Value>
               </InfoRow>
               <InfoRow>
-                <Label>Network Fee</Label>
+                <Label1>Network Fee</Label1>
                 <Value>₹{networkFee}</Value>
               </InfoRow>
               {/* <InfoRow>
@@ -456,7 +474,7 @@ const Sell4 = () => {
                 <Value>{localData.amountPay * currencyRate}</Value>
               </InfoRow> */}
               <InfoRow>
-                <Label>Received Amount</Label>
+                <Label1>You Received</Label1>
                 <Value>₹{calculateReceivedAmount()}</Value>
               </InfoRow>
             </div>
@@ -471,9 +489,9 @@ const Sell4 = () => {
             <FaintText>
               Address ({localData.symbol})
             </FaintText>
-            <InfoRow style={{ color: "black", border: "#f7a600 solid 2px", borderRadius: "5px", padding: "5px", backgroundColor: "#f7a6000a" }}>
-              <input style={{ fontSize: "16px", border: 'none', backgroundColor: "transparent", flexGrow: 1 }} type="text" disabled value={transactionId} ref={textTransactionRef} />
-              <p style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer" }} onClick={copyId}><MdContentCopy />Copy</p>
+            <InfoRow style={{ color: "black", border: "#efdebc solid 0.5px", borderRadius: "5px", padding: "6px", backgroundColor: "#f7a6000a" }}>
+              <input style={{ fontSize: "11.5px", border: 'none', backgroundColor: "transparent", flexGrow: 1 }} type="text" disabled value={transactionId} ref={textTransactionRef} />
+              <p style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer", fontSize:"12px" }} onClick={copyId}><MdContentCopy />Copy</p>
             </InfoRow>
             <QRCodeContainer>
               <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>

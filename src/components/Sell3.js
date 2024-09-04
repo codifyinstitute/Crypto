@@ -43,10 +43,11 @@ const FormContainer = styled.div`
   margin-top: 10%;
 
 
+
   @media (max-width: 480px) {
     padding: 1rem;
+    margin: 0px 15px;
     width: auto;
-    height: auto;
   }
 `;
 
@@ -55,21 +56,33 @@ const FormTitle = styled.h2`
   margin-top: 0;
   font-size: 1.9rem;
   text-align: center;
+  @media (max-width: 480px) {
+  font-size: 1.2rem;
+
+  } 
 `;
 
 const TabContainer = styled.div`
   display: flex;
-  margin-bottom: 10px;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
 `;
 
+const Left = styled.div`
+display: flex;
+flex-direction: row;
+`
+
+
+
 const Tab = styled.div`
-  padding: 0.5rem 0;
-  margin-left:8px;
+padding: 0.5rem 0;
+  margin-right: 1rem;
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: 700;
 `;
 
 const FormSection = styled.div`
@@ -160,7 +173,7 @@ const CardsSection = styled.div`
 `;
 
 const Card = styled.div`
-  width: 480px;
+  width: 100%;
   background-color: ${({ selected }) => (selected ? "#f7a600" : "white")};
   color: ${({ selected }) => (selected ? "white" : "#333")};
   border: 2px solid ${({ selected }) => (selected ? "#f7a600" : "#ccc")};
@@ -176,6 +189,8 @@ const Card = styled.div`
     color: ${({ selected }) => (selected ? "white" : "#fff")};
     border-color: ${({ selected }) => (selected ? "#e69500" : "#e69500")};
   }
+
+  
 `;
 
 const CardTitle = styled.h4`
@@ -197,20 +212,22 @@ const Crosss = styled.p`
 `;
 
 const BackButton = styled.button`
-  background-color: transparent;
-  color: #ffa500;
+   /* background-color: #FFA500; */
+   background-color: transparent;
+  color: #FFA500;
   border: none;
+  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
+  margin: 1rem;
   /* z-index: 1001; */
+  /* display: none; */
   width: fit-content;
-  margin: 0 5px 0 0;
-  display: flex;
-  align-items: center;
+  margin: 0px 5px 0px 0px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1024px) { // Show on tablet and mobile
     display: block;
   }
 
@@ -367,11 +384,13 @@ const Sell3 = () => {
         <FormWrapper>
           <FormContainer>
             <TabContainer>
+              <Left>
               <BackButton onClick={() => window.history.back()}>
                 {" "}
                 <ChevronLeft />{" "}
-              <Tab active>Accounts</Tab>
               </BackButton>
+              <Tab active>Accounts</Tab>
+              </Left>
               {form ? (
                 <Button onClick={AddAccount}>Choose Account</Button>
               ) : (

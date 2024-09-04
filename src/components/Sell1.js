@@ -565,7 +565,8 @@ const Sell1 = () => {
       <ExchangeCard>
       <div>
         <TabContainer>
-        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
+        <BackButton onClick={() => window.history.back()}>
+           <ChevronLeft></ChevronLeft>
         </BackButton> <Tab active>Sell Crypto</Tab>
         </TabContainer>
 
