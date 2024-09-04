@@ -7,7 +7,6 @@ const NavbarContainer = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  /* background-color: #1a1a1a; */
   background-color: black;
   padding: 15px 20px;
   display: flex;
@@ -22,10 +21,11 @@ const NavbarContainer = styled.nav`
     justify-content: space-around;
     padding: 10px 0;
     border-radius: 20px;
-    border: 1px white solid;
+    border: 1px solid white;
     width: 98%;
     margin: 1%;
     background-color: #000;
+    margin-bottom: 20%;
   }
 `;
 
@@ -62,6 +62,7 @@ const NavLinks = styled.ul`
       flex: 1;
       text-align: center;
       margin: 1%;
+     
     }
 
     a {
@@ -75,13 +76,14 @@ const NavLinks = styled.ul`
       &:hover,
       &.active {
         background-color: #FFA500;
-  color: white;
+        color: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
+
       &:hover,
       &.activee {
-        background-color:white;
-  color:  #FFA500;
+        background-color: white;
+        color: #FFA500;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
