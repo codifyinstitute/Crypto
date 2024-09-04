@@ -29,14 +29,31 @@ const CoreValue = styled.div`
   max-width: 300px;
   text-align: left;
 
-  h4 {
+  h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: #ffa500;
+    @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+
   }
 
   p {
     font-size: 1.2rem;
     line-height: 1.5;
+
+    @media (max-width: 768px) {
+    font-size: 1rem;
+    }
+    @media (max-width: 480px) {
+    font-size: 0.8rem;
+    }
+
   }
 `;
 
@@ -72,8 +89,12 @@ const LinksContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 9px;
   margin-bottom: 20px;
+  @media (max-width: 768px) {
+    margin-bottom: 12px;
+
+  }
 
   a {
     color: #ff9900;
@@ -83,23 +104,43 @@ const LinksContainer = styled.div`
     &:hover {
       text-decoration: underline;
     }
+    @media (max-width: 768px) {
+   font-size: 1.2rem;
+   cursor: pointer;
+  }
     @media (max-width: 480px) {
    font-size: 18px;
    cursor: pointer;
+  }
+  }
+  span{
+    font-size: 1.5rem;
+      @media (max-width: 480px) {
+   font-size: 1rem;
   }
   }
 `;
 const Column = styled.div`
 display: flex;
 flex-direction: column;
+@media (max-width: 768px) {
+  margin: 0px 20px;
+  }
+  @media (max-width: 480px) {
+  margin: 0px 0px;
+  }
 `;
 const DisclaimerContainer = styled.div`
   max-width: 670px;
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
   border: 2px solid #ff9900;
   padding: 10px;
+  @media (max-width: 768px) {
+  font-size: 0.8rem;
+
+  }
 `;
 
 const SocialMediaContainer = styled.div`
@@ -154,10 +195,10 @@ const Footer = () => {
         </LogoContainer>
         <Column>
           <LinksContainer>
-            <a href="/">Home</a>
-            <a href="/">About Us</a>
-            <a href="/">Contact Us</a>
-            <a href="/">Privacy Policy</a>
+            <a href="/">Home</a><span>|</span>
+            <a href="/">About Us</a><span>|</span>
+            <a href="/">Contact Us</a><span>|</span>
+            <a href="/">Privacy Policy</a><span>|</span>
             <a href="/">Terms and Conditions</a>
           </LinksContainer>
           <DisclaimerContainer>
