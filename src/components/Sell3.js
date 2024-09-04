@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import HomeContact from './HomeContact';
-import { ChevronLeft } from 'lucide-react';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import HomeContact from "./HomeContact";
+import { ChevronLeft } from "lucide-react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PageContainer = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const FormWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding-bottom: 20px;
 `;
 
 const FormContainer = styled.div`
@@ -40,6 +40,8 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  margin-top: 10%;
+
 
   @media (max-width: 480px) {
     padding: 1rem;
@@ -63,7 +65,7 @@ const TabContainer = styled.div`
 
 const Tab = styled.div`
   padding: 0.5rem 0;
-  margin-right: 1rem;
+  margin-left:8px;
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
@@ -108,7 +110,7 @@ const FormButton = styled.button`
   width: 100%;
   margin-top: 1rem;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
     background-color: #e69500;
@@ -124,7 +126,7 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+  pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
 
   &:hover {
     background-color: #e69500;
@@ -159,9 +161,9 @@ const CardsSection = styled.div`
 
 const Card = styled.div`
   width: 480px;
-  background-color: ${({ selected }) => (selected ? '#f7a600' : 'white')};
-  color: ${({ selected }) => (selected ? 'white' : '#333')};
-  border: 2px solid ${({ selected }) => (selected ? '#f7a600' : '#ccc')};
+  background-color: ${({ selected }) => (selected ? "#f7a600" : "white")};
+  color: ${({ selected }) => (selected ? "white" : "#333")};
+  border: 2px solid ${({ selected }) => (selected ? "#f7a600" : "#ccc")};
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -170,9 +172,9 @@ const Card = styled.div`
   transition: background-color 0.3s, color 0.3s, border 0.3s;
 
   &:hover {
-    background-color: ${({ selected }) => (selected ? '#e69500' : '#f7a600')};
-    color: ${({ selected }) => (selected ? 'white' : '#fff')};
-    border-color: ${({ selected }) => (selected ? '#e69500' : '#e69500')};
+    background-color: ${({ selected }) => (selected ? "#e69500" : "#f7a600")};
+    color: ${({ selected }) => (selected ? "white" : "#fff")};
+    border-color: ${({ selected }) => (selected ? "#e69500" : "#e69500")};
   }
 `;
 
@@ -196,16 +198,17 @@ const Crosss = styled.p`
 
 const BackButton = styled.button`
   background-color: transparent;
-  color: #FFA500;
+  color: #ffa500;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
-  margin: 1rem;
   /* z-index: 1001; */
   width: fit-content;
   margin: 0 5px 0 0;
+  display: flex;
+  align-items: center;
 
   @media (max-width: 1024px) {
     display: block;
@@ -220,11 +223,11 @@ const BackButton = styled.button`
 
 const Sell3 = () => {
   const navigate = useNavigate();
-  const [accountHolder, setAccountHolder] = useState('');
-  const [country, setCountry] = useState('India');
-  const [bankName, setBankName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [ifsc, setIfsc] = useState('');
+  const [accountHolder, setAccountHolder] = useState("");
+  const [country, setCountry] = useState("India");
+  const [bankName, setBankName] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [ifsc, setIfsc] = useState("");
   const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -239,29 +242,31 @@ const Sell3 = () => {
   }, [accountHolder, country, bankName, accountNumber, ifsc]);
 
   const fetchData = async () => {
-    const email = localStorage.getItem('token');
+    const email = localStorage.getItem("token");
 
     if (!email) {
-      console.error('No email found in local storage');
+      console.error("No email found in local storage");
       return;
     }
 
     try {
-      const response = await axios.get(`https://crypto-anl6.onrender.com/users/get/${email}`);
+      const response = await axios.get(
+        `https://crypto-anl6.onrender.com/users/get/${email}`
+      );
       const user = response.data;
 
       if (user.Accounts.length > 0) {
         setAccounts(user.Accounts);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error("Error fetching user data:", error);
     }
   };
 
   const validateForm = () => {
     const isValid =
       /^[A-Za-z\s]+$/.test(accountHolder.trim()) &&
-      country.trim() !== '' &&
+      country.trim() !== "" &&
       /^[A-Za-z\s]+$/.test(bankName.trim()) &&
       /^\d{15}$/.test(accountNumber.trim()) &&
       /^[A-Z0-9]+$/.test(ifsc.trim());
@@ -271,10 +276,10 @@ const Sell3 = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    const email = localStorage.getItem('token');
+    const email = localStorage.getItem("token");
 
     if (!email) {
-      console.error('No email found in local storage');
+      console.error("No email found in local storage");
       return;
     }
 
@@ -287,24 +292,28 @@ const Sell3 = () => {
     };
 
     try {
-      await axios.put(`https://crypto-anl6.onrender.com/users/put/${email}/accounts`, accountData);
-      toast.success('Account data successfully submitted');
-      setAccountHolder('');
-      setCountry('India');
-      setBankName('');
-      setAccountNumber('');
-      setIfsc('');
+      await axios.put(
+        `https://crypto-anl6.onrender.com/users/put/${email}/accounts`,
+        accountData
+      );
+      toast.success("Account data successfully submitted");
+      setAccountHolder("");
+      setCountry("India");
+      setBankName("");
+      setAccountNumber("");
+      setIfsc("");
       fetchData();
     } catch (error) {
-      toast.error('Error submitting account data');
-      console.error('Error submitting account data:', error);
+      toast.error("Error submitting account data");
+      console.error("Error submitting account data:", error);
     }
   };
 
   const handleCardClick = (account) => {
     setSelectedAccount(account);
 
-    const existingTransactionDetails = JSON.parse(localStorage.getItem('transactionDetails')) || {};
+    const existingTransactionDetails =
+      JSON.parse(localStorage.getItem("transactionDetails")) || {};
 
     const updatedTransactionDetails = {
       ...existingTransactionDetails,
@@ -312,34 +321,40 @@ const Sell3 = () => {
       Country: account.Country,
       BankName: account.BankName,
       AccountNumber: account.AccountNumber,
-      IFSC: account.IFSC
+      IFSC: account.IFSC,
     };
 
-    localStorage.setItem('transactionDetails', JSON.stringify(updatedTransactionDetails));
-    navigate('/sell4');
+    localStorage.setItem(
+      "transactionDetails",
+      JSON.stringify(updatedTransactionDetails)
+    );
+    navigate("/sell4");
   };
 
   const AddAccount = () => {
     setForm(!form);
-  }
+  };
 
   const handleAccountHolderChange = (e) => {
-    const value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    const value = e.target.value.replace(/[^A-Za-z\s]/g, "");
     setAccountHolder(value);
   };
 
   const handleBankNameChange = (e) => {
-    const value = e.target.value.replace(/[^A-Za-z\s]/g, '');
+    const value = e.target.value.replace(/[^A-Za-z\s]/g, "");
     setBankName(value);
   };
 
   const handleAccountNumberChange = (e) => {
-    const value = e.target.value.replace(/\D/g, '').slice(0, 15);
+    const value = e.target.value.replace(/\D/g, "").slice(0, 15);
     setAccountNumber(value);
   };
 
   const handleIfscChange = (e) => {
-    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0,11);
+    const value = e.target.value
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .slice(0, 11);
     setIfsc(value);
   };
 
@@ -352,12 +367,19 @@ const Sell3 = () => {
         <FormWrapper>
           <FormContainer>
             <TabContainer>
-              <BackButton onClick={() => window.history.back()}> <ChevronLeft /> </BackButton>
+              <BackButton onClick={() => window.history.back()}>
+                {" "}
+                <ChevronLeft />{" "}
               <Tab active>Accounts</Tab>
-              {form ? <Button onClick={AddAccount}>Choose Account</Button> : <Button onClick={AddAccount}>Add Account +</Button>}
+              </BackButton>
+              {form ? (
+                <Button onClick={AddAccount}>Choose Account</Button>
+              ) : (
+                <Button onClick={AddAccount}>Add Account +</Button>
+              )}
             </TabContainer>
 
-            {form ?
+            {form ? (
               <form onSubmit={handleFormSubmit}>
                 <FormSection>
                   <h3>Personal Information</h3>
@@ -403,31 +425,38 @@ const Sell3 = () => {
                 </FormSection>
 
                 <FormWarning>
-                  Attention: Please ensure the bank account belongs to you and the information is accurate.
+                  Attention: Please ensure the bank account belongs to you and
+                  the information is accurate.
                 </FormWarning>
 
                 <FormButton type="submit" disabled={!isFormValid}>
                   Proceed To Pay
                 </FormButton>
               </form>
-              :
+            ) : (
               <CardsContainer>
                 <FormTitle>Choose Account</FormTitle>
                 <CardsSection>
                   {accounts.map((account, index) => (
                     <Card
                       key={index}
-                      selected={selectedAccount?.AccountNumber === account.AccountNumber}
+                      selected={
+                        selectedAccount?.AccountNumber === account.AccountNumber
+                      }
                       onClick={() => handleCardClick(account)}
                     >
                       <CardTitle>Account {index + 1}</CardTitle>
-                      <Crosss><strong>Account Number:</strong> {account.AccountNumber}</Crosss>
-                      <Crosss><strong>IFSC:</strong> {account.IFSC}</Crosss>
+                      <Crosss>
+                        <strong>Account Number:</strong> {account.AccountNumber}
+                      </Crosss>
+                      <Crosss>
+                        <strong>IFSC:</strong> {account.IFSC}
+                      </Crosss>
                     </Card>
                   ))}
                 </CardsSection>
               </CardsContainer>
-            }
+            )}
           </FormContainer>
         </FormWrapper>
       </PageContainer>
