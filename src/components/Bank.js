@@ -569,7 +569,7 @@ const AccountCard = styled.div`
 
 const AccountInfo = styled.div`
   display: flex;
-  
+  width: 100%;
   flex-direction: column;
   flex: 1;
 `;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronDown, ChevronUp, Info, X } from 'lucide-react';
+import { ChevronDown, ChevronUp,ChevronRight, Info, X } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
@@ -636,7 +636,11 @@ const Sell1 = () => {
 
       <ExchangeCard>
       <div>
+      
         <TabContainer>
+        <BackButton onClick={() => window.history.back()}>
+              <ChevronLeft />
+            </BackButton>
           <Tab active>Sell Crypto</Tab>
         </TabContainer>
 
@@ -754,7 +758,7 @@ const Sell1 = () => {
       </div>
       <div>
         <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-          Proceed · Sell {selectedCurrency?.Name} →
+          Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
         </ProceedButton>
 
         <PaymentMethods>
