@@ -44,7 +44,8 @@ const CoinIcon = styled.div`
 
 const ExchangeName = styled.div`
   background-color: #ffa500;
-  color: white;
+  color: black;
+  font-weight: 600;
   padding: 0.25rem 0.5rem;
   border-radius: 1rem;
   font-size: 1rem;
@@ -104,11 +105,11 @@ const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice,maxPrice }) =
       <Bitcoin size={48} color="#ffd700" />
     </CoinIcon>
     <ExchangeName>{exchange}</ExchangeName>
-    <Price>Avg {avgPrice} ₹</Price>
-    <SubText>1 USDT = {usdtPrice}</SubText>
+    <Price>Avg ₹ {avgPrice} </Price>
+    <SubText>1 USDT = ₹ {usdtPrice}</SubText>
     <MinMaxPrice>
-      <PriceInfo>Min {minPrice}$</PriceInfo>
-      <PriceInfo>Max {maxPrice}$</PriceInfo>
+      <PriceInfo>Min ₹ {minPrice}</PriceInfo>
+      <PriceInfo>Max ₹ {maxPrice}</PriceInfo>
     </MinMaxPrice>
   </Card>
 );
@@ -137,7 +138,7 @@ const CryptoPriceGrid = () => {
 
   return(
   <>
-  <Title>Prices onother Exchanges</Title>
+  <Title>Prices on other Exchanges</Title>
   <Grid>
   
     <CryptoPriceCard

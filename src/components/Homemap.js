@@ -50,7 +50,8 @@ const Title = styled.h1`
 
   @media (max-width: 480px) {
     font-size: 1.87rem;
-    text-align: center;
+    text-align: left;
+    margin-top: 4%;
   }
 `;
 
@@ -68,6 +69,7 @@ const Description = styled.p`
     font-size: 12px;
     margin-bottom: 30px;
     width: 100%;
+    text-align: left;
   }
 `;
 

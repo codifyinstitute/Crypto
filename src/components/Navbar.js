@@ -7,7 +7,8 @@ const NavbarContainer = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
+  background-color: black;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
