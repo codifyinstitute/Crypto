@@ -16,9 +16,8 @@ const HappyCustomerSection = styled.section`
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
-
-align-items: center;
-justify-content: center;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SliderContainer = styled.div`
@@ -63,11 +62,9 @@ const TestimonialCard = styled.div`
   flex-shrink: 0;
   margin-top: 2%;
 
-
   @media (min-width: 1025px) {
     min-width: auto; /* Reset width on desktop */
     flex: 1;
-
   }
 
   @media (max-width: 1024px) {
@@ -77,8 +74,8 @@ const TestimonialCard = styled.div`
     width: 100%;
     margin-top: 5%;
   }
+  
   @media (max-width: 1024px) {
-
     margin-top: 15%;
   }
   
@@ -86,7 +83,6 @@ const TestimonialCard = styled.div`
     text-align: left;
     gap: 0;
   }
-
 `;
 
 const Avatar = styled.div`
@@ -96,8 +92,8 @@ const Avatar = styled.div`
   width: 50px;
   height: 50px;
   flex-shrink: 0;
- position: relative;
- top: -58%;
+  position: relative;
+  top: -58%;
 
   img {
     width: 100%;
@@ -116,10 +112,9 @@ const Avatar = styled.div`
   
   @media (max-width: 480px) {
     width: 80px;
-  height: 80px;
-  top: -22%;
-  margin-bottom: 0px;
-
+    height: 80px;
+    top: -22%;
+    margin-bottom: 0px;
   }
 `;
 
@@ -147,8 +142,26 @@ const Title = styled.h2`
     font-size: 1.87rem;
     text-align: center;
     width: auto;
-    /* padding-right: 15px; */
   }
+`;
+
+const IndicatorsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+
+  @media (min-width: 1025px) {
+    display: none;
+  }
+`;
+
+const Indicator = styled.div`
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: ${({ isActive }) => (isActive ? '#8247e5' : '#ccc')};
+  border-radius: 50%;
+  cursor: pointer;
 `;
 
 const Component = () => {
@@ -160,12 +173,11 @@ const Component = () => {
       name: 'Sandeep Nailwal',
       title: 'Co-Founder Polygon',
       quote: "Thanks to Alchemy Pay, we can provide an essential gateway between fiat and crypto transactions. This development opens up new capital inroads that will propel users of polygon's DeFi ecosystem to the next level.",
-     // Replace with the actual image path
     },
     {
       name: 'John Doe',
       title: 'CEO, CryptoTech',
-      quote: "Alchemy Pay has revolutionized our payment system. It's seamless integration of fiat and crypto has opened up new possibilities for our business.",
+      quote: "Alchemy Pay has revolutionized our payment system. Its seamless integration of fiat and crypto has opened up new possibilities for our business.",
     },
     {
       name: 'Jane Smith',
@@ -195,6 +207,10 @@ const Component = () => {
     }
   }, [isMobileOrTablet, testimonials.length]);
 
+  const handleIndicatorClick = (index) => {
+    setCurrentIndex(index);
+  };
+
   return (
     <Container>
       <HappyCustomerSection>
@@ -214,6 +230,15 @@ const Component = () => {
               </TestimonialCard>
             ))}
           </SliderWrapper>
+          <IndicatorsContainer>
+            {testimonials.map((_, index) => (
+              <Indicator
+                key={index}
+                isActive={index === currentIndex}
+                onClick={() => handleIndicatorClick(index)}
+              />
+            ))}
+          </IndicatorsContainer>
         </SliderContainer>
       </HappyCustomerSection>
     </Container>
