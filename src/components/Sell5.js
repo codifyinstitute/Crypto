@@ -54,7 +54,8 @@ const Tab = styled.div`
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: 700;
   text-align: left;
 `;
 
@@ -162,7 +163,7 @@ const Link = styled.a`
 
 const Button = styled.button`
   background-color: #fbaf53;
-  color: white;
+  color: black;
   border: none;
   padding: 16px;
   border-radius: 8px;
@@ -171,8 +172,8 @@ const Button = styled.button`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
   transition: background-color 0.3s ease;
 
   &:hover {
