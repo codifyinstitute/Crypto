@@ -131,10 +131,10 @@ const LoadingSpinner = styled.div`
 `;
 
 const Boxx = styled.div`
-  margin-bottom: 38%;
+  margin-bottom: 32%;
 
   @media (max-width: 380px) {
-    margin-bottom: 44%;
+    margin-bottom: 32%;
   }
 `;
 
@@ -241,7 +241,7 @@ const Sell2 = () => {
                   checked={isChecked}
                   onChange={(e) => setIsChecked(e.target.checked)}
                 />
-                I have read and agree to Moon Pay's <Link to='/TandC'>Terms  and conditions</Link> Of Services and privacy policy.
+                I have read and agree to Moon Pay's <Link to='/TandC'>Terms  and conditions</Link> Of services and <Link to='/TandC'>Privacy Policy.</Link>
               </CheckboxLabel>
             </Boxx>
             <Boo>

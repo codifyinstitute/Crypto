@@ -24,6 +24,7 @@ const Title = styled.h1`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 `;
 
 const TabContainer = styled.div`
@@ -54,7 +55,8 @@ const TransactionList = styled.div`
 `;
 
 const TransactionCard = styled.div`
-  background-color: #1E1E1E;
+  background-color: white;
+  color: black;
   border: 1px solid #FFA500;
   border-radius: 10px;
   padding: 15px;
@@ -70,6 +72,7 @@ const TransactionHeader = styled.div`
 const TransactionDetails = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const TransactionColumn = styled.div`
@@ -87,7 +90,7 @@ const BackButton = styled.button`
   font-weight: bold;
   margin: 1rem;
   /* z-index: 1001; */
-  display: none;
+  /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
@@ -104,8 +107,13 @@ const BackButton = styled.button`
 
 const Label = styled.span`
   color: #FFA500;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 5px;
+`;
+
+const Para = styled.p`
+width: 100%;
+text-align: center;
 `;
 
 const Value = styled.span`
@@ -165,11 +173,11 @@ const Transaction = () => {
           <BackButton onClick={() => window.history.back()}>
             <ChevronLeft />
           </BackButton>
-          Transactions
+          <Para>Transactions History</Para>
         </Title>
         <TabContainer>
           <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
-          <Tab active={activeTab === 'Money Received'} onClick={() => setActiveTab('Money Received')}>Money Received</Tab>
+          <Tab active={activeTab === 'In Transsit'} onClick={() => setActiveTab('Money Received')}>In Transit</Tab>
           <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
         </TabContainer>
         <TransactionList>
@@ -178,14 +186,11 @@ const Transaction = () => {
             .map((transaction, index) => (
               <TransactionCard key={index}>
                 <TransactionHeader>
-                  <Value>{transaction.OrderId}</Value>
-                  <Value>{transaction.Date}</Value>
+                  <Value> Order Id : {transaction.OrderId}</Value>
+                  <Value> Date : {transaction.Date}</Value>
                 </TransactionHeader>
                 <TransactionDetails>
-                  <TransactionColumn>
-                    <Label>Status</Label>
-                    <StatusValue status={transaction.Status}>{transaction.Status}</StatusValue>
-                  </TransactionColumn>
+             
                   <TransactionColumn>
                     <Label>Bank Name</Label>
                     <Value>{transaction.BankName}</Value>
@@ -198,6 +203,10 @@ const Transaction = () => {
                     <Label>Amount</Label>
                     <Value>${transaction.ReceivedAmount}</Value>
                   </TransactionColumn>
+                  <TransactionColumn>
+                  <Label>Status</Label>
+                  <StatusValue status={transaction.Status}>{transaction.Status}</StatusValue>
+                </TransactionColumn>
                 </TransactionDetails>
               </TransactionCard>
             ))}

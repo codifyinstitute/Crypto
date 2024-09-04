@@ -85,8 +85,10 @@ const OTPInput = styled.input`
 
 const Button = styled.button`
   background-color: #ffa500;
-  color: white;
+  color: black;
   border: none;
+  font-weight: 700;
+  font-size: 20px;
   border-radius: 5px;
   padding: 10px;
   width: 100%;
@@ -126,8 +128,10 @@ const Tab = styled.div`
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: 700;
 `;
+
 const BackButton = styled.button`
   background-color: transparent;
   color: #FFA500;
@@ -155,7 +159,8 @@ const BackButton = styled.button`
 const TimerContainer = styled.div`
   margin-bottom: 20px;
   font-size: 16px;
-  color: #ffa500;
+  /* color: #ffa500; */
+  text-align: center;
 `;
 
 const OTPPage = () => {
@@ -240,14 +245,14 @@ const OTPPage = () => {
             <BackButton onClick={() => window.history.back()}>
               <ChevronLeft />
             </BackButton>
-            <Tab active>Enter OTP</Tab>
+            <Tab active>Verification Code</Tab>
           </TabContainer>
           <Logo>LOGO</Logo>
        
           <FormContainer>
             <div>
               <Subtitle>Enter the OTP sent to your email</Subtitle>
-              <p> You have loged in with <b>{location.state.email}</b></p><br/>
+              <p> Please enter the verification code sent to <b>{location.state.email}</b></p><br/>
               <OTPContainer>
                 {otp.map((data, index) => (
                   <OTPInput
@@ -260,7 +265,7 @@ const OTPPage = () => {
                 ))}
               </OTPContainer>
               <TimerContainer>
-              Your code expires in: {formatTime(timer)}
+              New verification code sent in : {formatTime(timer)}
             </TimerContainer>
             
              

@@ -376,6 +376,7 @@ import { ChevronLeft } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   background-color: #121212;
@@ -401,9 +402,10 @@ const Title = styled.h1`
   margin: 0;
 `;
 
-const AddButton = styled.button`
+const AddButton = styled.a`
   background-color: #FFA500;
   color: white;
+  text-decoration: none;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
@@ -447,6 +449,13 @@ const CloseButton = styled.button`
   cursor: pointer;
   font-size: 20px;
   color: #333;
+`;
+const Maindiv = styled.div`
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 `;
 
 const Card = styled.div`
@@ -538,7 +547,7 @@ const AccountCard = styled.div`
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
-  margin-left: 30%;
+  /* margin-left: 30%; */
   margin-top: 3%;
  
   /* padding-right: 30%; */
@@ -661,8 +670,10 @@ const Maincol = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-justify-content: center;
-gap: 10%;
+justify-content: space-between;
+width: 100%;
+margin-top: 2%;
+/* gap: 10%; */
 `;
 
 
@@ -711,7 +722,8 @@ const Bank = () => {
         <Header>
           <BackButton onClick={() => window.history.back()}><ChevronLeft /></BackButton>
           <Title>Payment Methods</Title>
-          <AddButton onClick={() => setShowForm(true)}>Add New</AddButton>
+          {/*<AddButton onClick={() => setShowForm(true)}>Add New</AddButton>*/}
+          <Link to='/Sell3'><AddButton>ADD new</AddButton></Link>
         </Header>
 
         {showForm && (
@@ -722,7 +734,7 @@ const Bank = () => {
                 <X size={24} />
               </CloseButton>
               <Form>
-                <FormTitle>Add Payment Method</FormTitle>
+                <FormTitle>Add New Bank</FormTitle>
                 <FormSection>
                   <FormSectionTitle>Personal Information</FormSectionTitle>
                   <Input placeholder="Please enter your full name" />
@@ -732,28 +744,29 @@ const Bank = () => {
                   <FormSectionTitle>Account Information</FormSectionTitle>
                   <Input placeholder="Please enter your bank name" />
                   <Input placeholder="Please enter your account number" />
-                  <Input placeholder="Enter your country" />
+                  <Input placeholder="Enter your IFSC code" />
                 </FormSection>
                 <SubmitButton>Submit</SubmitButton>
               </Form>
             </Card>
           </>
         )}
-
+<Maindiv>
         {accounts.map((account) => (
           <AccountCard key={account.AccountNumber}>
             <AccountInfo><br/><br/>
-              <AccountName><Maincol><Col1><Label>   Bank Name:  </Label></Col1>   <Col2>      {account.BankName} </Col2> </Maincol> </AccountName>
-              <AccountDetails><Maincol><Col1><Label>Account Name:</Label></Col1>     <Col2>          {account.Name}</Col2>  </Maincol> </AccountDetails>
-              <AccountDetails><Maincol><Col1><Label>Country:</Label> </Col1>       <Col2>         {account.Country}</Col2></Maincol>  </AccountDetails>
-              <AccountNumberValue><Maincol><Col1><Label>Account No:</Label> </Col1>    <Col2>        {account.AccountNumber}</Col2> </Maincol> </AccountNumberValue>
-              <AccountDetails><Maincol><Col1><Label>IFSC:</Label>      </Col1>       <Col2>   {account.IFSC}</Col2></Maincol> </AccountDetails>
+              <AccountName><Maincol><Col1><Label>   Bank Name  </Label></Col1>   <Col2>      {account.BankName} </Col2> </Maincol> </AccountName>
+              <AccountDetails><Maincol><Col1><Label>Account Name</Label></Col1>     <Col2>          {account.Name}</Col2>  </Maincol> </AccountDetails>
+              <AccountDetails><Maincol><Col1><Label>Country</Label> </Col1>       <Col2>         {account.Country}</Col2></Maincol>  </AccountDetails>
+              <AccountNumberValue><Maincol><Col1><Label>Account No</Label> </Col1>    <Col2>        {account.AccountNumber}</Col2> </Maincol> </AccountNumberValue>
+              <AccountDetails><Maincol><Col1><Label>IFSC</Label>      </Col1>       <Col2>   {account.IFSC}</Col2></Maincol> </AccountDetails>
             </AccountInfo>
             <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
               Delete
             </DeleteButton>
           </AccountCard>
 ))}
+          </Maindiv>
       </Container>
       <Footer />
       <ToastContainer />
