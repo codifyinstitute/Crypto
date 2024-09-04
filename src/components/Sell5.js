@@ -23,6 +23,7 @@ const Container = styled.div`
   border: 1px solid #e5e7eb;
   background-color: white;
   color: #1f2937;
+  margin-top: 10%;
   padding: 1.5rem;
   border-radius: 12px;
   width: 380px;

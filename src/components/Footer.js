@@ -123,6 +123,8 @@ const LinksContainer = styled.div`
 const Column = styled.div`
 display: flex;
 flex-direction: column;
+margin: 0px 20px;
+
 @media (max-width: 768px) {
   margin: 0px 20px;
   }
@@ -131,7 +133,7 @@ flex-direction: column;
   }
 `;
 const DisclaimerContainer = styled.div`
-  max-width: 670px;
+  max-width: 735px;
   font-size: 1rem;
   text-align: left;
   margin-bottom: 20px;
