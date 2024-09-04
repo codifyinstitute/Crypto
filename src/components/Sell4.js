@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import { useNavigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
-import HomeContact from './HomeContact';
-import Modal from './ConformationModal';
+import React, { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+import HomeContact from "./HomeContact";
+import Modal from "./ConformationModal";
 import { MdContentCopy } from "react-icons/md";
 import copy from "copy-to-clipboard";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PageContainer = styled.div`
   display: flex;
@@ -36,29 +35,29 @@ const Tab = styled.div`
   font-weight: 700;
 `;
 const Card = styled.div`
-    background-color: white;
-    color: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    width: 380px;
-    height: 610px;
-    /* max-width: 100%; */
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    /* justify-content: space-between; */
-    margin-top: 5%;
+  background-color: white;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 380px;
+  height: 610px;
+  /* max-width: 100%; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  /* justify-content: space-between; */
+  margin-top: 5%;
 
-    @media (max-width: 375px) {
-        /* padding: 1rem; */
-        width: 320px;
-        /* height: auto; */
-    }
-    @media (max-width: 320px) {
-        /* padding: 1rem; */
-        width: 300px;
-        /* height: auto; */
-    }
+  @media (max-width: 375px) {
+    /* padding: 1rem; */
+    width: 320px;
+    /* height: auto; */
+  }
+  @media (max-width: 320px) {
+    /* padding: 1rem; */
+    width: 300px;
+    /* height: auto; */
+  }
 `;
 
 const Title = styled.h2`
@@ -77,22 +76,20 @@ const InfoRow = styled.div`
 `;
 
 const Label1 = styled.span`
- color: black;
-
+  color: black;
 `;
 
 const Label = styled.span`
   color: black;
   font-weight: bolder;
-
 `;
 
 const Value = styled.span`
-    color: black;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
 `;
 
 const Button = styled.button`
@@ -120,20 +117,16 @@ const SubmitButton = styled.button`
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-  
+  width: 80px;
 
   &:hover {
     background-color: #e69500;
   }
-
-  @media (max-width: 480px) {
-width: 80px;
-  } 
 `;
 
 const BackButton = styled.button`
   background-color: transparent;
-  color: #FFA500;
+  color: #ffa500;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -144,7 +137,8 @@ const BackButton = styled.button`
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
-  @media (max-width: 1024px) { // Show on tablet and mobile
+  @media (max-width: 1024px) {
+    // Show on tablet and mobile
     display: block;
   }
 
@@ -165,8 +159,8 @@ const Center = styled.div`
     display: none;
   }
   .example {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 `;
 const QRCodeContainer = styled.div`
@@ -193,11 +187,10 @@ const Heading = styled.p`
   margin-bottom: 20px;
   width: fit-content;
   font-weight: bold;
-  
+
   @media (max-width: 480px) {
     font-size: 19px;
-
-  } 
+  }
 `;
 
 const BoxPara = styled.p`
@@ -237,29 +230,30 @@ const Sell4 = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [savedData, setSavedData] = useState(null);
-  const [transactionId, setTransactionId] = useState('');
+  const [transactionId, setTransactionId] = useState("");
   const [image, setImage] = useState("");
-  const [timeLeft, setTimeLeft] = useState('00:00:00');
+  const [timeLeft, setTimeLeft] = useState("00:00:00");
   const targetDate = useRef(new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)); // 2 days from now
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
       const timeDifference = targetDate.current - now;
 
-      if (timeDifference <= 0) return '00:00:00';
+      if (timeDifference <= 0) return "00:00:00";
 
       let totalSeconds = Math.floor(timeDifference / 1000);
       let hours = Math.floor(totalSeconds / 3600);
       let minutes = Math.floor((totalSeconds % 3600) / 60);
       let seconds = totalSeconds % 60;
 
-      const formatTime = (time) => time.toString().padStart(2, '0');
+      const formatTime = (time) => time.toString().padStart(2, "0");
 
-      return `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+      return `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(
+        seconds
+      )}`;
     };
 
     const timer = setInterval(() => {
@@ -269,45 +263,49 @@ const Sell4 = () => {
     return () => clearInterval(timer);
   }, []);
 
-
   const fetchTransactionFee = async () => {
-    console.log("1")
+    console.log("1");
     try {
-      const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
-      const countResponse = await fetch('https://crypto-anl6.onrender.com/transactions/get/count');
+      const response = await fetch(
+        "https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4"
+      );
+      const countResponse = await fetch(
+        "https://crypto-anl6.onrender.com/transactions/get/count"
+      );
 
       if (!response.ok && !countResponse.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       const countData = await countResponse.json();
-      setOrderId((countData.Count + 1).toString().padStart(10, '0'))
+      setOrderId((countData.Count + 1).toString().padStart(10, "0"));
       setTransactionFee(data.TransactionFee);
       setNetworkFee(data.NetworkFee);
-
     } catch (error) {
-      setError('Error fetching transaction fee');
+      setError("Error fetching transaction fee");
     }
   };
 
   const fetchCurrencyData = async () => {
     try {
-      const response = await fetch('https://crypto-anl6.onrender.com/currencies/all');
+      const response = await fetch(
+        "https://crypto-anl6.onrender.com/currencies/all"
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      const currency = data.find(curr => curr.Symbol === localData.symbol);
+      const currency = data.find((curr) => curr.Symbol === localData.symbol);
       if (currency) {
         setImage(currency.QRCode);
         setTransactionId(currency.TransactionId);
         setCurrencyRate(currency.Rate);
         setCoinName(currency.Name);
       } else {
-        setError('Currency not found');
+        setError("Currency not found");
       }
     } catch (error) {
-      setError('Error fetching currency data');
+      setError("Error fetching currency data");
     } finally {
       setLoading(false);
     }
@@ -327,7 +325,7 @@ const Sell4 = () => {
   }, [localData.symbol]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('transactionDetails'));
+    const data = JSON.parse(localStorage.getItem("transactionDetails"));
     setLocalData(data);
     fetchTransactionFee();
     const intervalId = setInterval(fetchTransactionFee, 10000);
@@ -335,7 +333,8 @@ const Sell4 = () => {
   }, []);
 
   const calculateReceivedAmount = () => {
-    if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee) return 0;
+    if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee)
+      return 0;
     const totalAmount = localData.amountPay * currencyRate;
     return totalAmount - transactionFee - networkFee;
   };
@@ -351,37 +350,40 @@ const Sell4 = () => {
   const confirmTransaction = async () => {
     setShowConfirmation(false);
     try {
-      const response = await fetch('https://crypto-anl6.onrender.com/transactions/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          Email: localStorage.getItem("token"), // Ensure this field exists in localData
-          Name: localData.Name,
-          TransactionId: transaction,
-          Country: localData.Country,
-          BankName: localData.BankName,
-          AccountNumber: localData.AccountNumber,
-          IFSC: localData.IFSC,
-          USDTAmount: localData.amountPay,
-          Token: localData.symbol,
-          ProcessingFee: transactionFee,
-          NetworkFee: networkFee,
-          ReceivedAmount: calculateReceivedAmount(),
-          Status: 'Pending',
-        }),
-      });
+      const response = await fetch(
+        "https://crypto-anl6.onrender.com/transactions/add",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Email: localStorage.getItem("token"), // Ensure this field exists in localData
+            Name: localData.Name,
+            TransactionId: transaction,
+            Country: localData.Country,
+            BankName: localData.BankName,
+            AccountNumber: localData.AccountNumber,
+            IFSC: localData.IFSC,
+            USDTAmount: localData.amountPay,
+            Token: localData.symbol,
+            ProcessingFee: transactionFee,
+            NetworkFee: networkFee,
+            ReceivedAmount: calculateReceivedAmount(),
+            Status: "Pending",
+          }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const result = await response.json();
       setSavedData(result.transaction);
       setShowSuccess(true);
     } catch (error) {
-      alert('Error submitting transaction: ' + error.message);
+      alert("Error submitting transaction: " + error.message);
     }
   };
 
@@ -391,7 +393,7 @@ const Sell4 = () => {
 
   const closeSuccessPopup = () => {
     setShowSuccess(false);
-    navigate('/transaction');  // Navigate to the transaction path
+    navigate("/transaction"); // Navigate to the transaction path
   };
 
   const copyToClipboard = () => {
@@ -413,11 +415,11 @@ const Sell4 = () => {
   const submitTrans = () => {
     localStorage.setItem("transaction", transaction);
     setSubmitted(true);
-  }
+  };
 
   const editId = () => {
     setSubmitted(false);
-  }
+  };
 
   return (
     <>
@@ -426,18 +428,37 @@ const Sell4 = () => {
 
         <Navbar />
         <Center>
-          <Card className='example'>
+          <Card className="example">
             <TabContainer>
-              <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
-              </BackButton> <Tab active>How to Complete Your Sell</Tab>
+              <BackButton onClick={() => window.history.back()}>
+                {" "}
+                <ChevronLeft></ChevronLeft>
+              </BackButton>{" "}
+              <Tab active>How to Complete Your Sell</Tab>
             </TabContainer>
 
             <div>
               <InfoRow>
                 <Label>Order ID</Label>
                 <Value>
-                  <input style={{ width: "100px", backgroundColor: "transparent", border: "none", fontSize: "16px", fontWeight: 'bold', color: "rgb(123 119 119)" }} value={orderId} disabled type="text" ref={textRef} />
-                  <MdContentCopy style={{ cursor: "pointer" }} onClick={copyToClipboard} />
+                  <input
+                    style={{
+                      width: "100px",
+                      backgroundColor: "transparent",
+                      border: "none",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      color: "rgb(123 119 119)",
+                    }}
+                    value={orderId}
+                    disabled
+                    type="text"
+                    ref={textRef}
+                  />
+                  <MdContentCopy
+                    style={{ cursor: "pointer" }}
+                    onClick={copyToClipboard}
+                  />
                 </Value>
               </InfoRow>
               <Heading>Transaction Summary</Heading>
@@ -459,7 +480,9 @@ const Sell4 = () => {
               </InfoRow> */}
               <InfoRow>
                 <Label1>You're Selling</Label1>
-                <Value>{localData.amountPay} {coinName} </Value>
+                <Value>
+                  {localData.amountPay} {coinName}{" "}
+                </Value>
               </InfoRow>
               <InfoRow>
                 <Label1>Transaction Fee</Label1>
@@ -480,31 +503,105 @@ const Sell4 = () => {
             </div>
             <hr />
             <BoxPara>
-              Please Transfer USDT to the address within <span style={{ color: "red" }}>{timeLeft}</span> after that time, transaction will expire.
+              Please Transfer USDT to the address within{" "}
+              <span style={{ color: "red" }}>{timeLeft}</span> after that time,
+              transaction will expire.
             </BoxPara>
 
             <Text>
-              From Your Wallet, send {localData.amountPay} {coinName} to MoonPay's deposit address below.
+              From Your Wallet, send {localData.amountPay} {coinName} to
+              MoonPay's deposit address below.
             </Text>
-            <FaintText>
-              Address ({localData.symbol})
-            </FaintText>
-            <InfoRow style={{ color: "black", border: "#efdebc solid 0.5px", borderRadius: "5px", padding: "6px", backgroundColor: "#f7a6000a" }}>
-              <input style={{ fontSize: "11.5px", border: 'none', backgroundColor: "transparent", flexGrow: 1 }} type="text" disabled value={transactionId} ref={textTransactionRef} />
-              <p style={{ display: "flex", alignItems: "center", gap: "5px", cursor: "pointer", fontSize:"12px" }} onClick={copyId}><MdContentCopy />Copy</p>
+            <FaintText>Address ({localData.symbol})</FaintText>
+            <InfoRow
+              style={{
+                color: "black",
+                border: "#efdebc solid 0.5px",
+                borderRadius: "5px",
+                padding: "6px",
+                backgroundColor: "#f7a6000a",
+              }}
+            >
+              <input
+                style={{
+                  fontSize: "11.5px",
+                  border: "none",
+                  backgroundColor: "transparent",
+                  flexGrow: 1,
+                }}
+                type="text"
+                disabled
+                value={transactionId}
+                ref={textTransactionRef}
+              />
+              <p
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                }}
+                onClick={copyId}
+              >
+                <MdContentCopy />
+                Copy
+              </p>
             </InfoRow>
             <QRCodeContainer>
-              <QRCode><img src={`https://crypto-anl6.onrender.com/uploads/${image}`} width='150px' alt="QR code" /></QRCode>
+              <QRCode>
+                <img
+                  src={`https://crypto-anl6.onrender.com/uploads/${image}`}
+                  width="150px"
+                  alt="QR code"
+                />
+              </QRCode>
             </QRCodeContainer>
             <InfoRow>
               <Label>TxID:</Label>
-              {submited ? <input style={{ padding: "5px", margin: "0 5px", fontSize: "14px", flexGrow: 1, border: "black solid 1px", borderRadius: "5px" }} type="text" value={transaction} onChange={(e) => setTransaction(e.target.value)} disabled /> : <input style={{ padding: "5px", margin: "0 5px", fontSize: "14px", flexGrow: 1, border: "black solid 1px", borderRadius: "5px" }} type="text" value={transaction} onChange={(e) => setTransaction(e.target.value)} />}
+              {submited ? (
+                <input
+                  style={{
+                    padding: "5px",
+                    margin: "0 5px",
+                    fontSize: "14px",
+                    flexGrow: 1,
+                    border: "black solid 1px",
+                    borderRadius: "5px",
+                  }}
+                  type="text"
+                  value={transaction}
+                  onChange={(e) => setTransaction(e.target.value)}
+                  disabled
+                />
+              ) : (
+                <input
+                  style={{
+                    padding: "5px",
+                    margin: "0 5px",
+                    fontSize: "14px",
+                    flexGrow: 1,
+                    border: "black solid 1px",
+                    borderRadius: "5px",
+                  }}
+                  type="text"
+                  value={transaction}
+                  onChange={(e) => setTransaction(e.target.value)}
+                />
+              )}
 
-              {submited ? <SubmitButton onClick={editId}>Edit</SubmitButton> : <SubmitButton onClick={submitTrans}>Submit</SubmitButton>}
+              {submited ? (
+                <SubmitButton onClick={editId}>Edit</SubmitButton>
+              ) : (
+                <SubmitButton onClick={submitTrans}>Submit</SubmitButton>
+              )}
             </InfoRow>
             <hr />
             <Heading style={{ marginTop: "15px" }}>What Happens Next?</Heading>
-            <Text>Once We've received your crypto deposit, we'll send the pay-out within 2 days.</Text>
+            <Text>
+              Once We've received your crypto deposit, we'll send the pay-out
+              within 2 days.
+            </Text>
             <Button onClick={handleProceedClick}>Deposit Sent</Button>
           </Card>
         </Center>
@@ -524,7 +621,13 @@ const Sell4 = () => {
       {showSuccess && savedData && (
         <Modal
           title="Transaction Successful"
-          message={`Transaction ID: ${savedData.OrderId}\nAmount: ${savedData.ReceivedAmount}\nStatus: ${savedData.Status}`}
+          message={
+            <div>
+              <p>Transaction ID: {savedData.OrderId}</p>
+              <p>Amount: {savedData.ReceivedAmount}</p>
+              <p>Status: {savedData.Status}</p>
+            </div>
+          }
           onConfirm={closeSuccessPopup}
           showDoneButton
         />

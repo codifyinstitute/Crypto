@@ -114,10 +114,11 @@ const FormInput = styled.input`
 
 const FormButton = styled.button`
   background-color: #f7a600;
-  color: white;
+  color: black;
   border: none;
   padding: 0.75rem 1rem;
-  font-size: 1rem;
+  font-size: 20px;
+  font-weight: 700;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
