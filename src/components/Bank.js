@@ -390,10 +390,13 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  margin-top: 5%;
+  margin-top: 6%;
+  a{
+    text-decoration: none;
+  }
 
   @media (max-width: 430px) {
-    margin-top: 7%;
+    margin-top: 15%;
   }
 `;
 
@@ -721,7 +724,7 @@ const Bank = () => {
       <Container>
         <Header>
           <BackButton onClick={() => window.history.back()}><ChevronLeft /></BackButton>
-          <Title>Payment Methods</Title>
+          <Title>Bank Accounts</Title>
           {/*<AddButton onClick={() => setShowForm(true)}>Add New</AddButton>*/}
           <Link to='/Sell3'><AddButton>ADD new</AddButton></Link>
         </Header>
