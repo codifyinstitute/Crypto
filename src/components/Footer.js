@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import logo1 from "../assets/logoM.png"
+import logo2 from "../assets/logoM1.png"
 
 const FooterContainer = styled.footer`
   background-color: #000;
@@ -74,10 +76,18 @@ const BottomContainer = styled.div`
 const LogoContainer = styled.div`
   margin-bottom: 20px;
   text-align: center;
-
-  h4 {
-    font-size: 1.5rem;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+  div{
+    height: 50px;
+    width: 50px;
     margin-bottom: 10px;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
   }
 
   p {
@@ -192,7 +202,9 @@ const Footer = () => {
       </CoreValuesContainer>
       <BottomContainer>
         <LogoContainer>
-          <h4>MoonPay LOGO</h4>
+          <div>
+          <img src={logo1} alt="moonpay" />
+          </div>
           <p>Trade Smarter, Trade Better</p>
         </LogoContainer>
         <Column>

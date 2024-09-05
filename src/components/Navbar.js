@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import logo1 from "../assets/logoM1.png"
+import logo2 from "../assets/logoM.png"
+
 
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -8,11 +11,12 @@ const NavbarContainer = styled.nav`
   top: 0;
   left: 0;
   background-color: black;
-  padding: 15px 20px;
+  padding: 25px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+ 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 768px) {
@@ -28,6 +32,32 @@ const NavbarContainer = styled.nav`
   }
 `;
 
+const NavbarWrapper= styled.div`
+background-color: black;
+height: 50px;
+width: 100%;
+position: fixed;
+top: 0;
+@media (min-width: 769px) {
+    display: none;
+  }
+`
+
+const TopLogo = styled.div`
+    height: 20px;
+    width: 115px;
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+@media (min-width: 769px) {
+    display: none;
+  }
+`
+
 const Logo = styled.div`
   display: flex;
   align-items: center;
@@ -36,8 +66,8 @@ const Logo = styled.div`
   color: white;
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 145px;
+    height: 28px;
     margin-right: 10px;
   }
 
@@ -124,8 +154,14 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
+      <NavbarWrapper>
+      <TopLogo>
+      <img src={logo1} alt="Logo" />
+
+      </TopLogo>
+      </NavbarWrapper>
       <Logo>
-        <img src="logo-path.png" alt="Logo" />
+        <img src={logo1} alt="Logo" />
       </Logo>
       <NavLinks>
         <li>

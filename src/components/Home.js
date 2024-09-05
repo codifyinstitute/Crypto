@@ -619,12 +619,6 @@ const AnimatedDropdownContainer = styled.div`
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
   transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
 
-
-  
-  /* @media (max-width: 375px) {
-    max-width: 100%;
-
-  } */
 `;
 
 const DropdownHeader = styled.div`
