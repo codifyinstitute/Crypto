@@ -163,7 +163,7 @@ const Link = styled.a`
 `;
 
 const Button = styled.button`
-  background-color: #fbaf53;
+  background-color: #f7a600;
   color: black;
   border: none;
   padding: 16px;
@@ -178,7 +178,7 @@ const Button = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #d78b2d;
+    background-color: #e69500;
   }
 `;
 

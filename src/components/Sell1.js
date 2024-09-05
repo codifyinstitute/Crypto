@@ -30,7 +30,7 @@ const ExchangeCard = styled.div`
   width: 380px;
   height: 610px;
   max-width: 100%;
-  margin-top: 10%;
+  margin-top: 12%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
