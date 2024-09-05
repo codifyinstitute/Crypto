@@ -195,13 +195,13 @@ const Card = styled.div`
 `;
 
 const CardTitle = styled.h4`
-  margin-right: 1rem;
+  display: flex;
+  justify-content: space-between;
   color: inherit;
   cursor: pointer;
   font-size: 18px;
   padding: 0.3rem 0;
   border-bottom: 2px solid inherit;
-  width: fit-content;
   font-weight: 500;
   margin-bottom: 1%;
 `;
@@ -465,7 +465,7 @@ const Sell3 = () => {
                       }
                       onClick={() => handleCardClick(account)}
                     >
-                      <CardTitle>Account {index + 1}</CardTitle>
+                      <CardTitle><span>Bank Name</span> <span>{account.BankName}</span></CardTitle>
                       <Crosss>
                         <strong>Account Number:</strong> {account.AccountNumber}
                       </Crosss>
