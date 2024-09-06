@@ -383,6 +383,13 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 20px;
   color: white;
+  padding-top: 100px;
+  @media (max-width: 760px) {
+    padding-top: 80px;
+  }
+  @media (max-width: 430px) {
+    padding-top: 70px;
+  }
 `;
 
 const Header = styled.div`
@@ -390,14 +397,11 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  margin-top: 6%;
   a{
     text-decoration: none;
   }
 
-  @media (max-width: 430px) {
-    margin-top: 15%;
-  }
+  
 `;
 
 const Title = styled.h1`

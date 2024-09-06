@@ -14,10 +14,14 @@ const PageContainer = styled.div`
   flex-direction: column;
   min-height: 100vh;
   background-color: black;
+  padding-top: 140px;
+
   @media (max-width: 480px) {
     display: flex;
     align-items: center;
     justify-content: center;
+  padding-top: 80px;
+
   }
 `;
 
@@ -25,7 +29,7 @@ const FormWrapper = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   padding-bottom: 20px;
 `;
 
@@ -40,14 +44,13 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-top: 10%;
 
 
 
-  @media (max-width: 480px) {
+  @media (max-width: 380px) {
     padding: 1rem;
     margin: 0px 15px;
-    width: auto;
+    width: 100%;
   }
 `;
 
@@ -204,12 +207,18 @@ const CardTitle = styled.h4`
   border-bottom: 2px solid inherit;
   font-weight: 500;
   margin-bottom: 1%;
+  @media (max-Width:480px){
+font-size: 16px;
+  }
 `;
 
 const Crosss = styled.p`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  @media (max-Width:480px){
+font-size: 14px;
+  }
 `;
 
 const BackButton = styled.button`

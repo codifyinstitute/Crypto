@@ -25,7 +25,7 @@ const checkMarkAnimation = keyframes`
 const SuccessContainer = styled.div`
  
   width: 100%;
-  background-color: #dff0d8;
+  /* background-color: #dff0d8; */
   border-radius: 10px;
   padding: 20px;
 
@@ -40,14 +40,19 @@ justify-content: center;
 
 // Styled check mark
 const CheckMark = styled.svg`
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   stroke: #4caf50;
   stroke-width: 5;
   fill: none;
+
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: ${checkMarkAnimation} 3s ease forwards;
+  animation: ${checkMarkAnimation} 5s ease forwards;
+
+  background-color: #dff0d8;
+    border-radius: 50%;
+    padding: 10px;
 `;
 
 // Success message text

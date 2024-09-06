@@ -19,17 +19,21 @@ const PageContainer = styled.div`
   background-color: black;
   color: white;
   padding: 20px;
+  padding-top: 140px;
+  @media (max-width: 480px) {
+  padding-top: 80px;
+
+  }
 `;
 
 const Card = styled.div`
   background-color: white;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   padding: 20px;
   width: 380px;
   height: 610px;
   color: black;
-  margin-top: 6%;
-  margin-bottom: 20px;
+ 
 
   @media (max-width: 430px) {
     width: 100%;

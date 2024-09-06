@@ -19,6 +19,11 @@ const PageContainer = styled.div`
   min-height: 100vh;
   background-color: black;
   padding: 20px;
+  padding-top: 140px;
+  @media (max-width: 480px) {
+  padding-top: 80px;
+
+  }
 `;
 const TabContainer = styled.div`
   display: flex;
@@ -38,7 +43,7 @@ const Card = styled.div`
   background-color: white;
   color: white;
   padding: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   width: 380px;
   height: 610px;
   /* max-width: 100%; */
@@ -46,7 +51,6 @@ const Card = styled.div`
   flex-direction: column;
   overflow-y: auto;
   /* justify-content: space-between; */
-  margin-top: 5%;
 
   @media (max-width: 375px) {
     /* padding: 1rem; */
@@ -153,7 +157,7 @@ const Center = styled.div`
   height: calc(100vh - 64px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 
   .example::-webkit-scrollbar {
     display: none;
