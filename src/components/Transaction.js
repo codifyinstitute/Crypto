@@ -72,7 +72,7 @@ const TransactionCard = styled.div`
 const TransactionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 10px; 
 `;
 
 const TransactionDetails = styled.div`
