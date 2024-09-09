@@ -10,6 +10,7 @@ const Container = styled.div`
   font-family: Arial, sans-serif;
 width: 800px;
   margin: 0 auto;
+  margin-bottom: 25px;
   /* margin-bottom: 30%; */
 
   @media (max-width: 1024px) {

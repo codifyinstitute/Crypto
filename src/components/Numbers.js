@@ -15,6 +15,10 @@ import image9 from "../assets/Item-9.png";
 import image10 from "../assets/Item-10.png";
 import image11 from "../assets/Item-11.png";
 import image12 from "../assets/Item-12.png";
+import currancy1 from "../assets/imagecurrancy1.png";
+import currancy2 from "../assets/imagecurrancy2.png";
+import currancy3 from "../assets/imagecurrancy3.png";
+import currancy4 from "../assets/imagecurrancy4.png";
 
 const DashboardContainer = styled.div`
   background: linear-gradient(to right, #1a202c, #2d3748, #4a5568);
@@ -24,6 +28,9 @@ const DashboardContainer = styled.div`
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const Main = styled.div`
@@ -77,14 +84,25 @@ const StatValue = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-const StatTitle = styled.p`
+const StatTitle = styled.div`
   font-size: 0.875rem;
   color: white;
+  @media (max-width: 768px) {
+    height: 34px;
+  }
+  @media (max-width: 480px) {
+    height: 15px;
+  }
 `;
 
 const IconWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  height: 35px;
+  margin-top: 10px;
+  @media (max-width: 480px) {
+margin-top: 20px;
+  }
 `;
 const PaymentMethods = styled.div`
   margin-top: 20px;
@@ -110,7 +128,7 @@ const StyledIcon = styled.div`
   color: white;
 `;
 
-const StatItem = ({ title, value, icons }) => (
+const StatItem = ({ title, value, image }) => (
   <StatItemWrapper>
     <StatContent>
       <TextContent>
@@ -118,11 +136,12 @@ const StatItem = ({ title, value, icons }) => (
         <StatTitle>{title}</StatTitle>
       </TextContent>
       <IconWrapper>
-        {icons.map((Icon, index) => (
+        {/* {image.map((Icon, index) => (
           <StyledIcon key={index}>
             <Icon size={16} />
           </StyledIcon>
-        ))}
+        ))} */}
+        {image && <img src={image} alt={title} className="stat-image" />}
       </IconWrapper>
     </StatContent>
   </StatItemWrapper>
@@ -136,22 +155,26 @@ const StatsDashboard = () => {
           <StatItem
             title="Supported countries"
             value="170+"
-            icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+            // icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+            image={currancy1}
           />
           <StatItem
             title="Fiat currencies"
             value="50+"
-            icons={[DollarSign, Euro, Euro]}
+            // icons={[DollarSign, Euro, Euro]}
+            image={currancy2}
           />
           <StatItem
             title="Fiat payment channels"
             value="300+"
-            icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+            // icons={[DollarSign, Euro, Bitcoin, DollarSign]}
+            image={currancy3}
           />
           <StatItem
             title="Cryptocurrencies supported"
             value="ALL"
-            icons={[Bitcoin, Euro, Bitcoin]}
+            // icons={[Bitcoin, Euro, Bitcoin]}
+            image={currancy4}
           />
         </StatsWrapper>
       </DashboardContainer>

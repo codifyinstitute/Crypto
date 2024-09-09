@@ -126,6 +126,11 @@ const Button = styled.button`
   margin: 0 0.5rem;
   cursor: pointer;
   border-radius: 4px;
+  @media (max-width: 320px) {
+    
+    margin-bottom: 1rem;
+    
+  }
 `;
 
 const Web3Projects = () => {

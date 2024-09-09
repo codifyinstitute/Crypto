@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import { ChevronLeft } from 'lucide-react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { ChevronLeft } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   background-color: #121212;
@@ -15,12 +15,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 100px;
+  @media (max-width: 760px) {
+    padding-top: 80px;
+  }
+  @media (max-width: 430px) {
+    padding-top: 70px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
-  margin-top: 6%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,15 +35,15 @@ const Title = styled.h1`
 
 const TabContainer = styled.div`
   display: flex;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
   border-radius: 25px;
   overflow: hidden;
   margin-bottom: 20px;
 `;
 
 const Tab = styled.button`
-  background-color: ${props => props.active ? '#121212' : 'transparent'};
-  color: ${props => props.active ? '#FFA500' : 'white'};
+  background-color: ${(props) => (props.active ? "#121212" : "transparent")};
+  color: ${(props) => (props.active ? "#FFA500" : "white")};
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -45,7 +51,7 @@ const Tab = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${props => props.active ? '#121212' : '#2A2A2A'};
+    background-color: ${(props) => (props.active ? "#121212" : "#2A2A2A")};
   }
 `;
 
@@ -57,7 +63,7 @@ const TransactionList = styled.div`
 const TransactionCard = styled.div`
   background-color: white;
   color: black;
-  border: 1px solid #FFA500;
+  border: 1px solid #ffa500;
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 10px;
@@ -82,15 +88,13 @@ const TransactionColumn = styled.div`
 
 const BackButton = styled.button`
   background-color: transparent;
-  color: #FFA500;
+  color: #ffa500;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  /* z-index: 1001; */
-  /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
@@ -106,14 +110,14 @@ const BackButton = styled.button`
 `;
 
 const Label = styled.span`
-  color: #FFA500;
+  color: #ffa500;
   font-size: 15px;
   margin-bottom: 5px;
 `;
 
 const Para = styled.p`
-width: 100%;
-text-align: center;
+  width: 100%;
+  text-align: center;
 `;
 
 const Value = styled.span`
@@ -121,32 +125,34 @@ const Value = styled.span`
 `;
 
 const StatusValue = styled(Value)`
-  color: ${props => {
+  color: ${(props) => {
     switch (props.status) {
-      case 'Completed':
-        return '#4CAF50'; // Green
-      case 'Pending':
-        return '#FF6347'; // Red
-      case 'Successfully':
-        return '#4CAF50'; // Green (keeping the original green for 'Successfully')
+      case "Completed":
+        return "#4CAF50"; // Green
+      case "Pending":
+        return "#FF6347"; // Red
+      case "In Transit":
+        return "#FFA500"; // Orange for "In Transit"
       default:
-        return 'inherit'; // Default color for other statuses
+        return "inherit"; // Default color for other statuses
     }
   }};
 `;
 
 const Transaction = () => {
-  const [activeTab, setActiveTab] = useState('Pending');
+  const [activeTab, setActiveTab] = useState("Pending");
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      const email = localStorage.getItem('token');
+      const email = localStorage.getItem("token");
       if (email) {
         try {
-          const response = await fetch(`https://crypto-anl6.onrender.com/transactions/get/email/${email}`);
-          if (!response.ok) throw new Error('Failed to fetch transactions');
+          const response = await fetch(
+            `https://crypto-anl6.onrender.com/transactions/get/email/${email}`
+          );
+          if (!response.ok) throw new Error("Failed to fetch transactions");
           const data = await response.json();
           setTransactions(data);
         } catch (error) {
@@ -155,7 +161,7 @@ const Transaction = () => {
           setLoading(false);
         }
       } else {
-        toast.error('No email found in local storage');
+        toast.error("No email found in local storage");
         setLoading(false);
       }
     };
@@ -163,7 +169,12 @@ const Transaction = () => {
     fetchTransactions();
   }, []);
 
-  if (loading) return <Container><Title>Loading...</Title></Container>;
+  if (loading)
+    return (
+      <Container>
+        <Title>Loading...</Title>
+      </Container>
+    );
 
   return (
     <>
@@ -176,13 +187,28 @@ const Transaction = () => {
           <Para>Transactions History</Para>
         </Title>
         <TabContainer>
-          <Tab active={activeTab === 'Pending'} onClick={() => setActiveTab('Pending')}>Pending</Tab>
-          <Tab active={activeTab === 'In Transsit'} onClick={() => setActiveTab('Money Received')}>In Transit</Tab>
-          <Tab active={activeTab === 'Completed'} onClick={() => setActiveTab('Completed')}>Completed</Tab>
+          <Tab
+            active={activeTab === "Pending"}
+            onClick={() => setActiveTab("Pending")}
+          >
+            Pending
+          </Tab>
+          <Tab
+            active={activeTab === "In Transit"}
+            onClick={() => setActiveTab("In Transit")}
+          >
+            In Transit
+          </Tab>
+          <Tab
+            active={activeTab === "Completed"}
+            onClick={() => setActiveTab("Completed")}
+          >
+            Completed
+          </Tab>
         </TabContainer>
         <TransactionList>
           {transactions
-            .filter(transaction => transaction.Status === activeTab)
+            .filter((transaction) => transaction.Status === activeTab)
             .map((transaction, index) => (
               <TransactionCard key={index}>
                 <TransactionHeader>
@@ -190,7 +216,6 @@ const Transaction = () => {
                   <Value> Date : {transaction.Date}</Value>
                 </TransactionHeader>
                 <TransactionDetails>
-             
                   <TransactionColumn>
                     <Label>Bank Name</Label>
                     <Value>{transaction.BankName}</Value>
@@ -204,9 +229,11 @@ const Transaction = () => {
                     <Value>${transaction.ReceivedAmount}</Value>
                   </TransactionColumn>
                   <TransactionColumn>
-                  <Label>Status</Label>
-                  <StatusValue status={transaction.Status}>{transaction.Status}</StatusValue>
-                </TransactionColumn>
+                    <Label>Status</Label>
+                    <StatusValue status={transaction.Status}>
+                      {transaction.Status}
+                    </StatusValue>
+                  </TransactionColumn>
                 </TransactionDetails>
               </TransactionCard>
             ))}

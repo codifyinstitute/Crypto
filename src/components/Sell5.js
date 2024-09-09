@@ -3,20 +3,21 @@ import styled from "styled-components";
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft } from "lucide-react";
 import HomeContact from "./HomeContact";
-
 
 const Main = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color:  black;
+  background-color: black;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: 140px;
+  @media (max-width: 480px) {
+  padding-top: 80px;
 
-    flex-direction: column;
-   
-    padding: 20px;
+  }
 `;
 
 const Container = styled.div`
@@ -27,13 +28,11 @@ const Container = styled.div`
   border-radius: 12px;
   width: 380px;
   height: 610px;
-  font-family: 'Inter', Arial, sans-serif;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-family: "Inter", Arial, sans-serif;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   @media (max-width: 430px) {
-
     width: 100%;
-
-    
   }
 `;
 
@@ -54,10 +53,10 @@ const Tab = styled.div`
   color: orange;
   border-bottom: 2px solid orange;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: 700;
   text-align: left;
 `;
-
 
 const EUFlag = styled.div`
   background-color: #003399;
@@ -69,7 +68,8 @@ const EUFlag = styled.div`
   align-items: center;
   margin: 36px auto;
   position: relative;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 `;
 
 const Stars = styled.div`
@@ -161,8 +161,8 @@ const Link = styled.a`
 `;
 
 const Button = styled.button`
-  background-color: #fbaf53;
-  color: white;
+  background-color: #f7a600;
+  color: black;
   border: none;
   padding: 16px;
   border-radius: 8px;
@@ -171,19 +171,19 @@ const Button = styled.button`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #d78b2d;
+    background-color: #e69500;
   }
 `;
 
 const BackButton = styled.button`
   /* background-color: #FFA500; */
   background-color: transparent;
-  color: #FFA500;
+  color: #ffa500;
   border: none;
   /* padding: 8px 16px; */
   border-radius: 20px;
@@ -196,7 +196,8 @@ const BackButton = styled.button`
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
-  @media (max-width: 1024px) { // Show on tablet and mobile
+  @media (max-width: 1024px) {
+    // Show on tablet and mobile
     display: block;
   }
 
@@ -212,75 +213,80 @@ const Sell5 = () => {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
 
-    <Main>
+      <Main>
+        <Container>
+          <Header>
+            <TabContainer>
+              <BackButton onClick={() => window.history.back()}>
+                {" "}
+                <ChevronLeft></ChevronLeft>
+              </BackButton>
+              <Tab active>Almost Done</Tab>
+            </TabContainer>
+          </Header>
 
-      <Container>
-        <Header>
-        <TabContainer>
-        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft>
-        </BackButton><Tab active>Almost Done</Tab>
-          </TabContainer>
-        </Header>
+          <EUFlag>
+            <Stars>
+              {[...Array(starCount)].map((_, i) => (
+                <Star
+                  key={i}
+                  style={{
+                    left: `${
+                      40 + 30 * Math.cos((2 * Math.PI * i) / starCount)
+                    }px`,
+                    top: `${
+                      40 + 30 * Math.sin((2 * Math.PI * i) / starCount)
+                    }px`,
+                  }}
+                />
+              ))}
+            </Stars>
+          </EUFlag>
 
-        <EUFlag>
-          <Stars>
-            {[...Array(starCount)].map((_, i) => (
-              <Star
-                key={i}
-                style={{
-                  left: `${40 + 30 * Math.cos((2 * Math.PI * i) / starCount)}px`,
-                  top: `${40 + 30 * Math.sin((2 * Math.PI * i) / starCount)}px`,
-                }}
-              />
-            ))}
-          </Stars>
-        </EUFlag>
+          <Timeline>
+            <TimelineItem>
+              <TimelineDot active />
+              <TimelineLabel active>Verified</TimelineLabel>
+              <TimelineLabel active>3:37 PM</TimelineLabel>
+            </TimelineItem>
+            <TimelineItem>
+              <TimelineDot active />
+              <TimelineLabel active>Pending</TimelineLabel>
+            </TimelineItem>
+            <TimelineItem>
+              <TimelineDot />
+              <TimelineLabel>Processing</TimelineLabel>
+            </TimelineItem>
+            <TimelineItem>
+              <TimelineDot />
+              <TimelineLabel>Sent</TimelineLabel>
+            </TimelineItem>
+          </Timeline>
 
-        <Timeline>
-          <TimelineItem>
-            <TimelineDot active />
-            <TimelineLabel active>Verified</TimelineLabel>
-            <TimelineLabel active>3:37 PM</TimelineLabel>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineDot active />
-            <TimelineLabel active>Pending</TimelineLabel>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineDot />
-            <TimelineLabel>Processing</TimelineLabel>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineDot />
-            <TimelineLabel>Sent</TimelineLabel>
-          </TimelineItem>
-        </Timeline>
+          <InfoBox>
+            <InfoTitle>
+              <AlertCircle size={20} style={{ marginRight: "10px" }} />
+              Waiting for deposit
+            </InfoTitle>
+            <InfoText>
+              To complete your transaction, please send us your crypto.
+            </InfoText>
+            <InfoText>
+              If you no longer want to sell, you can still{" "}
+              <Link href="#">cancel this order</Link>.
+            </InfoText>
+          </InfoBox>
 
-        <InfoBox>
-          <InfoTitle>
-            <AlertCircle size={20} style={{ marginRight: "10px" }} />
-            Waiting for deposit
-          </InfoTitle>
-          <InfoText>
-            To complete your transaction, please send us your crypto.
-          </InfoText>
-          <InfoText>
-            If you no longer want to sell, you can still{" "}
-            <Link href="#">cancel this order</Link>.
-          </InfoText>
-        </InfoBox>
-
-        <Button>
-          View deposit details
-          <ChevronRight size={24} />
-        </Button>
-      </Container>
-
-    </Main>
-    <HomeContact/>
-    <Footer/>
+          <Button>
+            View deposit details
+            <ChevronRight size={24} />
+          </Button>
+        </Container>
+      </Main>
+      <HomeContact />
+      <Footer />
     </>
   );
 };

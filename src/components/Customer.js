@@ -83,6 +83,9 @@ const TestimonialCard = styled.div`
     text-align: left;
     gap: 0;
   }
+  @media (max-width: 320px) {
+    margin-top: 21%;
+  }
 `;
 
 const Avatar = styled.div`

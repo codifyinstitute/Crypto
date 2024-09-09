@@ -19,7 +19,13 @@ const TradingEnvironment = styled.div`
   align-items: center;
   padding: 20px;
   background-color:black;
-  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Roboto', sans-serif;
+  padding-top: 140px;
+  @media (max-width: 480px) {
+  padding-top: 80px;
+
+  }
+  
 `;
 
 const ExchangeCard = styled.div`
@@ -30,11 +36,14 @@ const ExchangeCard = styled.div`
   width: 380px;
   height: 610px;
   max-width: 100%;
-  margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* @media (max-width: 430px) {
+  margin-top: 15%;
+   
+  } */
 `;
 
 const TabContainer = styled.div`
@@ -110,12 +119,18 @@ const UpdateText = styled.div`
   color: #888;
   text-align: right;
   margin-top: 0.5rem;
+  
+ 
 `;
 
 const OrderSummary = styled.div`
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
+
+  P{
+    font-size: 0.9rem;
+  }
 `;
 
 const OrderTitle = styled.div`
@@ -166,6 +181,10 @@ const PaymentMethods = styled.div`
   align-items: center;
   margin-top: 1rem;
   gap: 0.5rem;
+  @media (max-width: 430px) {
+  margin-top: 10px;
+   
+  }
 `;
 
 const PaymentIcon = styled.div`
@@ -181,9 +200,13 @@ const PaymentIcon = styled.div`
 
 const PoweredBy = styled.div`
   font-size: 0.8rem;
-  color: #888;
+  color: black;
   text-align: center;
   margin-top: 0.5rem;
+  @media (max-width: 430px) {
+    margin-top: 0px;
+    ;
+  }
 `;
 const AnimatedDropdownContainer = styled.div`
   position: absolute;
@@ -534,7 +557,7 @@ const Card = styled.div`
 const Sell1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [usdt, setUsdt] = useState(location.state?.amount || '25167.79');
+  const [usdt, setUsdt] = useState(location.state?.amount || '1');
   const [isValid, setIsValid] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
@@ -722,7 +745,7 @@ const Sell1 = () => {
           <OrderTitle onClick={toggleDetailsExpanded}>
             <b>Your order</b>
             <div style={{ display: "flex" }}>
-              {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+              {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
               {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </div>
           </OrderTitle>

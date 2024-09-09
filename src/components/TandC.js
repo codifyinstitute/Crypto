@@ -1,33 +1,62 @@
 import React from 'react';
 import styled from 'styled-components';
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 const PageContainer = styled.div`
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: white;
   background-color: black;
-  /* max-width: 800px; */
+   /* Restrict width for better readability */
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const Title = styled.h1`
-  color: yellow;
+  color: orange;
   border-bottom: 2px solid orange;
   padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem; /* Adjust font size for readability */
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
 `;
 
 const SectionHeader = styled.h2`
   color: orange;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.5rem; /* Adjust font size for readability */
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Section = styled.div`
   margin-bottom: 20px;
+  text-align: center;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 15px;
+  }
 `;
 
 const ImportantText = styled.p`
   font-weight: bold;
-  color: yellow;
+  color: orange;
+  margin: 10px 0;
+  text-align: center;
 `;
 
 const Link = styled.a`
@@ -35,11 +64,26 @@ const Link = styled.a`
 `;
 
 const List = styled.ul`
-  color: white;
+  display: flex;
+    color: white;
+    text-align: center;
+    padding-left: 20px;
+    list-style-type: disc;
+    width: fit-content;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+  @media (max-width: 768px) {
+    padding-left: 15px;
+  }
 `;
 
 const TermsAndConditions = () => {
   return (
+    <>
+    <Navbar/>
     <PageContainer>
       <Title>Moon Pay - Terms and Conditions</Title>
       
@@ -116,6 +160,8 @@ const TermsAndConditions = () => {
         <ImportantText>By using our services, you agree to these terms. Moon Pay is committed to privacy, providing a secure crypto trading experience. For questions, contact us. Trust is crucial, and we're here for a secure financial journey.</ImportantText>
       </Section>
     </PageContainer>
+    <Footer/>
+    </>
   );
 };
 

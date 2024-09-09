@@ -194,7 +194,7 @@ const Home = () => {
               <OrderTitle onClick={toggleDetailsExpanded}>
                 <b>Your order</b>
                 <div style={{ display: "flex" }}>
-                  {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+                  {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
                   {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                 </div>
               </OrderTitle>
@@ -242,7 +242,7 @@ const Home = () => {
             </PoweredBy>
           </div>
           <Indicator onClick={toggleCardVisibility}>
-            <Info size={20} />
+         
           </Indicator>
           {isCardVisible && (
             <Card>
@@ -528,6 +528,10 @@ const OrderSummary = styled.div`
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
+
+  P{
+    font-size: 0.9rem;
+  }
 `;
 
 const OrderTitle = styled.div`
@@ -597,7 +601,7 @@ const PaymentIcon = styled.div`
 
 const PoweredBy = styled.div`
   font-size: 0.8rem;
-  color: #888;
+  color: black;
   text-align: center;
   margin-top: 0.5rem;
 `;
@@ -619,12 +623,6 @@ const AnimatedDropdownContainer = styled.div`
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
   transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
 
-
-  
-  /* @media (max-width: 375px) {
-    max-width: 100%;
-
-  } */
 `;
 
 const DropdownHeader = styled.div`
