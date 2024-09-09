@@ -319,7 +319,7 @@ const Sell3 = () => {
       /^[A-Za-z\s]+$/.test(accountHolder.trim()) &&
       country.trim() !== "" &&
       /^[A-Za-z\s]+$/.test(bankName.trim()) &&
-      /^\d{9,15}$/.test(accountNumber.trim()) &&
+      /^\d{7,15}$/.test(accountNumber.trim()) &&
       /^[A-Z0-9]+$/.test(ifsc.trim());
     setIsFormValid(isValid);
   };

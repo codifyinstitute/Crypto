@@ -427,10 +427,11 @@ const Sell4 = () => {
 
   return (
     <>
+    <Navbar />
       <PageContainer>
         <ToastContainer />
 
-        <Navbar />
+       
         <Center>
           <Card className="example">
             <TabContainer>

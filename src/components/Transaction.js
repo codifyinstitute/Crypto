@@ -132,7 +132,7 @@ const StatusValue = styled(Value)`
       case "Pending":
         return "#FF6347"; // Red
       case "In Transit":
-        return "#FFA500"; // Orange for "In Transit"
+        return "#FF6347"; // Orange for "In Transit"
       default:
         return "inherit"; // Default color for other statuses
     }

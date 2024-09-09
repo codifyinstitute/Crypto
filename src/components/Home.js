@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp, ChevronLeft, Info, X, ChevronRight } from "luci
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/payment.png";
+import bg2 from "./../assets/bg1.jpg";
 
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
@@ -421,13 +422,16 @@ const RateLabel = styled.span`
   border-radius: 0.25rem;
   font-size: 0.8rem;
 `;
-
 const ExchangeSection = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #1a1a1a;
+  background-image: url(${bg2}); /* Use the imported bg image directly */
+  background-size: cover; /* Ensures the image covers the entire section */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 
   @media (max-width: 1024px) {
     width: 100%;
