@@ -19,7 +19,7 @@ const TradingEnvironment = styled.div`
   align-items: center;
   padding: 20px;
   background-color:black;
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
 `;
 
 const ExchangeCard = styled.div`
