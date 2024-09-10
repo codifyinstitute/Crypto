@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Container = styled.div`
   /* background-color: #1a1a1a; */
@@ -68,7 +69,7 @@ const ContactSection = () => {
       <SubText>
         Your dream property is just a click away. Whether you're looking for a new home, a strategic investment, or expert real estate advice, Estatum is here to
       </SubText>
-      <Button>Contact Us</Button>
+      <Link to="/contactus"><Button>Contact Us</Button></Link>
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import contact from '../assets/contact.png'
 import Footer from "./Footer";
 import Navbar from "./Navbar";
@@ -125,17 +125,44 @@ const SubmitButton = styled.button`
   width: 100%;
   max-width: 200px;
   align-self: center;
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const SuccessMessage = styled.div`
+  background-color: #4caf50;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  animation: ${fadeIn} 0.5s ease-out;
 `;
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
+    Name: "",
+    Email: "",
+    MobileNo: "",
+    Message: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -148,37 +175,58 @@ const ContactUs = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
+    if (!formData.Name.trim()) {
+      newErrors.Name = "Name is required";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+    if (!formData.Email.trim()) {
+      newErrors.Email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.Email)) {
+      newErrors.Email = "Invalid email format";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Invalid phone number (10 digits required)";
+    if (!formData.MobileNo.trim()) {
+      newErrors.MobileNo = "Phone number is required";
+    } else if (!/^\d{10}$/.test(formData.MobileNo)) {
+      newErrors.MobileNo = "Invalid phone number (10 digits required)";
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
+    if (!formData.Message.trim()) {
+      newErrors.Message = "Message is required";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Submit the form
-      console.log("Form submitted:", formData);
-      // Reset form after submission
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setIsSubmitting(true);
+      try {
+        const response = await fetch("https://crypto-anl6.onrender.com/contacts/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          console.log("Form submitted successfully");
+          setFormData({ Name: "", Email: "", MobileNo: "", Message: "" });
+          setShowSuccess(true);
+          setTimeout(() => setShowSuccess(false), 5000); // Hide success message after 5 seconds
+        } else {
+          console.error("Form submission failed");
+          // You might want to add an error message for the user here
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        // You might want to add an error message for the user here
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -207,51 +255,59 @@ const ContactUs = () => {
                 Name<br />
                 <Input
                   type="text"
-                  name="name"
+                  name="Name"
                   placeholder="Name"
-                  value={formData.name}
+                  value={formData.Name}
                   onChange={handleChange}
                   required
                 />
-                {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                {errors.Name && <ErrorMessage>{errors.Name}</ErrorMessage>}
               </Label>
               <Label>
                 Email<br />
                 <Input
                   type="email"
-                  name="email"
+                  name="Email"
                   placeholder="Email"
-                  value={formData.email}
+                  value={formData.Email}
                   onChange={handleChange}
                   required
                 />
-                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
               </Label>
               <Label>
                 Contact no<br />
                 <Input
                   type="tel"
-                  name="phone"
+                  name="MobileNo"
                   placeholder="Phone"
-                  value={formData.phone}
+                  value={formData.MobileNo}
                   onChange={handleChange}
                   required
                 />
-                {errors.phone && <ErrorMessage>{errors.phone}</ErrorMessage>}
+                {errors.MobileNo && <ErrorMessage>{errors.MobileNo}</ErrorMessage>}
               </Label>
               <Label>
                 Message<br />
                 <Text
-                  name="message"
+                  name="Message"
                   placeholder="Message"
-                  value={formData.message}
+                  value={formData.Message}
                   onChange={handleChange}
                   required
                 />
-                {errors.message && <ErrorMessage>{errors.message}</ErrorMessage>}
+                {errors.Message && <ErrorMessage>{errors.Message}</ErrorMessage>}
               </Label>
-              <SubmitButton type="submit">SUBMIT</SubmitButton>
+              <SubmitButton type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "SUBMITTING..." : "SUBMIT"}
+              </SubmitButton>
             </Form>
+            {showSuccess && (
+              <SuccessMessage>
+                <h3>Your form has been successfully submitted</h3>
+                <p>Thank You for reaching out to Moon Pay. We will take absolute Pleasure to assist you. Our Customer Executive will contact you soon.</p>
+              </SuccessMessage>
+            )}
           </FormSection>
         </Content>
       </ContactUsContainer>

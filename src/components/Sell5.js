@@ -347,18 +347,18 @@ const Sell5 = () => {
               <span style={{fontWeight:"bold"}}>Order Id :</span> <span>{location.state.data.OrderId}</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>Amount Paid :</span> <span>{location.state.data.USDTAmount} USDT</span>
+              <span style={{fontWeight:"bold"}}>USDT Paid :</span> <span>{location.state.data.USDTAmount} USDT</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>Amount Recived :</span> <span>₹{location.state.data.ReceivedAmount}</span>
+              <span style={{fontWeight:"bold"}}>Your Recieve :</span> <span>₹{location.state.data.ReceivedAmount}</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>View Satus :</span> <span>{location.state.data.Status}</span>
+              <span style={{fontWeight:"bold"}}>Satus :</span> <span>{location.state.data.Status}</span>
             </InfoText>
           </InfoBox>
 
           <Button onClick={()=>navigate('/Transaction')}>
-            View deposit details
+            Transaction Status
             <ChevronRight size={24} />
           </Button>
         </Container>

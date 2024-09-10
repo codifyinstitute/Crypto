@@ -254,10 +254,10 @@ const Footer = () => {
         <Column>
           <LinksContainer>
             <Link to="/">Home</Link><span>|</span>
-            <Link to="/">About Us</Link><span>|</span>
-            <Link to="/">Contact Us</Link><span>|</span>
+           { /*<Link to="/">About Us</Link><span>|</span> */}
+            <Link to="/contactus">Contact Us</Link><span>|</span>
             <Link to="/TandC">Privacy Policy</Link><span>|</span>
-            <Link to="/">Terms and Conditions</Link>
+            <Link to="/terms">Terms and Conditions</Link>
           </LinksContainer>
           <DisclaimerContainer>
             <p>

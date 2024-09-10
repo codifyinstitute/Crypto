@@ -3,6 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Marquee from 'react-fast-marquee';
 import WorldMap from './WorldMap';
 import Numbers from './Numbers';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
 
 
 
@@ -186,7 +188,7 @@ const App = () => {
           mobile wallets, and domestic transfers. Comprehensive coverage in Europe, Northern & Latin America, and Southeast
           Asia, with a focus on access to emerging markets.
         </Description>
-        <TalkButton>Talk to us</TalkButton>
+        <Link to="/contactus"><TalkButton>Talk to us</TalkButton></Link> 
         <MapContainer onMouseMove={handleMouseMove}>
           <WorldMap setTooltipContent={setTooltipContent} />
           {tooltipContent && (

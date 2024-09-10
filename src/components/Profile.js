@@ -249,7 +249,7 @@ const Profile = () => {
             </MenuLink>
           </MenuItem>
           <MenuItem>
-            <MenuLink href="#">
+            <MenuLink href="/contactus">
               <IconText>
                 <Icon>📞</Icon>
                 Contact Us
