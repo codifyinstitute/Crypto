@@ -305,8 +305,8 @@ const Sell3 = () => {
       newErrors.bankName = "Bank name should only contain letters and spaces";
     }
 
-    if (accountNumber.trim() !== "" && !/^\d{9,15}$/.test(accountNumber.trim())) {
-      newErrors.accountNumber = "Account number should be 9-15 digits";
+    if (accountNumber.trim() !== "" && !/^\d{7,15}$/.test(accountNumber.trim())) {
+      newErrors.accountNumber = "Account number should be 7-15 digits";
     }
 
     if (ifsc.trim() !== "" && !/^[A-Z0-9]+$/.test(ifsc.trim())) {
@@ -353,7 +353,8 @@ const Sell3 = () => {
       setBankName("");
       setAccountNumber("");
       setIfsc("");
-      fetchData();
+      await fetchData();
+      setForm(false); // Switch to "Choose Account" view immediately after adding
     } catch (error) {
       toast.error("Error submitting account data");
       console.error("Error submitting account data:", error);
@@ -411,9 +412,8 @@ const Sell3 = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <PageContainer>
-     
         <ToastContainer />
 
         <FormWrapper>

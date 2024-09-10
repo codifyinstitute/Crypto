@@ -40,13 +40,17 @@ const Main = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const StatsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default for desktop */
+  gap: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets and mobile */
+  }
 `;
 
 const StatItemWrapper = styled.div`
-  flex: 1;
   padding: 1rem;
   text-align: center;
   position: relative;
@@ -72,6 +76,8 @@ const StatContent = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+
 `;
 
 const TextContent = styled.div`
@@ -91,7 +97,7 @@ const StatTitle = styled.div`
     height: 34px;
   }
   @media (max-width: 480px) {
-    height: 15px;
+    /* height: 15px; */
   }
 `;
 
@@ -101,9 +107,14 @@ const IconWrapper = styled.div`
   height: 35px;
   margin-top: 10px;
   @media (max-width: 480px) {
-margin-top: 20px;
+    margin-top: 20px;
   }
+  @media (max-width: 375px) {
+    width: fit-content;
+  }
+
 `;
+
 const PaymentMethods = styled.div`
   margin-top: 20px;
   width: 100%;
@@ -127,6 +138,13 @@ const StyledIcon = styled.div`
   margin-bottom: 0.25rem;
   color: white;
 `;
+const Pic = styled.img`
+width: 100%;
+@media (max-width: 320px) {
+  width: 90%;
+ 
+  }
+`;
 
 const StatItem = ({ title, value, image }) => (
   <StatItemWrapper>
@@ -136,12 +154,7 @@ const StatItem = ({ title, value, image }) => (
         <StatTitle>{title}</StatTitle>
       </TextContent>
       <IconWrapper>
-        {/* {image.map((Icon, index) => (
-          <StyledIcon key={index}>
-            <Icon size={16} />
-          </StyledIcon>
-        ))} */}
-        {image && <img src={image} alt={title} className="stat-image" />}
+        {image && <Pic src={image} alt={title} className="stat-image" />}
       </IconWrapper>
     </StatContent>
   </StatItemWrapper>
@@ -155,25 +168,21 @@ const StatsDashboard = () => {
           <StatItem
             title="Supported countries"
             value="170+"
-            // icons={[DollarSign, Euro, Bitcoin, DollarSign]}
             image={currancy1}
           />
           <StatItem
             title="Fiat currencies"
             value="50+"
-            // icons={[DollarSign, Euro, Euro]}
             image={currancy2}
           />
           <StatItem
             title="Fiat payment channels"
             value="300+"
-            // icons={[DollarSign, Euro, Bitcoin, DollarSign]}
             image={currancy3}
           />
           <StatItem
             title="Cryptocurrencies supported"
             value="ALL"
-            // icons={[Bitcoin, Euro, Bitcoin]}
             image={currancy4}
           />
         </StatsWrapper>
@@ -181,7 +190,6 @@ const StatsDashboard = () => {
 
       <PaymentMethods>
         <Marquee gradient={false} speed={50}>
-          {/* Replace with actual logo URLs */}
           <PaymentLogo src={image} alt="Visa" />
           <PaymentLogo src={image1} alt="image1" />
           <PaymentLogo src={image2} alt="image2" />
@@ -195,7 +203,6 @@ const StatsDashboard = () => {
           <PaymentLogo src={image10} alt="image10" />
           <PaymentLogo src={image11} alt="image11" />
           <PaymentLogo src={image12} alt="image12" />
-          {/* Add more payment logos here */}
         </Marquee>
       </PaymentMethods>
     </Main>
