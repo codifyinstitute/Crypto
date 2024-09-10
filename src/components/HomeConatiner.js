@@ -48,12 +48,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const FooterWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  z-index: 3;
-`;
+
 
 const HomeContainer = () => {
   return (
@@ -74,11 +69,11 @@ const HomeContainer = () => {
         <Numbers />
         <Homelogo />
         <Homelogo2 />
-
+  <HomeContact1 />
+        <Footer />
       
       </ContentWrapper>
-      <HomeContact1 />
-        <Footer />
+    
  
     </GlobeContainer>
   );

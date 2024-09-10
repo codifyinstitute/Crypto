@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import logo1 from "../assets/logoM.png"
-import logo2 from "../assets/logoM1.png"
 
 const FooterContainer = styled.footer`
   background-color: #000;
@@ -13,39 +13,39 @@ const FooterContainer = styled.footer`
   border-top: 4px solid #ff9900;
   text-align: center;
   flex-wrap: wrap;
-  
+  width: 100%;
 `;
+
 const Header = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-h2{
-  color: white;
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-hr{
-  width: 70%;
-}
-
-@media (max-width: 768px) {
-
-  h2{
-    font-size: 1.6rem;
+  h2 {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
-}
-
-@media (max-width: 480px) {
-  align-items: flex-start;
-  margin-left: 18px;
-  h2{
-    font-size: 1.2rem;
+  hr {
+    width: 70%;
   }
-}
-`
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    align-items: flex-start;
+    margin-left: 18px;
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+`;
 
 const CoreValuesContainer = styled.div`
   display: flex;
@@ -69,14 +69,14 @@ const CoreValue = styled.div`
     font-size: 1.5rem;
     margin-bottom: 10px;
     color: #ffa500;
+
     @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
+      font-size: 1.2rem;
+    }
 
-  @media (max-width: 480px) {
-    font-size: 1rem;
-  }
-
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 
   p {
@@ -84,12 +84,11 @@ const CoreValue = styled.div`
     line-height: 1.5;
 
     @media (max-width: 768px) {
-    font-size: 1rem;
+      font-size: 1rem;
     }
     @media (max-width: 480px) {
-    font-size: 0.8rem;
+      font-size: 0.8rem;
     }
-
   }
 `;
 
@@ -111,9 +110,10 @@ const LogoContainer = styled.div`
   margin-bottom: 20px;
   text-align: center;
   display: flex;
-    flex-direction: column;
-    align-items: center;
-  div{
+  flex-direction: column;
+  align-items: center;
+
+  div {
     height: 50px;
     width: 50px;
     margin-bottom: 10px;
@@ -135,9 +135,9 @@ const LinksContainer = styled.div`
   justify-content: center;
   gap: 9px;
   margin-bottom: 20px;
+
   @media (max-width: 768px) {
     margin-bottom: 12px;
-
   }
 
   a {
@@ -148,34 +148,40 @@ const LinksContainer = styled.div`
     &:hover {
       text-decoration: underline;
     }
+
     @media (max-width: 768px) {
-   font-size: 1.2rem;
-   cursor: pointer;
-  }
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
     @media (max-width: 480px) {
-   font-size: 18px;
-   cursor: pointer;
+      font-size: 18px;
+      cursor: pointer;
+    }
   }
-  }
-  span{
+
+  span {
     font-size: 1.5rem;
-      @media (max-width: 480px) {
-   font-size: 1rem;
-  }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
   }
 `;
-const Column = styled.div`
-display: flex;
-flex-direction: column;
-margin: 0px 20px;
 
-@media (max-width: 768px) {
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
   margin: 0px 20px;
+
+  @media (max-width: 768px) {
+    margin: 0px 20px;
   }
   @media (max-width: 480px) {
-  margin: 0px 0px;
+    margin: 0px 0px;
   }
 `;
+
 const DisclaimerContainer = styled.div`
   max-width: 735px;
   font-size: 1rem;
@@ -183,9 +189,9 @@ const DisclaimerContainer = styled.div`
   margin-bottom: 20px;
   border: 2px solid #ff9900;
   padding: 10px;
-  @media (max-width: 768px) {
-  font-size: 0.8rem;
 
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
   }
 `;
 
@@ -201,20 +207,20 @@ const SocialMediaContainer = styled.div`
     &:hover {
       color: #ff9900;
     }
+
     @media (max-width: 480px) {
-   padding-bottom: 30px;
-  }
+      padding-bottom: 30px;
+    }
   }
 `;
 
 const Footer = () => {
   return (
     <FooterContainer>
-    <Header><h2>Our Core Value</h2>
-    <hr></hr>
-    </Header>
+      <Header>
+        <h2>Our Core Value</h2>
+      </Header>
       <CoreValuesContainer>
-
         <CoreValue>
           <h3>Transparency</h3>
           <p>
@@ -241,17 +247,17 @@ const Footer = () => {
       <BottomContainer>
         <LogoContainer>
           <div>
-          <img src={logo1} alt="moonpay" />
+            <img src={logo1} alt="moonpay" />
           </div>
           <p>Trade Smarter, Trade Better</p>
         </LogoContainer>
         <Column>
           <LinksContainer>
-            <a href="/">Home</a><span>|</span>
-            <a href="/">About Us</a><span>|</span>
-            <a href="/">Contact Us</a><span>|</span>
-            <a href="/">Privacy Policy</a><span>|</span>
-            <a href="/">Terms and Conditions</a>
+            <Link to="/">Home</Link><span>|</span>
+            <Link to="/">About Us</Link><span>|</span>
+            <Link to="/">Contact Us</Link><span>|</span>
+            <Link to="/TandC">Privacy Policy</Link><span>|</span>
+            <Link to="/">Terms and Conditions</Link>
           </LinksContainer>
           <DisclaimerContainer>
             <p>
