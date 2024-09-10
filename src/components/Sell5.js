@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import { useLocation,useNavigate } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -142,6 +143,8 @@ const InfoTitle = styled.div`
 `;
 
 const InfoText = styled.p`
+  display: flex;
+  justify-content: space-between;
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
@@ -208,13 +211,74 @@ const BackButton = styled.button`
   }
 `;
 
+const checkMarkAnimation = keyframes`
+  0% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+  50% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+`;
+
+const SuccessContainer = styled.div`
+  width: 100%;
+  /* background-color: #dff0d8; */
+  border-radius: 10px;
+  padding: 20px;
+
+`;
+const SuccessCenter = styled.div`
+font-size: 20px;
+display: flex;
+justify-content: center;
+`
+
+const CheckMark = styled.svg`
+  width: 100px;
+  height: 100px;
+  stroke: #4caf50;
+  stroke-width: 5;
+  fill: none;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: ${checkMarkAnimation} 5s ease forwards;
+
+  background-color: #dff0d8;
+    border-radius: 50%;
+    padding: 10px;
+`;
+
+const SuccessMessage = styled.div`
+  font-size: 20px;
+  color: #4caf50;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 768px) {
+  font-size: 15px;
+
+  } 
+`;
+
 const Sell5 = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const starCount = 12;
+  // console.log(location.state.data)
 
   return (
     <>
       <Navbar />
-
       <Main>
         <Container>
           <Header>
@@ -227,7 +291,7 @@ const Sell5 = () => {
             </TabContainer>
           </Header>
 
-          <EUFlag>
+          {/* <EUFlag>
             <Stars>
               {[...Array(starCount)].map((_, i) => (
                 <Star
@@ -243,13 +307,22 @@ const Sell5 = () => {
                 />
               ))}
             </Stars>
-          </EUFlag>
+          </EUFlag> */}
+
+          <SuccessContainer>
+            <SuccessCenter>
+              <CheckMark viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" />
+              </CheckMark>
+            </SuccessCenter>
+            <SuccessMessage>{}</SuccessMessage>
+          </SuccessContainer>
 
           <Timeline>
             <TimelineItem>
               <TimelineDot active />
               <TimelineLabel active>Verified</TimelineLabel>
-              <TimelineLabel active>3:37 PM</TimelineLabel>
+              {/* <TimelineLabel active>3:37 PM</TimelineLabel> */}
             </TimelineItem>
             <TimelineItem>
               <TimelineDot active />
@@ -267,19 +340,24 @@ const Sell5 = () => {
 
           <InfoBox>
             <InfoTitle>
-              <AlertCircle size={20} style={{ marginRight: "10px" }} />
-              Waiting for deposit
+              {/* <AlertCircle size={20} style={{ marginRight: "10px" }} /> */}
+              Transaction Details
             </InfoTitle>
             <InfoText>
-              To complete your transaction, please send us your crypto.
+              <span style={{fontWeight:"bold"}}>Order Id :</span> <span>{location.state.data.OrderId}</span>
             </InfoText>
             <InfoText>
-              If you no longer want to sell, you can still{" "}
-              <Link href="#">cancel this order</Link>.
+              <span style={{fontWeight:"bold"}}>Amount Paid :</span> <span>{location.state.data.USDTAmount} USDT</span>
+            </InfoText>
+            <InfoText>
+              <span style={{fontWeight:"bold"}}>Amount Recived :</span> <span>₹{location.state.data.ReceivedAmount}</span>
+            </InfoText>
+            <InfoText>
+              <span style={{fontWeight:"bold"}}>View Satus :</span> <span>{location.state.data.Status}</span>
             </InfoText>
           </InfoBox>
 
-          <Button>
+          <Button onClick={()=>navigate('/Transaction')}>
             View deposit details
             <ChevronRight size={24} />
           </Button>
