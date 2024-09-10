@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import phone from "../assets/phone.png";
+import phone from "../assets/phone1.png";
 
 const Container = styled.div`
   /* background-color: #1E1E1E; */
@@ -55,11 +55,12 @@ const PhoneImage = styled.div`
 
 const Image = styled.div`
   background-image: url(${phone});
-  width: 95px;
-  height: 130px;
+  width: 100px;
+  height: 175px;
   background-size: contain;
   background-repeat: no-repeat;
   margin-left: 30px;
+  margin-right: 10px;
   margin-bottom: 10px;
   @media (max-width: 768px) {
 display: none;
@@ -76,7 +77,12 @@ const Description = styled.p`
   line-height: 1.5;
   margin-bottom: 20px;
   margin-top: 10px;
+  width: 85%;
   /* margin-left: 2rem; */
+  @media (max-width: 768px) {
+width: 100%;
+  }
+
   @media (max-width: 480px) {
     font-size: 0.8rem;
   }

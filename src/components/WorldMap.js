@@ -22,13 +22,14 @@ const MapContainer = styled.div`
     width: 100%;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 1025px) {
   figure{
     zoom: 1.7;
     svg{
       width: 200%;
     }
   }
+  
 }
   
   

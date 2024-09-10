@@ -52,6 +52,7 @@ const CoreValuesContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
+  margin-top: 12px;
 
   @media (min-width: 768px) {
     flex-direction: row;
