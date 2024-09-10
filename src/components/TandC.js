@@ -11,6 +11,9 @@ const PageContainer = styled.div`
    /* Restrict width for better readability */
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box; /* Ensure padding is included in the width */
   
   @media (max-width: 768px) {
@@ -38,6 +41,7 @@ const SectionHeader = styled.h2`
   text-align: center;
   font-size: 1.5rem; /* Adjust font size for readability */
 
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
@@ -46,7 +50,10 @@ const SectionHeader = styled.h2`
 const Section = styled.div`
   margin-bottom: 20px;
   text-align: center;
-  
+  width: 100%;
+  p{
+    text-align: start;
+  }
   @media (max-width: 768px) {
     margin-bottom: 15px;
   }
@@ -62,6 +69,31 @@ const ImportantText = styled.p`
 const Link = styled.a`
   color: orange;
 `;
+const SectionMain = styled.div`
+display: flex;
+flex-direction: row;
+margin-top: 3%;
+width: 60%;
+
+gap: 5%;
+@media (max-width: 768px) {
+flex-wrap: wrap;
+width: 90%;
+  }
+`;
+const Section1 = styled.div`
+display: flex;
+flex-direction: column;
+`;
+const Sectionn = styled.div`
+width: 60%;
+text-align: center;
+@media (max-width: 768px) {
+flex-wrap: wrap;
+width: 90%;
+  }
+`;
+
 
 const List = styled.ul`
   display: flex;
@@ -70,7 +102,7 @@ const List = styled.ul`
     padding-left: 20px;
     list-style-type: disc;
     width: fit-content;
-    align-items: center;
+    align-items: start;
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -85,9 +117,9 @@ const TermsAndConditions = () => {
     <>
     <Navbar/>
     <PageContainer>
-      <Title>Moon Pay - Terms and Conditions</Title>
+      <Title>Moon Pay - Privacy Policy</Title>
       
-      <Section>
+      <Sectionn>
         <p>Welcome to the Privacy Policy governing your access to and usage of the services on electronic platforms, collectively known as "Moon Pay" or the "Platform," including the mobile application and/or website.</p>
         
         <p>This Policy outlines our guidelines for collecting, using, processing, storing, disclosing, and protecting your personal data and information, referred to as 'Personal Information.' This Policy represents a legal agreement between you, the user of the Platform, and us, the provider of services and operator of the Platform.</p>
@@ -95,8 +127,9 @@ const TermsAndConditions = () => {
         <ImportantText>By registering your user Platform account or accessing the Platform, you provide us with your express consent to use, collect, process, disclose, transfer, and protect Personal Information according to this Policy. If you disagree, please do not proceed to use/access this Platform.</ImportantText>
         
         <p>Your use of the Platform and Services is governed by this Policy and the applicable Terms of Use. Note that crypto products are unregulated and carry risks.</p>
-      </Section>
-      
+      </Sectionn>
+      <SectionMain>
+      <Section1>
       <Section>
         <SectionHeader>User Age and Eligibility</SectionHeader>
         <List>
@@ -126,12 +159,14 @@ const TermsAndConditions = () => {
         <p>Ensure authority to bind the entity to these terms.</p>
       </Section>
       
+    
+      </Section1>
+      <Section1>
       <Section>
-        <SectionHeader>Information Sharing</SectionHeader>
-        <p>Moon Pay may provide information about service usage in disputes or legal proceedings.</p>
-      </Section>
-      
       <Section>
+      <SectionHeader>Information Sharing</SectionHeader>
+      <p>Moon Pay may provide information about service usage in disputes or legal proceedings.</p>
+    </Section>
         <SectionHeader>Authorized Usage</SectionHeader>
         <p>Use the services only if legally permitted.</p>
       </Section>
@@ -157,8 +192,11 @@ const TermsAndConditions = () => {
       </Section>
       
       <Section>
-        <ImportantText>By using our services, you agree to these terms. Moon Pay is committed to privacy, providing a secure crypto trading experience. For questions, contact us. Trust is crucial, and we're here for a secure financial journey.</ImportantText>
+       
       </Section>
+      </Section1>
+      </SectionMain>
+      <ImportantText>By using our services, you agree to these terms. Moon Pay is committed to privacy, providing a secure crypto trading experience. For questions, contact us. Trust is crucial, and we're here for a secure financial journey.</ImportantText>
     </PageContainer>
     <Footer/>
     </>
