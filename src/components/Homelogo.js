@@ -20,6 +20,7 @@ import image17 from '../assets/image17.png'
 import image18 from '../assets/image18.png'
 import image19 from '../assets/image19.png'
 import image20 from '../assets/image20.png'
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const logos = [
   { name: 'Bitget', url:image1, link: 'https://www.bitget.com/' },
@@ -148,7 +149,7 @@ const Web3Projects = () => {
       </LogoGrid>
       <ButtonContainer>
         <Button primary>See list of partners</Button>
-        <Button>Talk to us</Button>
+        <Link to="/contactus"><Button>Talk to us</Button></Link>
       </ButtonContainer>
     </Container>
   );
