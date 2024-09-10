@@ -297,7 +297,7 @@ const AdminTransaction = () => {
                         <option value="">Select Status</option>
                         <option value="Pending">Pending</option>
                         <option value="In Transit">In Transit</option>
-                        <option value="Transaction Started">Transaction Started</option>
+                        <option value="Decline">Decline</option>
                         <option value="Completed">Completed</option>
 
                       </Select>
