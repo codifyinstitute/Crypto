@@ -219,7 +219,7 @@ const AnimatedDropdownContainer = styled.div`
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
-  height: 610px;
+  height: 620px;
   max-width: 115%;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};

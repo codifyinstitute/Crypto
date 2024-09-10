@@ -93,8 +93,8 @@ const NavLinksDesktop = styled.ul`
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
       &.active {
-        background-color: #FFA500;
-        color: white;
+        /* background-color: #FFA500; */
+        color: #FFA500;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
     }
@@ -136,8 +136,8 @@ const NavLinksMobile = styled.ul`
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
       &.active {
-        background-color: #FFA500;
-        color: white;
+        /* background-color: ; */
+        color: #FFA500;
         width: fit-content;
         border-radius: 10px;
     

@@ -27,18 +27,20 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   width: 250px;
+  height: 270px;
   border: 1px #1e1e1e solid;
 
   @media (max-width: 430px) {
     width: 100%;
     justify-content: center;
+    height: 225px;
     align-items: center;
   }
 `;
 
 const CoinIcon = styled.div`
-  width: 70%;
-  height: 100px; /* Adjust the height as needed */
+  width: 100%;
+  height: 150px; /* Adjust the height as needed */
   margin-bottom: 0.5rem;
   background-color: #e6f7ff;
   border-radius: 0.5rem;
@@ -125,10 +127,10 @@ const CryptoPriceCard = ({ exchange, avgPrice, usdtPrice, minPrice, maxPrice, im
     <ExchangeName>{exchange}</ExchangeName>
     <Price>Avg ₹ {avgPrice}</Price>
     <SubText>1 USDT = ₹ {usdtPrice}</SubText>
-    <MinMaxPrice>
+{  /*  <MinMaxPrice>
       <PriceInfo>Min ₹ {minPrice}</PriceInfo>
       <PriceInfo>Max ₹ {maxPrice}</PriceInfo>
-    </MinMaxPrice>
+    </MinMaxPrice>*/}
   </Card>
 );
 
