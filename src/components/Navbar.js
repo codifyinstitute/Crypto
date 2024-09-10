@@ -15,7 +15,7 @@ const NavbarContainer = styled.nav`
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 10px 0;
+    padding: 25px 0px 0px 20px;
     /* border-radius: 20px; */
     background-color: #000;
   }
