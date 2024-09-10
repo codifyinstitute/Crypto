@@ -386,7 +386,8 @@ const Sell4 = () => {
 
       const result = await response.json();
       setSavedData(result.transaction);
-      setShowSuccess(true);
+      navigate("/sell5", {state:{data:result.transaction}});
+      // setShowSuccess(true);
     } catch (error) {
       alert("Error submitting transaction: " + error.message);
     }
@@ -398,7 +399,7 @@ const Sell4 = () => {
 
   const closeSuccessPopup = () => {
     setShowSuccess(false);
-    navigate("/transaction"); // Navigate to the transaction path
+    navigate("/transaction");
   };
 
   const copyToClipboard = () => {
@@ -428,11 +429,11 @@ const Sell4 = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <PageContainer>
         <ToastContainer />
 
-       
+
         <Center>
           <Card className="example">
             <TabContainer>
