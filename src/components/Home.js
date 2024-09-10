@@ -121,7 +121,7 @@ const Home = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.10 }}
           style={{ width: '100%' }}
         >
           <ExchangeRateBox>
@@ -389,6 +389,12 @@ const ExchangeSection = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
+    /* background-image: none; */
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    background-image: none;
+    background-color: black;
   }
 `;
 

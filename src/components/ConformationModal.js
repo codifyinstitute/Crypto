@@ -96,6 +96,8 @@ const ModalContainer = styled.div`
 
 const Header = styled.h2`
   margin: 0 0 20px;
+  font-size: 18px;
+  text-align: center;
 `;
 
 const Button = styled.button`
@@ -144,13 +146,14 @@ const Modal = ({ title,
             </SuccessContainer>
                 ) : null}
             </div>
-            <div style={{display:"flex",justifyContent:"center", marginTop:"1rem"}}>
+            <div style={{display:"flex",justifyContent:"space-around", marginTop:"1rem",width:"100%",}}>
                 {showDoneButton ? (
                     <Button onClick={onConfirm}>Done</Button>
                 ) : (
                     <>
+                    <CancelButton onClick={onCancel}>Not yet</CancelButton>
                         <Button onClick={onConfirm}>Confirm</Button>
-                        <CancelButton onClick={onCancel}>Cancel</CancelButton>
+                    
                     </>
                 )}
             </div>

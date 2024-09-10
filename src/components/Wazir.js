@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BinanceImage from '../assets/Binance.jpeg'; // Replace with actual path
-import CoinbaseImage from '../assets/Coinbase.jpeg'; // Replace with actual path
-import KrakenImage from '../assets/Kraken.jpg'; // Replace with actual path
-import WazirxImage from '../assets/Wazir.png'; // Replace with actual path
+import BinanceImage from '../assets/Binance.png'; // Replace with actual path
+import CoinbaseImage from '../assets/bybit.png'; // Replace with actual path
+import KrakenImage from '../assets/kucoin.png'; // Replace with actual path
+import WazirxImage from '../assets/Wazirx.webp'; // Replace with actual path
 
 const Grid = styled.div`
   display: grid;
@@ -168,7 +168,7 @@ const CryptoPriceGrid = () => {
           image={BinanceImage}
         />
         <CryptoPriceCard
-          exchange="Coinbase"
+          exchange="Bybit"
           avgPrice={data?.Coinbase?.Average || null}
           usdtPrice={data?.Coinbase?.Average || null}
           minPrice={data?.Coinbase?.Min || null}
