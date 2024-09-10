@@ -20,7 +20,7 @@ const MainText = styled.h2`
   font-size: 3rem;
   margin: 0;
 
-  max-width: 80%;
+  max-width: 70%;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
