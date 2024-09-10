@@ -58,7 +58,7 @@ const Title = styled.h1`
 const Description = styled.p`
   margin-bottom: 20px;
   font-size: 1.2em;
-  width: 80%;
+  width: 85%;
 
   @media (max-width: 768px) {
     font-size: 1em;

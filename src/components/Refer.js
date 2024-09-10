@@ -4,13 +4,14 @@ import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import styled from 'styled-components';
 import { ChevronLeft } from 'lucide-react';
+import image1 from '../assets/ReferEarn.png'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #121212;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   padding: 20px;
 `;
 const BackButton = styled.button`
@@ -43,13 +44,22 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
-const Title = styled.h2`
-  color: #f7a600;
-  margin-top: 0;
-  font-size: 1.9rem;
-  text-align: center;
-  margin: auto;
-`;
+// const Title = styled.h2`
+//   color: #f7a600;
+//   margin-top: 0;
+//   font-size: 1.9rem;
+//   text-align: center;
+//   margin: auto;
+// `;
+const Image = styled.div`
+background-image: url(${image1});
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+height: 400px;
+width: 400px;
+margin-top: 50px;
+`
 
 const Refer = () => {
     return (
@@ -59,7 +69,9 @@ const Refer = () => {
 
         <Container>
         <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton>
-            <Title>Coming Soon!!</Title>
+            {/* <Title>Coming Soon!!</Title> */}
+
+            <Image></Image>
         </Container>
         <HomeContact />
         <Footer />

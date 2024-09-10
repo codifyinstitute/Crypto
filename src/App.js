@@ -26,6 +26,8 @@ import QRCodeCard from './components/QRCode';
 import Refer from './components/Refer';
 import TandC from './components/TandC';
 import OtherPrice from './components/Admin/OtherPrice';
+import TermsandCondi from './components/Terms&condi';
+import ContactUs from './components/ContactUs';
 
 
 
@@ -53,6 +55,8 @@ function App() {
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/transactionFee" element={<AdminTransactionFee />} />
         <Route path="/TandC" element={<TandC />} />
+        <Route path="/terms" element={<TermsandCondi />} />
+        <Route path="/contactus" element={<ContactUs />} />
         <Route path="/admin/otherprice" element={<OtherPrice />} />
       </Routes>
     </ThemeProvider>
