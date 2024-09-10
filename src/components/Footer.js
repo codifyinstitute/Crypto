@@ -6,13 +6,46 @@ import logo2 from "../assets/logoM1.png"
 
 const FooterContainer = styled.footer`
   background-color: #000;
-  padding: 50px 20px;
+  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 50px;
   color: #fff;
   border-top: 4px solid #ff9900;
   text-align: center;
   flex-wrap: wrap;
   
 `;
+const Header = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+h2{
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+hr{
+  width: 70%;
+}
+
+@media (max-width: 768px) {
+
+  h2{
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  align-items: flex-start;
+  margin-left: 18px;
+  h2{
+    font-size: 1.2rem;
+  }
+}
+`
 
 const CoreValuesContainer = styled.div`
   display: flex;
@@ -176,7 +209,11 @@ const SocialMediaContainer = styled.div`
 const Footer = () => {
   return (
     <FooterContainer>
+    <Header><h2>Our Core Value</h2>
+    <hr></hr>
+    </Header>
       <CoreValuesContainer>
+
         <CoreValue>
           <h3>Transparency</h3>
           <p>
