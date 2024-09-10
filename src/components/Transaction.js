@@ -39,6 +39,9 @@ const TabContainer = styled.div`
   border-radius: 25px;
   overflow: hidden;
   margin-bottom: 20px;
+  @media (max-width: 375px) {
+    width: 97%;
+  }
 `;
 
 const Tab = styled.button`
@@ -52,6 +55,14 @@ const Tab = styled.button`
 
   &:hover {
     background-color: ${(props) => (props.active ? "#121212" : "#2A2A2A")};
+  }
+  @media (max-width: 375px) {
+    font-size: 12px;
+
+  }
+  @media (max-width: 320px) {
+    font-size: 12px;
+    padding: 5px 10px;
   }
 `;
 
@@ -113,6 +124,7 @@ const Label = styled.span`
   color: #ffa500;
   font-size: 15px;
   margin-bottom: 5px;
+  font-weight: 700;
 `;
 
 const Para = styled.p`
@@ -122,6 +134,7 @@ const Para = styled.p`
 
 const Value = styled.span`
   font-size: 14px;
+  font-weight: 600;
 `;
 
 const StatusValue = styled(Value)`
@@ -132,7 +145,9 @@ const StatusValue = styled(Value)`
       case "Pending":
         return "#FF6347"; // Red
       case "In Transit":
-        return "#FF6347"; // Orange for "In Transit"
+        return "#FF6347";
+        case "Decline":
+          return "#FF6347"; // Orange for "In Transit"
       default:
         return "inherit"; // Default color for other statuses
     }
@@ -205,6 +220,12 @@ const Transaction = () => {
           >
             Completed
           </Tab>
+          <Tab
+          active={activeTab === "Decline"}
+          onClick={() => setActiveTab("Decline")}
+        >
+          Decline
+        </Tab>
         </TabContainer>
         <TransactionList>
           {transactions
