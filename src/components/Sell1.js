@@ -127,6 +127,10 @@ const OrderSummary = styled.div`
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
+
+  P{
+    font-size: 0.9rem;
+  }
 `;
 
 const OrderTitle = styled.div`
@@ -196,7 +200,7 @@ const PaymentIcon = styled.div`
 
 const PoweredBy = styled.div`
   font-size: 0.8rem;
-  color: #888;
+  color: black;
   text-align: center;
   margin-top: 0.5rem;
   @media (max-width: 430px) {
@@ -215,7 +219,7 @@ const AnimatedDropdownContainer = styled.div`
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
-  height: 610px;
+  height: 620px;
   max-width: 115%;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
@@ -553,7 +557,7 @@ const Card = styled.div`
 const Sell1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [usdt, setUsdt] = useState(location.state?.amount || '25167.79');
+  const [usdt, setUsdt] = useState(location.state?.amount || '1');
   const [isValid, setIsValid] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
@@ -741,7 +745,7 @@ const Sell1 = () => {
           <OrderTitle onClick={toggleDetailsExpanded}>
             <b>Your order</b>
             <div style={{ display: "flex" }}>
-              {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+              {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
               {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </div>
           </OrderTitle>

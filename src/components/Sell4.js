@@ -115,8 +115,9 @@ const Button = styled.button`
 
 const SubmitButton = styled.button`
   background-color: #f7a600;
-  color: white;
+  color: black;
   border: none;
+  font-weight: 700;
   padding: 5px;
   font-size: 14px;
   border-radius: 5px;
@@ -427,10 +428,11 @@ const Sell4 = () => {
 
   return (
     <>
+    <Navbar />
       <PageContainer>
         <ToastContainer />
 
-        <Navbar />
+       
         <Center>
           <Card className="example">
             <TabContainer>
@@ -615,7 +617,7 @@ const Sell4 = () => {
 
       {showConfirmation && (
         <Modal
-          title="Confirm Transaction"
+          title="I have transferred the crypto to the indicated address and network"
           message="Are you sure you want to proceed with this transaction?"
           onConfirm={confirmTransaction}
           onCancel={cancelConfirmation}

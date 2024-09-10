@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ChevronDown, ChevronUp, ChevronLeft, Info, X, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/payment.png";
+import bg2 from "./../assets/bg2.jpg";
 
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
@@ -102,154 +104,191 @@ const Home = () => {
   return (
     <Container>
       <ContentSection>
-        <Title>Discover Your Dream Property with Estatein</Title>
-        <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
-        <ExchangeRateBox>
-          <RateValue>₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateValue>
-          <RateLabel>1 USDT = ₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateLabel>
-        </ExchangeRateBox>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Title>Discover Your Dream Property with Estatein</Title>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.10 }}
+          style={{ width: '100%' }}
+        >
+          <ExchangeRateBox>
+            <RateValue>₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateValue>
+            <RateLabel>1 USDT = ₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateLabel>
+          </ExchangeRateBox>
+        </motion.div>
       </ContentSection>
       <ExchangeSection>
-        <ExchangeCard>
-          <div>
-            <TabContainer>
-              <Tab active>Sell Crypto</Tab>
-            </TabContainer>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <ExchangeCard>
+            <div>
+              <TabContainer>
+                <Tab active>Sell Crypto</Tab>
+              </TabContainer>
 
-            <InputLabel>You sell</InputLabel>
-            <InputContainer>
-              <InputWrapper>
-                <Input
-                  type="text"
-                  value={usdt}
-                  onChange={handleUsdtChange}
-                />
-                <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                  {selectedCurrency && (
-                    <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
-                  )}
-                  <Rocks>
-                    <Buddy>{selectedCurrency ? selectedCurrency.Name : 'Select'}</Buddy>
-                    <CurrencySymbols>{selectedCurrency?.Symbol}</CurrencySymbols>
-                  </Rocks>
-                  <ChevronDown size={16} />
-                </CurrencyToggle>
-              </InputWrapper>
-              <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-                <DropdownHeader>
-                  <DropdownTitle>Select crypto</DropdownTitle>
-                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                    <X size={24} />
-                  </CloseButton>
-                </DropdownHeader>
-                {/* <SearchInput
-                type="text"
-                placeholder="Search here..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />*/}
-                <CurrencyList>
-                  {filteredCurrencies.map(currency => (
-                    <CurrencyItem
-                      key={currency._id}
-                      onClick={() => handleCurrencySelect(currency)}
-                    >
-                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                      <CurrencyInfo>
-                        <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
-                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                      </CurrencyInfo>
-                    </CurrencyItem>
-                  ))}
-                </CurrencyList>
-              </AnimatedDropdownContainer>
-            </InputContainer>
+              <InputLabel>You sell</InputLabel>
+              <InputContainer>
+                <InputWrapper>
+                  <Input
+                    type="text"
+                    value={usdt}
+                    onChange={handleUsdtChange}
+                  />
+                  <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                    {selectedCurrency && (
+                      <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
+                    )}
+                    <Rocks>
+                      <Buddy>{selectedCurrency ? selectedCurrency.Name : 'Select'}</Buddy>
+                      <CurrencySymbols>{selectedCurrency?.Symbol}</CurrencySymbols>
+                    </Rocks>
+                    <ChevronDown size={16} />
+                  </CurrencyToggle>
+                </InputWrapper>
+                <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+                  <DropdownHeader>
+                    <DropdownTitle>Select crypto</DropdownTitle>
+                    <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                      <X size={24} />
+                    </CloseButton>
+                  </DropdownHeader>
+                  <CurrencyList>
+                    {filteredCurrencies.map(currency => (
+                      <CurrencyItem
+                        key={currency._id}
+                        onClick={() => handleCurrencySelect(currency)}
+                      >
+                        <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                        <CurrencyInfo>
+                          <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
+                          <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                        </CurrencyInfo>
+                      </CurrencyItem>
+                    ))}
+                  </CurrencyList>
+                </AnimatedDropdownContainer>
+              </InputContainer>
 
-            <InputLabel>
-              You receive (estimate) 
-              <TooltipContainer>
-                <Info size={14} />
-                <TooltipText>Estimated value may vary slightly due to market fluctuations.</TooltipText>
-              </TooltipContainer>
-            </InputLabel>
-            <InputContainer>
-              <InputWrapper>
-                <Input
-                  type="text"
-                  value={inr.toFixed(2)}
-                  readOnly
-                />
-                <CurrencyToggle>
-                  <CurrencyIcon as="div">
-                    <CurrencyIcon src={ind} />
-                  </CurrencyIcon>
-                  <Buddy>INR</Buddy>
-                </CurrencyToggle>
-              </InputWrapper>
-            </InputContainer>
+              <InputLabel>
+                You receive (estimate) 
+                <TooltipContainer>
+                  <Info size={14} />
+                  <TooltipText>Estimated value may vary slightly due to market fluctuations.</TooltipText>
+                </TooltipContainer>
+              </InputLabel>
+              <InputContainer>
+                <InputWrapper>
+                  <Input
+                    type="text"
+                    value={inr.toFixed(2)}
+                    readOnly
+                  />
+                  <CurrencyToggle>
+                    <CurrencyIcon as="div">
+                      <CurrencyIcon src={ind} />
+                    </CurrencyIcon>
+                    <Buddy>INR</Buddy>
+                  </CurrencyToggle>
+                </InputWrapper>
+              </InputContainer>
 
-            <UpdateText>Updating rates</UpdateText>
+              <UpdateText>Updating rates</UpdateText>
 
-            <OrderSummary>
-              <OrderTitle onClick={toggleDetailsExpanded}>
-                <b>Your order</b>
-                <div style={{ display: "flex" }}>
-                  {(inr.toFixed(2) === "0.00") ? null : <p>{usdt} <b>{selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
-                  {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </div>
-              </OrderTitle>
-              {isDetailsExpanded && (
-                <>
-                  <OrderDetail>
-                    <span>1 {selectedCurrency?.Name}</span>
-                    <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
-                  </OrderDetail>
-                  <OrderDetail>
-                    <span>
-                      Processing fee
-                      <TooltipContainer>
-                        <Info size={14} />
-                        <TooltipText>Fee charged for processing the transaction.</TooltipText>
-                      </TooltipContainer>
-                    </span>
-                    <span>as low as Rs {transactionFee}</span>
-                  </OrderDetail>
-                  <OrderDetail>
-                    <span>
-                      Network fee
-                      <TooltipContainer>
-                        <Info size={14} />
-                        <TooltipText>Fee charged by the network for sending the transaction.</TooltipText>
-                      </TooltipContainer>
-                    </span>
-                    <span>as low as Rs {networkFee}</span>
-                  </OrderDetail>
-                </>
-              )}
-            </OrderSummary>
-          </div>
-          <div>
-            <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-              Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
-            </ProceedButton>
+              <OrderSummary>
+                <OrderTitle onClick={toggleDetailsExpanded}>
+                  <b>Your order</b>
+                  <div style={{ display: "flex" }}>
+                    {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+                    {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  </div>
+                </OrderTitle>
+                {isDetailsExpanded && (
+                  <>
+                    <OrderDetail>
+                      <span>1 {selectedCurrency?.Name}</span>
+                      <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+                    </OrderDetail>
+                    <OrderDetail>
+                      <span>
+                        Processing fee
+                        <TooltipContainer>
+                          <Info size={14} />
+                          <TooltipText>Fee charged for processing the transaction.</TooltipText>
+                        </TooltipContainer>
+                      </span>
+                      <span>as low as Rs {transactionFee}</span>
+                    </OrderDetail>
+                    <OrderDetail>
+                      <span>
+                        Network fee
+                        <TooltipContainer>
+                          <Info size={14} />
+                          <TooltipText>Fee charged by the network for sending the transaction.</TooltipText>
+                        </TooltipContainer>
+                      </span>
+                      <span>as low as Rs {networkFee}</span>
+                    </OrderDetail>
+                  </>
+                )}
+              </OrderSummary>
+            </div>
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
+                  Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
+                </ProceedButton>
+              </motion.div>
 
-            <PaymentMethods>
-              <PaymentIcon />
-            </PaymentMethods>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <PaymentMethods>
+                  <PaymentIcon />
+                </PaymentMethods>
+              </motion.div>
 
-            <PoweredBy>
-              Powered by Moon Pay
-            </PoweredBy>
-          </div>
-          <Indicator onClick={toggleCardVisibility}>
-            <Info size={20} />
-          </Indicator>
-          {isCardVisible && (
-            <Card>
-              <p>This is the detailed card shown when the indicator is clicked.</p>
-            </Card>
-          )}
-        </ExchangeCard>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1 }}
+              >
+                <PoweredBy>
+                  Powered by Moon Pay
+                </PoweredBy>
+              </motion.div>
+            </div>
+            <Indicator onClick={toggleCardVisibility}>
+           
+            </Indicator>
+            {isCardVisible && (
+              <Card>
+                <p>This is the detailed card shown when the indicator is clicked.</p>
+              </Card>
+            )}
+          </ExchangeCard>
+        </motion.div>
       </ExchangeSection>
     </Container>
   );
@@ -257,74 +296,8 @@ const Home = () => {
 
 export default Home;
 
-// Add the following styled components:
-
-const TooltipContainer = styled.div`
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-left: 5px;
-
-  &:hover div {
-    visibility: visible;
-    opacity: 1;
-  }
-`;
-
-const TooltipText = styled.div`
-  visibility: hidden;
-  width: 200px;
-  background-color: white;
-  padding: 1%;
-  color: black;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* Position above the info icon */
-  left: 50%;
-  margin-left: -100px; /* Adjust to center the tooltip */
-
-  opacity: 0;
-  transition: opacity 0.3s;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
-  }
-`;
-
-const Indicator = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-`;
-
-const Card = styled.div`
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 10px;
-  z-index: 2;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-`;
-
-
-
-const Container = styled.div`
+// Styled components
+const Container = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -338,20 +311,6 @@ const Container = styled.div`
     height: auto;
   }
 `;
-const Rocks = styled.div`
-  display: flex;
-  flex-direction: column;
-
-`;
-const CurrencySymbols = styled.div`
-  color: black;
-  font-size: 12px;
-  font-weight: 400;
-  margin-top: 5%;
-
-`;
-
-
 
 const ContentSection = styled.div`
   flex: 1;
@@ -405,11 +364,6 @@ const ExchangeRateBox = styled.div`
   }
 `;
 
-const RefreshText = styled.p`
-  font-size: 1.2em;
-  color: #888;
-`;
-
 const RateValue = styled.h2`
   font-size: 2.5rem;
   margin: 0.5rem 0;
@@ -428,9 +382,19 @@ const ExchangeSection = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #1a1a1a;
+  background-image: url(${bg2});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   @media (max-width: 1024px) {
     width: 100%;
+    /* background-image: none; */
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    background-image: none;
+    background-color: black;
   }
 `;
 
@@ -440,7 +404,7 @@ const ExchangeCard = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   width: 380px;
-  height: 610px;
+  height: 620px;
   max-width: 100%;
   margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -448,8 +412,9 @@ const ExchangeCard = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  
-  
+  @media (max-width: 1024px) {
+    width: auto;
+  }
 `;
 
 const TabContainer = styled.div`
@@ -470,8 +435,9 @@ const Tab = styled.div`
 const InputLabel = styled.div`
   font-size: 16px;
   color: #888;
-  /* margin-bottom: 0.5rem; */
 `;
+
+// ... (previous code remains the same)
 
 const InputContainer = styled.div`
   margin-bottom: 1rem;
@@ -501,20 +467,27 @@ const Input = styled.input`
   }
 `;
 
-
 const CurrencyToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color:  #e1dcdc;
-  /* padding: 9px; */
+  background-color: #e1dcdc;
   color: black;
   height: 3.2rem;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 15px;
   border-radius: 16px;
+`;
+
+const Rocks = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const CurrencySymbols = styled.div`
+  color: black;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 5%;
 `;
 
 const UpdateText = styled.div`
@@ -528,6 +501,10 @@ const OrderSummary = styled.div`
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #e0e0e0;
+
+  p {
+    font-size: 0.9rem;
+  }
 `;
 
 const OrderTitle = styled.div`
@@ -551,7 +528,7 @@ const ProceedButton = styled.button`
   padding: 1rem;
   background-color: orange;
   color: black;
-  font-weight:700;
+  font-weight: 700;
   border: none;
   border-radius: 0.5rem;
   font-size: 20px;
@@ -579,9 +556,10 @@ const PaymentMethods = styled.div`
   margin-top: 1rem;
   gap: 0.5rem;
 `;
+
 const Buddy = styled.p`
-font-size:18px;
-font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 const PaymentIcon = styled.div`
@@ -597,19 +575,18 @@ const PaymentIcon = styled.div`
 
 const PoweredBy = styled.div`
   font-size: 0.8rem;
-  color: #888;
+  color: black;
   text-align: center;
   margin-top: 0.5rem;
 `;
+
 const AnimatedDropdownContainer = styled.div`
   position: absolute;
   top: -110px;
   left: -25px;
   right: 0;
   background-color: white;
-  /* border: 1px solid #e0e0e0; */
   border-radius: 0.5rem;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
   z-index: 10;
   width: 380px;
   height: 610px;
@@ -618,7 +595,6 @@ const AnimatedDropdownContainer = styled.div`
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
   transform: ${props => props.isOpen ? 'translateY(0)' : 'translateY(-20px)'};
   transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
-
 `;
 
 const DropdownHeader = styled.div`
@@ -640,20 +616,6 @@ const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-`;
-
-const SearchInput = styled.input`
-  width: calc(100% - 2rem);
-  padding: 0.75rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 0.5rem;
-  margin: 1rem;
-  font-size: 1rem;
-
-  &:focus {
-    outline: none;
-    border-color: #0052ff;
-  }
 `;
 
 const CurrencyList = styled.div`
@@ -690,19 +652,64 @@ const CurrencySymbol = styled.span`
 `;
 
 const CurrencyName = styled.span`
-
-  /* color: #888; */
   font-weight: 800;
 `;
 
-const PriceContainer = styled.div`
-  background-color: #27201c;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  text-align: center;
+const TooltipContainer = styled.div`
   position: relative;
-  margin-top: 4%;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 5px;
+
+  &:hover div {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const TooltipText = styled.div`
+  visibility: hidden;
+  width: 200px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+`;
+
+const Indicator = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+`;
+
+const Card = styled.div`
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
 `;

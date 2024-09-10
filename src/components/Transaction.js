@@ -72,7 +72,7 @@ const TransactionCard = styled.div`
 const TransactionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 `;
 
 const TransactionDetails = styled.div`
@@ -95,8 +95,6 @@ const BackButton = styled.button`
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  /* z-index: 1001; */
-  /* display: none; */
   width: fit-content;
   margin: 0px 5px 0px 0px;
 
@@ -133,8 +131,8 @@ const StatusValue = styled(Value)`
         return "#4CAF50"; // Green
       case "Pending":
         return "#FF6347"; // Red
-      case "Successfully":
-        return "#4CAF50"; // Green (keeping the original green for 'Successfully')
+      case "In Transit":
+        return "#FF6347"; // Orange for "In Transit"
       default:
         return "inherit"; // Default color for other statuses
     }
@@ -196,8 +194,8 @@ const Transaction = () => {
             Pending
           </Tab>
           <Tab
-            active={activeTab === "In Transsit"}
-            onClick={() => setActiveTab("Money Received")}
+            active={activeTab === "In Transit"}
+            onClick={() => setActiveTab("In Transit")}
           >
             In Transit
           </Tab>
