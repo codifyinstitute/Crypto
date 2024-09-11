@@ -268,8 +268,8 @@ const Profile = () => {
           </MenuItem>
         </MenuList>
       </Container>
-      <HomeContact/>
-      <Footer />
+      {/* <HomeContact/> */}
+      {/* <Footer /> */}
       
       {showLogoutModal && (
         <ModalOverlay>
