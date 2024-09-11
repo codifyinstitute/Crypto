@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import contact from '../assets/contact.png'
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-
+import { ChevronLeft } from "lucide-react";
 const ContactUsContainer = styled.div`
   background-color: black;
   color: white;
@@ -160,6 +160,29 @@ const SuccessMessage = styled.div`
   animation: ${fadeIn} 0.5s ease-out;
 `;
 
+const BackButton = styled.button`
+  background-color: transparent;
+  color: #ffa500;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+
 const ContactUs = () => {
   const [formData, setFormData] = useState({
     Name: "",
@@ -242,6 +265,9 @@ const ContactUs = () => {
     <>
       <Navbar />
       <ContactUsContainer>
+      <BackButton onClick={() => window.history.back()}>
+      <ChevronLeft />
+    </BackButton>
         <Title>Contact Us</Title>
         <Content>
           <IllustrationSection>

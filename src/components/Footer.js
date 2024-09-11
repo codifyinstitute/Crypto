@@ -34,7 +34,7 @@ const Header = styled.div`
 
   @media (max-width: 768px) {
     h2 {
-      font-size: 1.6rem;
+      font-size: 2rem;
     }
   }
 
@@ -42,7 +42,7 @@ const Header = styled.div`
     align-items: flex-start;
     margin-left: 18px;
     h2 {
-      font-size: 1.2rem;
+      font-size: 2rem;
     }
   }
 `;

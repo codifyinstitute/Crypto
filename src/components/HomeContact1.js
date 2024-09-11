@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Container = styled.div`
   /* background-color: #1a1a1a; */
   color: white;
   padding: 2rem;
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   /* background-color: #1a1a1a; */
@@ -21,7 +21,7 @@ const MainText = styled.h2`
   font-size: 3rem;
   margin: 0;
 
-  max-width: 70%;
+  max-width: 80%;
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -58,18 +58,22 @@ const Button = styled.button`
     align-self: flex-start;
     margin-top: 1rem;
   }
+  @media (max-width: 480px) {
+  font-size: 0.8rem;
+
+  } 
 `;
 
 const ContactSection = () => {
   return (
     <Container>
       <MainText>
-        Contact us today for more information and the best option for your project.
+      Get in Touch with Moon Pay – We're Here to Assist You
       </MainText>
       <SubText>
-        Your dream property is just a click away. Whether you're looking for a new home, a strategic investment, or expert real estate advice, Estatum is here to
+      For help with crypto sales or account-related queries, contact us through our Contact Us page. Our team is ready to assist you with all your needs.
       </SubText>
-      <Link to="/contactus"><Button>Contact Us</Button></Link>
+      <Button>Contact Us</Button>
     </Container>
   );
 };

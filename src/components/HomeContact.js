@@ -67,10 +67,10 @@ const ContactSection = () => {
   return (
     <Container>
       <MainText>
-        Contact us today for more information and the best option for your project.
+      Get in Touch with Moon Pay – We're Here to Assist You
       </MainText>
       <SubText>
-        Your dream property is just a click away. Whether you're looking for a new home, a strategic investment, or expert real estate advice, Estatum is here to
+      For help with crypto sales or account-related queries, contact us through our Contact Us page. Our team is ready to assist you with all your needs.
       </SubText>
       <Button>Contact Us</Button>
     </Container>

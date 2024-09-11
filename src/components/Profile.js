@@ -59,6 +59,10 @@ const VerifiedBadge = styled.div`
 const Username = styled.h2`
   color: white;
   margin: 5px 0;
+  @media (max-width: 320px) {
+    font-size: 18px;
+  
+  }
 `;
 
 const Subtitle = styled.span`

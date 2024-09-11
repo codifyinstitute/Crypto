@@ -247,7 +247,7 @@ const Sell2 = () => {
                   checked={isChecked}
                   onChange={(e) => setIsChecked(e.target.checked)}
                 />
-                I have read and agree to Moon Pay's <Link to='/TandC'>Terms  and conditions</Link> Of services and <Link to='/TandC'>Privacy Policy.</Link>
+                I have read and agree to Moon Pay's <Link to='/terms'>Terms  and conditions</Link> Of services and <Link to='/TandC'>Privacy Policy.</Link>
               </CheckboxLabel>
             </Boxx>
             <Boo>
