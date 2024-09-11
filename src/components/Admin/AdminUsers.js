@@ -18,6 +18,8 @@ const DashboardContainer = styled.div`
 const Content = styled.div`
   flex-grow: 1;
   margin: 0;
+  height: 100vh;
+  overflow-y: auto;
   padding: 2rem;
   background: white;
   margin-top: 4rem; /* Space for header on mobile */

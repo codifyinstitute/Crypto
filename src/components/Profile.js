@@ -153,13 +153,15 @@ const ModalButton = styled.button`
 `;
 
 const ConfirmButton = styled(ModalButton)`
-  background-color: #FFA500;
-  color: white;
+
+
+  background-color: #ccc;
+  color: #333;
 `;
 
 const CancelButton = styled(ModalButton)`
-  background-color: #ccc;
-  color: #333;
+  background-color: #FFA500;
+  color: white;
 `;
 
 const Profile = () => {

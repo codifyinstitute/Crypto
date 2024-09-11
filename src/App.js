@@ -28,6 +28,7 @@ import TandC from './components/TandC';
 import OtherPrice from './components/Admin/OtherPrice';
 import TermsandCondi from './components/Terms&condi';
 import ContactUs from './components/ContactUs';
+import AdminQueries from './components/Admin/AdminQueries';
 
 
 
@@ -58,6 +59,7 @@ function App() {
         <Route path="/terms" element={<TermsandCondi />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/admin/otherprice" element={<OtherPrice />} />
+        <Route path="/admin/query" element={<AdminQueries />} />
       </Routes>
     </ThemeProvider>
   );
