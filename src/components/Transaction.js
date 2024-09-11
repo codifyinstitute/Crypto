@@ -36,7 +36,7 @@ const Title = styled.h1`
 const TabContainer = styled.div`
   display: flex;
   background-color: #1e1e1e;
-  border-radius: 25px;
+  border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
   @media (max-width: 375px) {
@@ -50,14 +50,18 @@ const Tab = styled.button`
   border: none;
   padding: 10px 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: background-color 0.3s;
+  border-right: 1px grey solid;
+  &:last-child{
+    border-right: none;
+  }
 
   &:hover {
     background-color: ${(props) => (props.active ? "#121212" : "#2A2A2A")};
   }
   @media (max-width: 375px) {
-    font-size: 12px;
+    font-size: 9px;
 
   }
   @media (max-width: 320px) {
@@ -125,6 +129,11 @@ const Label = styled.span`
   font-size: 15px;
   margin-bottom: 5px;
   font-weight: 700;
+  @media (max-width: 320px) {
+    font-size: 12px;
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 const Para = styled.p`
