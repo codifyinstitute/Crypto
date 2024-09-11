@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #121212;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   padding: 20px;
 `;
 const BackButton = styled.button`
@@ -73,8 +73,8 @@ const Refer = () => {
 
             <Image></Image>
         </Container>
-        <HomeContact />
-        <Footer />
+        {/* <HomeContact /> */}
+        {/* <Footer /> */}
         </>
     )
 }

@@ -56,7 +56,7 @@ const Tab = styled.button`
   &:hover {
     background-color: ${(props) => (props.active ? "#121212" : "#2A2A2A")};
   }
-  @media (max-width: 375px) {
+  @media (max-width: 376px) {
     font-size: 12px;
 
   }
@@ -260,7 +260,7 @@ const Transaction = () => {
             ))}
         </TransactionList>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
