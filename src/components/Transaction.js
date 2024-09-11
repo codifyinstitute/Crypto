@@ -270,7 +270,7 @@ const Transaction = () => {
             ))}
         </TransactionList>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

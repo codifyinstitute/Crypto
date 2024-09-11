@@ -775,7 +775,7 @@ const Bank = () => {
 ))}
           </Maindiv>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
       <ToastContainer />
     </>
   );

@@ -9,6 +9,8 @@ const ContactUsContainer = styled.div`
   color: white;
   padding: 2rem;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
+
 `;
 
 const Title = styled.h1`
@@ -129,6 +131,12 @@ const SubmitButton = styled.button`
     opacity: 0.7;
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    margin-bottom: 50px;
+  }
+
+
 `;
 
 const fadeIn = keyframes`
@@ -311,7 +319,7 @@ const ContactUs = () => {
           </FormSection>
         </Content>
       </ContactUsContainer>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
