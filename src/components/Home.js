@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp, ChevronLeft, Info, X, ChevronRight } from "luci
 import { motion } from "framer-motion";
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
-import payment from "./../assets/payment.png";
+import payment from "./../assets/Frame 47.png";
 import bg2 from "./../assets/bg2.jpg";
 
 const Home = () => {
@@ -563,7 +563,7 @@ const Buddy = styled.p`
 `;
 
 const PaymentIcon = styled.div`
-  width: 210px;
+  width: 68%;
   height: 35px;
   background-color: white;
   border-radius: 4px;
@@ -571,6 +571,9 @@ const PaymentIcon = styled.div`
   object-fit: contain;
   background-repeat: no-repeat;
   background-size: contain;
+  @media (max-width:480px){
+    width: 80%;
+  }
 `;
 
 const PoweredBy = styled.div`

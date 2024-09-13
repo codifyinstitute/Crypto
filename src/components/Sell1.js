@@ -551,6 +551,62 @@ const Card = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
 `;
+const Exchange= styled.div`
+min-height: 100vh;
+background-color: black;
+display: flex;
+justify-content: center;
+padding-top: 100px;
+`
+const Card1= styled.div`
+height: 170px;
+width: 50%;
+background-color: white;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+@media (max-width:480px){
+  width: 90%;
+}
+
+h1{
+  color: gray;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  background-color:#eaeaea;
+  @media (max-width:480px){
+    font-size: 18px;
+  
+}
+
+}
+button{
+  height: 50px;
+  font-size: 20px;
+  border-radius: 10px;
+  width: 30%;
+  margin-bottom: 15px;
+  color: white;
+  border: 0px solid orange;
+  background-color: orange;
+  @media (max-width:480px){
+    font-size: 18px;
+    height: 40px;
+    width: 26%;
+  
+}
+}
+p{
+  font-size: 24px;
+  @media (max-width:480px){
+    font-size: 18px;
+  
+}
+}
+`
+
 
 
 
@@ -560,6 +616,7 @@ const Sell1 = () => {
   const [usdt, setUsdt] = useState(location.state?.amount || '1');
   const [isValid, setIsValid] = useState(true);
   const [currencies, setCurrencies] = useState([]);
+  const [login, setLogin] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -577,6 +634,11 @@ const Sell1 = () => {
 
     return () => clearInterval(countdown);
   }, []);
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    token?setLogin(true):setLogin(false);
+  },[])
 
   const handleRefresh = () => {
     setTimer(30);
@@ -650,6 +712,24 @@ const Sell1 = () => {
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if(!login){
+    return (
+      <>
+      <Navbar />
+      <Exchange>
+
+<Card1>
+<h1>LOGIN TO PROCEED</h1>
+<p>Login or Register to proceed...</p>
+<button onClick={()=>navigate('/sell2')}>Login</button>
+</Card1>
+
+      
+        </Exchange>
+      </>
+    )
   }
 
   return (

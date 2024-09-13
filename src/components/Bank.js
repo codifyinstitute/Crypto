@@ -407,6 +407,10 @@ const Header = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   margin: 0;
+  @media (max-width: 480px) {
+  width: 100%;
+  font-size: 20px;
+  }
 `;
 
 const AddButton = styled.a`
@@ -422,6 +426,8 @@ const AddButton = styled.a`
 
   @media (max-width: 430px) {
     font-size: 14px;
+    display: flex;
+    width: 93px;
   }
 `;
 

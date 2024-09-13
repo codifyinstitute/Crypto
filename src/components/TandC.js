@@ -26,6 +26,7 @@ const Title = styled.h1`
   border-bottom: 2px solid orange;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  margin-top: 50px;
   text-align: center;
   font-size: 2rem; /* Adjust font size for readability */
 

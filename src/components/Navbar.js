@@ -158,11 +158,11 @@ const Navbar = () => {
 
   const handleExchangeClick = (e) => {
     e.preventDefault();
-    if (token) {
-      navigate('/Sell1');
-    } else {
-      navigate('/sell2');
-    }
+    navigate('/Sell1');
+    // if (token) {
+    // } else {
+    //   navigate('/sell2');
+    // }
   };
 
   const isExchangeActive = ["/sell1", "/sell3", "/sell4", "/sell5"].includes(location.pathname.toLowerCase());

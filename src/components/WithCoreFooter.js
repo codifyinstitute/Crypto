@@ -16,12 +16,87 @@ const FooterContainer = styled.footer`
   width: 100%;
 `;
 
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  hr {
+    width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    align-items: flex-start;
+    margin-left: 18px;
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
+`;
+
+const CoreValuesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 12px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+`;
+
+const CoreValue = styled.div`
+  margin: 20px 0;
+  max-width: 300px;
+  text-align: left;
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #ffa500;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+    @media (max-width: 480px) {
+      font-size: 0.8rem;
+    }
+  }
+`;
 
 const BottomContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 30px; */
+  margin-top: 30px;
   padding: 3%;
 
   @media (min-width: 768px) {
@@ -139,10 +214,36 @@ const SocialMediaContainer = styled.div`
   }
 `;
 
-const Footer = () => {
+const WithCoreFooter = () => {
   return (
     <FooterContainer>
-      
+      <Header>
+        <h2>Our Core Value</h2>
+      </Header>
+      <CoreValuesContainer>
+        <CoreValue>
+          <h3>Transparency</h3>
+          <p>
+            We strive to provide accurate information to our users at all times.
+            This includes being transparent about our fees, policies, and any updates
+            that may affect our users.
+          </p>
+        </CoreValue>
+        <CoreValue>
+          <h3>Security</h3>
+          <p>
+            The security of our user's assets and personal data is of utmost importance
+            to us. We employ cutting-edge security protocols and industry best practices.
+          </p>
+        </CoreValue>
+        <CoreValue>
+          <h3>Customer-Centric</h3>
+          <p>
+            Our customers are at the heart of everything we do. We are committed
+            to providing a personalized and exceptional experience for each of our users.
+          </p>
+        </CoreValue>
+      </CoreValuesContainer>
       <BottomContainer>
         <LogoContainer>
           <div>
@@ -177,4 +278,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default WithCoreFooter;

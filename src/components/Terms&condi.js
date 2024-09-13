@@ -30,6 +30,12 @@ const Title = styled.h1`
     font-size: 1.5rem;
     margin-bottom: 15px;
   }
+  @media (max-width: 376px) {
+  font-size: 1.2rem;
+  }
+  @media (max-width: 320px) {
+  font-size: 1.1rem;
+  }
 `;
 
 const Section = styled.div`
@@ -44,12 +50,18 @@ const SectionTitle = styled.h2`
   @media (max-width: 768px) {
     font-size: 1.25rem;
   }
+  @media (max-width: 480px) {
+  font-size: 0.9rem;
+  }
 `;
 
 const Paragraph = styled.p`
   color: #ddd;
   margin-bottom: 10px;
   text-align: justify;
+  @media (max-width: 480px) {
+  font-size: 0.7rem;
+  }
 `;
 
 const TermsandCondi = () => {

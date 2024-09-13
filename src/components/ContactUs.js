@@ -1,22 +1,39 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import contact from '../assets/contact.png'
+import contact from '../assets/contact.png';
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { ChevronLeft } from "lucide-react";
+
 const ContactUsContainer = styled.div`
   background-color: black;
   color: white;
   padding: 2rem;
   font-family: Arial, sans-serif;
   min-height: 100vh;
+  padding-top: 60px;
 
 `;
 
 const Title = styled.h1`
-  text-align: center;
-  margin-bottom: 2rem;
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 `;
+
+const Para = styled.p`
+  width: 100%;
+  text-align: center;
+  @media (max-width: 480px) {
+  text-align: left;
+
+  }
+
+`;
+
 
 const Content = styled.div`
   display: flex;
@@ -97,6 +114,24 @@ const Input = styled.input`
 
 const Label = styled.label`
   margin-bottom: 1.3rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  div{
+    display: flex;
+    flex-direction: row;
+  }
+`;
+
+const Asterisk = styled.span`
+  color: red;
+  margin-right: 4px;
+`;
+
+const OptionalText = styled.span`
+  color: lightgrey;
+  font-size: 0.9rem;
+  margin-left: 4px;
 `;
 
 const Text = styled.textarea`
@@ -135,8 +170,6 @@ const SubmitButton = styled.button`
   @media (max-width: 768px) {
     margin-bottom: 50px;
   }
-
-
 `;
 
 const fadeIn = keyframes`
@@ -222,9 +255,9 @@ const ContactUs = () => {
       newErrors.MobileNo = "Invalid phone number (10 digits required)";
     }
 
-    if (!formData.Message.trim()) {
-      newErrors.Message = "Message is required";
-    }
+    // if (!formData.Message.trim()) {
+    //   newErrors.Message = "Message is required";
+    // }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -265,10 +298,12 @@ const ContactUs = () => {
     <>
       <Navbar />
       <ContactUsContainer>
-      <BackButton onClick={() => window.history.back()}>
-      <ChevronLeft />
-    </BackButton>
-        <Title>Contact Us</Title>
+      <Title>
+          <BackButton onClick={() => window.history.back()}>
+            <ChevronLeft />
+          </BackButton>
+          <Para>Contact Us</Para>
+        </Title>
         <Content>
           <IllustrationSection>
             <Illustration>
@@ -286,31 +321,36 @@ const ContactUs = () => {
           <FormSection>
             <Form onSubmit={handleSubmit}>
               <Label>
-                Name<br />
+                <div>
+               Name&nbsp;<Asterisk>*</Asterisk>
+               </div>
                 <Input
                   type="text"
                   name="Name"
                   placeholder="Name"
                   value={formData.Name}
                   onChange={handleChange}
-                  required
+                  // required
                 />
                 {errors.Name && <ErrorMessage>{errors.Name}</ErrorMessage>}
               </Label>
               <Label>
-                Email<br />
+                <div>
+             Email&nbsp;<Asterisk>*</Asterisk></div>
                 <Input
                   type="email"
                   name="Email"
                   placeholder="Email"
                   value={formData.Email}
                   onChange={handleChange}
-                  required
+                  // required
                 />
                 {errors.Email && <ErrorMessage>{errors.Email}</ErrorMessage>}
               </Label>
               <Label>
-                Contact no<br />
+                <div>
+                Contact no&nbsp;<Asterisk>*</Asterisk>
+                </div>
                 <Input
                   type="tel"
                   name="MobileNo"
@@ -322,13 +362,13 @@ const ContactUs = () => {
                 {errors.MobileNo && <ErrorMessage>{errors.MobileNo}</ErrorMessage>}
               </Label>
               <Label>
-                Message<br />
+                <div>
+                Message<OptionalText>(optional)</OptionalText></div>
                 <Text
                   name="Message"
                   placeholder="Message"
                   value={formData.Message}
                   onChange={handleChange}
-                  required
                 />
                 {errors.Message && <ErrorMessage>{errors.Message}</ErrorMessage>}
               </Label>

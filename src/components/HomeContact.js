@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   /* background-color: #1a1a1a; */
@@ -63,7 +64,7 @@ const Button = styled.button`
   } 
 `;
 
-const ContactSection = () => {
+const ContactSection = () => { 
   return (
     <Container>
       <MainText>
@@ -72,7 +73,7 @@ const ContactSection = () => {
       <SubText>
       For help with crypto sales or account-related queries, contact us through our Contact Us page. Our team is ready to assist you with all your needs.
       </SubText>
-      <Button>Contact Us</Button>
+      <Link to="/contactus"><Button>Contact Us</Button></Link>
     </Container>
   );
 };

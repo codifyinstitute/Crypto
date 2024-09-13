@@ -140,6 +140,10 @@ const Label = styled.span`
 const Para = styled.p`
   width: 100%;
   text-align: center;
+  @media (max-width: 480px) {
+  text-align: left;
+
+  }
 `;
 
 const Value = styled.span`
@@ -179,7 +183,7 @@ const Transaction = () => {
           );
           if (!response.ok) throw new Error("Failed to fetch transactions");
           const data = await response.json();
-          setTransactions(data);
+          setTransactions(data.reverse());
         } catch (error) {
           toast.error(error.message);
         } finally {
@@ -234,7 +238,7 @@ const Transaction = () => {
           active={activeTab === "Decline"}
           onClick={() => setActiveTab("Decline")}
         >
-          Decline
+          Declined
         </Tab>
         </TabContainer>
         <TransactionList>

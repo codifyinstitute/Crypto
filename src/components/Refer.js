@@ -13,28 +13,22 @@ const Container = styled.div`
   background-color: #121212;
   min-height: 100vh;
   padding: 20px;
+  padding-top: 100px;
 `;
+
 const BackButton = styled.button`
-  /* background-color: #FFA500; */
   background-color: transparent;
-  color: #FFA500;
+  color: #ffa500;
   border: none;
-  /* padding: 8px 16px; */
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
   margin: 1rem;
-  /* z-index: 1001; */
-  /* display: none; */
-  width: 100%;
-  text-align: left;
-  /* display: flex; */
-  /* justify-content: flex-start; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
-  margin: 0px 5px 0px 5px;
-
-  @media (max-width: 1024px) { // Show on tablet and mobile
+  @media (max-width: 1024px) {
     display: block;
   }
 
@@ -44,21 +38,36 @@ const BackButton = styled.button`
     left: 10px;
   }
 `;
-// const Title = styled.h2`
-//   color: #f7a600;
-//   margin-top: 0;
-//   font-size: 1.9rem;
-//   text-align: center;
-//   margin: auto;
-// `;
+
+const Para = styled.p`
+  width: 100%;
+  text-align: center;
+  color: white;
+  @media (max-width: 480px) {
+  text-align: left;
+
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+`;
 const Image = styled.div`
 background-image: url(${image1});
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-height: 400px;
-width: 400px;
+height: 290px;
+width: 60%;
 margin-top: 50px;
+@media (max-width:480px){
+  width: 100%;
+}
 `
 
 const Refer = () => {
@@ -68,9 +77,12 @@ const Refer = () => {
           
 
         <Container>
-        <BackButton onClick={() => window.history.back()}> <ChevronLeft></ChevronLeft> </BackButton>
-            {/* <Title>Coming Soon!!</Title> */}
-
+        <Title>
+          <BackButton onClick={() => window.history.back()}>
+            <ChevronLeft />
+          </BackButton>
+          <Para>Refer & Earn</Para>
+        </Title>
             <Image></Image>
         </Container>
         {/* <HomeContact /> */}

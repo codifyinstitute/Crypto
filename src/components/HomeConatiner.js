@@ -14,6 +14,7 @@ import Wazir from './Wazir';
 import Customer from './Customer';
 import Numbers from './Numbers';
 import WorldMap from './WorldMap'; // Import your CustomWorldMap component
+import WithCoreFooter from './WithCoreFooter';
 
 const GlobeContainer = styled.div`
   width: 100%;
@@ -70,7 +71,7 @@ const HomeContainer = () => {
         <Homelogo />
         <Homelogo2 />
   <HomeContact1 />
-        <Footer />
+        <WithCoreFooter></WithCoreFooter>
       
       </ContentWrapper>
     

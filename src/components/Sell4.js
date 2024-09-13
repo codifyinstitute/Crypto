@@ -158,7 +158,7 @@ const BackButton = styled.button`
 `;
 
 const Center = styled.div`
-  height: calc(100vh - 64px);
+  /* height: calc(100vh - 64px); */
   display: flex;
   justify-content: center;
 
@@ -516,6 +516,8 @@ const Sell4 = () => {
                     border: "none",
                     backgroundColor: "transparent",
                     flexGrow: 1,
+                  color: "black",
+
                   }}
                   type="text"
                   disabled

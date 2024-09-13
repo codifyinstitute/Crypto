@@ -31,7 +31,7 @@ const Card = styled.div`
   border-radius: 0.5rem;
   padding: 20px;
   width: 380px;
-  height: 610px;
+  /* height: 610px; */
   color: black;
  
 
