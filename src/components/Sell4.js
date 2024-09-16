@@ -517,6 +517,7 @@ const Sell4 = () => {
                     backgroundColor: "transparent",
                     flexGrow: 1,
                   color: "black",
+                  fontWeight: "bold",
 
                   }}
                   type="text"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BinanceImage from '../assets/Binancee.png'; // Replace with actual path
+import BinanceImage from '../assets/Binancee2.png'; // Replace with actual path
 import CoinbaseImage from '../assets/bybit.png'; // Replace with actual path
 import KrakenImage from '../assets/kucoin.png'; // Replace with actual path
 import WazirxImage from '../assets/Wazirx.webp'; // Replace with actual path
