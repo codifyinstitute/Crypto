@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Hourglass } from 'react-loader-spinner';
+// import { Hourglass } from 'react-loader-spinner';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -711,19 +711,19 @@ const Sell1 = () => {
     currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading) {
-    return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black", width: "100vw", height: "100vh" }}>
-      <Hourglass
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="hourglass-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        colors={['#ffa500', '#ffffff']}
-      />
-    </div>;
-  }
+  // if (loading) {
+  //   return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black", width: "100vw", height: "100vh" }}>
+  //     <Hourglass
+  //       visible={true}
+  //       height="80"
+  //       width="80"
+  //       ariaLabel="hourglass-loading"
+  //       wrapperStyle={{}}
+  //       wrapperClass=""
+  //       colors={['#ffa500', '#ffffff']}
+  //     />
+  //   </div>;
+  // }
 
   if (!login) {
     navigate("/sell2")
