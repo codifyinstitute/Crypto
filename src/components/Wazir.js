@@ -40,7 +40,8 @@ const Card = styled.div`
 
 const CoinIcon = styled.div`
   width: 100%;
-  height: 150px; /* Adjust the height as needed */
+  /* height: 150px; Adjust the height as needed */
+  height: 100%;
   margin-bottom: 0.5rem;
   background-color: #e6f7ff;
   border-radius: 0.5rem;
@@ -48,10 +49,24 @@ const CoinIcon = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
+  @media (max-width: 430px) {
+    height: 80px !important; 
+  }
+  @media (max-width: 375px) {
+    height:65px  !important; 
+   
+  }
   img {
     width: 100%;
-    height: 100%;
+    height: 100%; 
+   @media (max-width: 430px) {
+    height:80px  !important; 
+   
+  }
+  @media (max-width: 375px) {
+    height:65px  !important; 
+   
+  }
   }
 `;
 
@@ -78,6 +93,7 @@ const Price = styled.div`
 
   @media (max-width: 320px) {
     text-align: center;
+    font-size: 0.9em;
   }
 `;
 
@@ -85,6 +101,10 @@ const SubText = styled.div`
   font-size: 0.8rem;
   color: #888;
   margin: 5px;
+  @media (max-width: 320px) {
+    text-align: center;
+    font-size: 0.6em;
+  }
 `;
 
 const MinMaxPrice = styled.div`
