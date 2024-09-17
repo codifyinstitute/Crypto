@@ -46,7 +46,7 @@ const Card = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   width: 380px;
-  height: 610px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;

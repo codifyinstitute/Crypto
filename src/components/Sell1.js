@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronDown, ChevronUp,ChevronRight, Info, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronRight, Info, X } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
-import payment from "./../assets/payment.png";
+import payment from "./../assets/Frame 47.png";
+import { Hourglass } from 'react-loader-spinner'
 import { RefreshCw } from 'lucide-react';
 
 
@@ -551,14 +552,14 @@ const Card = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 300px;
 `;
-const Exchange= styled.div`
+const Exchange = styled.div`
 min-height: 100vh;
 background-color: black;
 display: flex;
 justify-content: center;
 padding-top: 100px;
 `
-const Card1= styled.div`
+const Card1 = styled.div`
 height: 170px;
 width: 50%;
 background-color: white;
@@ -635,10 +636,10 @@ const Sell1 = () => {
     return () => clearInterval(countdown);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    token?setLogin(true):setLogin(false);
-  },[])
+    token ? setLogin(true) : setLogin(false);
+  }, [])
 
   const handleRefresh = () => {
     setTimer(30);
@@ -711,26 +712,36 @@ const Sell1 = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black", width: "100vw", height: "100vh" }}>
+      <Hourglass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="hourglass-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        colors={['#ffa500', '#ffffff']}
+      />
+    </div>;
   }
 
-  if(!login){
+  if (!login) {
     navigate("/sell2")
-//     return (
-//       <>
-//       <Navbar />
-//       <Exchange>
+    //     return (
+    //       <>
+    //       <Navbar />
+    //       <Exchange>
 
-// <Card1>
-// <h1>LOGIN TO PROCEED</h1>
-// <p>Login or Register to proceed...</p>
-// <button onClick={()=>navigate('/sell2')}>Login</button>
-// </Card1>
+    // <Card1>
+    // <h1>LOGIN TO PROCEED</h1>
+    // <p>Login or Register to proceed...</p>
+    // <button onClick={()=>navigate('/sell2')}>Login</button>
+    // </Card1>
 
-      
-//         </Exchange>
-//       </>
-//     )
+
+    //         </Exchange>
+    //       </>
+    //     )
   }
 
   return (
@@ -738,150 +749,150 @@ const Sell1 = () => {
       <Navbar />
       <TradingEnvironment>
 
-      <ExchangeCard>
-      <div>
-      
-        <TabContainer>
-        <BackButton onClick={() => window.history.back()}>
-              <ChevronLeft />
-            </BackButton>
-          <Tab active>Sell Crypto</Tab>
-        </TabContainer>
+        <ExchangeCard>
+          <div>
 
-        <InputLabel>You sell</InputLabel>
-        <InputContainer>
-          <InputWrapper>
-            <Input
-              type="text"
-              value={usdt}
-              onChange={handleUsdtChange}
-            />
-            <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-              {selectedCurrency && (
-                <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
-              )}
-              <Rocks>
-                <Buddy>{selectedCurrency ? selectedCurrency.Name : 'Select'}</Buddy>
-                <CurrencySymbols>{selectedCurrency?.Symbol}</CurrencySymbols>
-              </Rocks>
-              <ChevronDown size={16} />
-            </CurrencyToggle>
-          </InputWrapper>
-          <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-            <DropdownHeader>
-              <DropdownTitle>Select crypto</DropdownTitle>
-              <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                <X size={24} />
-              </CloseButton>
-            </DropdownHeader>
-            {/* <SearchInput
+            <TabContainer>
+              <BackButton onClick={() => window.history.back()}>
+                <ChevronLeft />
+              </BackButton>
+              <Tab active>Sell Crypto</Tab>
+            </TabContainer>
+
+            <InputLabel>You sell</InputLabel>
+            <InputContainer>
+              <InputWrapper>
+                <Input
+                  type="text"
+                  value={usdt}
+                  onChange={handleUsdtChange}
+                />
+                <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                  {selectedCurrency && (
+                    <CurrencyIcon src={usdtt} alt={selectedCurrency.Symbol} />
+                  )}
+                  <Rocks>
+                    <Buddy>{selectedCurrency ? selectedCurrency.Name : 'Select'}</Buddy>
+                    <CurrencySymbols>{selectedCurrency?.Symbol}</CurrencySymbols>
+                  </Rocks>
+                  <ChevronDown size={16} />
+                </CurrencyToggle>
+              </InputWrapper>
+              <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+                <DropdownHeader>
+                  <DropdownTitle>Select crypto</DropdownTitle>
+                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                    <X size={24} />
+                  </CloseButton>
+                </DropdownHeader>
+                {/* <SearchInput
             type="text"
             placeholder="Search here..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />*/}
-            <CurrencyList>
-              {filteredCurrencies.map(currency => (
-                <CurrencyItem
-                  key={currency._id}
-                  onClick={() => handleCurrencySelect(currency)}
-                >
-                  <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                  <CurrencyInfo>
-                    <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
-                    <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                  </CurrencyInfo>
-                </CurrencyItem>
-              ))}
-            </CurrencyList>
-          </AnimatedDropdownContainer>
-        </InputContainer>
+                <CurrencyList>
+                  {filteredCurrencies.map(currency => (
+                    <CurrencyItem
+                      key={currency._id}
+                      onClick={() => handleCurrencySelect(currency)}
+                    >
+                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                      <CurrencyInfo>
+                        <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
+                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                      </CurrencyInfo>
+                    </CurrencyItem>
+                  ))}
+                </CurrencyList>
+              </AnimatedDropdownContainer>
+            </InputContainer>
 
-        <InputLabel>
-          You receive (estimate) 
-          <TooltipContainer>
-            <Info size={14} />
-            <TooltipText>Estimated value may vary slightly due to market fluctuations.</TooltipText>
-          </TooltipContainer>
-        </InputLabel>
-        <InputContainer>
-          <InputWrapper>
-            <Input
-              type="text"
-              value={inr.toFixed(2)}
-              readOnly
-            />
-            <CurrencyToggle>
-              <CurrencyIcon as="div">
-                <CurrencyIcon src={ind} />
-              </CurrencyIcon>
-              <Buddy>INR</Buddy>
-            </CurrencyToggle>
-          </InputWrapper>
-        </InputContainer>
+            <InputLabel>
+              You receive (estimate)
+              <TooltipContainer>
+                <Info size={14} />
+                <TooltipText>Estimated value may vary slightly due to market fluctuations.</TooltipText>
+              </TooltipContainer>
+            </InputLabel>
+            <InputContainer>
+              <InputWrapper>
+                <Input
+                  type="text"
+                  value={inr.toFixed(2)}
+                  readOnly
+                />
+                <CurrencyToggle>
+                  <CurrencyIcon as="div">
+                    <CurrencyIcon src={ind} />
+                  </CurrencyIcon>
+                  <Buddy>INR</Buddy>
+                </CurrencyToggle>
+              </InputWrapper>
+            </InputContainer>
 
-        <UpdateText>Updating rates</UpdateText>
+            <UpdateText>Updating rates</UpdateText>
 
-        <OrderSummary>
-          <OrderTitle onClick={toggleDetailsExpanded}>
-            <b>Your order</b>
-            <div style={{ display: "flex" }}>
-              {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
-              {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </div>
-          </OrderTitle>
-          {isDetailsExpanded && (
-            <>
-              <OrderDetail>
-                <span>1 {selectedCurrency?.Name}</span>
-                <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
-              </OrderDetail>
-              <OrderDetail>
-                <span>
-                  Processing fee
-                  <TooltipContainer>
-                     <Info size={14} />
-                    <TooltipText>Fee charged for processing the transaction.</TooltipText>
-                  </TooltipContainer>
-                </span>
-                <span>as low as Rs {transactionFee}</span>
-              </OrderDetail>
-              <OrderDetail>
-                <span>
-                  Network fee
-                  <TooltipContainer>
+            <OrderSummary>
+              <OrderTitle onClick={toggleDetailsExpanded}>
+                <b>Your order</b>
+                <div style={{ display: "flex" }}>
+                  {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+                  {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </div>
+              </OrderTitle>
+              {isDetailsExpanded && (
+                <>
+                  <OrderDetail>
+                    <span>1 {selectedCurrency?.Name}</span>
+                    <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+                  </OrderDetail>
+                  <OrderDetail>
+                    <span>
+                      Processing fee
+                      <TooltipContainer>
                         <Info size={14} />
-                    <TooltipText>Fee charged by the network for sending the transaction.</TooltipText>
-                  </TooltipContainer>
-                </span>
-                <span>as low as Rs {networkFee}</span>
-              </OrderDetail>
-            </>
+                        <TooltipText>Fee charged for processing the transaction.</TooltipText>
+                      </TooltipContainer>
+                    </span>
+                    <span>as low as Rs {transactionFee}</span>
+                  </OrderDetail>
+                  <OrderDetail>
+                    <span>
+                      Network fee
+                      <TooltipContainer>
+                        <Info size={14} />
+                        <TooltipText>Fee charged by the network for sending the transaction.</TooltipText>
+                      </TooltipContainer>
+                    </span>
+                    <span>as low as Rs {networkFee}</span>
+                  </OrderDetail>
+                </>
+              )}
+            </OrderSummary>
+          </div>
+          <div>
+            <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
+              Proceed · Sell {selectedCurrency?.Name} <ChevronRight />
+            </ProceedButton>
+
+            <PaymentMethods>
+              <PaymentIcon />
+            </PaymentMethods>
+
+            <PoweredBy>
+              Powered by Moon Pay
+            </PoweredBy>
+          </div>
+          <Indicator onClick={toggleCardVisibility}>
+            <Info size={20} />
+          </Indicator>
+          {isCardVisible && (
+            <Card>
+              <p>This is the detailed card shown when the indicator is clicked.</p>
+            </Card>
           )}
-        </OrderSummary>
-      </div>
-      <div>
-        <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-          Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
-        </ProceedButton>
-
-        <PaymentMethods>
-          <PaymentIcon />
-        </PaymentMethods>
-
-        <PoweredBy>
-          Powered by Moon Pay
-        </PoweredBy>
-      </div>
-      <Indicator onClick={toggleCardVisibility}>
-        <Info size={20} />
-      </Indicator>
-      {isCardVisible && (
-        <Card>
-          <p>This is the detailed card shown when the indicator is clicked.</p>
-        </Card>
-      )}
-    </ExchangeCard>
+        </ExchangeCard>
 
 
 
@@ -912,43 +923,43 @@ const Sell1 = () => {
       <PolicyDescription>What is tiered price policy?</PolicyDescription>
     </PriceContainer> */}
 
-<Container>
-    
-      
-      <PriceDisplay>
-        <Price> ₹ {selectedCurrency?.Rate.toFixed(2)}</Price>
+        <Container>
 
-      </PriceDisplay>
-      
-      <Subtext>1 USDT = ₹ {selectedCurrency?.Rate.toFixed(2)}</Subtext>
-      <Center>
-      <TableContainer>
-        <Table>
-          <thead>
-            <tr>
-              <TableHeader>Exchange(s)</TableHeader>
-              <TableHeader align="right">Price()</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-              <TableCell >{selectedCurrency?.Rate.toFixed(2)}+0.25</TableCell>
-            </tr>
-            <tr>
-              <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-              <TableCell >{selectedCurrency?.Rate.toFixed(2)}-0.5</TableCell>
-            </tr>
-            <tr>
-              <TableCell>&gt;=3225.81</TableCell>
-              <TableCell >{selectedCurrency?.Rate.toFixed(2)}-1</TableCell>
-            </tr>
-          </tbody>
-        </Table>
-        <TableFooter>What is tiered price policy?</TableFooter>
-      </TableContainer>
-      </Center>
-    </Container>
+
+          <PriceDisplay>
+            <Price> ₹ {selectedCurrency?.Rate.toFixed(2)}</Price>
+
+          </PriceDisplay>
+
+          <Subtext>1 USDT = ₹ {selectedCurrency?.Rate.toFixed(2)}</Subtext>
+          <Center>
+            <TableContainer>
+              <Table>
+                <thead>
+                  <tr>
+                    <TableHeader>Exchange(s)</TableHeader>
+                    <TableHeader align="right">Price()</TableHeader>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
+                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}+0.25</TableCell>
+                  </tr>
+                  <tr>
+                    <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
+                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}-0.5</TableCell>
+                  </tr>
+                  <tr>
+                    <TableCell>&gt;=3225.81</TableCell>
+                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}-1</TableCell>
+                  </tr>
+                </tbody>
+              </Table>
+              <TableFooter>What is tiered price policy?</TableFooter>
+            </TableContainer>
+          </Center>
+        </Container>
 
 
 
