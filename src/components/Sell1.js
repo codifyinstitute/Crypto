@@ -715,21 +715,22 @@ const Sell1 = () => {
   }
 
   if(!login){
-    return (
-      <>
-      <Navbar />
-      <Exchange>
+    navigate("/sell2")
+//     return (
+//       <>
+//       <Navbar />
+//       <Exchange>
 
-<Card1>
-<h1>LOGIN TO PROCEED</h1>
-<p>Login or Register to proceed...</p>
-<button onClick={()=>navigate('/sell2')}>Login</button>
-</Card1>
+// <Card1>
+// <h1>LOGIN TO PROCEED</h1>
+// <p>Login or Register to proceed...</p>
+// <button onClick={()=>navigate('/sell2')}>Login</button>
+// </Card1>
 
       
-        </Exchange>
-      </>
-    )
+//         </Exchange>
+//       </>
+//     )
   }
 
   return (
