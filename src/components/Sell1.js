@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Hourglass } from 'react-loader-spinner';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +11,6 @@ import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import payment from "./../assets/Frame 47.png";
-import { Hourglass } from 'react-loader-spinner'
 import { RefreshCw } from 'lucide-react';
 
 
