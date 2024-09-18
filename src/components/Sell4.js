@@ -234,15 +234,20 @@ const SubmitAnimation = styled.div`
   }
 `;
 const TxIdInput = styled.input`
-  width: 100%;
-  padding: 12px;
-  font-size: 16px; /* Ensures no zooming on mobile */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 20px;
+padding: 5px;
+    margin: 0px 5px;
+    font-size: 14px;
+    flex-grow: 1;
+    border: 1px solid black;
+    border-radius: 5px;
 
   @media (max-width: 480px) {
-    font-size: 16px; /* Mobile-friendly font size to avoid zoom */
+    padding: 5px;
+    margin: 0px 5px;
+    font-size: 14px;
+    flex-grow: 1;
+    border: 1px solid black;
+    border-radius: 5px;; /* Mobile-friendly font size to avoid zoom */
   }
 `;
 
