@@ -233,6 +233,18 @@ const SubmitAnimation = styled.div`
     to { opacity: 1; }
   }
 `;
+const TxIdInput = styled.input`
+  width: 100%;
+  padding: 12px;
+  font-size: 16px; /* Ensures no zooming on mobile */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  @media (max-width: 480px) {
+    font-size: 16px; /* Mobile-friendly font size to avoid zoom */
+  }
+`;
 
 const Sell4 = () => {
   const textRef = useRef();
@@ -551,20 +563,18 @@ const Sell4 = () => {
               <InfoRow>
                 <Label>TxID:</Label>
                 {submited ? (
-                  <input
-                    style={{
-                      padding: "5px",
-                      margin: "0 5px",
-                      fontSize: "14px",
-                      flexGrow: 1,
-                      border: "black solid 1px",
-                      borderRadius: "5px",
-                    }}
-                    type="text"
-                    value={transaction}
-                    onChange={handleTransactionChange}
-                    disabled
-                  />
+
+                  <TxIdInput
+  type="text"
+  ref={textTransactionRef}
+  placeholder="Enter TxID"
+  value={transaction}
+  onChange={(e) => setTransaction(e.target.value)}
+/>
+
+              
+ 
+
                 ) : (
                   <input
                     style={{
