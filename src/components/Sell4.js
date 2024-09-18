@@ -236,7 +236,7 @@ const SubmitAnimation = styled.div`
 const TxIdInput = styled.input`
 padding: 5px;
     margin: 0px 5px;
-    font-size: 14px;
+    font-size: 17px;
     flex-grow: 1;
     border: 1px solid black;
     border-radius: 5px;
@@ -244,7 +244,7 @@ padding: 5px;
   @media (max-width: 480px) {
     padding: 5px;
     margin: 0px 5px;
-    font-size: 14px;
+    font-size: 17px;
     flex-grow: 1;
     border: 1px solid black;
     border-radius: 5px;; /* Mobile-friendly font size to avoid zoom */
