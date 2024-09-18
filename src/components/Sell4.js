@@ -72,6 +72,11 @@ const InfoRow = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+
+  @media (max-width: 375px) {
+flex-wrap: wrap;
+  }
+
 `;
 
 const Label1 = styled.span`
@@ -123,7 +128,9 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   width: 80px;
-
+  @media (max-width: 375px) {
+margin: 2%;
+  }
   &:hover {
     background-color: #e69500;
   }
@@ -231,23 +238,6 @@ const SubmitAnimation = styled.div`
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-  }
-`;
-const TxIdInput = styled.input`
-padding: 5px;
-    margin: 0px 5px;
-    font-size: 17px;
-    flex-grow: 1;
-    border: 1px solid black;
-    border-radius: 5px;
-
-  @media (max-width: 480px) {
-    padding: 5px;
-    margin: 0px 5px;
-    font-size: 17px;
-    flex-grow: 1;
-    border: 1px solid black;
-    border-radius: 5px;; /* Mobile-friendly font size to avoid zoom */
   }
 `;
 
@@ -568,24 +558,26 @@ const Sell4 = () => {
               <InfoRow>
                 <Label>TxID:</Label>
                 {submited ? (
-
-                  <TxIdInput
-  type="text"
-  ref={textTransactionRef}
-  placeholder="Enter TxID"
-  value={transaction}
-  onChange={(e) => setTransaction(e.target.value)}
-/>
-
-              
- 
-
+                  <input
+                    style={{
+                      padding: "5px",
+                      margin: "0 5px",
+                      fontSize: "16px",
+                      flexGrow: 1,
+                      border: "black solid 1px",
+                      borderRadius: "5px",
+                    }}
+                    type="text"
+                    value={transaction}
+                    onChange={handleTransactionChange}
+                    disabled
+                  />
                 ) : (
                   <input
                     style={{
                       padding: "5px",
                       margin: "0 5px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       flexGrow: 1,
                       border: "black solid 1px",
                       borderRadius: "5px",
