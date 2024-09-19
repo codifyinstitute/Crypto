@@ -218,7 +218,7 @@ const WithCoreFooter = () => {
   return (
     <FooterContainer>
       <Header>
-        <h2>Our Core Value</h2>
+        <h2>Our Core Values</h2>
       </Header>
       <CoreValuesContainer>
         <CoreValue>
