@@ -57,6 +57,18 @@ const Title = styled.h1`
   align-items: center;
   width: 100%;
 `;
+const Come = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  color: orange;
+  text-align: center;
+  margin-top: 2%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
 const Image = styled.div`
 background-image: url(${image1});
 background-size: cover;
@@ -84,6 +96,7 @@ const Refer = () => {
           <Para>Refer & Earn</Para>
         </Title>
             <Image></Image>
+            <Come>Coming Soon !!!</Come>
         </Container>
         {/* <HomeContact /> */}
         {/* <Footer /> */}

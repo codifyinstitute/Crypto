@@ -4,6 +4,7 @@ import Marquee from 'react-fast-marquee';
 import WorldMap from './WorldMap';
 import Numbers from './Numbers';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Starreview from './../components/Starreview';
 
 
 
@@ -182,13 +183,14 @@ const App = () => {
     <>
       <GlobalStyle />
       <Container>
-        <Title>Peerless <span>global</span> coverage</Title>
+
+     
+        <Title>  Using the  <span>latest technologies</span> to keep our platform safe.</Title>
         <Description>
-          Alchemy Pay supports fiat-crypto purchases from 173 countries, using methods such as Visa, Mastercard, regional
-          mobile wallets, and domestic transfers. Comprehensive coverage in Europe, Northern & Latin America, and Southeast
-          Asia, with a focus on access to emerging markets.
+        MoonPay’s built with your security in mind. That’s why we use AES-256 encryption across the board, and we’re PCI-DSS and ISO 27001 compliant.
         </Description>
-        <Link to="/contactus"><TalkButton>Talk to us</TalkButton></Link> 
+        {/*<Link to="/contactus"><TalkButton>Talk to us</TalkButton></Link> */}
+        <Starreview/>
         <MapContainer onMouseMove={handleMouseMove}>
           <WorldMap setTooltipContent={setTooltipContent} />
           {tooltipContent && (

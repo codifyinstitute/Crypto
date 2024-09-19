@@ -48,7 +48,9 @@ const SliderWrapper = styled.div`
     margin-top: 20px;
   }
 `;
-
+const Yellow = styled.span`
+color: orange;
+`;
 const TestimonialCard = styled.div`
   display: flex;
   align-items: center;
@@ -217,7 +219,7 @@ const Component = () => {
   return (
     <Container>
       <HappyCustomerSection>
-        <Title>Happy Customers</Title>
+        <Title>Happy<Yellow> Customers</Yellow> </Title>
         <SliderContainer>
           <SliderWrapper currentIndex={currentIndex}>
             {testimonials.map((testimonial, index) => (

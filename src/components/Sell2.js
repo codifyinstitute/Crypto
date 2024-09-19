@@ -6,7 +6,8 @@ import Navbar from './Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import HomeContact from './HomeContact';
 import axios from 'axios';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft  } from 'lucide-react';
+import {  ChevronRight } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -252,7 +253,7 @@ const Sell2 = () => {
             </Boxx>
             <Boo>
               <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
-                {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH →'}
+                {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH '}<ChevronRight />
               </Button>
               <PoweredBy>Powered by Moon Pay</PoweredBy>
             </Boo>

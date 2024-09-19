@@ -8,6 +8,7 @@ import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/Frame 47.png";
 import bg2 from "./../assets/bg2.jpg";
+import logoM from "./../assets/logo2.png";
 
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
@@ -275,7 +276,7 @@ const Home = () => {
                 transition={{ duration: 0.5, delay: 1 }}
               >
                 <PoweredBy>
-                  Powered by Moon Pay
+                  Powered by <Moon src={logoM}/>
                 </PoweredBy>
               </motion.div>
             </div>
@@ -326,6 +327,12 @@ const ContentSection = styled.div`
   }
 `;
 
+const Moon = styled.img`
+ 
+ width: 25%;
+
+
+`;
 const Title = styled.h1`
   font-size: 3.5rem;
   margin-bottom: 1rem;
@@ -577,10 +584,13 @@ const PaymentIcon = styled.div`
 `;
 
 const PoweredBy = styled.div`
-  font-size: 0.8rem;
-  color: black;
-  text-align: center;
-  margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: black;
+    text-align: center;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 const AnimatedDropdownContainer = styled.div`

@@ -130,6 +130,7 @@ const Label = styled.span`
   font-size: 15px;
   margin-bottom: 5px;
   font-weight: 700;
+  text-align: center;
   @media (max-width: 320px) {
     font-size: 12px;
     top: 10px;
@@ -256,12 +257,12 @@ const Transaction = () => {
                     <Value>{transaction.BankName}</Value>
                   </TransactionColumn>
                   <TransactionColumn>
-                    <Label>Account Number</Label>
+                    <Label>A/C</Label>
                     <Value>{transaction.AccountNumber}</Value>
                   </TransactionColumn>
                   <TransactionColumn>
                     <Label>Amount</Label>
-                    <Value>${transaction.ReceivedAmount}</Value>
+                    <Value>₹{transaction.ReceivedAmount}</Value>
                   </TransactionColumn>
                   <TransactionColumn>
                     <Label>Status</Label>

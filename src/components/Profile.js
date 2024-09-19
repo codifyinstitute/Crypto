@@ -45,8 +45,9 @@ const VerifiedBadge = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #FFA500;
+  background-color:#76b83f;
   border-radius: 50%;
+  border: 1px black solid;
   width: 20px;
   height: 20px;
   display: flex;

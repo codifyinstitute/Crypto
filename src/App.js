@@ -30,6 +30,7 @@ import TermsandCondi from './components/Terms&condi';
 import ContactUs from './components/ContactUs';
 import AdminQueries from './components/Admin/AdminQueries';
 
+import Starreview from './components/Starreview';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/admin/otherprice" element={<OtherPrice />} />
         <Route path="/admin/query" element={<AdminQueries />} />
+        <Route path="/star" element={<Starreview />} />
       </Routes>
     </ThemeProvider>
   );

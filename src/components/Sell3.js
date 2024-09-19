@@ -488,7 +488,7 @@ const Sell3 = () => {
                 </FormWarning>
 
                 <FormButton type="submit" disabled={!isFormValid}>
-                  Proceed To Pay
+                  Add Bank Account
                 </FormButton>
               </form>
             ) : (

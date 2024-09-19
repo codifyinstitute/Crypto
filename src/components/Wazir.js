@@ -124,7 +124,9 @@ const PriceInfo = styled.div`
   font-size: 0.8rem;
   color: #aaa;
 `;
-
+const Yellow = styled.span`
+color: orange;
+`;
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 1rem;
@@ -177,7 +179,7 @@ const CryptoPriceGrid = () => {
 
   return (
     <>
-      <Title>Prices on other Exchanges</Title>
+      <Title><Yellow>Live</Yellow> Rates</Title>
       <Grid>
         <CryptoPriceCard
           exchange="Binance"

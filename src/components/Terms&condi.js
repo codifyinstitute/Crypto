@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { ChevronLeft  } from 'lucide-react';
 
 const PageContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -16,25 +17,60 @@ const PageContainer = styled.div`
     padding: 15px;
   }
 `;
+const BackButton = styled.button`
+  background-color: transparent;
+  color: #FFA500;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  /* z-index: 1001; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+const Titlee = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  
+  @media (max-width: 430px) {
+    font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  }
+`;
 const Title = styled.h1`
   color: orange;
   border-bottom: 2px solid orange;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  margin-top: 50px;
+  width: 100%;
   text-align: center;
-  font-size: 2rem;
+  margin-top: 22px;
+  text-align: center;
+  font-size: 2rem; /* Adjust font size for readability */
 
   @media (max-width: 768px) {
     font-size: 1.5rem;
     margin-bottom: 15px;
-  }
-  @media (max-width: 376px) {
-  font-size: 1.2rem;
-  }
-  @media (max-width: 320px) {
-  font-size: 1.1rem;
   }
 `;
 
@@ -69,8 +105,12 @@ const TermsandCondi = () => {
     <>
       <Navbar />
       <PageContainer>
+      <Titlee>
+      <BackButton onClick={() => window.history.back()}>
+      <ChevronLeft />
+    </BackButton>
         <Title>Moon Pay - Terms and Conditions</Title>
-        
+        </Titlee>
         <Section>
           <SectionTitle>1. Introduction</SectionTitle>
           <Paragraph>

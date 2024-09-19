@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronDown, ChevronUp, ChevronRight, Info, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronRight, Info, X, Moon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
@@ -12,7 +12,7 @@ import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import payment from "./../assets/Frame 47.png";
 import { RefreshCw } from 'lucide-react';
-
+import logoM from "./../assets/logo2.png";
 
 const TradingEnvironment = styled.div`
   display: flex;
@@ -200,10 +200,13 @@ const PaymentIcon = styled.div`
 `;
 
 const PoweredBy = styled.div`
-  font-size: 0.8rem;
-  color: black;
-  text-align: center;
-  margin-top: 0.5rem;
+      font-size: 0.8rem;
+    color: black;
+    text-align: center;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   @media (max-width: 430px) {
     margin-top: 0px;
     ;
@@ -555,7 +558,12 @@ const Indicator = styled.div`
 //     margin-left: 2%;
 
 // `;
+const Moonn = styled.img`
+ 
+ width: 25%;
 
+
+`;
 
 const Card = styled.div`
   position: absolute;
@@ -599,6 +607,7 @@ h1{
 }
 
 }
+
 button{
   height: 50px;
   font-size: 20px;
@@ -881,7 +890,7 @@ const Sell1 = () => {
             </PaymentMethods>
 
             <PoweredBy>
-              Powered by Moon Pay
+              Powered by <Moonn src={logoM}/>
             </PoweredBy>
           </div>
           <Indicator onClick={toggleCardVisibility}>
