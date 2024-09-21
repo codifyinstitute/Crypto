@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
-import { toast } from 'react-toastify'; // For toast notifications
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const ProfileSection = styled.div`
 const AvatarContainer = styled.div`
   position: relative;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Avatar = styled.div`
@@ -39,6 +40,13 @@ const Avatar = styled.div`
   justify-content: center;
   color: white;
   font-size: 32px;
+  overflow: hidden;
+`;
+
+const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const VerifiedBadge = styled.div`
@@ -62,7 +70,6 @@ const Username = styled.h2`
   margin: 5px 0;
   @media (max-width: 320px) {
     font-size: 18px;
-  
   }
 `;
 
@@ -158,8 +165,6 @@ const ModalButton = styled.button`
 `;
 
 const ConfirmButton = styled(ModalButton)`
-
-
   background-color: #ccc;
   color: #333;
 `;
@@ -173,6 +178,8 @@ const Profile = () => {
   const [userEmail, setUserEmail] = useState('');
   const [loading, setLoading] = useState(true);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   const fetchUserData = async () => {
@@ -211,6 +218,22 @@ const Profile = () => {
     navigate('/');
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileImage(e.target.result);
+        console.log('Selected image:', e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (loading) return <Container><p>Loading...</p></Container>;
 
   const getInitial = email => email.charAt(0).toUpperCase();
@@ -220,10 +243,23 @@ const Profile = () => {
       <Navbar />
       <Container>
         <ProfileSection>
-          <AvatarContainer>
-            <Avatar>{getInitial(userEmail)}</Avatar>
+          <AvatarContainer onClick={handleImageClick}>
+            <Avatar>
+              {profileImage ? (
+                <AvatarImage src={profileImage} alt="Profile" />
+              ) : (
+                getInitial(userEmail)
+              )}
+            </Avatar>
             <VerifiedBadge>✓</VerifiedBadge>
           </AvatarContainer>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
           <Username>{userEmail}</Username>
           <Subtitle>email</Subtitle>
         </ProfileSection>
@@ -275,8 +311,6 @@ const Profile = () => {
           </MenuItem>
         </MenuList>
       </Container>
-      {/* <HomeContact/> */}
-      {/* <Footer /> */}
       
       {showLogoutModal && (
         <ModalOverlay>

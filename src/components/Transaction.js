@@ -257,7 +257,7 @@ const Transaction = () => {
                     <Value>{transaction.BankName}</Value>
                   </TransactionColumn>
                   <TransactionColumn>
-                    <Label>A/C</Label>
+                    <Label>A/C Number</Label>
                     <Value>{transaction.AccountNumber}</Value>
                   </TransactionColumn>
                   <TransactionColumn>

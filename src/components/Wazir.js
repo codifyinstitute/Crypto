@@ -132,12 +132,13 @@ const Title = styled.h2`
   margin-bottom: 1rem;
   font-size: 3rem;
   color: white;
-  margin-top: 2%;
+  margin-top: 4%;
 
   @media (max-width: 480px) {
     font-size: 1.87rem;
     text-align: center;
     width: auto;
+    margin-top: 8%;
   }
 `;
 
