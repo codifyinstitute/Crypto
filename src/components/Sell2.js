@@ -253,7 +253,7 @@ const Sell2 = () => {
             </Boxx>
             <Boo>
               <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
-                {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH '}<ChevronRight />
+                {loading ? <LoadingSpinner /> : 'Proceed - Sell USDT '}<ChevronRight />
               </Button>
               <PoweredBy>Powered by Moon Pay</PoweredBy>
             </Boo>
