@@ -39,7 +39,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2.8rem;
   margin-bottom: 1rem;
 
   span {
