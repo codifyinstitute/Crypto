@@ -9,6 +9,7 @@ import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/Frame 47.png";
 import bg2 from "./../assets/bg2.jpg";
 import logoM from "./../assets/logo2.png";
+import Newcomp from './Newcomp';
 
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
@@ -119,6 +120,7 @@ const Home = () => {
         >
           <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
         </motion.div>
+        <Newcomp/>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -319,7 +321,7 @@ const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   @media (max-width: 1024px) {
     width: 100%;

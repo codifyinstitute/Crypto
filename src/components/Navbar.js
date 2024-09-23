@@ -29,8 +29,8 @@ const NavbarWrapper = styled.div`
   bottom: 0;
   left: 0;
   z-index: 100;
-  border: 1px solid white;
-  border-radius: 20px;
+  /* border: 1px solid white; */
+  /* border-radius: 20px; */
 
   @media (min-width: 769px) {
     display: none; /* Hide mobile navbar on desktop */

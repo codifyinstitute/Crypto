@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import logoM1 from './../assets/logo2.png'
+import logoM from './../assets/logo2.png'
 
 import { Link, useNavigate } from 'react-router-dom';
 import HomeContact from './HomeContact';
@@ -26,7 +28,12 @@ const PageContainer = styled.div`
 
   }
 `;
+const Moon = styled.img`
+ 
+ width: 25%;
 
+
+`;
 const Card = styled.div`
   background-color: white;
   border-radius: 0.5rem;
@@ -56,11 +63,12 @@ const Tab = styled.div`
   font-size: 25px;
 `;
 
-const Logo = styled.div`
-  color: #ffa500;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+const Logo = styled.img`
+  /* color: #ffa500; */
+  /* font-size: 24px; */
+  /* font-weight: bold; */
+  /* margin-bottom: 20px; */
+  width: 40%;
 `;
 
 const Subtitle = styled.h2`
@@ -121,6 +129,9 @@ const PoweredBy = styled.p`
   color: #666;
   text-align: center;
   margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const LoadingSpinner = styled.div`
@@ -223,7 +234,7 @@ const Sell2 = () => {
             </BackButton>
             <Tab active>Login To Moon Pay</Tab>
           </TabContainer>
-          <Logo>LOGO</Logo>
+          <Logo src ={logoM1}/>
           <Subtitle>Checkout with Moon Pay</Subtitle>
 
           <Forg>
@@ -253,9 +264,11 @@ const Sell2 = () => {
             </Boxx>
             <Boo>
               <Button type="button" disabled={!isFormValid || loading} onClick={handleProceed}>
-                {loading ? <LoadingSpinner /> : 'Proceed - Buy ACH '}<ChevronRight />
+                {loading ? <LoadingSpinner /> : 'Proceed - Sell USDT '}<ChevronRight />
               </Button>
-              <PoweredBy>Powered by Moon Pay</PoweredBy>
+              <PoweredBy>
+              Powered by <Moon src={logoM}/>
+            </PoweredBy>
             </Boo>
           </Forg>
         </Card>
