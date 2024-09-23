@@ -9,6 +9,7 @@ import usdtt from "./../assets/usdtt.png";
 import payment from "./../assets/Frame 47.png";
 import bg2 from "./../assets/bg2.jpg";
 import logoM from "./../assets/logo2.png";
+import mobbb from "./../assets/mobbb.jpg";
 import Newcomp from './Newcomp';
 
 const Home = () => {
@@ -111,22 +112,24 @@ const Home = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Title>Discover Your Dream Property with Estatein</Title>
+          <Title>Crypto to <Yellow>Cash </Yellow>Made Simple</Title>
+          
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Subtitle>Your journey to finding the perfect property begins here. Explore our listings to find the home that matches your dreams.</Subtitle>
+          <Subtitle>Easily transform your digital currency into cash with our trusted conversion service. We prioritize <Yellow>security </Yellow>and <Yellow>speed</Yellow>, so you can access your funds without hassle.</Subtitle>
         </motion.div>
-        <Newcomp/>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.10 }}
           style={{ width: '100%' }}
         >
+        <Newcomp/>
+          {/* <img src={mobbb}/>   */}
           <ExchangeRateBox>
             <RateValue>₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateValue>
             <RateLabel>1 USDT = ₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateLabel>
@@ -321,14 +324,19 @@ const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  /* align-items: center; */
 
   @media (max-width: 1024px) {
     width: 100%;
     margin-top: 5%;
   }
 `;
+const Yellow = styled.span`
+ 
+ color: orange;
 
+
+`;
 const Moon = styled.img`
  
  width: 25%;
@@ -336,9 +344,10 @@ const Moon = styled.img`
 
 `;
 const Title = styled.h1`
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
-  width: 80%;
+  width: 100%;
+  text-align: left;
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -348,7 +357,7 @@ const Title = styled.h1`
 
 const Subtitle = styled.p`
   font-size: 1.2em;
-  color: #888;
+  color: white;
   margin-bottom: 2rem;
   width: 80%;
 
