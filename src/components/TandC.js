@@ -42,7 +42,7 @@ const Title = styled.h1`
 const SectionHeader = styled.h2`
   color: orange;
   margin-bottom: 10px;
-  text-align: center;
+  text-align: left;
   font-size: 1.5rem; /* Adjust font size for readability */
 
 
@@ -67,7 +67,7 @@ const ImportantText = styled.p`
   font-weight: bold;
   color: orange;
   margin: 10px 0;
-  text-align: center;
+  text-align: left;
   @media (max-width: 768px) {
 text-align: left;
   }
@@ -94,7 +94,7 @@ flex-direction: column;
 `;
 const Sectionn = styled.div`
 width: 60%;
-text-align: center;
+text-align: left;
 @media (max-width: 768px) {
 flex-wrap: wrap;
 width: 90%;

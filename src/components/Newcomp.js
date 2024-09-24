@@ -8,7 +8,10 @@ const StepsContainer = styled.div`
   gap: 1rem;
   max-width: 600px;
   width: 100%;
+  /* background-color: white; */
   padding: 1rem;
+  margin-bottom: 4%;
+  border-radius: 15px;
   box-sizing: border-box;
 
   @media (max-width: 480px) {
@@ -19,7 +22,8 @@ const StepsContainer = styled.div`
 const StepCard = styled.div`
   display: flex;
   align-items: center;
-  background-color: #FFF7E6;
+  background-color: white
+  ;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
