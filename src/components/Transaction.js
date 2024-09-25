@@ -180,7 +180,7 @@ const Transaction = () => {
       if (email) {
         try {
           const response = await fetch(
-            `https://crypto-anl6.onrender.com/transactions/get/email/${email}`
+            `https://api.moonpayx.com/transactions/get/email/${email}`
           );
           if (!response.ok) throw new Error("Failed to fetch transactions");
           const data = await response.json();

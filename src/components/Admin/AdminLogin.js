@@ -68,7 +68,7 @@ const AdminLogin = () => {
         }
 
         try {
-            const response = await fetch('https://crypto-anl6.onrender.com/static/login', {
+            const response = await fetch('https://api.moonpayx.com/static/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

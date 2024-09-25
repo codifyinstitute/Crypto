@@ -186,11 +186,11 @@ const Profile = () => {
     const email = localStorage.getItem('token');
     if (email) {
       try {
-        const response = await fetch(`https://crypto-anl6.onrender.com/users/get/${email}`);
+        const response = await fetch(`https://api.moonpayx.com/users/get/${email}`);
         if (!response.ok) throw new Error('Failed to fetch user data');
         const data = await response.json();
         setUserEmail(data.Email);
-        setProfileImage(`https://crypto-anl6.onrender.com/uploads/${data.Profile}`)
+        setProfileImage(`https://api.moonpayx.com/uploads/${data.Profile}`)
       } catch (error) {
         toast.error(error.message);
       } finally {
@@ -232,7 +232,7 @@ const Profile = () => {
     const email = localStorage.getItem('token');
 
     try {
-      const response = await fetch(`https://crypto-anl6.onrender.com/users/update/${email}`, {
+      const response = await fetch(`https://api.moonpayx.com/users/update/${email}`, {
         method: 'PUT',
         body: formData,
       });

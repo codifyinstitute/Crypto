@@ -28,7 +28,7 @@ const Home = () => {
 
   const fetchTransactionFee = async () => {
     try {
-      const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+      const response = await fetch('https://api.moonpayx.com/static/get/66c445a358802d46d5d70dd4');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -48,7 +48,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://crypto-anl6.onrender.com/currencies/all")
+      .get("https://api.moonpayx.com/currencies/all")
       .then((response) => {
         setCurrencies(response.data);
         setSelectedCurrency(response.data[0] || null);

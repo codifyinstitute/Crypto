@@ -292,8 +292,8 @@ const Sell4 = () => {
 
   const fetchTransactionFee = async () => {
     try {
-      const response = await fetch("https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4");
-      const countResponse = await fetch("https://crypto-anl6.onrender.com/transactions/get/count");
+      const response = await fetch("https://api.moonpayx.com/static/get/66c445a358802d46d5d70dd4");
+      const countResponse = await fetch("https://api.moonpayx.com/transactions/get/count");
 
       if (!response.ok && !countResponse.ok) {
         throw new Error("Network response was not ok");
@@ -310,7 +310,7 @@ const Sell4 = () => {
 
   const fetchCurrencyData = async () => {
     try {
-      const response = await fetch("https://crypto-anl6.onrender.com/currencies/all");
+      const response = await fetch("https://api.moonpayx.com/currencies/all");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -362,7 +362,7 @@ const Sell4 = () => {
   const confirmTransaction = async () => {
     setShowConfirmation(false);
     try {
-      const response = await fetch("https://crypto-anl6.onrender.com/transactions/add", {
+      const response = await fetch("https://api.moonpayx.com/transactions/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -550,7 +550,7 @@ const Sell4 = () => {
               <QRCodeContainer>
                 <QRCode>
                   <img
-                    src={`https://crypto-anl6.onrender.com/uploads/${image}`}
+                    src={`https://api.moonpayx.com/uploads/${image}`}
                     width="150px"
                     alt="QR code"
                   />

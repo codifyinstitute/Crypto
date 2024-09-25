@@ -674,8 +674,8 @@ const Sell1 = () => {
     const fetchData = async () => {
       try {
         const [currenciesResponse, feesResponse] = await Promise.all([
-          axios.get('https://crypto-anl6.onrender.com/currencies/all'),
-          fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4')
+          axios.get('https://api.moonpayx.com/currencies/all'),
+          fetch('https://api.moonpayx.com/static/get/66c445a358802d46d5d70dd4')
         ]);
 
         setCurrencies(currenciesResponse.data);
