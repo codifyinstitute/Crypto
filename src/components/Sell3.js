@@ -277,7 +277,7 @@ const Sell3 = () => {
 
     try {
       const response = await axios.get(
-        `https://crypto-anl6.onrender.com/users/get/${email}`
+        `https://api.moonpayx.com/users/get/${email}`
       );
       const user = response.data;
 
@@ -344,7 +344,7 @@ const Sell3 = () => {
 
     try {
       await axios.put(
-        `https://crypto-anl6.onrender.com/users/put/${email}/accounts`,
+        `https://api.moonpayx.com/users/put/${email}/accounts`,
         accountData
       );
       toast.success("Account data successfully submitted");

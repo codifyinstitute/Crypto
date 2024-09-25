@@ -268,7 +268,7 @@ const ContactUs = () => {
     if (validateForm()) {
       setIsSubmitting(true);
       try {
-        const response = await fetch("https://crypto-anl6.onrender.com/contacts/add", {
+        const response = await fetch("https://api.moonpayx.com/contacts/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
