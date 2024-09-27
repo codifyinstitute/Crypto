@@ -173,6 +173,34 @@ const Home = () => {
                     <ChevronDown size={16} />
                   </CurrencyToggle>
                 </InputWrapper>
+                <AnimatedDropdownContainer isOpen={isDropdownOpen}>
+                <DropdownHeader>
+                  <DropdownTitle>Select crypto</DropdownTitle>
+                  <CloseButton onClick={() => setIsDropdownOpen(false)}>
+                    <X size={24} />
+                  </CloseButton>
+                </DropdownHeader>
+                {/* <SearchInput
+            type="text"
+            placeholder="Search here..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />*/}
+                <CurrencyList>
+                  {filteredCurrencies.map(currency => (
+                    <CurrencyItem
+                      key={currency._id}
+                      onClick={() => handleCurrencySelect(currency)}
+                    >
+                      <CurrencyIcon src={usdtt} alt={currency.Symbol} />
+                      <CurrencyInfo>
+                        <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
+                        <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
+                      </CurrencyInfo>
+                    </CurrencyItem>
+                  ))}
+                </CurrencyList>
+              </AnimatedDropdownContainer>
                 <InputMessage isValid={isValid}>
               
                   {isValid ? `You can proceed with this amount.` : ` Minimum sell order is ${minAmount} USDT.`}
@@ -608,7 +636,7 @@ const AnimatedDropdownContainer = styled.div`
   border-radius: 0.5rem;
   z-index: 10;
   width: 380px;
-  height: 610px;
+  height: 650px;
   max-width: 115%;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
