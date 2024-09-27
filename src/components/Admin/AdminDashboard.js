@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from './Sidebar'; // Adjust the path if necessary
+import logo from "../../assets/logo.png"
 
 // Styled components for AdminDashboard
 const DashboardContainer = styled.div`
@@ -19,7 +20,7 @@ const Content = styled.div`
   flex-grow: 1;
   margin: 0;
   padding: 2rem;
-  background: white;
+  background: #cecece;
   margin-top: 4rem; /* Space for header on mobile */
 
   @media (min-width: 768px) {
@@ -83,7 +84,7 @@ const AdminDashboard = () => {
             <Sidebar isOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Content>
                 <LogoContainer>
-                    <LogoImage src="path-to-your-logo.png" alt="Site Logo" />
+                    <LogoImage src={logo} alt="Site Logo" />
                     <Greeting>{getGreeting()}, Admin!</Greeting>
                 </LogoContainer>
             </Content>
