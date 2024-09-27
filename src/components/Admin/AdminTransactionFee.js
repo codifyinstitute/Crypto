@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Sidebar from './Sidebar'; // Adjust the path if necessary
+import Sidebar from './Sidebar';
 
 // Styled components
 const DashboardContainer = styled.div`
@@ -94,6 +94,8 @@ const AdminTransactionFee = () => {
     const [transactionFeeFix, setTransactionFeeFix] = useState(0);
     const [networkFee, setNetworkFee] = useState(0);
     const [networkFeeFix, setNetworkFeeFix] = useState(0);
+    const [minAmount, setMinAmount] = useState(0);
+    const [minAmountFix, setMinAmountFix] = useState(0);
     const [transactionId, setTransactionId] = useState('');
     const [image, setImage] = useState("");
     const [file, setFile] = useState(null);
@@ -119,6 +121,8 @@ const AdminTransactionFee = () => {
             setTransactionFeeFix(data.TransactionFee);
             setNetworkFee(data.NetworkFee);
             setNetworkFeeFix(data.NetworkFee);
+            setMinAmount(data.MinAmount);
+            setMinAmountFix(data.MinAmount);
             // setTransactionId(data.TransactionId);
             // setImage(data.QRCode);
         } catch (error) {
@@ -184,7 +188,7 @@ const AdminTransactionFee = () => {
         }
     };
 
-    const handleTransactionIdUpdate = async (event) => {
+    const handelMinAmountUpdate = async (event) => {
         event.preventDefault();
         setLoading(true);
 
@@ -194,14 +198,14 @@ const AdminTransactionFee = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ TransactionId: transactionId }),
+                body: JSON.stringify({ MinAmount: minAmount }),
             });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
 
-            alert('Transaction ID updated successfully');
+            alert('Minimum Amount updated successfully');
             fetchTransactionFee();
         } catch (error) {
             setError('Error updating transaction ID');
@@ -210,33 +214,6 @@ const AdminTransactionFee = () => {
         }
     };
 
-    const handleQRCodeUpdate = async (event) => {
-        event.preventDefault();
-        setLoading(true);
-
-        const formData = new FormData();
-        if (file) {
-            formData.append('QRCode', file);
-        }
-
-        try {
-            const response = await fetch('https://api.moonpayx.com/static/put/66c445a358802d46d5d70dd4', {
-                method: 'PUT',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            alert('QR Code updated successfully');
-            fetchTransactionFee();
-        } catch (error) {
-            setError('Error updating QR Code');
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <DashboardContainer>
@@ -277,33 +254,18 @@ const AdminTransactionFee = () => {
                                 <Button type="submit">Update Fee</Button>
                             </Form>
 
-
-
-                            {/* <Form onSubmit={handleTransactionIdUpdate}>
-                                <FeeDisplay>Current Transaction ID: {transactionId}</FeeDisplay>
+                            <Form onSubmit={handelMinAmountUpdate}>
+                                <FeeDisplay>Current Minimum Amount: ₹{minAmountFix}</FeeDisplay>
                                 <label>
-                                    <Paragraph>Update Transaction ID:</Paragraph>
+                                    <Paragraph>Update Minimum Amount:</Paragraph>
                                     <Input
-                                        type="text"
-                                        value={transactionId}
-                                        onChange={(e) => setTransactionId(e.target.value)}
+                                        type="number"
+                                        value={minAmount}
+                                        onChange={(e) => setMinAmount(e.target.value)}
                                     />
                                 </label>
-                                <Button type="submit">Update Transaction ID</Button>
+                                <Button type="submit">Update Amount</Button>
                             </Form>
-
-                            <Form onSubmit={handleQRCodeUpdate}>
-                                <FeeDisplay>Current QR Code:</FeeDisplay>
-                                <img src={`https://api.moonpayx.com/uploads/${image}`} width='200px' alt="QR code" />
-                                <label>
-                                    <Paragraph>Update QR Code Image:</Paragraph>
-                                    <FileInput
-                                        type="file"
-                                        onChange={(e) => setFile(e.target.files[0])}
-                                    />
-                                </label>
-                                <Button type="submit">Update QR Code</Button>
-                            </Form> */}
                         </>
                     )}
                 </Section>
