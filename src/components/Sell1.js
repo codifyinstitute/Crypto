@@ -696,7 +696,8 @@ const Sell1 = () => {
           const feesData = await feesResponse.json();
           setTransactionFee(feesData.TransactionFee);
           setNetworkFee(feesData.NetworkFee);
-          setMinAmount(feesData.MinAmount)
+          setMinAmount(feesData.MinAmount);
+           setUsdt(data.MinAmount)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
