@@ -174,7 +174,7 @@ const Home = () => {
                   </CurrencyToggle>
                 </InputWrapper>
                 <InputMessage isValid={isValid}>
-                Minimum sell order is  USDT
+              
                   {isValid ? `You can proceed with this amount.` : ` Minimum sell order is ${minAmount} USDT.`}
                 </InputMessage>
               </InputContainer>
