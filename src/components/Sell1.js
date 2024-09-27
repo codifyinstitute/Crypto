@@ -829,7 +829,7 @@ const Sell1 = () => {
                 </CurrencyList>
               </AnimatedDropdownContainer>
               <InputMessage isValid={isValid}>
-                {isValid ? `You can proceed with this amount.` : `Minimum amount is ₹${minAmount}.`}
+                {isValid ? `You can proceed with this amount.` : `Minimum sell order is ${minAmount} USDT.`}
               </InputMessage>
             </InputContainer>
 
