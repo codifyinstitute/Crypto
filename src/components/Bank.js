@@ -770,9 +770,10 @@ const Bank = () => {
             <AccountInfo><br/><br/>
               <AccountName><Maincol><Col1><Label>   Bank Name  </Label></Col1>   <Col2>      {account.BankName} </Col2> </Maincol> </AccountName>
               <AccountDetails><Maincol><Col1><Label>Account Name</Label></Col1>     <Col2>          {account.Name}</Col2>  </Maincol> </AccountDetails>
-              <AccountDetails><Maincol><Col1><Label>Country</Label> </Col1>       <Col2>         {account.Country}</Col2></Maincol>  </AccountDetails>
+              
               <AccountNumberValue><Maincol><Col1><Label>Account No</Label> </Col1>    <Col2>        {account.AccountNumber}</Col2> </Maincol> </AccountNumberValue>
               <AccountDetails><Maincol><Col1><Label>IFSC</Label>      </Col1>       <Col2>   {account.IFSC}</Col2></Maincol> </AccountDetails>
+              <AccountDetails><Maincol><Col1><Label>Country</Label> </Col1>       <Col2>         {account.Country}</Col2></Maincol>  </AccountDetails>
             </AccountInfo>
             <DeleteButton onClick={() => handleDelete(account.AccountNumber)}>
               Delete

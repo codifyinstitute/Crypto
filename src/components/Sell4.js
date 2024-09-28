@@ -72,6 +72,11 @@ const InfoRow = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+
+  @media (max-width: 375px) {
+flex-wrap: wrap;
+  }
+
 `;
 
 const Label1 = styled.span`
@@ -123,7 +128,9 @@ const SubmitButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   width: 80px;
-
+  @media (max-width: 375px) {
+margin: 2%;
+  }
   &:hover {
     background-color: #e69500;
   }
@@ -293,7 +300,7 @@ const Sell4 = () => {
       }
       const data = await response.json();
       const countData = await countResponse.json();
-      setOrderId((countData.Count + 1).toString().padStart(10, "0"));
+      setOrderId(`15300990${countData.Count + 1}`);
       setTransactionFee(data.TransactionFee);
       setNetworkFee(data.NetworkFee);
     } catch (error) {
@@ -451,11 +458,12 @@ const Sell4 = () => {
                 <Value>
                   <input
                     style={{
-                      width: "100px",
+                      width: "150px",
                       backgroundColor: "transparent",
                       border: "none",
                       fontSize: "16px",
                       fontWeight: "bold",
+                      textAlign:"right",
                       color: "rgb(123 119 119)",
                     }}
                     value={orderId}
@@ -485,7 +493,7 @@ const Sell4 = () => {
                 <Value>₹{networkFee}</Value>
                 </InfoRow>
                 <InfoRow>
-                  <Label1>You Received</Label1>
+                  <Label1>You'll Receive</Label1>
                   <Value>₹{calculateReceivedAmount()}</Value>
                 </InfoRow>
               </div>
@@ -555,7 +563,7 @@ const Sell4 = () => {
                     style={{
                       padding: "5px",
                       margin: "0 5px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       flexGrow: 1,
                       border: "black solid 1px",
                       borderRadius: "5px",
@@ -570,7 +578,7 @@ const Sell4 = () => {
                     style={{
                       padding: "5px",
                       margin: "0 5px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       flexGrow: 1,
                       border: "black solid 1px",
                       borderRadius: "5px",

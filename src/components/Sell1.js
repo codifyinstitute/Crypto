@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+// import { Hourglass } from 'react-loader-spinner';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ChevronDown, ChevronUp, ChevronRight, Info, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, ChevronRight, Info, X, Moon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
 import usdtt from "./../assets/usdtt.png";
@@ -10,9 +11,8 @@ import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import payment from "./../assets/Frame 47.png";
-import { Hourglass } from 'react-loader-spinner'
 import { RefreshCw } from 'lucide-react';
-
+import logoM from "./../assets/logo2.png";
 
 const TradingEnvironment = styled.div`
   display: flex;
@@ -200,10 +200,13 @@ const PaymentIcon = styled.div`
 `;
 
 const PoweredBy = styled.div`
-  font-size: 0.8rem;
-  color: black;
-  text-align: center;
-  margin-top: 0.5rem;
+      font-size: 0.8rem;
+    color: black;
+    text-align: center;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   @media (max-width: 430px) {
     margin-top: 0px;
     ;
@@ -481,8 +484,15 @@ const TooltipContainer = styled.div`
   display: inline-block;
   cursor: pointer;
   margin-left: 5px;
-  /* display: flex; */
-  /* align-items: center; */
+
+  @media (max-width: 375px) {
+    /* Adjust the container for smaller screens */
+    margin-left: 3px;
+  }
+
+  @media (max-width: 320px) {
+    margin-left: 2px;
+  }
 
   &:hover div {
     visibility: visible;
@@ -494,17 +504,15 @@ const TooltipText = styled.div`
   visibility: hidden;
   width: 300px;
   background-color: white;
-  padding: 1%;
+  padding: 5px;
   color: black;
   text-align: center;
-  padding: 5px 0;
   border-radius: 6px;
-
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position above the info icon */
+  bottom: 125%;
   left: 50%;
-  margin-left: -100px; /* Adjust to center the tooltip */
+  margin-left: -114px; /* Adjust to center the tooltip */
 
   opacity: 0;
   transition: opacity 0.3s;
@@ -512,14 +520,25 @@ const TooltipText = styled.div`
   &::after {
     content: '';
     position: absolute;
-    top: 100%; /* At the bottom of the tooltip */
+    top: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent;
   }
+
+  @media (max-width: 375px) {
+    width: 220px; /* Adjust width for 375px screens */
+    margin-left: -110px; /* Center the tooltip */
+  }
+
+  @media (max-width: 320px) {
+    width: 180px; /* Adjust width for 320px screens */
+    margin-left: -90px; /* Center the tooltip */
+  }
 `;
+
 const Buddy = styled.p`
 font-size:18px;
 font-weight: 600;
@@ -539,7 +558,12 @@ const Indicator = styled.div`
 //     margin-left: 2%;
 
 // `;
+const Moonn = styled.img`
+ 
+ width: 25%;
 
+
+`;
 
 const Card = styled.div`
   position: absolute;
@@ -583,6 +607,7 @@ h1{
 }
 
 }
+
 button{
   height: 50px;
   font-size: 20px;
@@ -711,44 +736,28 @@ const Sell1 = () => {
     currency.Name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading) {
-    return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black", width: "100vw", height: "100vh" }}>
-      <Hourglass
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="hourglass-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        colors={['#ffa500', '#ffffff']}
-      />
-    </div>;
-  }
+  // if (loading) {
+  //   return <div style={{ display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "black", width: "100vw", height: "100vh" }}>
+  //     <Hourglass
+  //       visible={true}
+  //       height="80"
+  //       width="80"
+  //       ariaLabel="hourglass-loading"
+  //       wrapperStyle={{}}
+  //       wrapperClass=""
+  //       colors={['#ffa500', '#ffffff']}
+  //     />
+  //   </div>;
+  // }
 
-  if (!login) {
+ if (!login) {
     navigate("/sell2")
-    //     return (
-    //       <>
-    //       <Navbar />
-    //       <Exchange>
 
-    // <Card1>
-    // <h1>LOGIN TO PROCEED</h1>
-    // <p>Login or Register to proceed...</p>
-    // <button onClick={()=>navigate('/sell2')}>Login</button>
-    // </Card1>
-
-
-    //         </Exchange>
-    //       </>
-    //     )
   }
-
-  return (
+ return (
     <>
       <Navbar />
       <TradingEnvironment>
-
         <ExchangeCard>
           <div>
 
@@ -881,7 +890,7 @@ const Sell1 = () => {
             </PaymentMethods>
 
             <PoweredBy>
-              Powered by Moon Pay
+              Powered by <Moonn src={logoM}/>
             </PoweredBy>
           </div>
           <Indicator onClick={toggleCardVisibility}>
@@ -893,44 +902,10 @@ const Sell1 = () => {
             </Card>
           )}
         </ExchangeCard>
-
-
-
-
-        {/* <PriceContainer>
-      <TimerSection>
-        <span>Automatic refresh after {timer}s</span>
-        <RefreshButton onClick={handleRefresh}>🔄</RefreshButton>
-      </TimerSection>
-      <PriceValue>
-      {selectedCurrency?.Rate.toFixed(2)} <PriceTag>Base</PriceTag>
-      </PriceValue>
-      <ConversionText>1 {selectedCurrency?.Symbol} = {selectedCurrency?.Rate.toFixed(2)}</ConversionText>
-      <PricingTable>
-        <PricingRow>
-          <PricingCell>≥ 1075.27 and &lt; 2150.54</PricingCell>
-          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 0.25</PricingCell>
-        </PricingRow>
-        <PricingRow>
-          <PricingCell>≥ 2150.54 and &lt; 3225.81</PricingCell>
-          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 0.5</PricingCell>
-        </PricingRow>
-        <PricingRow>
-          <PricingCell>≥ 3225.81</PricingCell>
-          <PricingCell>{selectedCurrency?.Rate.toFixed(2)} + 1</PricingCell>
-        </PricingRow>
-      </PricingTable>
-      <PolicyDescription>What is tiered price policy?</PolicyDescription>
-    </PriceContainer> */}
-
         <Container>
-
-
           <PriceDisplay>
             <Price> ₹ {selectedCurrency?.Rate.toFixed(2)}</Price>
-
-          </PriceDisplay>
-
+ </PriceDisplay>
           <Subtext>1 USDT = ₹ {selectedCurrency?.Rate.toFixed(2)}</Subtext>
           <Center>
             <TableContainer>
@@ -960,10 +935,7 @@ const Sell1 = () => {
             </TableContainer>
           </Center>
         </Container>
-
-
-
-      </TradingEnvironment>
+</TradingEnvironment>
       <HomeContact />
       <Footer />
     </>

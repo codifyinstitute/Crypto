@@ -124,18 +124,21 @@ const PriceInfo = styled.div`
   font-size: 0.8rem;
   color: #aaa;
 `;
-
+const Yellow = styled.span`
+color: orange;
+`;
 const Title = styled.h2`
   text-align: center;
   margin-bottom: 1rem;
   font-size: 3rem;
   color: white;
-  margin-top: 2%;
+  margin-top: 4%;
 
   @media (max-width: 480px) {
     font-size: 1.87rem;
     text-align: center;
     width: auto;
+    margin-top: 8%;
   }
 `;
 
@@ -177,7 +180,7 @@ const CryptoPriceGrid = () => {
 
   return (
     <>
-      <Title>Prices on other Exchanges</Title>
+      <Title><Yellow>Live</Yellow> Rates</Title>
       <Grid>
         <CryptoPriceCard
           exchange="Binance"

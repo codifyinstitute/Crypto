@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
-import { toast } from 'react-toastify'; // For toast notifications
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast notifications
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const ProfileSection = styled.div`
 const AvatarContainer = styled.div`
   position: relative;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Avatar = styled.div`
@@ -39,14 +40,22 @@ const Avatar = styled.div`
   justify-content: center;
   color: white;
   font-size: 32px;
+  overflow: hidden;
+`;
+
+const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const VerifiedBadge = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #FFA500;
+  background-color:#76b83f;
   border-radius: 50%;
+  border: 1px black solid;
   width: 20px;
   height: 20px;
   display: flex;
@@ -61,7 +70,6 @@ const Username = styled.h2`
   margin: 5px 0;
   @media (max-width: 320px) {
     font-size: 18px;
-  
   }
 `;
 
@@ -157,8 +165,6 @@ const ModalButton = styled.button`
 `;
 
 const ConfirmButton = styled(ModalButton)`
-
-
   background-color: #ccc;
   color: #333;
 `;
@@ -172,6 +178,8 @@ const Profile = () => {
   const [userEmail, setUserEmail] = useState('');
   const [loading, setLoading] = useState(true);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   const fetchUserData = async () => {
@@ -182,6 +190,7 @@ const Profile = () => {
         if (!response.ok) throw new Error('Failed to fetch user data');
         const data = await response.json();
         setUserEmail(data.Email);
+        setProfileImage(`https://crypto-anl6.onrender.com/uploads/${data.Profile}`)
       } catch (error) {
         toast.error(error.message);
       } finally {
@@ -210,6 +219,34 @@ const Profile = () => {
     navigate('/');
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = async(event) => {
+    const file = event.target.files[0];
+    if(file){
+      const formData = new FormData();
+    formData.append('profilePicture', file);
+
+    const email = localStorage.getItem('token');
+
+    try {
+      const response = await fetch(`https://crypto-anl6.onrender.com/users/update/${email}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Failed to update profile picture');
+      toast.success('Profile picture updated successfully');
+      fetchUserData(); 
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message);
+    }
+    }
+  };
+
   if (loading) return <Container><p>Loading...</p></Container>;
 
   const getInitial = email => email.charAt(0).toUpperCase();
@@ -219,10 +256,23 @@ const Profile = () => {
       <Navbar />
       <Container>
         <ProfileSection>
-          <AvatarContainer>
-            <Avatar>{getInitial(userEmail)}</Avatar>
+          <AvatarContainer onClick={handleImageClick}>
+            <Avatar>
+              {profileImage ? (
+                <AvatarImage src={profileImage} alt="Profile" />
+              ) : (
+                getInitial(userEmail)
+              )}
+            </Avatar>
             <VerifiedBadge>✓</VerifiedBadge>
           </AvatarContainer>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
           <Username>{userEmail}</Username>
           <Subtitle>email</Subtitle>
         </ProfileSection>
@@ -274,8 +324,6 @@ const Profile = () => {
           </MenuItem>
         </MenuList>
       </Container>
-      {/* <HomeContact/> */}
-      {/* <Footer /> */}
       
       {showLogoutModal && (
         <ModalOverlay>

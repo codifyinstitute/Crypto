@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import { ChevronLeft  } from 'lucide-react';
 
 const PageContainer = styled.div`
   font-family: Arial, sans-serif;
@@ -26,7 +27,9 @@ const Title = styled.h1`
   border-bottom: 2px solid orange;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  margin-top: 50px;
+  width: 100%;
+  text-align: center;
+  margin-top: 22px;
   text-align: center;
   font-size: 2rem; /* Adjust font size for readability */
 
@@ -65,6 +68,9 @@ const ImportantText = styled.p`
   color: orange;
   margin: 10px 0;
   text-align: center;
+  @media (max-width: 768px) {
+text-align: left;
+  }
 `;
 
 const Link = styled.a`
@@ -92,6 +98,7 @@ text-align: center;
 @media (max-width: 768px) {
 flex-wrap: wrap;
 width: 90%;
+text-align: left;
   }
 `;
 
@@ -110,16 +117,60 @@ const List = styled.ul`
 
   @media (max-width: 768px) {
     padding-left: 15px;
+    text-align: left;
   }
 `;
+const BackButton = styled.button`
+  background-color: transparent;
+  color: #FFA500;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 1rem;
+  /* z-index: 1001; */
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
 
+  @media (max-width: 1024px) { // Show on tablet and mobile
+    display: block;
+  }
+
+  @media (max-width: 430px) {
+    font-size: 14px;
+    top: 10px;
+    left: 10px;
+  }
+`;
+const Titlee = styled.h1`
+  font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  
+  @media (max-width: 430px) {
+    font-size: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  }
+`;
 const TermsAndConditions = () => {
   return (
     <>
     <Navbar/>
     <PageContainer>
-      <Title>Moon Pay - Privacy Policy</Title>
-      
+  <Titlee>
+    <BackButton onClick={() => window.history.back()}>
+    <ChevronLeft />
+  </BackButton>
+            <Title>Moon Pay - Privacy Policy</Title>
+            </Titlee>
       <Sectionn>
         <p>Welcome to the Privacy Policy governing your access to and usage of the services on electronic platforms, collectively known as "Moon Pay" or the "Platform," including the mobile application and/or website.</p>
         
