@@ -35,7 +35,7 @@ const ExchangeCard = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   width: 380px;
-  height: 610px;
+  height: 650px;
   max-width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -73,14 +73,14 @@ const InputContainer = styled.div`
   position: relative;
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  border: 1px solid #e0e0e0;
-  padding: 0.5rem 1rem;
-`;
+// const InputWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   background-color: #f8f9fa;
+//   border-radius: 0.5rem;
+//   border: 1px solid #e0e0e0;
+//   padding: 0.5rem 1rem;
+// `;
 
 const Input = styled.input`
   flex: 1;
@@ -323,10 +323,6 @@ const PriceContainer = styled.div`
   position: relative;
   margin-top: 4%;
 `;
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 
 const Container = styled.div`
   /* background-color: #2D2D2D; */
@@ -632,6 +628,20 @@ p{
 }
 }
 `
+const InputMessage = styled.p`
+  font-size: 0.9rem;
+  color: ${props => (props.isValid ? 'green' : 'red')};
+  margin-top: 0.5rem;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid ${props => (props.isInvalid ? 'red' : '#e0e0e0')};
+  padding: 0.5rem 1rem;
+`;
 
 
 
@@ -641,6 +651,7 @@ const Sell1 = () => {
   const navigate = useNavigate();
   const [usdt, setUsdt] = useState(location.state?.amount || '1');
   const [isValid, setIsValid] = useState(true);
+  const [minAmount, setMinAmount] = useState(0);
   const [currencies, setCurrencies] = useState([]);
   const [login, setLogin] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
@@ -674,8 +685,8 @@ const Sell1 = () => {
     const fetchData = async () => {
       try {
         const [currenciesResponse, feesResponse] = await Promise.all([
-          axios.get('https://crypto-anl6.onrender.com/currencies/all'),
-          fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4')
+          axios.get('https://api.moonpayx.com/currencies/all'),
+          fetch('https://api.moonpayx.com/static/get/66c445a358802d46d5d70dd4')
         ]);
 
         setCurrencies(currenciesResponse.data);
@@ -685,6 +696,9 @@ const Sell1 = () => {
           const feesData = await feesResponse.json();
           setTransactionFee(feesData.TransactionFee);
           setNetworkFee(feesData.NetworkFee);
+            setUsdt(feesData.MinAmount);
+          setMinAmount(feesData.MinAmount);
+         
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -699,7 +713,7 @@ const Sell1 = () => {
   const handleUsdtChange = (e) => {
     const value = e.target.value;
     setUsdt(value);
-    setIsValid(value && !isNaN(value) && Number(value) > 0);
+    setIsValid(value && !isNaN(value) && Number(value) > 0 && Number(value) >= minAmount);
   };
 
   const handleCurrencySelect = (currency) => {
@@ -750,11 +764,19 @@ const Sell1 = () => {
   //   </div>;
   // }
 
- if (!login) {
+  if (!login) {
     navigate("/sell2")
-
   }
- return (
+
+  
+    const handleBackClick = () => {
+      if (login) {
+        navigate('/home');
+      } else {
+        window.history.back();
+      }
+    };
+  return (
     <>
       <Navbar />
       <TradingEnvironment>
@@ -762,18 +784,20 @@ const Sell1 = () => {
           <div>
 
             <TabContainer>
-              <BackButton onClick={() => window.history.back()}>
-                <ChevronLeft />
-              </BackButton>
+             
+              <BackButton onClick={handleBackClick}>
+      <ChevronLeft />
+    </BackButton>
               <Tab active>Sell Crypto</Tab>
             </TabContainer>
 
             <InputLabel>You sell</InputLabel>
-            <InputContainer>
+            <InputContainer isInvalid={!isValid && Number(usdt) < minAmount}>
               <InputWrapper>
                 <Input
-                  type="text"
+                  type="number"
                   value={usdt}
+                  min={minAmount}
                   onChange={handleUsdtChange}
                 />
                 <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -815,6 +839,9 @@ const Sell1 = () => {
                   ))}
                 </CurrencyList>
               </AnimatedDropdownContainer>
+              <InputMessage isValid={isValid}>
+                {isValid ? `You can proceed with this amount.` : `Minimum sell order is ${minAmount} USDT.`}
+              </InputMessage>
             </InputContainer>
 
             <InputLabel>
@@ -890,7 +917,7 @@ const Sell1 = () => {
             </PaymentMethods>
 
             <PoweredBy>
-              Powered by <Moonn src={logoM}/>
+              Powered by <Moonn src={logoM} />
             </PoweredBy>
           </div>
           <Indicator onClick={toggleCardVisibility}>
@@ -905,7 +932,7 @@ const Sell1 = () => {
         <Container>
           <PriceDisplay>
             <Price> ₹ {selectedCurrency?.Rate.toFixed(2)}</Price>
- </PriceDisplay>
+          </PriceDisplay>
           <Subtext>1 USDT = ₹ {selectedCurrency?.Rate.toFixed(2)}</Subtext>
           <Center>
             <TableContainer>
@@ -935,7 +962,7 @@ const Sell1 = () => {
             </TableContainer>
           </Center>
         </Container>
-</TradingEnvironment>
+      </TradingEnvironment>
       <HomeContact />
       <Footer />
     </>

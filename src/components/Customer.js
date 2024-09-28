@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Container = styled.div`
   background: #000; /* Black background */
@@ -36,16 +37,17 @@ const SliderContainer = styled.div`
     width: 100%;
   }
 `;
-
 const SliderWrapper = styled.div`
   display: flex;
   transition: transform 0.5s ease;
   transform: ${({ currentIndex }) => `translateX(-${currentIndex * 100}%)`};
-  
+
   @media (min-width: 1025px) {
-    transform: none; /* Disable sliding on desktop */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
     gap: 1rem;
     margin-top: 20px;
+    transform: none; /* Disable sliding on desktop */
   }
 `;
 const Yellow = styled.span`
@@ -66,7 +68,9 @@ const TestimonialCard = styled.div`
 
   @media (min-width: 1025px) {
     min-width: auto; /* Reset width on desktop */
-    flex: 1;
+    flex-shrink: 1;
+
+    width: 100%; /* Ensure the card takes full width in its grid cell */
   }
 
   @media (max-width: 1024px) {
@@ -77,18 +81,13 @@ const TestimonialCard = styled.div`
     margin-top: 5%;
   }
   
-  @media (max-width: 1024px) {
-    margin-top: 15%;
-  }
-  
   @media (max-width: 480px) {
     text-align: left;
     gap: 0;
-  }
-  @media (max-width: 320px) {
-    margin-top: 21%;
+    margin-top: 19%;
   }
 `;
+
 
 const Avatar = styled.div`
   background-color: #8247e5;
@@ -172,24 +171,21 @@ const Indicator = styled.div`
 const Component = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
-  const testimonials = [
-    {
-      name: 'Sandeep Nailwal',
-      title: 'Co-Founder Polygon',
-      quote: "Thanks to Alchemy Pay, we can provide an essential gateway between fiat and crypto transactions. This development opens up new capital inroads that will propel users of polygon's DeFi ecosystem to the next level.",
-    },
-    {
-      name: 'John Doe',
-      title: 'CEO, CryptoTech',
-      quote: "Alchemy Pay has revolutionized our payment system. Its seamless integration of fiat and crypto has opened up new possibilities for our business.",
-    },
-    {
-      name: 'Jane Smith',
-      title: 'Blockchain Developer',
-      quote: "Working with Alchemy Pay has been a game-changer. Their robust API and excellent support have made implementing crypto payments a breeze.",
-    },
-  ];
+
+  const fetchReviews = async () => {
+    try {
+        const response = await axios.get('https://api.moonpayx.com/reviews/all');
+        setReviews(response.data);
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+    }
+};
+
+useEffect(() => {
+    fetchReviews();
+}, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -205,12 +201,12 @@ const Component = () => {
   useEffect(() => {
     if (isMobileOrTablet) {
       const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
       }, 5000);
 
       return () => clearInterval(interval);
     }
-  }, [isMobileOrTablet, testimonials.length]);
+  }, [isMobileOrTablet, reviews.length]);
 
   const handleIndicatorClick = (index) => {
     setCurrentIndex(index);
@@ -222,21 +218,21 @@ const Component = () => {
         <Title>Happy<Yellow> Customers</Yellow> </Title>
         <SliderContainer>
           <SliderWrapper currentIndex={currentIndex}>
-            {testimonials.map((testimonial, index) => (
+            {reviews.map((testimonial, index) => (
               <TestimonialCard key={index}>
                 <Avatar>
-                  {testimonial.image && <img src={testimonial.image} alt={testimonial.name} />}
+                  { <img src={`https://api.moonpayx.com/uploads/${testimonial.Image}`} alt={testimonial.Name} />}
                 </Avatar>
                 <TestimonialContent>
-                  <h3>{testimonial.name}</h3>
-                  <p>{testimonial.title}</p>
-                  <p>{testimonial.quote}</p>
+                  <h3>{testimonial.Name}</h3>
+                  <p>{testimonial.Title}</p>
+                  <p>{testimonial.Quote}</p>
                 </TestimonialContent>
               </TestimonialCard>
             ))}
           </SliderWrapper>
           <IndicatorsContainer>
-            {testimonials.map((_, index) => (
+            {reviews.map((_, index) => (
               <Indicator
                 key={index}
                 isActive={index === currentIndex}

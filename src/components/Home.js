@@ -10,6 +10,7 @@ import payment from "./../assets/Frame 47.png";
 import bg2 from "./../assets/bg2.jpg";
 import logoM from "./../assets/logo2.png";
 import mobbb from "./../assets/mobbb.jpg";
+import Newcomp from './Newcomp';
 
 const Home = () => {
   const [usdt, setUsdt] = useState(1);
@@ -17,6 +18,7 @@ const Home = () => {
   const [currencies, setCurrencies] = useState([]);
   const [transactionFee, setTransactionFee] = useState(0);
   const [networkFee, setNetworkFee] = useState(0);
+  const [minAmount, setMinAmount] = useState(0);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,13 +29,15 @@ const Home = () => {
 
   const fetchTransactionFee = async () => {
     try {
-      const response = await fetch('https://crypto-anl6.onrender.com/static/get/66c445a358802d46d5d70dd4');
+      const response = await fetch('https://api.moonpayx.com/static/get/66c445a358802d46d5d70dd4');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
       setTransactionFee(data.TransactionFee);
       setNetworkFee(data.NetworkFee);
+      setMinAmount(data.MinAmount);
+      setUsdt(data.MinAmount)
     } catch (error) {
       console.log(error);
     } finally {
@@ -47,7 +51,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://crypto-anl6.onrender.com/currencies/all")
+      .get("https://api.moonpayx.com/currencies/all")
       .then((response) => {
         setCurrencies(response.data);
         setSelectedCurrency(response.data[0] || null);
@@ -62,8 +66,10 @@ const Home = () => {
   const handleUsdtChange = (e) => {
     const value = e.target.value;
     setUsdt(value);
-    setIsValid(value && !isNaN(value) && Number(value) > 0);
+    const numericValue = Number(value);
+    setIsValid(numericValue > 0 && numericValue >= minAmount);
   };
+
 
   const handleCurrencySelect = (currency) => {
     setSelectedCurrency(currency);
@@ -112,7 +118,7 @@ const Home = () => {
           transition={{ duration: 0.5 }}
         >
           <Title>Crypto to <Yellow>Cash </Yellow>Made Simple</Title>
-          
+
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: 50 }}
@@ -127,6 +133,7 @@ const Home = () => {
           transition={{ duration: 0.5, delay: 0.10 }}
           style={{ width: '100%' }}
         >
+          <Newcomp />
           {/* <img src={mobbb}/>   */}
           <ExchangeRateBox>
             <RateValue>₹ {selectedCurrency ? selectedCurrency.Rate : 'N/A'} </RateValue>
@@ -148,10 +155,11 @@ const Home = () => {
 
               <InputLabel>You sell</InputLabel>
               <InputContainer>
-                <InputWrapper>
+                <InputWrapper isInvalid={!isValid && Number(usdt) < minAmount}>
                   <Input
-                    type="text"
+                    type="number"
                     value={usdt}
+                    min={minAmount}
                     onChange={handleUsdtChange}
                   />
                   <CurrencyToggle onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -165,32 +173,14 @@ const Home = () => {
                     <ChevronDown size={16} />
                   </CurrencyToggle>
                 </InputWrapper>
-                <AnimatedDropdownContainer isOpen={isDropdownOpen}>
-                  <DropdownHeader>
-                    <DropdownTitle>Select crypto</DropdownTitle>
-                    <CloseButton onClick={() => setIsDropdownOpen(false)}>
-                      <X size={24} />
-                    </CloseButton>
-                  </DropdownHeader>
-                  <CurrencyList>
-                    {filteredCurrencies.map(currency => (
-                      <CurrencyItem
-                        key={currency._id}
-                        onClick={() => handleCurrencySelect(currency)}
-                      >
-                        <CurrencyIcon src={usdtt} alt={currency.Symbol} />
-                        <CurrencyInfo>
-                          <Buddy><CurrencyName>{currency.Name}</CurrencyName></Buddy>
-                          <CurrencySymbol>{currency.Symbol}</CurrencySymbol>
-                        </CurrencyInfo>
-                      </CurrencyItem>
-                    ))}
-                  </CurrencyList>
-                </AnimatedDropdownContainer>
+                <InputMessage isValid={isValid}>
+              
+                  {isValid ? `You can proceed with this amount.` : ` Minimum sell order is ${minAmount} USDT.`}
+                </InputMessage>
               </InputContainer>
 
               <InputLabel>
-                You receive (estimate) 
+                You receive (estimate)
                 <TooltipContainer>
                   <Info size={14} />
                   <TooltipText>Estimated value may vary slightly due to market fluctuations.</TooltipText>
@@ -259,7 +249,7 @@ const Home = () => {
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
                 <ProceedButton onClick={handleSellNowClick} disabled={!isValid}>
-                  Proceed · Sell {selectedCurrency?.Name} <ChevronRight/>
+                  Proceed · Sell {selectedCurrency?.Name} <ChevronRight />
                 </ProceedButton>
               </motion.div>
 
@@ -279,12 +269,11 @@ const Home = () => {
                 transition={{ duration: 0.5, delay: 1 }}
               >
                 <PoweredBy>
-                  Powered by <Moon src={logoM}/>
+                  Powered by <Moon src={logoM} />
                 </PoweredBy>
               </motion.div>
             </div>
             <Indicator onClick={toggleCardVisibility}>
-           
             </Indicator>
             {isCardVisible && (
               <Card>
@@ -364,6 +353,13 @@ const Subtitle = styled.p`
   }
 `;
 
+const InputMessage = styled.p`
+  font-size: 0.9rem;
+  color: ${props => (props.isValid ? 'green' : 'red')};
+  margin-top: 0.5rem;
+`;
+
+
 const ExchangeRateBox = styled.div`
   background-color: #111;
   padding: 1rem;
@@ -420,7 +416,7 @@ const ExchangeCard = styled.div`
   padding: 1.5rem;
   border-radius: 0.5rem;
   width: 380px;
-  height: 620px;
+  height: 650px;
   max-width: 100%;
   margin-top: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -465,18 +461,19 @@ const InputWrapper = styled.div`
   align-items: center;
   background-color: #f8f9fa;
   border-radius: 0.5rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${props => (props.isInvalid ? 'red' : '#e0e0e0')};
   padding: 0.5rem 1rem;
 `;
 
 const Input = styled.input`
   flex: 1;
-  border: none;
+  border: 2px solid transparent;
   background-color: transparent;
   color: #333;
   font-size: 1.5rem;
   font-weight: bold;
   width: 20%;
+  transition: border-color 0.3s ease;
 
   &:focus {
     outline: none;

@@ -241,7 +241,7 @@ const AdminAddCurrency = () => {
         }
 
         try {
-            const response = await fetch('https://crypto-anl6.onrender.com/currencies/add', {
+            const response = await fetch('https://api.moonpayx.com/currencies/add', {
                 method: 'POST',
                 body: formData,
             });
@@ -266,7 +266,7 @@ const AdminAddCurrency = () => {
 
     const fetchCurrencies = async () => {
         try {
-            const response = await fetch('https://crypto-anl6.onrender.com/currencies/all');
+            const response = await fetch('https://api.moonpayx.com/currencies/all');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -291,7 +291,7 @@ const AdminAddCurrency = () => {
         }
 
         try {
-            const response = await fetch(`https://crypto-anl6.onrender.com/currencies/put/${editingCurrency._id}`, {
+            const response = await fetch(`https://api.moonpayx.com/currencies/put/${editingCurrency._id}`, {
                 method: 'PUT',
                 body: formData,
             });
@@ -318,7 +318,7 @@ const AdminAddCurrency = () => {
 
     const handleDeleteCurrency = async () => {
         try {
-            const response = await fetch(`https://crypto-anl6.onrender.com/currencies/del/${currencyToDelete._id}`, {
+            const response = await fetch(`https://api.moonpayx.com/currencies/del/${currencyToDelete._id}`, {
                 method: 'DELETE',
             });
 
@@ -449,7 +449,7 @@ const AdminAddCurrency = () => {
                                         <td>
                                             {currency.QRCode && (
                                                 <img
-                                                    src={`https://crypto-anl6.onrender.com/uploads/${currency.QRCode}`}
+                                                    src={`https://api.moonpayx.com/uploads/${currency.QRCode}`}
                                                     alt="QRCode"
                                                     width="50"
                                                 />

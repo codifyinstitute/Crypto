@@ -31,6 +31,7 @@ import ContactUs from './components/ContactUs';
 import AdminQueries from './components/Admin/AdminQueries';
 
 import Starreview from './components/Starreview';
+import AdminReview from './components/Admin/AdminReview';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
         <Route path="/admin/addCurrency" element={<AdminAddCurrency />} />
         <Route path="/admin/transactions" element={<AdminTransaction />} />
         <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/review" element={<AdminReview />} />
         <Route path="/admin/transactionFee" element={<AdminTransactionFee />} />
         <Route path="/TandC" element={<TandC />} />
         <Route path="/terms" element={<TermsandCondi />} />
