@@ -105,6 +105,7 @@ const Form = styled.form`
 const Input = styled.input`
   margin-top: 10px;
   padding: 0.5rem;
+  font-size: 17px;
   border: none;
   border-radius: 25px;
   width: 100%;
@@ -139,6 +140,7 @@ const Text = styled.textarea`
   margin-top: 10px;
   padding: 0.5rem;
   border: none;
+  font-size: 17px;
   border-radius: 15px;
   width: 100%;
   box-sizing: border-box;
