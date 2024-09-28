@@ -436,9 +436,9 @@ text-align: center;
 
 const TableFooter = styled.p`
   text-align: center;
-  margin-top: 16px;
+  margin-top: 8px;
   font-size: 16px;
-  color: white;
+  color: black;
 `;
 
 
@@ -939,26 +939,26 @@ const Sell1 = () => {
               <Table>
                 <thead>
                   <tr>
-                    <TableHeader>Exchange(s)</TableHeader>
-                    <TableHeader align="right">Price()</TableHeader>
+                    <TableHeader>Exchange</TableHeader>
+                    <TableHeader align="right">Price</TableHeader>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <TableCell>&gt;=1075.27 and&lt;2150.54</TableCell>
-                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}+0.25</TableCell>
+                    <TableCell><b>1075 + USDT </b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 0.25</b></TableCell>
                   </tr>
                   <tr>
-                    <TableCell>&gt;=2150.54 and&lt;3225.81</TableCell>
-                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}-0.5</TableCell>
+                    <TableCell><b>2150 + USDT </b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 0.5</b></TableCell>
                   </tr>
                   <tr>
-                    <TableCell>&gt;=3225.81</TableCell>
-                    <TableCell >{selectedCurrency?.Rate.toFixed(2)}-1</TableCell>
+                    <TableCell><b>3255 + USDT </b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 1</b></TableCell>
                   </tr>
                 </tbody>
               </Table>
-              <TableFooter>What is tiered price policy?</TableFooter>
+              <TableFooter><b>Exchange more , Get more</b></TableFooter>
             </TableContainer>
           </Center>
         </Container>
