@@ -520,7 +520,7 @@ const Sell4 = () => {
               >
                 <input
                   style={{
-                    fontSize: "11.5px",
+                    fontSize: "10.5px",
                     border: "none",
                     backgroundColor: "transparent",
                     flexGrow: 1,
