@@ -766,8 +766,16 @@ const Sell1 = () => {
 
   if (!login) {
     navigate("/sell2")
-
   }
+
+  
+    const handleBackClick = () => {
+      if (login) {
+        navigate('/home');
+      } else {
+        window.history.back();
+      }
+    };
   return (
     <>
       <Navbar />
@@ -776,9 +784,10 @@ const Sell1 = () => {
           <div>
 
             <TabContainer>
-              <BackButton onClick={() => window.history.back()}>
-                <ChevronLeft />
-              </BackButton>
+             
+              <BackButton onClick={handleBackClick}>
+      <ChevronLeft />
+    </BackButton>
               <Tab active>Sell Crypto</Tab>
             </TabContainer>
 
