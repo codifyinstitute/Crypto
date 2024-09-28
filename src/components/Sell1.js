@@ -771,7 +771,7 @@ const Sell1 = () => {
   
     const handleBackClick = () => {
       if (login) {
-        navigate('/home');
+        navigate('/');
       } else {
         window.history.back();
       }
