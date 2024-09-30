@@ -732,7 +732,7 @@ const Sell1 = () => {
     setIsDropdownOpen(false);
   };
 
-  const inr = selectedCurrency ? usdt * (selectedCurrency.Rate + extra) - networkFee - transactionFee : 0;
+  const inr = selectedCurrency ? usdt * (selectedCurrency.Rate + extra): 0;
 
   const handleSellNowClick = () => {
     if (isValid && selectedCurrency) {
