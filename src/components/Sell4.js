@@ -267,6 +267,11 @@ const Sell4 = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
+
+  useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
       const timeDifference = targetDate.current - now;
@@ -505,7 +510,7 @@ const Sell4 = () => {
               </BoxPara>
   
               <Text>
-                From Your Wallet, send {localData.amountPay} {coinName} to
+                From Your Wallet, send {localData.amountPay} {coinName} to exclusive
                 MoonPay's deposit address below.
               </Text>
               <FaintText>Address ({localData.symbol})</FaintText>
@@ -604,7 +609,7 @@ const Sell4 = () => {
               <Heading style={{ marginTop: "15px" }}>What Happens Next?</Heading>
               <Text>
                 Once We've received your crypto deposit, we'll send the pay-out
-                within 2 days.
+                within 1-2 hours max.
               </Text>
               <Button onClick={handleProceedClick} disabled={!submited}>
                 Deposit Sent

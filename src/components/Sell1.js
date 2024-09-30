@@ -652,6 +652,7 @@ const Sell1 = () => {
   const [usdt, setUsdt] = useState(location.state?.amount || '1');
   const [isValid, setIsValid] = useState(true);
   const [minAmount, setMinAmount] = useState(0);
+  const [extra, setExtra] = useState(0);
   const [currencies, setCurrencies] = useState([]);
   const [login, setLogin] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
@@ -696,9 +697,9 @@ const Sell1 = () => {
           const feesData = await feesResponse.json();
           setTransactionFee(feesData.TransactionFee);
           setNetworkFee(feesData.NetworkFee);
-            setUsdt(feesData.MinAmount);
+          setUsdt(feesData.MinAmount);
           setMinAmount(feesData.MinAmount);
-         
+
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -712,6 +713,16 @@ const Sell1 = () => {
 
   const handleUsdtChange = (e) => {
     const value = e.target.value;
+    if(value>=1075 && value<2150){
+      setExtra(0.25);
+      console.log(0.25)
+    }else if(value>=2150 && value<3255){
+      setExtra(0.5);
+    }else if(value>=3255){
+      setExtra(1);
+    }else{
+      setExtra(0);
+    }
     setUsdt(value);
     setIsValid(value && !isNaN(value) && Number(value) > 0 && Number(value) >= minAmount);
   };
@@ -721,7 +732,7 @@ const Sell1 = () => {
     setIsDropdownOpen(false);
   };
 
-  const inr = selectedCurrency ? usdt * selectedCurrency.Rate : 0;
+  const inr = selectedCurrency ? usdt * (selectedCurrency.Rate + extra) - networkFee - transactionFee : 0;
 
   const handleSellNowClick = () => {
     if (isValid && selectedCurrency) {
@@ -768,14 +779,14 @@ const Sell1 = () => {
     navigate("/sell2")
   }
 
-  
-    const handleBackClick = () => {
-      if (login) {
-        navigate('/');
-      } else {
-        window.history.back();
-      }
-    };
+
+  const handleBackClick = () => {
+    if (login) {
+      navigate('/');
+    } else {
+      navigate('/');
+    }
+  };
   return (
     <>
       <Navbar />
@@ -784,10 +795,10 @@ const Sell1 = () => {
           <div>
 
             <TabContainer>
-             
+
               <BackButton onClick={handleBackClick}>
-      <ChevronLeft />
-    </BackButton>
+                <ChevronLeft />
+              </BackButton>
               <Tab active>Sell Crypto</Tab>
             </TabContainer>
 
@@ -855,7 +866,7 @@ const Sell1 = () => {
               <InputWrapper>
                 <Input
                   type="text"
-                  value={inr.toFixed(2)}
+                  value={isValid ? inr.toFixed(2) : 0}
                   readOnly
                 />
                 <CurrencyToggle>
@@ -873,7 +884,7 @@ const Sell1 = () => {
               <OrderTitle onClick={toggleDetailsExpanded}>
                 <b>Your order</b>
                 <div style={{ display: "flex" }}>
-                  {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{inr.toFixed(2)} INR </b></p>}
+                  {(inr.toFixed(2) === "0.00") ? null : <p><b>{usdt} {selectedCurrency.Name} </b>to <b>{isValid ? inr.toFixed(2) : 0} INR </b></p>}
                   {isDetailsExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                 </div>
               </OrderTitle>
@@ -881,7 +892,7 @@ const Sell1 = () => {
                 <>
                   <OrderDetail>
                     <span>1 {selectedCurrency?.Name}</span>
-                    <span>≈ {selectedCurrency?.Rate.toFixed(2)} INR</span>
+                    <span>≈ {selectedCurrency?.Rate} {extra?`+ ${extra}`:null} INR</span>
                   </OrderDetail>
                   <OrderDetail>
                     <span>
@@ -931,9 +942,9 @@ const Sell1 = () => {
         </ExchangeCard>
         <Container>
           <PriceDisplay>
-            <Price> ₹ {selectedCurrency?.Rate.toFixed(2)}</Price>
+            <Price> ₹ {selectedCurrency?.Rate}</Price>
           </PriceDisplay>
-          <Subtext>1 USDT = ₹ {selectedCurrency?.Rate.toFixed(2)}</Subtext>
+          <Subtext>1 USDT = ₹ {selectedCurrency?.Rate}</Subtext>
           <Center>
             <TableContainer>
               <Table>
@@ -946,15 +957,15 @@ const Sell1 = () => {
                 <tbody>
                   <tr>
                     <TableCell><b>1075 + USDT </b></TableCell>
-                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 0.25</b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate} + 0.25</b></TableCell>
                   </tr>
                   <tr>
                     <TableCell><b>2150 + USDT </b></TableCell>
-                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 0.5</b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate} + 0.5</b></TableCell>
                   </tr>
                   <tr>
                     <TableCell><b>3255 + USDT </b></TableCell>
-                    <TableCell ><b>{selectedCurrency?.Rate.toFixed(2)} + 1</b></TableCell>
+                    <TableCell ><b>{selectedCurrency?.Rate} + 1</b></TableCell>
                   </tr>
                 </tbody>
               </Table>

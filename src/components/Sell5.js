@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { AlertCircle, ChevronRight } from "lucide-react";
@@ -274,6 +274,11 @@ const Sell5 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const starCount = 12;
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
   // console.log(location.state.data)
 
   return (
@@ -344,16 +349,16 @@ const Sell5 = () => {
               Transaction Details
             </InfoTitle>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>Order Id :</span> <span>{location.state.data.OrderId}</span>
+              <span style={{fontWeight:"bold"}}>Order Id :</span> <span>{location.state?.data?.OrderId}</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>USDT Paid :</span> <span>{location.state.data.USDTAmount} USDT</span>
+              <span style={{fontWeight:"bold"}}>USDT Paid :</span> <span>{location.state?.data?.USDTAmount} USDT</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>Your Recieve :</span> <span>₹{location.state.data.ReceivedAmount}</span>
+              <span style={{fontWeight:"bold"}}>Your Recieve :</span> <span>₹{location.state?.data?.ReceivedAmount}</span>
             </InfoText>
             <InfoText>
-              <span style={{fontWeight:"bold"}}>Satus :</span> <span>{location.state.data.Status}</span>
+              <span style={{fontWeight:"bold"}}>Satus :</span> <span>{location.state?.data?.Status}</span>
             </InfoText>
           </InfoBox>
 

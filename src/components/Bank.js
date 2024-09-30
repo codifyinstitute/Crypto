@@ -376,7 +376,7 @@ import { ChevronLeft } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   background-color: #121212;
@@ -695,6 +695,7 @@ margin-top: 2%;
 const Bank = () => {
   const [showForm, setShowForm] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -709,6 +710,11 @@ const Bank = () => {
 
     fetchAccounts();
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
 
   const handleDelete = async (accountNumber) => {
     try {

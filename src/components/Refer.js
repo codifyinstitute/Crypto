@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Footer from './Footer';
 import HomeContact from './HomeContact';
 import Navbar from './Navbar';
 import styled from 'styled-components';
 import { ChevronLeft } from 'lucide-react';
-import image1 from '../assets/ReferEarn.png'
+import image1 from '../assets/ReferEarn.png';
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +84,12 @@ margin-top: 50px;
 `
 
 const Refer = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
     return (
         <>
         <Navbar />

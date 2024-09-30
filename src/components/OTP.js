@@ -265,7 +265,7 @@ const OTPPage = () => {
           <FormContainer>
             <div>
               <Subtitle>Enter the OTP sent to your email</Subtitle>
-              <p> Please enter the verification code sent to <b>{location.state.email}</b></p><br/>
+              <p> Please enter the verification code sent to <b>{location?.state?.email}</b></p><br/>
               <OTPContainer>
                 {otp.map((data, index) => (
                   <OTPInput

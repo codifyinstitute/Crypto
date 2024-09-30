@@ -264,6 +264,11 @@ const Sell3 = () => {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
+
+  useEffect(() => {
     validateForm();
   }, [accountHolder, country, bankName, accountNumber, ifsc]);
 
