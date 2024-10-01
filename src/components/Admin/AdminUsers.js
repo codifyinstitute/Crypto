@@ -127,7 +127,7 @@ const AdminUsers = () => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setUsers(data);
+                setUsers(data.reverse());
             } catch (error) {
                 console.error('Error fetching users:', error);
             }

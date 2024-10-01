@@ -146,7 +146,7 @@ const AdminQueries = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setTransactions(data);
+      setTransactions(data.reverse());
     } catch (error) {
       console.error('Error fetching transactions:', error);
     }

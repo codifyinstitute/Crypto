@@ -150,7 +150,9 @@ const AdminTransaction = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setTransactions(data);
+        
+        // console.log(data.reverse())
+        setTransactions(data.reverse());
         setFilteredTransactions(data);
         // Extract unique tokens
         const uniqueTokens = [...new Set(data.map(transaction => transaction.Token).filter(token => token))];

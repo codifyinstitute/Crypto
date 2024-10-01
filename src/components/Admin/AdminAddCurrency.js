@@ -272,7 +272,7 @@ const AdminAddCurrency = () => {
             }
 
             const data = await response.json();
-            setCurrencies(data);
+            setCurrencies(data.reverse());
             setFilteredCurrencies(data); // Initialize filtered currencies
         } catch (error) {
             console.error('Error fetching currencies:', error);
