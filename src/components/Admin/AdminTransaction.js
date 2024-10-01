@@ -167,7 +167,9 @@ const AdminTransaction = () => {
     let filtered = transactions;
 
     if (filterDate) {
-      filtered = filtered.filter(transaction => transaction.Date === filterDate);
+      var temp = filterDate.split("-").reverse().join("-");
+      console.log(temp)
+      filtered = filtered.filter(transaction => transaction.Date === temp);
     }
     if (filterStatus) {
       filtered = filtered.filter(transaction => transaction.Status === filterStatus);
