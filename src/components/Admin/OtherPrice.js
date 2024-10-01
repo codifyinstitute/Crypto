@@ -108,7 +108,7 @@ const OtherPrice = () => {
     try {
       const response = await axios.put('https://api.moonpayx.com/static/put/66c445a358802d46d5d70dd4', formData);
       alert('Data updated successfully');
-      console.log(response.data);
+      //console.log(response.data);
     } catch (error) {
       console.error('Error updating data:', error);
       alert('Error updating data');

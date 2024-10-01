@@ -354,16 +354,16 @@ const Sell4 = () => {
     if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee) return 0;
     var totalAmount;
     if (localData.amountPay >= 1075 && localData.amountPay < 2150) {
-      console.log(0.25);
+      //console.log(0.25);
       totalAmount = localData.amountPay * (currencyRate + 0.25);
     } else if (localData.amountPay >= 2150 && localData.amountPay < 3255) {
-      console.log(0.5);
+      //console.log(0.5);
       totalAmount = localData.amountPay * (currencyRate + 0.5);
     } else if (localData.amountPay >= 3255) {
-      console.log(1);
+      //console.log(1);
       totalAmount = localData.amountPay * (currencyRate + 1);
     } else {
-      console.log(0);
+      //console.log(0);
       totalAmount = localData.amountPay * currencyRate;
     }
     return totalAmount - transactionFee - networkFee;

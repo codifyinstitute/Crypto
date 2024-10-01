@@ -715,7 +715,7 @@ const Sell1 = () => {
     const value = e.target.value;
     if(value>=1075 && value<2150){
       setExtra(0.25);
-      console.log(0.25)
+      //console.log(0.25)
     }else if(value>=2150 && value<3255){
       setExtra(0.5);
     }else if(value>=3255){

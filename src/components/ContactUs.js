@@ -279,7 +279,7 @@ const ContactUs = () => {
         });
 
         if (response.ok) {
-          console.log("Form submitted successfully");
+          //console.log("Form submitted successfully");
           setFormData({ Name: "", Email: "", MobileNo: "", Message: "" });
           setShowSuccess(true);
           setTimeout(() => setShowSuccess(false), 5000); // Hide success message after 5 seconds
