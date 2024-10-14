@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './styles/GlobalStyles';
@@ -32,6 +32,8 @@ import AdminQueries from './components/Admin/AdminQueries';
 
 import Starreview from './components/Starreview';
 import AdminReview from './components/Admin/AdminReview';
+import NotFoundPage from './components/NotFound';
+import Deposit from './components/Deposit';
 
 
 function App() {
@@ -40,10 +42,12 @@ function App() {
       <GlobalStyles />
       <Routes>
         <Route path="/" element={<HomeConatiner />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/Sell1" element={<Sell1 />} />
         <Route path="/Sell2" element={<Sell2 />} />
         <Route path="/Sell3" element={<Sell3 />} />
         <Route path="/Sell4" element={<Sell4 />} />
+        <Route path="/deposit" element={<Deposit />} />
         <Route path="/qr-code" element={<QRCodeCard />} />
         <Route path="/Sell5" element={<Sell5 />} />
         <Route path="/otp" element={<OTPPage />} />

@@ -182,6 +182,11 @@ const Profile = () => {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
+
   const fetchUserData = async () => {
     const email = localStorage.getItem('token');
     if (email) {

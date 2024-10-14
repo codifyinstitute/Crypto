@@ -267,6 +267,11 @@ const Sell4 = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
+
+  useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
       const timeDifference = targetDate.current - now;
@@ -347,7 +352,20 @@ const Sell4 = () => {
 
   const calculateReceivedAmount = () => {
     if (!currencyRate || !localData.amountPay || !transactionFee || !networkFee) return 0;
-    const totalAmount = localData.amountPay * currencyRate;
+    var totalAmount;
+    if (localData.amountPay >= 1075 && localData.amountPay < 2150) {
+      //console.log(0.25);
+      totalAmount = localData.amountPay * (currencyRate + 0.25);
+    } else if (localData.amountPay >= 2150 && localData.amountPay < 3255) {
+      //console.log(0.5);
+      totalAmount = localData.amountPay * (currencyRate + 0.5);
+    } else if (localData.amountPay >= 3255) {
+      //console.log(1);
+      totalAmount = localData.amountPay * (currencyRate + 1);
+    } else {
+      //console.log(0);
+      totalAmount = localData.amountPay * currencyRate;
+    }
     return totalAmount - transactionFee - networkFee;
   };
 
@@ -390,7 +408,7 @@ const Sell4 = () => {
 
       const result = await response.json();
       setSavedData(result.transaction);
-      navigate("/sell5", {state:{data:result.transaction}});
+      navigate("/sell5", { state: { data: result.transaction } });
     } catch (error) {
       alert("Error submitting transaction: " + error.message);
     }
@@ -463,7 +481,7 @@ const Sell4 = () => {
                       border: "none",
                       fontSize: "16px",
                       fontWeight: "bold",
-                      textAlign:"right",
+                      textAlign: "right",
                       color: "rgb(123 119 119)",
                     }}
                     value={orderId}
@@ -491,155 +509,155 @@ const Sell4 = () => {
               <InfoRow>
                 <Label1>Network Fee</Label1>
                 <Value>₹{networkFee}</Value>
-                </InfoRow>
-                <InfoRow>
-                  <Label1>You'll Receive</Label1>
-                  <Value>₹{calculateReceivedAmount()}</Value>
-                </InfoRow>
-              </div>
-              <hr />
-              <BoxPara>
-                Please Transfer USDT to the address within{" "}
-                <span style={{ color: "red" }}>{timeLeft}</span> after that time,
-                transaction will expire.
-              </BoxPara>
-  
-              <Text>
-                From Your Wallet, send {localData.amountPay} {coinName} to
-                MoonPay's deposit address below.
-              </Text>
-              <FaintText>Address ({localData.symbol})</FaintText>
-              <InfoRow
+              </InfoRow>
+              <InfoRow>
+                <Label1>You'll Receive</Label1>
+                <Value>₹{calculateReceivedAmount()}</Value>
+              </InfoRow>
+            </div>
+            <hr />
+            <BoxPara>
+              Please Transfer USDT to the address within{" "}
+              <span style={{ color: "red" }}>{timeLeft}</span> after that time,
+              transaction will expire.
+            </BoxPara>
+
+            <Text>
+              From Your Wallet, send {localData.amountPay} {coinName} to exclusive
+              MoonPay's deposit address below.
+            </Text>
+            <FaintText>Address ({localData.symbol})</FaintText>
+            <InfoRow
+              style={{
+                color: "black",
+                border: "#efdebc solid 0.5px",
+                borderRadius: "5px",
+                padding: "6px",
+                backgroundColor: "#f7a6000a",
+              }}
+            >
+              <input
                 style={{
-                  color: "black",
-                  border: "#efdebc solid 0.5px",
-                  borderRadius: "5px",
-                  padding: "6px",
-                  backgroundColor: "#f7a6000a",
-                }}
-              >
-                <input
-                  style={{
-                    fontSize: "10.5px",
-                    border: "none",
-                    backgroundColor: "transparent",
-                    flexGrow: 1,
+                  fontSize: "10.5px",
+                  border: "none",
+                  backgroundColor: "transparent",
+                  flexGrow: 1,
                   color: "black",
                   fontWeight: "bold",
 
+                }}
+                type="text"
+                disabled
+                value={transactionId}
+                ref={textTransactionRef}
+              />
+              <p
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                }}
+                onClick={copyId}
+              >
+                <MdContentCopy />
+                Copy
+              </p>
+            </InfoRow>
+            <QRCodeContainer>
+              <QRCode>
+                <img
+                  src={`https://api.moonpayx.com/uploads/${image}`}
+                  width="150px"
+                  alt="QR code"
+                />
+              </QRCode>
+            </QRCodeContainer>
+            <InfoRow>
+              <Label>TxID:</Label>
+              {submited ? (
+                <input
+                  style={{
+                    padding: "5px",
+                    margin: "0 5px",
+                    fontSize: "16px",
+                    flexGrow: 1,
+                    border: "black solid 1px",
+                    borderRadius: "5px",
                   }}
                   type="text"
+                  value={transaction}
+                  onChange={handleTransactionChange}
                   disabled
-                  value={transactionId}
-                  ref={textTransactionRef}
                 />
-                <p
+              ) : (
+                <input
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                    cursor: "pointer",
-                    fontSize: "12px",
+                    padding: "5px",
+                    margin: "0 5px",
+                    fontSize: "16px",
+                    flexGrow: 1,
+                    border: "black solid 1px",
+                    borderRadius: "5px",
                   }}
-                  onClick={copyId}
-                >
-                  <MdContentCopy />
-                  Copy
-                </p>
-              </InfoRow>
-              <QRCodeContainer>
-                <QRCode>
-                  <img
-                    src={`https://api.moonpayx.com/uploads/${image}`}
-                    width="150px"
-                    alt="QR code"
-                  />
-                </QRCode>
-              </QRCodeContainer>
-              <InfoRow>
-                <Label>TxID:</Label>
-                {submited ? (
-                  <input
-                    style={{
-                      padding: "5px",
-                      margin: "0 5px",
-                      fontSize: "16px",
-                      flexGrow: 1,
-                      border: "black solid 1px",
-                      borderRadius: "5px",
-                    }}
-                    type="text"
-                    value={transaction}
-                    onChange={handleTransactionChange}
-                    disabled
-                  />
-                ) : (
-                  <input
-                    style={{
-                      padding: "5px",
-                      margin: "0 5px",
-                      fontSize: "16px",
-                      flexGrow: 1,
-                      border: "black solid 1px",
-                      borderRadius: "5px",
-                    }}
-                    type="text"
-                    value={transaction}
-                    onChange={handleTransactionChange}
-                  />
-                )}
-  
-                {submited ? (
-                  <SubmitButton onClick={editId}>Edit</SubmitButton>
-                ) : (
-                  <SubmitButton onClick={submitTrans} disabled={isSubmitDisabled}>
-                    Submit
-                  </SubmitButton>
-                )}
-              </InfoRow>
-              {showSubmitAnimation && (
-                <SubmitAnimation>TxID submitted successfully!</SubmitAnimation>
+                  type="text"
+                  value={transaction}
+                  onChange={handleTransactionChange}
+                />
               )}
-              <hr />
-              <Heading style={{ marginTop: "15px" }}>What Happens Next?</Heading>
-              <Text>
-                Once We've received your crypto deposit, we'll send the pay-out
-                within 2 days.
-              </Text>
-              <Button onClick={handleProceedClick} disabled={!submited}>
-                Deposit Sent
-              </Button>
-            </Card>
-          </Center>
-        </PageContainer>
-        <HomeContact />
-        <Footer />
-  
-        {showConfirmation && (
-          <Modal
-            title="I have transferred the crypto to the indicated address and network"
-            message="Are you sure you want to proceed with this transaction?"
-            onConfirm={confirmTransaction}
-            onCancel={cancelConfirmation}
-          />
-        )}
-  
-        {showSuccess && savedData && (
-          <Modal
-            title="Transaction Successful"
-            message={
-              <div>
-                <p>Transaction ID: {savedData.OrderId}</p>
-                <p>Amount: {savedData.ReceivedAmount}</p>
-                <p>Status: {savedData.Status}</p>
-              </div>
-            }
-            onConfirm={closeSuccessPopup}
-            showDoneButton
-          />
-        )}
-      </>
-    );
-  };
-  
-  export default Sell4;
+
+              {submited ? (
+                <SubmitButton onClick={editId}>Edit</SubmitButton>
+              ) : (
+                <SubmitButton onClick={submitTrans} disabled={isSubmitDisabled}>
+                  Submit
+                </SubmitButton>
+              )}
+            </InfoRow>
+            {showSubmitAnimation && (
+              <SubmitAnimation>TxID submitted successfully!</SubmitAnimation>
+            )}
+            <hr />
+            <Heading style={{ marginTop: "15px" }}>What Happens Next?</Heading>
+            <Text>
+              Once We've received your crypto deposit, we'll send the pay-out
+              within 1-2 hours max.
+            </Text>
+            <Button onClick={handleProceedClick} disabled={!submited}>
+              Deposit Sent
+            </Button>
+          </Card>
+        </Center>
+      </PageContainer>
+      <HomeContact />
+      <Footer />
+
+      {showConfirmation && (
+        <Modal
+          title="I have transferred the crypto to the indicated address and network"
+          message="Are you sure you want to proceed with this transaction?"
+          onConfirm={confirmTransaction}
+          onCancel={cancelConfirmation}
+        />
+      )}
+
+      {showSuccess && savedData && (
+        <Modal
+          title="Transaction Successful"
+          message={
+            <div>
+              <p>Transaction ID: {savedData.OrderId}</p>
+              <p>Amount: {savedData.ReceivedAmount}</p>
+              <p>Status: {savedData.Status}</p>
+            </div>
+          }
+          onConfirm={closeSuccessPopup}
+          showDoneButton
+        />
+      )}
+    </>
+  );
+};
+
+export default Sell4;

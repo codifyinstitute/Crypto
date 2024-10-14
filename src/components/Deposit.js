@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { AiOutlineHistory } from "react-icons/ai";
 import { ChevronDown, ChevronUp, ChevronRight, Info, X, Moon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import ind from "./../assets/ind.jpeg";
@@ -49,6 +50,8 @@ const ExchangeCard = styled.div`
 
 const TabContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
 `;
 
@@ -646,7 +649,7 @@ const InputWrapper = styled.div`
 
 
 
-const Sell1 = () => {
+const Deposit = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [usdt, setUsdt] = useState(location.state?.amount || '1');
@@ -795,11 +798,11 @@ const Sell1 = () => {
           <div>
 
             <TabContainer>
-
               <BackButton onClick={handleBackClick}>
                 <ChevronLeft />
               </BackButton>
-              <Tab active>Sell Crypto</Tab>
+              <Tab active>Deposit Cryptox</Tab>
+              <AiOutlineHistory style={{ color: '#FFA500', fontSize: '30px' }}/>
             </TabContainer>
 
             <InputLabel>You sell</InputLabel>
@@ -980,4 +983,4 @@ const Sell1 = () => {
   );
 };
 
-export default Sell1;
+export default Deposit;

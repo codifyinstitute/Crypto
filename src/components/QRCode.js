@@ -158,7 +158,7 @@ const QRCodeCard = () => {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('transactionDetails'));
         setLocalData(data);
-        console.log(data)
+        //console.log(data)
         fetchTransactionFee();
     }, []);
 

@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import { ChevronLeft } from "lucide-react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: #121212;
@@ -170,9 +171,15 @@ const StatusValue = styled(Value)`
 `;
 
 const Transaction = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Pending");
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    token ? console.log() : navigate("/sell2");
+  }, [])
 
   useEffect(() => {
     const fetchTransactions = async () => {

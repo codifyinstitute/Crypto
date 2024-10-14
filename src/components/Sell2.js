@@ -22,7 +22,7 @@ const PageContainer = styled.div`
   background-color: black;
   color: white;
   padding: 20px;
-  padding-top: 140px;
+  /* padding-top: 140px; */
   @media (max-width: 480px) {
   padding-top: 80px;
 
