@@ -41,10 +41,19 @@ const TopLogo = styled.div`
   height: 20px;
   width: 115px;
   margin-left: 16px;
-  
   img {
     height: 100%;
     width: 100%;
+  }
+  button{
+    position: absolute;
+    right: 5%;
+    padding: 8px 10px;
+    border-radius: 50px;
+    border: none;
+    background-color: #FFA500;
+    color: white;
+    font-size: 15px;
   }
 
   @media (min-width: 769px) {
@@ -156,6 +165,10 @@ const Navbar = () => {
   const location = useLocation();
   const token = localStorage.getItem('token');
 
+const handleDepositClick=()=>{
+  navigate('/deposit')
+}
+
   const handleExchangeClick = (e) => {
     e.preventDefault();
     navigate('/Sell1');
@@ -172,6 +185,7 @@ const Navbar = () => {
       <NavbarContainer>
         <TopLogo>
           <img src={logo1} alt="Logo" />
+          <button onClick={handleDepositClick}>Deposit</button>
         </TopLogo>
         <Logo>
           <img src={logo1} alt="Logo" />
@@ -191,6 +205,9 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/deposit" activeClassName="active" >Deposit</NavLink>
+          </li>
+          <li>
             {token ? (
               <NavLink to="/Profile" activeClassName="active">Profile</NavLink>
             ) : (
@@ -203,6 +220,7 @@ const Navbar = () => {
       {/* Mobile bottom navbar */}
       <NavbarWrapper>
         <NavLinksMobile>
+
           <li>
             <NavLink exact to="/" activeClassName="active">Home</NavLink>
           </li>
