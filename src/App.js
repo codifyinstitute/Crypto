@@ -33,6 +33,7 @@ import AdminQueries from './components/Admin/AdminQueries';
 import Starreview from './components/Starreview';
 import AdminReview from './components/Admin/AdminReview';
 import NotFoundPage from './components/NotFound';
+import Deposit from './components/Deposit';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/Sell2" element={<Sell2 />} />
         <Route path="/Sell3" element={<Sell3 />} />
         <Route path="/Sell4" element={<Sell4 />} />
+        <Route path="/deposit" element={<Deposit />} />
         <Route path="/qr-code" element={<QRCodeCard />} />
         <Route path="/Sell5" element={<Sell5 />} />
         <Route path="/otp" element={<OTPPage />} />
